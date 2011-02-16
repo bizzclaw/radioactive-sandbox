@@ -1,0 +1,6 @@
+"UnlitGeneric"
+{
+	"$basetexture" "radbox/menu_cancel"
+	"$vertexcolor" 1
+	"$vertexalpha" 1
+}
