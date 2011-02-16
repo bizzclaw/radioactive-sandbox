@@ -2,6 +2,8 @@ db = {}
 
 local function AccountID( steamid )
 
+	if steamid == "BOT" then return 69420 end
+
 	local splode = string.Explode( ":", steamid )
 	return tonumber( splode[3] * 2 + splode[2] )
 	

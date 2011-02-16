@@ -36,8 +36,8 @@ function GM:Initialize( )
 	ArmAngle = 0
 	ArmSpeed = 70
 	BlipTime = 2.0
-	FadeDist = 0.3
-	MaxDist = 1500
+	FadeDist = 0.3 // radar vars
+	MaxDist = 1000
 	PosTable = {}
 	RadarEntTable = {}
 	
@@ -472,14 +472,14 @@ function GM:HUDPaint()
 	end
 	
 	for k,v in pairs( PosTable ) do
-			
+		
 		local diff = ( v.Pos - LocalPlayer():GetPos() )
 		local alpha = 50 
-			
+		
 		if v.DieTime != -1 then
-			
+		
 			alpha = 50 * ( math.Clamp( v.DieTime - CurTime(), 0, BlipTime ) / BlipTime )
-				
+		
 		elseif ( !ValidEntity( v.Ent ) or ( v.Ent:IsPlayer() and !v.Ent:Alive() ) ) then
 			
 			PosTable[k].DieTime = CurTime() + 1.0
@@ -487,21 +487,21 @@ function GM:HUDPaint()
 		end
 			
 		if math.sqrt( diff.x * diff.x + diff.y * diff.y ) > MaxDist * FadeDist and v.DieTime == -1 then
-				
+			
 			PosTable[k].DieTime = CurTime() + 1.0
 			
 		end
-				
+			
 		if alpha > 0 and math.sqrt( diff.x * diff.x + diff.y * diff.y ) < MaxDist then
 			
 			local addx = diff.x / MaxDist
 			local addy = diff.y / MaxDist
 			local addz = math.sqrt( addx * addx + addy * addy )
 			local phi = math.atan2( addx, addy ) - math.atan2( aimvec.x, aimvec.y ) - ( math.pi / 2 )
-				
+			
 			addx = math.cos( phi ) * addz
 			addy = math.sin( phi ) * addz
-				
+			
 			draw.RoundedBox( 4, centerx + addx * ( ( radius - 15 ) / 2 ) - 4, centery + addy * ( ( radius - 15 ) / 2 ) - 4, 5, 5, Color( v.Color.r, v.Color.g, v.Color.b, alpha ) )
 			
 		end
@@ -541,11 +541,12 @@ function GM:HUDPaint()
 			end
 		
 		end
-
-		for i=0,360 do
 		
-			local dir = ( LocalPlayer():GetAngles() + Angle( 0, i + 180, 0 ) ):Forward():Normalize()
-			local dot = dir:Dot( ( LocalPlayer():GetPos() - ent:GetPos() ):Normalize() )
+		for i = 0, 360 do
+		
+			local dir = ( LocalPlayer():GetForward():Angle() + Angle( 0, i + 180, 0 ) ):Forward():Normalize()
+			local entdir = ( LocalPlayer():GetPos() - ent:GetPos() ):Normalize()
+			local dot = dir:Dot( entdir ) // this is wrong, i'll fix it later.
 			
 			if dot > 0.99 then
 			
