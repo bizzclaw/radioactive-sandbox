@@ -542,23 +542,11 @@ function GM:HUDPaint()
 		
 		end
 		
-		for i = 0, 360 do
+		local ang = ( ent:GetPos() - LocalPlayer():GetShootPos()):Angle() - LocalPlayer():GetForward():Angle()
 		
-			local dir = ( LocalPlayer():GetForward():Angle() + Angle( 0, i + 180, 0 ) ):Forward():Normalize()
-			local entdir = ( LocalPlayer():GetPos() - ent:GetPos() ):Normalize()
-			local dot = dir:Dot( entdir ) // this is wrong, i'll fix it later.
-			
-			if dot > 0.99 then
-			
-				surface.SetDrawColor( 255, 255, 255, 150 ) 
-				surface.SetMaterial( matArrow )
-				surface.DrawTexturedRectRotated( centerx, centery, radius, radius, i )
-				
-				return
-				
-			end
-			
-		end
+		surface.SetDrawColor( 255, 255, 255, 150 ) 
+		surface.SetMaterial( matArrow )
+		surface.DrawTexturedRectRotated( centerx, centery, radius, radius, ang.y )
 		
 	end
 	
