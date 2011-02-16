@@ -271,7 +271,7 @@ end
 
 function PANEL:SetModel( model, campos, origin )
 
-	self.ModelPanel = vgui.Create( "DModelPanel", self )
+	self.ModelPanel = vgui.Create( "GoodModelPanel", self )
 	self.ModelPanel:SetModel( model )
 	self.ModelPanel.LayoutEntity = function( ent ) end
 	self.ModelPanel:SetCamPos( Vector(20,10,5) )

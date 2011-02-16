@@ -63,7 +63,7 @@ function PANEL:ResetModel( id )
 
 	local tbl = item.GetByID( id ) 
 		
-	self.ModelPanel = vgui.Create( "DModelPanel", self )
+	self.ModelPanel = vgui.Create( "GoodModelPanel", self )
 	self.ModelPanel.LayoutEntity = function( ent ) end
 	self.ModelPanel:SetCamPos( tbl.CamPos or Vector(20,10,5) )
 	self.ModelPanel:SetLookAt( tbl.CamOrigin or Vector(0,0,0) )

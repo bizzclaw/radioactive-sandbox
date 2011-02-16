@@ -8,7 +8,7 @@ function PANEL:Init()
 	
 	self.Text = "" 
 	self.Title = ""
-	self.LastModel = ""
+	self.LastModel = "" 
 	
 end
 
@@ -23,12 +23,11 @@ function PANEL:SetModel( campos, origin )
 
 	if not self.ModelPanel then
 	
-		self.ModelPanel = vgui.Create( "DModelPanel", self )
+		self.ModelPanel = vgui.Create( "GoodModelPanel", self )
 		
 	end
 	
 	self.ModelPanel:SetModel( LocalPlayer():GetModel() )
-	self.ModelPanel.Entity:ResetSequence( self.ModelPanel.Entity:LookupSequence( "idle" ) )
 	
 	if campos then
 	

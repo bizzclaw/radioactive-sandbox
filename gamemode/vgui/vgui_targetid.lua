@@ -96,7 +96,7 @@ function PANEL:ResetModel( mdl )
 	
 	end
 		
-	self.ModelPanel = vgui.Create( "DModelPanel", self )
+	self.ModelPanel = vgui.Create( "GoodModelPanel", self )
 	self.ModelPanel.LayoutEntity = function( ent ) end
 	
 	if mdl == "models/zombie/poison.mdl" then

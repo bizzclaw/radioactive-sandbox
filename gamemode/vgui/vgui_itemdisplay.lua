@@ -32,7 +32,7 @@ function PANEL:SetModel( model, campos, origin )
 
 	if not self.ModelPanel then
 	
-		self.ModelPanel = vgui.Create( "DModelPanel", self )
+		self.ModelPanel = vgui.Create( "GoodModelPanel", self )
 		
 	end
 	

@@ -21,6 +21,7 @@ include( 'vgui/vgui_helpmenu.lua' )
 include( 'vgui/vgui_playerdisplay.lua' )
 include( 'vgui/vgui_itempanel.lua' )
 include( 'vgui/vgui_panelsheet.lua' )
+include( 'vgui/vgui_goodmodelpanel.lua' )
 
 function GM:Initialize( )
 	
