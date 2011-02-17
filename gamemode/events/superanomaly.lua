@@ -1,8 +1,7 @@
 
 local EVENT = {}
 
-EVENT.Types = { "anomaly_whiplash", "anomaly_electro", "anomaly_vortex", "anomaly_warp" }
-EVENT.MaxAnomalies = 25
+EVENT.Types = { "biganomaly_vortex" }
 
 function EVENT:Start()
 
@@ -42,52 +41,23 @@ function EVENT:Start()
 			local max = Vector( ltr.HitPos.x, ntr.HitPos.y, tr.HitPos.z - 5 )
 			local min = Vector( rtr.HitPos.x, str.HitPos.y, tr.HitPos.z - 5 )
 			
-			local num = #ents.FindByClass( "anomaly*" )
+			local occ = true
+			local pos = Vector(0,0,0)
 			
-			for c,d in pairs( ents.FindByClass( "anomaly*" ) ) do
+			while occ do
 				
-				local dist = 90000
+				local trace = {}
+				trace.start = Vector( math.random( min.x, max.x ), math.random( min.y, max.y ), min.z )
+				trace.endpos = Vector( math.random( min.x, max.x ), math.random( min.y, max.y ), min.z - 90000 )
 				
-				for h,g in pairs( player.GetAll() ) do
-					
-					if g:GetPos():Distance( d:GetPos() ) < dist then
-						
-						dist = g:GetPos():Distance( d:GetPos() )
-						
-					end
-					
-				end
-					
-				if dist > 700 then  // take out anomalies that players arent close to
-					
-					d:Remove()
-					num = num - 1
-					
-				end
+				local tr = util.TraceLine( trace )
+				
+				occ = self:CheckPos( tr.HitPos )
+				pos = tr.HitPos
 				
 			end
-			
-			for i=1, self.MaxAnomalies - num do
-			
-				local occ = true
-				local pos = Vector(0,0,0)
-			
-				while occ do
 				
-					local trace = {}
-					trace.start = Vector( math.random( min.x, max.x ), math.random( min.y, max.y ), min.z )
-					trace.endpos = Vector( math.random( min.x, max.x ), math.random( min.y, max.y ), min.z - 90000 )
-				
-					local tr = util.TraceLine( trace )
-					
-					occ = self:CheckPos( tr.HitPos )
-					pos = tr.HitPos
-				
-				end
-				
-				self:SpawnAnomaly( pos )
-			
-			end
+			self:SpawnAnomaly( pos )
 			
 			GAMEMODE:SetEvent()
 			
@@ -114,7 +84,7 @@ function EVENT:CheckPos( pos )
 
 	for k,v in pairs( tbl ) do
 	
-		if v:GetPos():Distance( pos ) < 600 then
+		if v:GetPos():Distance( pos ) < 500 then
 		
 			return true
 		
@@ -140,7 +110,7 @@ function EVENT:End()
 	
 		if v:Team() != TEAM_UNASSIGNED then
 		
-			v:Notify( "New anomalies have been sighted in the area, be careful." )
+			v:Notify( "A strange anomaly has formed near your position, stay alert." )
 		
 		end
 	

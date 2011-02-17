@@ -3,7 +3,7 @@ local matRefraction	= Material( "radbox/refract_ring" )
 
 function EFFECT:Init( data )
 
-	self.Entity:SetRenderBounds( Vector() * -1024, Vector() * 1024 )
+	self.Entity:SetRenderBounds( Vector() * -2048, Vector() * 2048 )
 	
 	self.Pos = data:GetOrigin()
 	self.Emitter = ParticleEmitter( self.Pos )
@@ -11,14 +11,14 @@ function EFFECT:Init( data )
 	self.Refract = 0
 	self.DieTime = CurTime() + 0.3
 	
-	for i=1, 35 do
+	for i=1, 50 do
 	
 		local particle = self.Emitter:Add( "effects/fleck_cement" .. math.random(1,2), self.Pos )
 		particle:SetVelocity( VectorRand() * 1000 )
 		particle:SetDieTime( 2.5 )
 		particle:SetStartAlpha( 255 )
 		particle:SetEndAlpha( 0 )
-		particle:SetStartSize( math.Rand( 3, 5 ) )
+		particle:SetStartSize( math.Rand( 5, 10 ) )
 		particle:SetEndSize( 1 )
 		particle:SetRoll( math.random( -360, 360 ) )
 		particle:SetColor( 100, 100, 100 )
@@ -28,9 +28,9 @@ function EFFECT:Init( data )
 	local particle = self.Emitter:Add( "effects/strider_muzzle", self.Pos )
 	particle:SetVelocity( Vector( 0, 0, 0 ) )
 	particle:SetDieTime( 1.5 )
-	particle:SetStartAlpha( 255 )
-	particle:SetEndAlpha( 0 )
-	particle:SetStartSize( 100 )
+	particle:SetStartAlpha( 0 )
+	particle:SetEndAlpha( 200 )
+	particle:SetStartSize( 1500 )
 	particle:SetEndSize( 0 )
 	particle:SetRoll( math.random( -360, 360 ) )
 	particle:SetRollDelta( math.random( -200, 200 ) )
@@ -43,7 +43,7 @@ end
 function EFFECT:Think( )
 
 	self.Refract = self.Refract + 1.5 * FrameTime()
-	self.Size = self.Refract * 5000
+	self.Size = self.Refract * 8000
 
 	if self.DieTime < CurTime() then
 	

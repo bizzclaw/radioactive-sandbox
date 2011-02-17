@@ -71,6 +71,8 @@ resource.AddFile( "materials/radbox/menu_save.vmt" )
 resource.AddFile( "materials/radbox/menu_save.vtf" )
 resource.AddFile( "materials/radbox/nvg_noise.vmt" )
 resource.AddFile( "materials/radbox/nvg_noise.vtf" )
+resource.AddFile( "materials/radbox/refract_ring.vmt" )
+resource.AddFile( "materials/radbox/refract_ring.vtf" )
 
 resource.AddFile( "models/weapons/v_shot_m3super91.vvd" )
 resource.AddFile( "models/weapons/v_shot_m3super91.sw.vtx" )

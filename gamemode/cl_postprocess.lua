@@ -168,7 +168,7 @@ function GM:CalcView( ply, origin, angle, fov )
 	
 	if Drunkness > 0 then
 	
-		if DrunkTimer < CurTime() then
+		if ( DrunkTimer or 0 ) < CurTime() then
 		
 			Drunkness = math.Clamp( Drunkness - 1, 0, 10 )
 			DrunkTimer = CurTime() + 20

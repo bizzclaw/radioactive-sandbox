@@ -36,7 +36,7 @@ function EVENT:Start()
 	
 	end
 
-	self.Duration = math.random( 40, 80 )
+	self.Duration = math.random( 30, 60 )
 	self.EndTime = CurTime() + self.Duration + 10
 	self.StirTime = CurTime() + 15
 	self.PlayerTime = CurTime() + 10
