@@ -101,9 +101,32 @@ end
 
 function EVENT:SpawnAnomaly( pos )
 
-	local ent = ents.Create( table.Random( self.Types ) )
-	ent:SetPos( pos + Vector( 0, 0, 5 ) )
-	ent:Spawn()
+	local enttype = table.Random( self.Types )
+	
+	if enttype == "anomaly_electro" and math.random(1,3) == 1 then
+	
+		local spot = table.Random( ents.FindByClass( "info_lootspawn" ) )
+		
+		local rand = VectorRand() * 90000
+		rand.z = -5
+		
+		local trace = {}
+		trace.start = spot:GetPos()
+		trace.endpos = trace.start + rand
+		
+		local tr = util.TraceLine( trace )
+		
+		local ent = ents.Create( enttype )
+		ent:SetPos( tr.HitPos + Vector( 0, 0, 5 ) )
+		ent:Spawn()
+	
+	else
+
+		local ent = ents.Create( enttype )
+		ent:SetPos( pos + Vector( 0, 0, 5 ) )
+		ent:Spawn()
+		
+	end
 
 end
 	

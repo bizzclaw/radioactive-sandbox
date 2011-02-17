@@ -31,7 +31,7 @@ end
 
 function ENT:GetRadiationRadius()
 
-	return 5000
+	return 5100
 
 end
 
@@ -43,7 +43,7 @@ function ENT:Touch( ent )
 	
 		self.SetOff = CurTime() + self.WaitTime
 		
-		self.Entity:EmitSound( self.PreSuck, 500, 80 )
+		self.Entity:EmitSound( self.PreSuck, 500, 90 )
 		self.Entity:SetNWBool( "Suck", true )
 		
 	end

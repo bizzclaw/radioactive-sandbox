@@ -3,7 +3,7 @@
 ITEM_MISC = 5 // Can be found in stores or in loot
 ITEM_BUYABLE = 6 // Only found in stores
 ITEM_LOOT = 7 // Only found in loot
-ITEM_QUEST = 420 // 420 do quest erryday
+ITEM_QUEST = 420 // 420 do quests erryday
 ITEM_QUEST_ZOMBIE = 421 // zombie quests
 
 PRICE_QUEST_ZOMBIE_ITEM = 20
@@ -16,7 +16,7 @@ function FUNC_BADWATER( ply, id, client )
 	ply:RemoveFromInventory( id )
 	ply:EmitSound( table.Random{ "npc/barnacle/barnacle_gulp1.wav", "npc/barnacle/barnacle_gulp2.wav" }, 100, math.random( 90, 110 ) )
 	ply:AddRadiation( 1 )
-	ply:AddStamina( 20 )
+	ply:AddStamina( 40 )
 
 end
 
@@ -119,7 +119,7 @@ item.Register( {
 
 item.Register( { 
 	Name = "Tissue Sample", 
-	Description = "This labeled container contains what appears to be a chunk of human flesh.",
+	Description = "This labeled container contains what appears to be a chunk of flesh.",
 	Stackable = true, 
 	Type = ITEM_QUEST,
 	Weight = 2.50, 

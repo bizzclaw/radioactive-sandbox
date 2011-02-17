@@ -11,6 +11,8 @@ function ENT:Initialize()
 	self.Fraction = 0
 	self.Size = 3500
 	
+	self.Entity:SetRenderBounds( Vector() * -6000, Vector() * 6000 )
+	
 end
 
 function ENT:Think()
@@ -42,7 +44,7 @@ function ENT:Think()
 	
 	if self.Entity:GetNWBool( "Suck", false ) and self.Timer < CurTime() then
 	
-		self.Timer = CurTime() + 8
+		self.Timer = CurTime() + 9
 	
 	end	
 
