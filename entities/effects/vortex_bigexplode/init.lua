@@ -43,7 +43,7 @@ end
 function EFFECT:Think( )
 
 	self.Refract = self.Refract + 1.5 * FrameTime()
-	self.Size = self.Refract * 8000
+	self.Size = self.Refract * 10000
 
 	if self.DieTime < CurTime() then
 	
