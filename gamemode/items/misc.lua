@@ -28,6 +28,10 @@ function FUNC_BOOZE( ply, id, client )
 	ply:EmitSound( table.Random{ "npc/barnacle/barnacle_gulp1.wav", "npc/barnacle/barnacle_gulp2.wav" }, 100, math.random( 90, 110 ) )
 	ply:AddRadiation( -2 )
 	ply:AddStamina( 20 )
+	
+	umsg.Start( "Drunk", ply )
+    umsg.Short( 1 )
+	umsg.End()
 
 end
 
@@ -38,6 +42,10 @@ function FUNC_MOONSHINE( ply, id, client )
 	ply:RemoveFromInventory( id )
 	ply:EmitSound( table.Random{ "npc/barnacle/barnacle_gulp1.wav", "npc/barnacle/barnacle_gulp2.wav" }, 100, math.random( 90, 110 ) )
 	ply:AddRadiation( -1 )
+	
+	umsg.Start( "Drunk", ply )
+    umsg.Short( 2 )
+	umsg.End()
 
 end
 

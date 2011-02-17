@@ -14,6 +14,7 @@ function ENT:Initialize()
 	
 	self.Active = true
 	self.Radius = 500
+	self.SoundRadius = 700
 	self.Pos = self.Entity:GetPos()
 	
 end
@@ -35,10 +36,12 @@ function ENT:KeyValue( key, value )
 	if key == "radius" then
 	
 		self.Radius = math.Clamp( tonumber( value ), 100, 5000 )
+		self.SoundRadius = self.Radius * 1.4
 	
 	elseif key == "randomradius" then
 	
 		self.Radius = math.random( 100, math.Clamp( tonumber( value ), 500, 5000 ) )
+		self.SoundRadius = self.Radius * 1.4
 	
 	end
 
@@ -57,21 +60,25 @@ function ENT:Think()
 	for k,v in pairs( player.GetAll() ) do
 	
 		local dist = v:GetPos():Distance( self.Pos )
-	
-		if dist < self.Radius then
 		
-			if ( v.RadAddTime or 0 ) < CurTime() then
+		if dist < self.SoundRadius then
 		
-				v.RadAddTime = CurTime() + 5
-				v:AddRadiation( 1 )
-				
-			end
+			if dist < self.Radius then
+		
+				if ( v.RadAddTime or 0 ) < CurTime() then
 			
+					v.RadAddTime = CurTime() + 5
+					v:AddRadiation( 1 )
+					
+				end
+		
+			end
+		
 			if ( v.NextRadSound or 0 ) < CurTime() then
 			
 				local scale = math.Clamp( dist / self.Radius, 0.1, 1.0 )
 			
-				v.NextRadSound = CurTime() + scale * 1.5
+				v.NextRadSound = CurTime() + scale * 1.25
 				
 				if v:GetRadiation() < 3 then
 				
@@ -90,4 +97,3 @@ function ENT:Think()
 	end
 	
 end
-

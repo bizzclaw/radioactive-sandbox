@@ -30,6 +30,7 @@ function GM:Initialize( )
 	WindVector = Vector( math.random(-10,10), math.random(-10,10), 0 )
 	NightVision = false
 	VehicleView = false
+	Drunkness = 0
 	DeathScreenTime = 0
 	DeathScreenScale = 0
 	HeartBeat = 0
@@ -40,6 +41,7 @@ function GM:Initialize( )
 	MaxDist = 1000
 	PosTable = {}
 	RadarEntTable = {}
+	TimeSeedTable = {}
 	
 	surface.CreateFont ( "Hazard", 34, 300, true, true, "HUDBarFont" )
 	surface.CreateFont ( "Graffiare", 34, 200, true, true, "DeathFont" )
@@ -144,7 +146,34 @@ function GM:PlayerBindPress( ply, bind, pressed )
 	
 end
 
+function TimeSeed( num, min, max )
+	
+	if not TimeSeedTable[num] then 
+	
+		TimeSeedTable[num] = { Min = min, Max = max, Curr = min, Dest = min, Approach = 0.001 } 
+		
+	end
+	
+	return TimeSeedTable[num].Curr
+
+end
+
 function GM:Think()
+
+	for k,v in pairs( TimeSeedTable ) do
+	
+		if v.Curr != v.Dest then
+		
+			v.Curr = math.Approach( v.Curr, v.Dest, v.Approach )
+		
+		else
+		
+			v.Dest = math.Rand( v.Min, v.Max )
+			v.Approach = math.Rand( 0.0001, 0.01 )
+		
+		end
+	
+	end
 
 	if ValidEntity( LocalPlayer() ) and LocalPlayer():Alive() and not StartMenuShown then
 	
@@ -589,6 +618,14 @@ end
 function GM:CreateMove( cmd )
 
 end
+
+function AddDrunkness( msg )
+ 
+	Drunkness = math.Clamp( Drunkness + msg:ReadShort(), 0, 10 )
+	DrunkTimer = CurTime() + 30
+ 
+end
+usermessage.Hook( "Drunk", AddDrunkness )
 
 function InventorySynch( handler, id, encoded, decoded )
 

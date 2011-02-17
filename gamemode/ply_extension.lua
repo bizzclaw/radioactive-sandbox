@@ -391,10 +391,10 @@ function meta:Think()
 	
 	if ( self.PoisonTime or 0 ) < CurTime() and self:GetRadiation() > 0 then
 	
-		self.PoisonTime = CurTime() + 0.5
+		self.PoisonTime = CurTime() + 1.5
 		
-		local paintbl = { 0, -1, -2, -2, -3 }
-		local stamtbl = { -1, -1, -2, -3, -3 }
+		local paintbl = { 0, -1, -2, -3, -3 }
+		local stamtbl = { -3, -4, -4, -4, -5 }
 	
 		self:AddHealth( paintbl[ self:GetRadiation() ] )
 		self:AddStamina( stamtbl[ self:GetRadiation() ] )

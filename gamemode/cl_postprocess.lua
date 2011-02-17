@@ -39,7 +39,7 @@ local function DrawInternal()
 	
 	if LocalPlayer():FlashlightIsOn() then
 	
-		ColorModify[ "$pp_colour_brightness" ] = math.Approach( ColorModify[ "$pp_colour_brightness" ], 0.05, FrameTime() * 0.25 ) 
+		ColorModify[ "$pp_colour_brightness" ] = math.Approach( ColorModify[ "$pp_colour_brightness" ], 0.03, FrameTime() * 0.25 ) 
 		ColorModify[ "$pp_colour_contrast" ] = math.Approach( ColorModify[ "$pp_colour_contrast" ], 1.10, FrameTime() * 0.25 ) 
 	
 	elseif NightVision then
@@ -77,22 +77,16 @@ local function DrawInternal()
 	
 	DrawColorModify( MixedColorMod )
 	
-	local rad = LocalPlayer():GetNWInt( "Radiation", 0 )
+	local rads = LocalPlayer():GetNWInt( "Radiation", 0 )
 	
-	if rad > 0 and LocalPlayer():Alive() then
+	if rads > 0 and LocalPlayer():Alive() then
 		
-		local scale = rad / 5
-			
+		local scale = rads / 5
+		
 		MotionBlur = math.Approach( MotionBlur, scale * 0.5, FrameTime() )
 		Sharpen = math.Approach( Sharpen, scale * 5, FrameTime() * 3 )
 	
 		ColorModify[ "$pp_colour_colour" ] = math.Approach( ColorModify[ "$pp_colour_colour" ], 1.0 - scale * 0.8, FrameTime() * 0.1 )
-		
-		if LocalPlayer():Health() > 50 then
-		
-			ViewWobble = 0.2 * scale
-		
-		end
 		
 	end
 
@@ -104,10 +98,9 @@ function GM:GetMotionBlurValues( y, x, fwd, spin )
 	if LocalPlayer():Alive() and LocalPlayer():Health() <= 50 then
 	
 		local scale = math.Clamp( LocalPlayer():Health() / 50, 0, 1 )
-		//local beat = math.Clamp( HeartBeat - CurTime(), 0, 2 ) * ( 1 - scale )
+		// local beat = math.Clamp( HeartBeat - CurTime(), 0, 2 ) * ( 1 - scale )
 		
-		fwd = 1 - scale //+ beat
-		ViewWobble = 0.2 - 0.2 * scale
+		fwd = 1 - scale // + beat
 		
 	elseif LocalPlayer():GetNWBool( "InIron", false ) then
 	
@@ -115,10 +108,10 @@ function GM:GetMotionBlurValues( y, x, fwd, spin )
 		
 	end
 	
-	if DisorientTime > CurTime() then
+	if DisorientTime and DisorientTime > CurTime() then
 	
 		if not LocalPlayer():Alive() then 
-			DisorientTime = 0
+			DisorientTime = nil
 		end
 	
 		local scale = ( DisorientTime - CurTime() ) / 10
@@ -127,7 +120,7 @@ function GM:GetMotionBlurValues( y, x, fwd, spin )
 		return newy, newx, fwd, spin
 	
 	end
-
+	
 	return y, x, fwd, spin
 
 end
@@ -162,17 +155,52 @@ function GM:CalcView( ply, origin, angle, fov )
 		
 	end]]
 	
+	local scale = LocalPlayer():GetNWInt( "Radiation", 0 ) / 5
+	local wobble = 0
+	
+	if scale > 0 and LocalPlayer():Alive() then
+	
+		wobble = 0.3 * scale
+		
+	end
+	
+	local drunkscale = Drunkness / 10
+	
+	if Drunkness > 0 then
+	
+		if DrunkTimer < CurTime() then
+		
+			Drunkness = math.Clamp( Drunkness - 1, 0, 10 )
+			DrunkTimer = CurTime() + 20
+		
+		end
+		
+		wobble = wobble + ( drunkscale * 0.3 )
+
+	end
+	
+	if LocalPlayer():Health() <= 75 and LocalPlayer():Alive() then
+	
+		local hscale = math.Clamp( LocalPlayer():Health() / 50, 0, 1 )
+		wobble = wobble + ( 0.2 - 0.2 * hscale )
+		
+	end
+	
+	if wobble != 0 then ViewWobble = wobble end
+	
 	if ViewWobble > 0 then
 	
-		angle.roll = angle.roll + math.sin( CurTime() ) * ( ViewWobble * 15 )
-		ViewWobble = ViewWobble - 0.1 * FrameTime()
+		angle.roll = angle.roll + math.sin( CurTime() + TimeSeed( 1, -2, 2 ) ) * ( ViewWobble * 15 )
+		angle.pitch = angle.pitch + math.sin( CurTime() + TimeSeed( 2, -2, 2 ) ) * ( ViewWobble * 15 )
+		angle.yaw = angle.yaw + math.sin( CurTime() + TimeSeed( 3, -2, 2 ) ) * ( ViewWobble * 15 )
+		ViewWobble = ViewWobble - 0.05 * FrameTime()
 		
 	end
 	
 	if ply:GetGroundEntity() != NULL then
 	
 		angle.roll = angle.roll + math.sin( WalkTimer ) * VelSmooth * 0.001
-		angle.pitch = angle.pitch + math.sin( WalkTimer * 0.3 ) * VelSmooth * 0.001
+		angle.pitch = angle.pitch + math.cos( WalkTimer * 1.25 ) * VelSmooth * 0.005
 		
 	end
 		
