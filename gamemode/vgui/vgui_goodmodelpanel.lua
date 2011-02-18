@@ -68,8 +68,10 @@ end
 function PANEL:SpecialSetModel( model )
 	
 	if IsValid( self.Entity ) then
+	
 		self.Entity:Remove()
 		self.Entity = nil		
+		
 	end
 	
 	if not ClientsideModel then return end
@@ -81,12 +83,20 @@ function PANEL:SpecialSetModel( model )
 	
 	self.Entity:SetNoDraw( true )
 	
-	local seq = self.Entity:LookupSequence( "walk_all" )
-	if seq <= 0 then seq = self.Entity:LookupSequence( "WalkUnarmed_all" ) end
-	if seq <= 0 then seq = self.Entity:LookupSequence( "walk_all_moderate" ) end
-	if seq <= 0 then seq = self.Entity:LookupSequence( "idle" ) end
+	local seq = 0
+
+	if string.find( model, "player" ) or string.find( model, "models/human" ) then 
 	
-	if string.find( model, "player" ) then seq = self.Entity:LookupSequence( "idle" ) end
+		seq = self.Entity:LookupSequence( "idle" ) 
+		
+	else
+	
+		seq = self.Entity:LookupSequence( "walk_all" )
+		if seq <= 0 then seq = self.Entity:LookupSequence( "WalkUnarmed_all" ) end
+		if seq <= 0 then seq = self.Entity:LookupSequence( "walk_all_moderate" ) end
+		if seq <= 0 then seq = self.Entity:LookupSequence( "idle" ) end
+	
+	end
 	
 	if seq > 0 then self.Entity:ResetSequence( seq ) end
 	

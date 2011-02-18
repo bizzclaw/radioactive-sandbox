@@ -38,7 +38,7 @@ function GM:Initialize( )
 	ArmSpeed = 70
 	BlipTime = 2.0
 	FadeDist = 0.3 // radar vars
-	MaxDist = 1000
+	MaxDist = 1500
 	PosTable = {}
 	RadarEntTable = {}
 	TimeSeedTable = {}
@@ -446,9 +446,11 @@ function GM:HUDPaint()
 	
 		if not ValidEntity( v ) then break end
 		
-		local dir = ( LocalPlayer():GetAngles() + Angle( 0, ArmAngle + 90, 0 ) ):Forward():Normalize()
-		local dot = dir:Dot( ( LocalPlayer():GetPos() - v:GetPos() ):Normalize() )
-		local diff = ( v:GetPos() - LocalPlayer():GetPos() )
+		local dir = ( ( v:GetPos() - LocalPlayer():GetShootPos() ):Angle() + Angle( 0, ArmAngle + 90, 0 ) ):Forward():Normalize()
+		local pos1 = LocalPlayer():GetPos() // pos1.z = 0
+		local pos2 = v:GetPos() // pos2.z = 0
+		local dot = dir:Dot( ( pos1 - pos2 ):Normalize() )
+		local diff = pos2 - pos1
 		local close = math.sqrt( diff.x * diff.x + diff.y * diff.y ) < MaxDist * FadeDist
 
 		if ( !v:IsPlayer() or ( v != LocalPlayer() and ( v:GetVelocity():Length() > 0 or v:Team() == LocalPlayer():Team() ) ) ) and !IsOnRadar( v ) and ( dot > 0.99 or close ) then

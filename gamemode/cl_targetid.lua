@@ -148,34 +148,73 @@ function GM:DrawPlayerChat()
 
 end
 
+local LocalChatDist = 1000
+local HushDist = 400
+local LocalOOC = "//"
+local LocalMe = "/me"
+local Whisper = "/w"
+local LocalChat = "/"
+
 function GM:OnPlayerChat( ply, text, isteam, isdead )
 
-	local exp = string.Left( text, 1 )
-	
-	if exp != "/" then return self.BaseClass:OnPlayerChat( ply, text, isteam, isdead ) end
-	
-	text = string.Right( text, string.len( text ) - 1 )
-	ply.ChatWords = ply.ChatWords or {}
-	
-	if LocalPlayer():GetPos():Distance( ply:GetPos() ) < 1000 then
-	
-		if ( isteam and LocalPlayer():Team() == ply:Team() ) or not isteam then
+	for k,v in pairs( { LocalOOC, LocalMe, Whisper, LocalChat } ) do
+
+		local expl = string.Left( text, string.len( v ) )
 		
-			chat.AddText( Color( 255, 255, 255 ), "(LOCAL) ", ply, Color( 255, 255, 255 ), ": ", text )
+		if expl == v then 
+		
+			text = string.Trim( string.Right( text, string.len( text ) - string.len( v ) ) )
+			ply.ChatWords = ply.ChatWords or {}
 			
-			if table.Count( ply.ChatWords ) >= 5 then
-	
-				table.remove( ply.ChatWords, 5 )
-	
+			if LocalPlayer():GetPos():Distance( ply:GetPos() ) < LocalChatDist then
+			
+				if v == LocalChat then
+			
+					if ( isteam and LocalPlayer():Team() == ply:Team() ) or not isteam then
+					
+						chat.AddText( Color( 255, 255, 255 ), "(LOCAL) ", ply, Color( 255, 255, 255 ), ": ", text )
+						
+						if table.Count( ply.ChatWords ) >= 5 then
+				
+							table.remove( ply.ChatWords, 5 )
+				
+						end
+				
+						table.insert( ply.ChatWords, 1, { Text = text, Time = CurTime() + 5, Alpha = 255 } )
+					
+					end
+					
+				elseif v == LocalOOC then
+				
+					chat.AddText( ply, Color( 255, 255, 255 ), ": ", text )
+					
+				elseif v == Whisper then
+				
+					if LocalPlayer():GetPos():Distance( ply:GetPos() ) < HushDist then
+					
+						chat.AddText( Color( 255, 255, 255 ), "(WHISPER) ", ply, Color( 255, 255, 255 ), ": ", text )
+					
+					else
+					
+						chat.AddText( ply, Color( 255, 255, 255 ), " whispered something..." )
+					
+					end
+				
+				else
+				
+					chat.AddText( ply, Color( 255, 255, 255 ), " ", text )
+				
+				end
+			
 			end
 	
-			table.insert( ply.ChatWords, 1, { Text = text, Time = CurTime() + 5, Alpha = 255 } )
+			return true
 		
 		end
-	
+		
 	end
 	
-	return true
+	return self.BaseClass:OnPlayerChat( ply, text, isteam, isdead ) 
 
 end
  
