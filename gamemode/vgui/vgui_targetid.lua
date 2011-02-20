@@ -46,7 +46,7 @@ function PANEL:SetEntity( ent )
 	
 	elseif ent:IsPlayer() then
 	
-		name = GAMEMODE:GetPlayerGayName( tostring( ent:Deaths() + 1 ) .. ent:Name(), ent:Team() == TEAM_ARMY )
+		name = GAMEMODE:GetPlayerGayName( ent, tostring( ent:Deaths() + 1 ) .. ent:Name() )
 		teamname = team.GetName( ent:Team() )
 		col = Color( 255, 80, 80 )
 	
@@ -98,6 +98,11 @@ function PANEL:ResetModel( mdl )
 		
 	self.ModelPanel = vgui.Create( "GoodModelPanel", self )
 	self.ModelPanel.LayoutEntity = function( ent ) end
+	self.ModelPanel.ExcludedModels = function()
+
+		return {}
+
+	end
 	
 	if mdl == "models/zombie/poison.mdl" then
 	

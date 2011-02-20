@@ -2,8 +2,6 @@ if SERVER then
 
 	AddCSLuaFile("shared.lua")
 	
-	SWEP.HoldType = "ar2"
-	
 end
 
 if CLIENT then
@@ -19,6 +17,8 @@ if CLIENT then
 	killicon.AddFont( "rad_m249", "CSKillIcons", SWEP.IconLetter, Color( 255, 80, 0, 255 ) );
 	
 end
+
+SWEP.HoldType = "ar2"
 
 SWEP.Base = "rad_base"
 
@@ -37,7 +37,7 @@ SWEP.IronsightsFOV = 60
 
 SWEP.Primary.Sound			= Sound( "Weapon_M249.Single" )
 SWEP.Primary.Recoil			= 7.5
-SWEP.Primary.Damage			= 50
+SWEP.Primary.Damage			= 55
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.Cone			= 0.035
 SWEP.Primary.Delay			= 0.090

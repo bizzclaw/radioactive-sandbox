@@ -36,6 +36,7 @@ AddCSLuaFile( 'vgui/vgui_helpmenu.lua' )
 AddCSLuaFile( 'vgui/vgui_itemdisplay.lua' )
 AddCSLuaFile( 'vgui/vgui_playerdisplay.lua' )
 AddCSLuaFile( 'vgui/vgui_panelsheet.lua' )
+AddCSLuaFile( 'vgui/vgui_goodmodelpanel.lua' )
 
 resource.AddFile( "materials/models/weapons/v_models/shot_m3super91/shot_m3super91_norm.vmt" )
 resource.AddFile( "materials/models/weapons/v_models/shot_m3super91/shot_m3super91_norm.vtf" )
@@ -1090,6 +1091,22 @@ function CloseNPCMenu( ply, cmd, args )
 end
 
 concommand.Add( "closetradermenu", CloseNPCMenu )
+
+function SetGayName( ply, cmd, args )
+
+	local name = ""
+	
+	for k,v in pairs( args ) do
+	
+		name = name .. " " .. v
+		
+	end
+
+	ply:SetNWString( "GayName", name )
+
+end
+
+concommand.Add( "cl_radbox_custom_name", SetGayName )
 
 function IncludeEvents()
 

@@ -23,8 +23,6 @@ include( 'vgui/vgui_itempanel.lua' )
 include( 'vgui/vgui_panelsheet.lua' )
 include( 'vgui/vgui_goodmodelpanel.lua' )
 
-NameConVar = CreateClientConVar( "cl_radbox_player_name", "", true, true )
-
 function GM:Initialize( )
 	
 	GAMEMODE:InitVGUI()

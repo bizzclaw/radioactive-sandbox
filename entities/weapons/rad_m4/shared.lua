@@ -2,8 +2,6 @@ if SERVER then
 
 	AddCSLuaFile("shared.lua")
 	
-	SWEP.HoldType = "ar2"
-	
 end
 
 if CLIENT then
@@ -18,6 +16,8 @@ if CLIENT then
 	killicon.AddFont( "rad_m4", "CSKillIcons", SWEP.IconLetter, Color( 255, 80, 0, 255 ) );
 	
 end
+
+SWEP.HoldType = "ar2"
 
 SWEP.Base = "rad_base"
 

@@ -31,7 +31,7 @@ function GM:GetPlayerStats( ply )
 		return { "Deaths", "Kills", "Character" } 
 	else
 	
-		return { ply:Deaths(), ply:Frags(), GAMEMODE:GetPlayerGayName( tostring( ply:Deaths() + 1 ) .. ply:Name(), ply:Team() == TEAM_ARMY ) } 
+		return { ply:Deaths(), ply:Frags(), GAMEMODE:GetPlayerGayName( ply, tostring( ply:Deaths() + 1 ) .. ply:Name() ) } 
 		
 	end
 	

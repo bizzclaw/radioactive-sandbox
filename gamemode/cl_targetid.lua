@@ -37,15 +37,13 @@ function GM:GetEntityID( ent )
 
 end
 
-function GM:GetPlayerGayName()
+function GM:GetPlayerGayName( ply, name )
 
 	if not ValidEntity( LocalPlayer() ) then return "" end
 
-	local name = LocalPlayer():Nick()
-
-	if GetConVar( "sv_radbox_custom_names" ):GetBool() and NameConVar:GetString() != "" then
+	if GetConVar( "sv_radbox_custom_names" ):GetBool() and ply:GetNWString( "GayName", "" ) != "" then
 	
-		return NameConVar:GetString()
+		return ply:GetNWString( "GayName", "" )
 	
 	end
 
@@ -53,7 +51,7 @@ function GM:GetPlayerGayName()
 	local firstname = PlayerNames[ tonumber( crc[2] ) + 1 ][ tonumber( crc[3] + 1 ) ] 
 	local lastname = LastNames[ tonumber( crc[4] ) + 1 ][ tonumber( crc[5] + 1 ) ]
 	
-	if LocalPlayer():Team() == TEAM_ARMY then
+	if ply:Team() == TEAM_ARMY then
 	
 		local tbl = { "Sgt.", "Cpl.", "Lt.", "Pvt." }
 	

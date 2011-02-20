@@ -2,8 +2,6 @@ if SERVER then
 
 	AddCSLuaFile( "shared.lua" )
 	
-	SWEP.HoldType = "normal"
-	
 end
 
 if CLIENT then
@@ -17,6 +15,8 @@ if CLIENT then
 	SWEP.Slotpos = 1
 	
 end
+
+SWEP.HoldType = "normal"
 
 SWEP.Base = "rad_base"
 
