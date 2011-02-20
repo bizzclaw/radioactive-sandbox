@@ -237,8 +237,6 @@ end
 
 function SWEP:Initialize()
 
-	if CLIENT then return end
-
 	self.Weapon:SetWeaponHoldType( self.HoldType )
 	
 end

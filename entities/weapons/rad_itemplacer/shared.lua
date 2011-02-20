@@ -186,7 +186,7 @@ function SWEP:SecondaryAttack()
 	
 		self.Weapon:SetNWInt( "ItemType", self.Weapon:GetNWInt( "ItemType", 1 ) + 1 )
 		
-		if self.Weapon:GetNWInt( "ItemType", 1 ) > 10 then
+		if self.Weapon:GetNWInt( "ItemType", 1 ) > #self.ItemTypes then
 		
 			self.Weapon:SetNWInt( "ItemType", 1 )
 		

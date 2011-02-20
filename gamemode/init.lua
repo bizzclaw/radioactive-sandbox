@@ -94,7 +94,6 @@ resource.AddFile( "models/items/boxqrounds.mdl" )
 resource.AddFile( "models/items/boxqrounds.dx80.vtx" )
 resource.AddFile( "models/items/boxqrounds.dx90.vtx" )
 
-resource.AddFile( "resource/fonts/Hazard.ttf" )
 resource.AddFile( "resource/fonts/Graffiare.ttf" )
 
 resource.AddFile( "sound/radbox/warning.vtf" )
