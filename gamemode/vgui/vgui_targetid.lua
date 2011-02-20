@@ -40,7 +40,7 @@ function PANEL:SetEntity( ent )
 	
 	elseif string.find( ent:GetClass(), "rogue" ) then
 	
-		name = GAMEMODE:GetPlayerGayName( ent:GetModel() .. ent:EntIndex() )
+		name = GAMEMODE:GetPlayerGayName( ent, ent:GetModel() .. ent:EntIndex() )
 		teamname = "Loner"
 		col = Color( 255, 80, 80 )
 	

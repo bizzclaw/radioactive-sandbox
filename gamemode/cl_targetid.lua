@@ -51,7 +51,7 @@ function GM:GetPlayerGayName( ply, name )
 	local firstname = PlayerNames[ tonumber( crc[2] ) + 1 ][ tonumber( crc[3] + 1 ) ] 
 	local lastname = LastNames[ tonumber( crc[4] ) + 1 ][ tonumber( crc[5] + 1 ) ]
 	
-	if ply:Team() == TEAM_ARMY then
+	if ply:IsPlayer() and ply:Team() == TEAM_ARMY then
 	
 		local tbl = { "Sgt.", "Cpl.", "Lt.", "Pvt." }
 	
