@@ -131,12 +131,6 @@ end
 
 function SWEP:Holster()
 
-	if SERVER then
-	
-		GAMEMODE:SaveAllEnts()
-	
-	end
-
 	return true
 
 end

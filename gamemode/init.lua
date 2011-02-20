@@ -1115,6 +1115,16 @@ end
 
 concommand.Add( "cl_radbox_custom_name", SetGayName )
 
+function SaveGameItems( ply, cmd, args )
+
+	if ( !ply:IsAdmin() or !ply:IsSuperAdmin() ) then return end
+	
+	GAMEMODE:SaveAllEnts()
+	
+end
+
+concommand.Add( "sv_radbox_save_map_config", SaveGameItems )
+
 function IncludeEvents()
 
 	local folder = string.Replace( GM.Folder, "gamemodes/", "" )

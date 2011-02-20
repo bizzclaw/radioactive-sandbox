@@ -180,7 +180,7 @@ function GM:OnPlayerChat( ply, text, isteam, isdead )
 			
 					if ( isteam and LocalPlayer():Team() == ply:Team() ) or not isteam then
 					
-						chat.AddText( Color( 255, 255, 255 ), "(LOCAL) ", ply, Color( 255, 255, 255 ), ": ", text )
+						chat.AddText( Color( 255, 255, 255 ), "(LOCAL) ", team.GetColor( ply:Team() ), GAMEMODE:GetPlayerGayName( ply, tostring( ply:Deaths() + 1 ) .. ply:Name() ), Color( 255, 255, 255 ), ": ", text )
 						
 						if table.Count( ply.ChatWords ) >= 5 then
 				
@@ -200,17 +200,17 @@ function GM:OnPlayerChat( ply, text, isteam, isdead )
 				
 					if LocalPlayer():GetPos():Distance( ply:GetPos() ) < HushDist then
 					
-						chat.AddText( Color( 255, 255, 255 ), "(WHISPER) ", ply, Color( 255, 255, 255 ), ": ", text )
+						chat.AddText( Color( 255, 255, 255 ), "(WHISPER) ", team.GetColor( ply:Team() ), GAMEMODE:GetPlayerGayName( ply, tostring( ply:Deaths() + 1 ) .. ply:Name() ), Color( 255, 255, 255 ), ": ", text )
 					
 					else
 					
-						chat.AddText( ply, Color( 255, 255, 255 ), " whispered something..." )
+						chat.AddText( team.GetColor( ply:Team() ), GAMEMODE:GetPlayerGayName( ply, tostring( ply:Deaths() + 1 ) .. ply:Name() ), Color( 255, 255, 255 ), " whispered something..." )
 					
 					end
 				
 				else
 				
-					chat.AddText( ply, Color( 255, 255, 255 ), " ", text )
+					chat.AddText( team.GetColor( ply:Team() ), GAMEMODE:GetPlayerGayName( ply, tostring( ply:Deaths() + 1 ) .. ply:Name() ), Color( 255, 255, 255 ), " ", text )
 				
 				end
 			
