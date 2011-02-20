@@ -41,7 +41,7 @@ function GM:GetPlayerGayName( ply, name )
 
 	if not ValidEntity( LocalPlayer() ) then return "" end
 
-	if GetConVar( "sv_radbox_custom_names" ):GetBool() and ply:GetNWString( "GayName", "" ) != "" then
+	if GetConVar( "sv_radbox_custom_names" ) and GetConVar( "sv_radbox_custom_names" ):GetBool() and ply:GetNWString( "GayName", "" ) != "" then
 	
 		return ply:GetNWString( "GayName", "" )
 	

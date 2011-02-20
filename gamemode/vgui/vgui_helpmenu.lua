@@ -36,7 +36,7 @@ function PANEL:Init()
 
 		self:Remove() 
 		
-		if not GetConVar( "sv_radbox_allow_loners" ):GetBool() then
+		if not GetConVar( "sv_radbox_allow_loners" ) or not GetConVar( "sv_radbox_allow_loners" ):GetBool() then
 		
 			GAMEMODE:ShowTeam()
 			
