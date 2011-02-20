@@ -78,21 +78,34 @@ function EVENT:Think()
 	
 		local rad = table.Random( ents.FindByClass( "point_radiation" ) )
 		local rad2 = table.Random( ents.FindByClass( "point_radiation" ) )
+		local timeout = 0
 		
-		while !rad:IsActive() do
+		while !rad:IsActive() and timeout < 50 do
 		
 			rad = table.Random( ents.FindByClass( "point_radiation" ) )
+			timeout = timeout + 1
 		
 		end
 		
-		while rad2:IsActive() do
+		if timeout < 50 then
+		
+			rad:SetActive( false )
+			timeout = 0
+		
+		end
+		
+		while rad2:IsActive() and timeout < 50 do
 		
 			rad2 = table.Random( ents.FindByClass( "point_radiation" ) )
+			timeout = timeout + 1
 		
 		end
 		
-		rad:SetActive( false )
-		rad2:SetActive( true )
+		if timeout < 50 then
+		
+			rad2:SetActive( true )
+			
+		end
 	
 	end
 
