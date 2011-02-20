@@ -1,0 +1,6 @@
+"UnlitGeneric"
+{
+	"$basetexture" "radbox/img_blood"
+	"$vertexcolor" 1
+	"$vertexalpha" 1
+}
