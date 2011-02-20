@@ -394,7 +394,7 @@ function meta:Think()
 		self.PoisonTime = CurTime() + 1.5
 		
 		local paintbl = { 0, -1, -2, -3, -3 }
-		local stamtbl = { -3, -4, -4, -4, -5 }
+		local stamtbl = { -2, -3, -4, -4, -5 }
 	
 		self:AddHealth( paintbl[ self:GetRadiation() ] )
 		self:AddStamina( stamtbl[ self:GetRadiation() ] )

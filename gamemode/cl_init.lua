@@ -43,7 +43,7 @@ function GM:Initialize( )
 	RadarEntTable = {}
 	TimeSeedTable = {}
 	
-	surface.CreateFont ( "Hazard", 34, 300, true, true, "HUDBarFont" )
+	//surface.CreateFont ( "Hazard", 34, 300, true, true, "HUDBarFont" )
 	surface.CreateFont ( "Graffiare", 34, 200, true, true, "DeathFont" )
 	surface.CreateFont ( "Graffiare", 28, 200, true, true, "AmmoFont" )
 	surface.CreateFont ( "Verdana", 12, 300, true, true, "AmmoFontSmall" )
@@ -53,6 +53,11 @@ function GM:Initialize( )
 	matArm = Material( "radbox/radar_arm" )
 	matArrow = Material( "radbox/radar_arrow" )
 	matNoise = Material( "radbox/nvg_noise" )
+	
+	matHealth = Material( "radbox/img_health" )
+	matStamina = Material( "radbox/img_stamina" )
+	matBlood = Material( "radbox/img_blood" )
+	matRadiation = Material( "radbox/img_radiation" )
 	
 end
 
@@ -292,7 +297,12 @@ end
 function DrawBar( x, y, w, h, value, maxvalue, icon, colorlight, colordark )
 
 	draw.RoundedBox( 4, x - 1, y, h + 1, h, Color( 0, 0, 0, 200 ) )
-	draw.SimpleText( icon, "HUDBarFont", x + ( h * 0.5 ), y + ( h * 0.5 ) - 1, colorlight, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+	
+	surface.SetDrawColor( colorlight.r, colorlight.g, colorlight.b, 200 ) 
+	surface.SetMaterial( icon ) 
+	surface.DrawTexturedRect( x, y + 1, h - 1, h - 2 ) 
+	
+	//draw.SimpleText( icon, "HUDBarFont", x + ( h * 0.5 ), y + ( h * 0.5 ) - 1, colorlight, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 	
 	x = x + h + 2
 	
@@ -315,7 +325,11 @@ end
 function DrawIcon( x, y, w, h, icon, color )
 
 	draw.RoundedBox( 4, x - 1, y, h + 1, h, Color( 0, 0, 0, 200 ) )
-	draw.SimpleText( icon, "HUDBarFont", x + ( h * 0.5 ), y + ( h * 0.5 ) - 1, color, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+	//draw.SimpleText( icon, "HUDBarFont", x + ( h * 0.5 ), y + ( h * 0.5 ) - 1, color, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+	
+	surface.SetDrawColor( color.r, color.g, color.b, 200 ) 
+	surface.SetMaterial( icon ) 
+	surface.DrawTexturedRect( x, y + 1, h - 1, h - 2 ) 
 
 end
 
@@ -338,13 +352,13 @@ function GM:GetAfflictions()
 
 	if LocalPlayer():GetNWBool( "Bleeding", false ) then
 	
-		table.insert( tbl, { Icon = "r", Color = Color( 225, 40, 40 ) } )
+		table.insert( tbl, { Icon = matBlood, Color = Color( 225, 40, 40 ) } )
 		
 	end
 	
 	if rad > 0 then
 
-		table.insert( tbl, { Icon = "8", Color = cols[ rad ] } )
+		table.insert( tbl, { Icon = matRadiation, Color = cols[ rad ] } )
 		
 	end
 	
@@ -392,11 +406,11 @@ function GM:HUDPaint()
 	local xpos = 5
 	local ypos = ScrH() - 5 - ylen
 	
-	DrawBar( xpos, ypos, xlen, ylen, LocalPlayer():Health(), 200, "`", Color( 225, 40, 40, 255 ), Color( 175, 20, 20, 255 ) )
+	DrawBar( xpos, ypos, xlen, ylen, LocalPlayer():Health(), 200, matHealth, Color( 225, 40, 40, 255 ), Color( 175, 20, 20, 255 ) )
 	
 	ypos = ScrH() - 10 - ylen * 2
 	
-	DrawBar( xpos, ypos, xlen, ylen, LocalPlayer():GetNWInt( "Stamina", 0 ), 100, "s", Color( 40, 80, 225, 255 ), Color( 20, 40, 175, 255 ) )
+	DrawBar( xpos, ypos, xlen, ylen, LocalPlayer():GetNWInt( "Stamina", 0 ), 100, matStamina, Color( 40, 80, 225, 255 ), Color( 20, 40, 175, 255 ) )
 	
 	F3Item:SetPos( xpos + ylen + xlen + 7, ypos )
 	F3Item:SetSize( ylen * 3, ylen * 2 + 5 )
