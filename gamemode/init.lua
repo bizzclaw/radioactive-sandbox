@@ -91,6 +91,11 @@ resource.AddFile( "resource/fonts/Graffiare.ttf" )
 resource.AddFile( "sound/radbox/warning.vtf" )
 resource.AddFile( "sound/radbox/heartbeat.vtf" )
 
+CreateConVar( "sv_radbox_team_dmg", "0", { FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_SERVER_CAN_EXECUTE }, "Controls whether teammates can hurt eachother." )
+CreateConVar( "sv_radbox_dmg_scale", "1", { FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_SERVER_CAN_EXECUTE }, "Controls bullet damage scaling." )
+CreateConVar( "sv_radbox_allow_loners", "0", { FCVAR_REPLICATED, FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_SERVER_CAN_EXECUTE }, "Controls whether players spawn initially as a loner." )
+CreateConVar( "sv_radbox_custom_names", "1", { FCVAR_REPLICATED, FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_SERVER_CAN_EXECUTE }, "Controls whether players can name themselves." )
+
 function GM:Initialize( )
 
 	GAMEMODE.NextEvent = CurTime() + math.random( GAMEMODE.MinEventDelay, GAMEMODE.MaxEventDelay )
@@ -157,6 +162,7 @@ function GM:SaveAllEnts()
 		info_player_bandoliers = {},
 		info_player_army = {},
 		info_player_exodus = {},
+		info_player_loner = {},
 		npc_trader_bandoliers = {},
 		npc_trader_army = {},
 		npc_trader_exodus = {},
@@ -214,39 +220,51 @@ function GM:LoadAllEnts()
 			if k == "prop_physics" then
 			
 				for c,d in pairs( v ) do
+				
+					local function spawnent()
+					
+						local ent = ents.Create( k )
+						ent:SetPos( d[1] )
+						ent:SetModel( d[2] )
+						ent:SetAngles( d[3] )
+						ent:SetSkin( math.random( 0, 6 ) )
+						ent:Spawn()
+						ent.AdminPlaced = true
 						
-					local ent = ents.Create( k )
-					ent:SetPos( d[1] )
-					ent:SetModel( d[2] )
-					ent:SetAngles( d[3] )
-					ent:SetSkin( math.random( 0, 6 ) )
-					ent:Spawn()
-					ent.AdminPlaced = true
-					
-					local phys = ent:GetPhysicsObject()
-					
-					if ValidEntity( phys ) and not d[4] then
-					
-						phys:EnableMotion( false )
-					
+						local phys = ent:GetPhysicsObject()
+						
+						if ValidEntity( phys ) and not d[4] then
+						
+							phys:EnableMotion( false )
+						
+						end
+						
 					end
-						
+					
+					timer.Simple( c * 0.1, spawnent )
+					
 				end
 			
 			else
-		
+			
 				for c,d in pairs( ents.FindByClass( k ) ) do
 					
 					d:Remove()
-						
+					
 				end
 
 				for c,d in pairs( v ) do
-						
-					local ent = ents.Create( k )
-					ent:SetPos( d )
-					ent:Spawn()
-						
+				
+					local function spawnent()
+					
+						local ent = ents.Create( k )
+						ent:SetPos( d )
+						ent:Spawn()
+					
+					end
+				
+					timer.Simple( c * 0.1, spawnent )
+
 				end
 				
 			end
@@ -414,6 +432,24 @@ function GM:PlayerSpawn( pl )
 
 end
 
+function GM:PlayerSetModel( pl )
+
+	for k,v in pairs( team.GetPlayers( pl:Team() ) ) do
+	
+		if ( v:GetModel() == team.GetLeaderModel( pl:Team() ) and v:Alive() ) or pl:Team() == TEAM_LONER then
+		
+			pl:SetModel( team.GetPlayerModel( pl:Team() ) )
+			
+			return
+		
+		end
+	
+	end
+
+	pl:SetModel( team.GetLeaderModel( pl:Team() ) )
+
+end
+
 function GM:PlayerLoadout( pl )
 
 	pl:InitializeInventory()
@@ -425,13 +461,10 @@ function GM:PlayerJoinTeam( ply, teamid )
 	
 	local oldteam = ply:Team()
 	
-	if ply:Alive() and ply:Team() != TEAM_UNASSIGNED then
-	
-		ply:ChatPrint( "You cannot change teams while you're alive!" )
-		return
-	
-	end
+	if ply:Alive() and ply:Team() != TEAM_UNASSIGNED then return end
 
+	if ( !GetConVar( "sv_radbox_allow_loners" ):GetBool() and teamid == TEAM_LONER ) or ply:Team() == TEAM_LONER then return end
+	
 	if teamid != TEAM_UNASSIGNED then
 	
 		ply:UnSpectate()
@@ -467,12 +500,6 @@ end
 function GM:GetFallDamage( ply, speed )
 
 	return speed * 0.085
-	
-end
-
-function GM:PlayerSetModel( pl )
-
-	pl:SetModel( team.GetPlayerModel( pl:Team() ) )
 	
 end
 
@@ -585,7 +612,7 @@ function GM:ScaleBulletDamage( ply, hitgroup, dmginfo )
 
 	if hitgroup == HITGROUP_HEAD then
 		
-		if ( dmginfo:GetDamage() > 30 or math.random(1,5) == 1 ) and dmginfo:GetAttacker():IsPlayer() and dmginfo:GetAttacker():Team() != ply:Team() then
+		if ( dmginfo:GetDamage() > 30 or math.random(1,5) == 1 ) and dmginfo:GetAttacker():IsPlayer() and ( dmginfo:GetAttacker():Team() != ply:Team() or GetConVar( "sv_radbox_team_dmg" ):GetBool() ) then
 		
 			ply:SetBleeding( true )
 			ply:EmitSound( "Player.DamageHeadShot" )
@@ -593,23 +620,23 @@ function GM:ScaleBulletDamage( ply, hitgroup, dmginfo )
 			
 		end
 		
-		dmginfo:ScaleDamage( 1.75 ) 
+		dmginfo:ScaleDamage( 1.75 * GetConVar( "sv_radbox_dmg_scale" ):GetFloat() ) 
 		
     elseif hitgroup == HITGROUP_CHEST then
 	
-		dmginfo:ScaleDamage( 0.50 ) 
+		dmginfo:ScaleDamage( 0.50 * GetConVar( "sv_radbox_dmg_scale" ):GetFloat() ) 
 		
 	elseif hitgroup == HITGROUP_STOMACH then
 	
-		dmginfo:ScaleDamage( 0.25 ) 
+		dmginfo:ScaleDamage( 0.25 * GetConVar( "sv_radbox_dmg_scale" ):GetFloat() ) 
 		
 	else
 	
-		dmginfo:ScaleDamage( 0.10 )
+		dmginfo:ScaleDamage( 0.10 * GetConVar( "sv_radbox_dmg_scale" ):GetFloat() )
 		
 	end
 		
-	ply:ViewBounce( ( dmginfo:GetDamage() / 25 ) * 10 )
+	ply:ViewBounce( ( dmginfo:GetDamage() / 20 ) * 10 )
 
 end 
 
@@ -617,13 +644,13 @@ function GM:PlayerShouldTakeDamage( ply, attacker )
 
 	if ply:Team() == TEAM_UNASSIGNED then return false end
 	
-	if ValidEntity( ply.Stash ) and ( string.find( ply.Stash:GetClass(), "npc" ) or ply.Stash:GetClass() == "info_storage" ) then return false end
+	if ValidEntity( ply.Stash ) and ( string.find( ply.Stash:GetClass(), "npc" ) or ply.Stash:GetClass() == "info_storage" ) then return false end // player using a stash, dont let them die
 
 	if string.find( attacker:GetClass(), "npc" ) then return true end
 	
 	if ValidEntity( attacker ) and ply == attacker then return true end
 	
-	if ValidEntity( attacker ) and attacker:IsPlayer() then return ply:Team() != attacker:Team() end
+	if ValidEntity( attacker ) and attacker:IsPlayer() then return ( ply:Team() != attacker:Team() or GetConVar( "sv_radbox_team_dmg" ):GetBool() ) end // team damage is convar controlled
 
 	return true
 	

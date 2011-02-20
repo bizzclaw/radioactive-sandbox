@@ -23,6 +23,8 @@ include( 'vgui/vgui_itempanel.lua' )
 include( 'vgui/vgui_panelsheet.lua' )
 include( 'vgui/vgui_goodmodelpanel.lua' )
 
+NameConVar = CreateClientConVar( "cl_radbox_player_name", "", true, true )
+
 function GM:Initialize( )
 	
 	GAMEMODE:InitVGUI()
@@ -624,7 +626,7 @@ end
 function AddDrunkness( msg )
  
 	Drunkness = math.Clamp( Drunkness + msg:ReadShort(), 0, 10 )
-	DrunkTimer = CurTime() + 30
+	DrunkTimer = CurTime() + 60
  
 end
 usermessage.Hook( "Drunk", AddDrunkness )

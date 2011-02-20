@@ -10,6 +10,7 @@ GM.TeamBased 	= true
 TEAM_ARMY = 1
 TEAM_BANDOLIERS = 2
 TEAM_EXODUS = 3
+TEAM_LONER = 4
 
 function GM:CreateTeams()
 	
@@ -21,6 +22,9 @@ function GM:CreateTeams()
 	
 	team.SetUp( TEAM_EXODUS, "Exodus", Color( 80, 200, 255 ), true )
 	team.SetSpawnPoint( TEAM_EXODUS, "info_player_exodus" ) 
+	
+	team.SetUp( TEAM_LONER, "Loners", Color( 80, 200, 80 ), true )
+	team.SetSpawnPoint( TEAM_LONER, "info_player_loner" ) 
 
 end
 

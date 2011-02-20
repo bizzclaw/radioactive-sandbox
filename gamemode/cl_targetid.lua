@@ -37,13 +37,23 @@ function GM:GetEntityID( ent )
 
 end
 
-function GM:GetPlayerGayName( name, isarmy )
+function GM:GetPlayerGayName()
+
+	if not ValidEntity( LocalPlayer() ) then return "" end
+
+	local name = LocalPlayer():Nick()
+
+	if GetConVar( "sv_radbox_custom_names" ):GetBool() and NameConVar:GetString() != "" then
+	
+		return NameConVar:GetString()
+	
+	end
 
 	local crc = string.Explode( "", tostring( util.CRC( name ) ) )
 	local firstname = PlayerNames[ tonumber( crc[2] ) + 1 ][ tonumber( crc[3] + 1 ) ] 
 	local lastname = LastNames[ tonumber( crc[4] ) + 1 ][ tonumber( crc[5] + 1 ) ]
 	
-	if isarmy then
+	if LocalPlayer():Team() == TEAM_ARMY then
 	
 		local tbl = { "Sgt.", "Cpl.", "Lt.", "Pvt." }
 	

@@ -92,6 +92,16 @@ function ENT:Think()
 end 
 
 function ENT:OnUsed( ply )
+	
+	if ply:Team() == TEAM_LONER then
+	
+		ply:SetTeam( self.Team )
+		ply:SetModel( team.GetPlayerModel( self.Team ) )
+		ply:ChatPrint( "You have joined a faction." )
+		
+		return
+	
+	end
 
 	if ply:Team() != self.Team then return end
 	if ( self.LastUse or 0 ) > CurTime() then return end

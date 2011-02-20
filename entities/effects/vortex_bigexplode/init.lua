@@ -9,7 +9,7 @@ function EFFECT:Init( data )
 	self.Emitter = ParticleEmitter( self.Pos )
 	self.Size = 50
 	self.Refract = 0
-	self.DieTime = CurTime() + 0.3
+	self.DieTime = CurTime() + 0.5
 	
 	for i=1, 50 do
 	
@@ -30,7 +30,7 @@ function EFFECT:Init( data )
 	particle:SetDieTime( 1.5 )
 	particle:SetStartAlpha( 0 )
 	particle:SetEndAlpha( 200 )
-	particle:SetStartSize( 1500 )
+	particle:SetStartSize( 2000 )
 	particle:SetEndSize( 0 )
 	particle:SetRoll( math.random( -360, 360 ) )
 	particle:SetRollDelta( math.random( -200, 200 ) )

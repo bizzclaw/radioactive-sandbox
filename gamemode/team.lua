@@ -26,6 +26,24 @@ function team.GetDescription( num )
 
 end
 
+function team.GetLeaderModel( num )
+
+	if num == TEAM_EXODUS then
+	
+		return "models/player/magnusson.mdl"
+	
+	elseif num == TEAM_ARMY then
+	
+		return "models/player/leet.mdl"
+	
+	else
+	
+		return "models/player/guerilla.mdl"
+	
+	end
+
+end
+
 function team.GetPlayerModel( num )
 
 	if num == TEAM_EXODUS then
@@ -36,15 +54,32 @@ function team.GetPlayerModel( num )
 	
 		return "models/player/phoenix.mdl"
 	
-	else
+	elseif num == TEAM_BANDOLIERS then
 	
 		return table.Random({"models/player/Group03/male_01.mdl", 
 							"models/player/Group03/male_02.mdl", 
 							"models/player/Group03/male_03.mdl", 
 							"models/player/Group03/male_04.mdl", 
 							"models/player/Group03/male_05.mdl", 
-							"models/player/Group03/male_06.mdl"})
+							"models/player/Group03/male_06.mdl",
+							"models/player/Group03/male_07.mdl",
+							"models/player/Group03/male_08.mdl",
+							"models/player/Group03/male_09.mdl"})
 	
+	else
+	
+		return table.Random({"models/player/Group01/male_01.mdl", 
+							"models/player/Group01/male_02.mdl", 
+							"models/player/Group01/male_03.mdl", 
+							"models/player/Group01/male_04.mdl", 
+							"models/player/Group01/male_05.mdl", 
+							"models/player/Group01/male_06.mdl",
+							"models/player/Group01/male_07.mdl",
+							"models/player/Group01/male_08.mdl",
+							"models/player/Group01/male_09.mdl",
+							"models/player/eli.mdl",
+							"models/player/odessa.mdl"})
+		
 	end
 
 end
@@ -59,9 +94,13 @@ function team.GetItemLoadout( num )
 	
 		return { ITEM_BUYABLE, ITEM_SUPPLY, ITEM_FOOD }
 	
-	else
+	elseif num == TEAM_BANDOLIERS then
 	
 		return { ITEM_BUYABLE, ITEM_BUYABLE, ITEM_SUPPLY }
+	
+	else
+	
+		return { ITEM_BUYABLE, ITEM_FOOD, ITEM_FOOD, ITEM_SUPPLY }
 	
 	end
 
@@ -76,7 +115,7 @@ function team.GetTrader( num )
 	elseif num == TEAM_ARMY then
 	
 		return ents.FindByClass( "npc_trader_army" )[1]
-	
+
 	else
 	
 		return ents.FindByClass( "npc_trader_bandoliers" )[1]
@@ -97,9 +136,13 @@ function team.GetTraderName( ent )
 		
 			return "Bishop"
 		
-		else
+		elseif LocalPlayer():Team() == TEAM_BANDOLIERS then
 		
 			return "Grigorovich"
+		
+		else
+		
+			return "Transmission Received"
 		
 		end
 	
@@ -113,9 +156,13 @@ function team.GetTraderName( ent )
 	
 		return "Bishop"
 	
-	else
+	elseif ent:GetClass() == "npc_trader_bandoliers" then
 	
 		return "Grigorovich"
+	
+	else
+	
+		return "Transmission Received"
 	
 	end
 

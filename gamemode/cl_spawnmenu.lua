@@ -8,7 +8,7 @@ function GM:InitVGUI()
 	InventoryScreen:SetPadding( 3 )
 	InventoryScreen:EnableHorizontal( true )
 	InventoryScreen:SetVisible( false )
-		
+	
 	InfoScreen = vgui.Create( "ItemDisplay" )
 	InfoScreen:SetSize( ScrW() * 0.3 - 10, ScrH() * 0.5 - 5 )
 	InfoScreen:SetPos( 5, 5 )
@@ -19,7 +19,7 @@ function GM:InitVGUI()
 	PlayerScreen:SetPos( ScrW() * 0.7 + 5, 5 )
 	PlayerScreen:SetVisible( false )
 	PlayerScreen:SetupCam( Vector(0,96,36), Vector(0,0,36) )
-		
+	
 	StashScreen = vgui.Create( "ItemSheet" )
 	StashScreen:SetSize( ScrW() * 0.5 - 10, ScrH() * 0.5 - 10 )
 	StashScreen:SetPos( ScrW() * 0.5 + 5, ScrH() * 0.5 + 5 )
@@ -67,7 +67,7 @@ function GM:OnSpawnMenuClose()
 		InventoryScreen:SetVisible( false )
 		InfoScreen:SetVisible( false )
 		PlayerScreen:SetVisible( false )
-		
+
 		gui.EnableScreenClicker( false )
 	
 	end

@@ -35,7 +35,16 @@ function PANEL:Init()
 	self.Button.OnMousePressed = function()
 
 		self:Remove() 
-		GAMEMODE:ShowTeam()
+		
+		if not GetConVar( "sv_radbox_allow_loners" ):GetBool() then
+		
+			GAMEMODE:ShowTeam()
+			
+		else
+		
+			RunConsoleCommand( "changeteam", TEAM_LONER )
+		
+		end
 		
 	end
 	

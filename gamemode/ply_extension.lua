@@ -248,7 +248,7 @@ function meta:OnLoadout()
 	ammobox:SetPos( self:GetPos() )
 	ammobox:SetModel( "models/items/357ammo.mdl" )
 	ammobox:Spawn()
-		
+	
 	self:AddToInventory( ammobox )
 	
 	local loadout = team.GetItemLoadout( self:Team() )

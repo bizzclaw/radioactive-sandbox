@@ -49,7 +49,17 @@ SWEP.Secondary.Ammo			= "none"
 
 SWEP.AmmoType = "Knife"
 
-SWEP.ItemTypes = {"info_player_bandoliers","info_player_army","info_player_exodus","npc_trader_bandoliers","npc_trader_army","npc_trader_exodus","info_lootspawn","info_npcspawn","point_stash","point_radiation"}
+SWEP.ItemTypes = { "info_player_loner",
+"info_player_bandoliers",
+"info_player_army",
+"info_player_exodus",
+"npc_trader_bandoliers",
+"npc_trader_army",
+"npc_trader_exodus",
+"info_lootspawn",
+"info_npcspawn",
+"point_stash",
+"point_radiation" }
 
 function SWEP:Initialize()
 

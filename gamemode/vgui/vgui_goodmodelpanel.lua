@@ -85,7 +85,7 @@ function PANEL:SpecialSetModel( model )
 	
 	local seq = 0
 
-	if string.find( model, "player" ) or string.find( model, "models/human" ) then 
+	if string.find( model, "player" ) or string.find( model, "models/human" ) or string.find( model, "eli" ) then 
 	
 		seq = self.Entity:LookupSequence( "idle" ) 
 		

@@ -12,7 +12,7 @@ function PANEL:Init()
 	
 	for id, info in pairs( allteams ) do
 	
-		if id != TEAM_CONNECTING and id != TEAM_UNASSIGNED and id != TEAM_SPECTATOR then
+		if id != TEAM_CONNECTING and id != TEAM_UNASSIGNED and id != TEAM_SPECTATOR and id != TEAM_LONER then
 		
 			local img, tbl = team.GetDescription( id )
 		
