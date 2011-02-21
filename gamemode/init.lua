@@ -1113,7 +1113,7 @@ function SetGayName( ply, cmd, args )
 
 end
 
-concommand.Add( "cl_radbox_custom_name", SetGayName )
+concommand.Add( "cl_radbox_character_name", SetGayName )
 
 function SaveGameItems( ply, cmd, args )
 

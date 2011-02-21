@@ -1,7 +1,7 @@
 
 require( "datastream" )
 
-GM.Name 		= "Radioactive Sandbox"
+GM.Name 		= "RadBox"
 GM.Author 		= "Rambo_6"
 GM.Email 		= ""
 GM.Website 		= ""
