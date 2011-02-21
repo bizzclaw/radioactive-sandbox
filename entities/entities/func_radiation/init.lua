@@ -1,21 +1,16 @@
-AddCSLuaFile( "cl_init.lua" )
-AddCSLuaFile( "shared.lua" )
-include( 'shared.lua')
 
 function ENT:Initialize()
 
-	self.Entity:PhysicsInit( SOLID_NONE )
-	self.Entity:SetMoveType( MOVETYPE_NONE )
-	self.Entity:SetSolid( SOLID_NONE )
-	
-	self.Entity:SetCollisionGroup( COLLISION_GROUP_WEAPON )
-	
-	self.Entity:DrawShadow( false )
-	
+	self.Center = self.Entity:OBBCenter()
+	self.SoundRadius = self.Entity:OBBMaxs():Distance( self.Entity:OBBMins() ) + 300
 	self.Active = math.Rand(0,1) > 0.5
-	self.Radius = 500
-	self.SoundRadius = 800
-	self.Pos = self.Entity:GetPos()
+	self.Table = {}
+	
+end
+
+function ENT:PassesTriggerFilters( ent )
+
+	return ValidEntity( ent ) and ent:IsPlayer()
 	
 end
 
@@ -33,23 +28,25 @@ end
 
 function ENT:KeyValue( key, value )
 
-	if key == "radius" then
+end
+
+function ENT:StartTouch( ent )
+
+	if self.Entity:PassesTriggerFilters( ent ) and not table.HasValue( self.Table, ent ) then
 	
-		self.Radius = math.Clamp( tonumber( value ), 100, 5000 )
-		self.SoundRadius = self.Radius * 1.4
-	
-	elseif key == "randomradius" then
-	
-		self.Radius = math.random( 100, math.Clamp( tonumber( value ), 500, 5000 ) )
-		self.SoundRadius = self.Radius * 1.4
+		table.insert( self.Table, ent )
 	
 	end
 
 end
 
-function ENT:GetRadiationRadius()
+function ENT:EndTouch( ent )
 
-	return self.Radius
+	if table.HasValue( ent ) then
+	
+		table.remove( self.Table, ent )
+	
+	end
 
 end
 
@@ -59,11 +56,11 @@ function ENT:Think()
 	
 	for k,v in pairs( player.GetAll() ) do
 	
-		local dist = v:GetPos():Distance( self.Pos )
+		local dist = v:GetPos():Distance( self.Center )
 		
 		if dist < self.SoundRadius then
 		
-			if dist < self.Radius then
+			if table.HasValue( self.Table, v ) then
 		
 				if ( v.RadAddTime or 0 ) < CurTime() then
 			
@@ -76,7 +73,7 @@ function ENT:Think()
 		
 			if ( v.NextRadSound or 0 ) < CurTime() then
 			
-				local scale = math.Clamp( dist / self.Radius, 0.1, 1.0 )
+				local scale = math.Clamp( dist / self.SoundRadius, 0.1, 1.0 )
 			
 				v.NextRadSound = CurTime() + scale * 1.25
 				
