@@ -152,7 +152,19 @@ function PANEL:Init()
 	
 		if k > 0 and k < 1001 then
 		
-			table.insert( self.Teams, k )
+			if k == TEAM_LONER then
+			
+				if GetConVar( "sv_radbox_allow_loners" ) and GetConVar( "sv_radbox_allow_loners" ):GetBool() then
+				
+					table.insert( self.Teams, k )
+				
+				end
+				
+			else
+		
+				table.insert( self.Teams, k )
+				
+			end
 			
 		end
 		
