@@ -400,6 +400,18 @@ function GM:SetEvent( ev )
 
 end
 
+function GM:PhysgunPickup( ply, ent )
+
+	if ply:IsAdmin() or ply:IsSuperAdmin() then return true end
+
+	if ent:IsPlayer() then return false end
+	
+	if not ent.Placer or ent.Placer != ply then return false end
+	
+	return true 
+
+end
+
 function GM:PlayerDisconnected( pl )
 
 	if pl:Alive() then
