@@ -14,7 +14,7 @@ function ENT:Initialize()
 	
 	self.Active = true
 	self.Radius = 500
-	self.SoundRadius = 700
+	self.SoundRadius = 800
 	self.Pos = self.Entity:GetPos()
 	
 end

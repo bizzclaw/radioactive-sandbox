@@ -114,7 +114,7 @@ function GM:GetMotionBlurValues( y, x, fwd, spin )
 			DisorientTime = nil
 		end
 	
-		local scale = ( DisorientTime - CurTime() ) / 10
+		local scale = ( ( DisorientTime or 0 ) - CurTime() ) / 10
 		local newx, newy = RotateAroundCoord( 0, 0, 1.0, scale * 0.05 )
 		
 		return newy, newx, fwd, spin
