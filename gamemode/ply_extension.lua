@@ -210,6 +210,13 @@ function meta:OnLoadout()
 
 	self:Give( "rad_knife" )
 	self:Give( "rad_hands" )
+	
+	if GetConVar( "sv_radbox_allow_build" ):GetBool() then
+	
+		self:Give( "rad_buildtool" )
+		self:Give( "weapon_physgun" )
+	
+	end
 
 	if self:IsAdmin() or self:IsSuperAdmin() then
 	

@@ -1,0 +1,318 @@
+if SERVER then
+
+	AddCSLuaFile( "shared.lua" )
+	
+	SWEP.Weight				= 1
+	SWEP.AutoSwitchTo		= false
+	SWEP.AutoSwitchFrom		= false
+	
+end
+
+if CLIENT then
+
+	SWEP.DrawAmmo			= true
+	SWEP.DrawCrosshair		= true
+	SWEP.CSMuzzleFlashes	= true
+
+	SWEP.ViewModelFOV		= 74
+	SWEP.ViewModelFlip		= false
+	
+	SWEP.PrintName = "Prop Spawning Tool"
+	SWEP.Slot = 5
+	SWEP.Slotpos = 8
+	
+	function SWEP:DrawWeaponSelection( x, y, wide, tall, alpha )
+		
+	end
+	
+end
+
+SWEP.HoldType = "slam"
+
+SWEP.ViewModel	= ""
+SWEP.WorldModel = "models/weapons/w_c4.mdl"
+
+SWEP.Primary.Swap           = Sound( "weapons/clipempty_rifle.wav" )
+SWEP.Primary.Sound			= Sound( "NPC_CombineCamera.Click" )
+SWEP.Primary.Delete			= Sound( "Weapon_StunStick.Melee_HitWorld" )
+
+SWEP.Primary.ClipSize		= 1
+SWEP.Primary.DefaultClip	= 99999
+SWEP.Primary.Automatic		= false
+SWEP.Primary.Ammo			= "pistol"
+
+SWEP.Secondary.ClipSize		= -1
+SWEP.Secondary.DefaultClip	= -1
+SWEP.Secondary.Automatic	= false
+SWEP.Secondary.Ammo			= "none"
+
+SWEP.AmmoType = "Knife"
+
+SWEP.PropList = { "models/props_c17/oildrum001.mdl",
+"models/props_c17/canister02a.mdl",
+"models/props_c17/furniturewashingmachine001a.mdl",
+"models/props_c17/pulleywheels_large01.mdl",
+"models/props_c17/pulleywheels_small01.mdl",
+"models/props_c17/chair02a.mdl",
+"models/props_c17/concrete_barrier001a.mdl",
+"models/props_c17/door01_left.mdl",
+"models/props_c17/fence01a.mdl",
+"models/props_c17/fence01b.mdl",
+"models/props_c17/fence03a.mdl",
+"models/props_c17/trappropeller_engine.mdl",
+"models/props_c17/furniturebathtub001a.mdl",
+"models/props_c17/furniturefridge001a.mdl",
+"models/props_interiors/refrigerator01a.mdl",
+"models/props_interiors/refrigeratordoor01a.mdl",
+"models/props_wasteland/laundry_cart001.mdl",
+"models/props_wasteland/controlroom_chair001a.mdl",
+"models/props_wasteland/controlroom_desk001a.mdl",
+"models/props_wasteland/controlroom_desk001b.mdl",
+"models/props_wasteland/controlroom_filecabinet002a.mdl",
+"models/props_wasteland/controlroom_filecabinet001a.mdl",
+"models/props_wasteland/dockplank01b.mdl",
+"models/props_wasteland/barricade001a.mdl",
+"models/props_wasteland/barricade002a.mdl",
+"models/props_wasteland/wheel01.mdl",
+"models/props_wasteland/prison_bedframe001b.mdl",
+"models/props_vehicles/generatortrailer01.mdl",
+"models/props_vehicles/carparts_door01a.mdl",
+"models/props_vehicles/carparts_wheel01a.mdl",
+"models/props_vehicles/carparts_tire01a.mdl",
+"models/props_vehicles/carparts_axel01a.mdl",
+"models/props_vehicles/tire001b_truck.mdl",
+"models/props_vehicles/tire001a_tractor.mdl",
+"models/props_debris/metal_panel01a.mdl",
+"models/props_debris/metal_panel02a.mdl",
+"models/props_junk/ravenholmsign.mdl",
+"models/props_junk/ibeam01a.mdl",
+"models/props_junk/wood_pallet001a.mdl",
+"models/props_junk/propanecanister001a.mdl",
+"models/props_junk/pushcart01a.mdl",
+"models/props_junk/cinderblock01a.mdl",
+"models/props_junk/wood_crate001a.mdl",
+"models/props_junk/wood_crate002a.mdl",
+"models/props_junk/metalgascan.mdl",
+"models/props/de_train/barrel.mdl",
+"models/props/de_train/pallet_barrels.mdl",
+"models/props/de_prodigy/tirestack.mdl",
+"models/props/de_prodigy/tirestack2.mdl",
+"models/props/de_prodigy/tirestack3.mdl",
+"models/props/de_prodigy/concretebags.mdl",
+"models/props/de_prodigy/concretebags2.mdl",
+"models/props/de_prodigy/concretebags3.mdl",
+"models/props/de_prodigy/concretebags4.mdl",
+"models/props/de_prodigy/pushcart.mdl",
+"models/props/de_prodigy/spool.mdl",
+"models/props/de_prodigy/ammo_can_03.mdl",
+"models/props/de_nuke/cinderblock_stack.mdl",
+"models/props/cs_militia/sawhorse.mdl",
+"models/props/cs_militia/table_kitchen.mdl",
+"models/props/cs_militia/footlocker01_open.mdl",
+"models/props/cs_militia/footlocker01_closed.mdl", }
+
+function SWEP:Initialize()
+	
+	self.Weapon:SetWeaponHoldType( self.HoldType )
+	
+end
+
+function SWEP:Deploy()
+
+	self.Weapon:SendWeaponAnim( ACT_VM_DRAW )
+	
+	return true
+	
+end  
+
+function SWEP:Think()	
+
+	if CLIENT then return end
+
+	if self.Owner:KeyDown( IN_USE ) and ( ( self.NextDel or 0 ) < CurTime() ) then
+	
+		self.NextDel = CurTime() + 1
+		
+		local tr = util.TraceLine( util.GetPlayerTrace( self.Owner ) )
+		
+		local closest
+		local dist = 1000
+		
+		for k,v in pairs( ents.FindByClass( "prop_physics" ) ) do
+		
+			if v:GetPos():Distance( tr.HitPos ) < dist and not v.AdminPlaced then
+			
+				dist = v:GetPos():Distance( tr.HitPos )
+				closest = v
+			
+			end
+		
+		end
+		
+		if ValidEntity( closest ) then
+		
+			closest:Remove()
+			
+			self.Owner:EmitSound( self.Primary.Delete )
+		
+		end
+		
+	end
+
+end
+
+function SWEP:Reload()
+
+	if CLIENT then return end
+	
+	for k,v in pairs( ents.FindByClass( "prop_physics" ) ) do
+	
+		if ValidEntity( v.Placer ) and v.Placer == self.Owner then
+	
+			v:Remove()
+			
+		end
+	
+	end
+	
+	self.Owner:EmitSound( self.Primary.Delete )
+	
+end
+
+function SWEP:Holster()
+
+	return true
+
+end
+
+function SWEP:ShootEffects()	
+	
+	self.Weapon:SendWeaponAnim( ACT_VM_PRIMARYATTACK ) 
+	
+end
+
+function SWEP:PlaceItem()
+	
+	if not self.Owner.PropPos then self.Owner.PropPos = 1 end
+	
+	if self.Owner.PropPos < 1 or self.Owner.PropPos > #self.PropList then return end
+	
+	local count = 0
+	
+	for k,v in pairs( ents.FindByClass( "prop_physics" ) ) do
+	
+		if ValidEntity( v.Placer ) and v.Placer == self.Owner then
+		
+			count = count + 1
+		
+		end
+		
+		if count >= GetConVar( "sv_radbox_max_props" ):GetInt() then return end
+	
+	end
+	
+	local tr = util.TraceLine( util.GetPlayerTrace( self.Owner ) )
+	
+	local ent = ents.Create( "prop_physics" )
+	ent:SetPos( tr.HitPos + tr.HitNormal * 50 )
+	ent:SetModel( self.PropList[ self.Owner.PropPos ] ) 
+	ent:SetSkin( math.random( 0, 6 ) )
+	ent:Spawn()
+	ent.Placer = self.Owner
+	
+	local ed = EffectData()
+    ed:SetEntity( ent )
+    util.Effect( "prop_spawn", ed, true, true )
+	
+end
+
+function SWEP:PrimaryAttack()
+
+	self.Weapon:SetNextPrimaryFire( CurTime() + 1 )
+	self.Weapon:EmitSound( self.Primary.Sound, 100, math.random(95,105) )
+	self.Weapon:ShootEffects()
+	
+	if SERVER then
+	
+		self.Weapon:PlaceItem()
+		
+	end
+
+end
+
+function SWEP:SecondaryAttack()
+
+	self.Weapon:SetNextSecondaryFire( CurTime() + 0.5 )
+	
+	self.Weapon:EmitSound( self.Primary.Swap )
+	
+	if CLIENT then
+	
+		self.Weapon:Menu()
+	
+	end
+	
+end
+
+function SWEP:DrawHUD()
+
+	draw.SimpleText( "PRIMARY FIRE: Create Prop          SECONDARY FIRE: Choose Prop Model          +USE: Delete Nearest Prop          RELOAD: Remove All Placed Props", "AmmoFontSmall", ScrW() * 0.5, ScrH() - 100, Color(255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+	
+end
+
+if CLIENT then 
+
+	function SWEP:Menu()
+	
+		if ( self.MenuTime or 0 ) > CurTime() then return end
+		
+		self.MenuTime = CurTime() + 1
+	
+		gui.EnableScreenClicker( true )
+		
+		local frame = vgui.Create( "PanelBase" )
+		frame:SetSize( 300, 370 )
+		frame:Center()
+		frame:ShowCloseButton( false )
+		
+		local plist = vgui.Create( "DPanelList", frame )
+		plist:SetPos( 15, 15 )
+		plist:SetSize( 270, 340 )
+		plist:SetSpacing( 0 )
+		plist:EnableHorizontal( true )
+		plist:EnableVerticalScrollbar( true ) 
+		
+		for k, v in pairs( self.PropList ) do
+		
+			local icon = vgui.Create( "SpawnIcon", plist )
+			icon:SetModel( v )
+			icon:SetToolTip()
+			icon:SetSize( 64, 64 )
+			icon.OnMousePressed = function( mc )
+			
+				RunConsoleCommand( "choosepropmodel", tostring( k ) )
+				
+				gui.EnableScreenClicker( false ) 
+				surface.PlaySound( Sound( "buttons/button14.wav" ) )
+				
+				frame:Remove()
+				
+			end
+			
+			plist:AddItem( icon )
+			
+		end
+	
+	end
+
+	return 
+	
+end
+
+function ChoosePropModel( ply, cmd, args )
+
+	ply.PropPos = tonumber( args[1] )
+
+end
+
+concommand.Add( "choosepropmodel", ChoosePropModel )

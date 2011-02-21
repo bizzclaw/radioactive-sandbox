@@ -460,14 +460,17 @@ function GM:HUDPaint()
 	
 		if not ValidEntity( v ) then break end
 		
-		local dir = ( ( v:GetPos() - LocalPlayer():GetShootPos() ):Angle() + Angle( 0, ArmAngle + 90, 0 ) ):Forward():Normalize()
-		local pos1 = LocalPlayer():GetPos() // pos1.z = 0
-		local pos2 = v:GetPos() // pos2.z = 0
-		local dot = dir:Dot( ( pos1 - pos2 ):Normalize() )
-		local diff = pos2 - pos1
+		local dirp = ( LocalPlayer():GetPos() - v:GetPos() ):Normalize()
+		local aimvec = LocalPlayer():GetAimVector()
+		aimvec.z = dirp.z
+		
+		local dir = ( aimvec:Angle() + Angle( 0, ArmAngle + 90, 0 ) ):Forward()
+        local dot = dir:Dot( dirp )
+        local diff = ( v:GetPos() - LocalPlayer():GetPos() )
+		
 		local close = math.sqrt( diff.x * diff.x + diff.y * diff.y ) < MaxDist * FadeDist
 
-		if ( !v:IsPlayer() or ( v != LocalPlayer() and ( v:GetVelocity():Length() > 0 or v:Team() == LocalPlayer():Team() ) ) ) and !IsOnRadar( v ) and ( dot > 0.99 or close ) then
+		if ( !v:IsPlayer() or ( v != LocalPlayer() and v:Team() == LocalPlayer():Team() ) ) and !IsOnRadar( v ) and ( dot > 0.99 or close ) then
 			
 			local pos = v:GetPos()
 			local color = Color( 0, 255, 0 )
