@@ -145,7 +145,7 @@ function GM:CalcView( ply, origin, angle, fov )
 	VelSmooth = VelSmooth * 0.5 + vel:Length() * 0.1
 	WalkTimer = WalkTimer + VelSmooth * FrameTime() * 0.1
 	
-	angle.roll = angle.roll + ang:Right():DotProduct( vel ) * 0.005
+	angle.roll = angle.roll + ang:Right():DotProduct( vel ) * 0.002
 	
 	--[[if ply:Alive() and ply:Health() <= 50 then
 	
