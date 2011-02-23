@@ -1,8 +1,8 @@
 
 local EVENT = {}
 
-EVENT.Types = { "anomaly_whiplash", "anomaly_electro", "anomaly_vortex", "anomaly_warp" }
-EVENT.MaxAnomalies = 25
+EVENT.Types = { "anomaly_whiplash", "anomaly_electro", "anomaly_vortex", "anomaly_warp", "anomaly_hoverstone", "anomaly_deathpearl" }
+EVENT.MaxAnomalies = 30
 
 function EVENT:Start()
 
@@ -103,7 +103,7 @@ function EVENT:SpawnAnomaly( pos )
 
 	local enttype = table.Random( self.Types )
 	
-	if enttype == "anomaly_electro" and math.random(1,3) == 1 then
+	if ( enttype == "anomaly_electro" or enttype == "anomaly_deathpearl" ) and math.random(1,3) == 1 then
 	
 		local spot = table.Random( ents.FindByClass( "info_lootspawn" ) )
 		
@@ -120,6 +120,16 @@ function EVENT:SpawnAnomaly( pos )
 		ent:SetPos( tr.HitPos + Vector( 0, 0, 5 ) )
 		ent:Spawn()
 	
+	elseif enttype == "anomaly_hoverstone" then
+	
+		for i = 1, math.random(1,4) do
+
+			local ent = ents.Create( enttype )
+			ent:SetPos( pos + Vector( 0, 0, 100 ) + VectorRand() * 50 )
+			ent:Spawn()
+
+		end
+			
 	else
 
 		local ent = ents.Create( enttype )

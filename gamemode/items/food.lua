@@ -33,6 +33,18 @@ function FUNC_EAT( ply, id, client )
 
 end
 
+function FUNC_POTATO( ply, id, client )
+
+	if client then return "Eat" end
+	
+	ply:RemoveFromInventory( id )
+	ply:EmitSound( "npc/barnacle/barnacle_crunch2.wav", 100, math.random( 90, 110 ) )
+	ply:AddHealth( 100 )
+	ply:AddStamina( 100 )
+	ply:AddRadiation( 1 )
+
+end
+
 item.Register( { 
 	Name = "Grapefruit", 
 	Description = "This kind of fruit is quite rare to find in these areas. It looks ripe.",
@@ -45,20 +57,6 @@ item.Register( {
 	Functions = { FUNC_EAT },
 	CamPos = Vector(10,12,1),
 	CamOrigin = Vector(0,0,0)	
-} )
-
-item.Register( { 
-	Name = "Milk", 
-	Description = "Dairy products are a rare delicacy to find nowadays. The milk in this jug smells pretty fresh.",
-	Stackable = true, 
-	Type = ITEM_FOOD,
-	Weight = WEIGHT_FOOD_SMALL, 
-	Price = PRICE_RAREFOOD,
-	Rarity = 0.95,
-	Model = "models/props_junk/garbage_milkcarton001a.mdl", 
-	Functions = { FUNC_DRINK },
-	CamPos = Vector(20,15,0),
-	CamOrigin = Vector(0,0,0)
 } )
 
 item.Register( { 
@@ -118,14 +116,16 @@ item.Register( {
 } )
 
 item.Register( { 
-	Name = "Food Carton", 
-	Description = "This carton of partially eaten food doesn't look very appetizing.",
+	Name = "Radtato", 
+	Description = "This mutated potato was grown in the radioactive soil. It has a distinct green glow.",
 	Stackable = true, 
 	Type = ITEM_FOOD,
 	Weight = WEIGHT_FOOD_SMALL, 
-	Price = PRICE_FOOD,
-	Rarity = 0.20,
-	Model = "models/props_junk/garbage_takeoutcarton001a.mdl",
-	Functions = { FUNC_EAT } 
+	Price = 35,
+	Rarity = 0.75,
+	Model = "models/props_phx/misc/potato.mdl",
+	Functions = { FUNC_POTATO },
+	CamPos = Vector(10,10,0),
+	CamOrigin = Vector(0,1,0)	
 } )
 

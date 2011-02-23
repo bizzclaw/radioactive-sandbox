@@ -447,6 +447,10 @@ function GM:PlayerSpawn( pl )
 		return
 		
 	end
+	
+	umsg.Start( "Drunk", self.Target )
+	umsg.Short( -10 )
+	umsg.End()
 
 	GAMEMODE:PlayerLoadout( pl )
 	GAMEMODE:PlayerSetModel( pl )

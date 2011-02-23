@@ -220,7 +220,7 @@ item.Register( {
 
 item.Register( { 
 	Name = "Murky Water", 
-	Description = "This old glass bottle is full of murky water. It doesn't seem safe to drink.",
+	Description = "This old glass bottle is full of murky water. It doesn't look safe to drink.",
 	Stackable = true, 
 	Type = ITEM_LOOT,
 	Weight = 0.30, 
@@ -240,10 +240,10 @@ item.Register( {
 	Weight = 0.30, 
 	Price = 15,
 	Rarity = 0.25,
-	Model = "models/props/cs_militia/bottle02.mdl",
+	Model = "models/props_junk/garbage_glassbottle003a.mdl",
 	Functions = { FUNC_MOONSHINE },
-	CamPos = Vector(15,15,5),
-	CamOrigin = Vector(0,0,7)	
+	CamPos = Vector(16,18,-3),
+	CamOrigin = Vector(0,0,0)	
 } )
 
 item.Register( { 

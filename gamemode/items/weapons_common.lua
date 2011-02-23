@@ -2,6 +2,40 @@
 // This is the ID given to any weapon item for all teams
 ITEM_WPN_COMMON = 11
 
+function FUNC_PLANTBOMB( ply, id, client )
+
+	if client then return "Arm" end
+	
+	ply:RemoveFromInventory( id )
+	ply:EmitSound( "weapons/c4/c4_plant.wav" )
+	
+	local trace = {}
+	trace.start = ply:GetShootPos()
+	trace.endpos = ply:GetShootPos() + ply:GetAimVector() * 50
+	trace.filter = ply
+	local tr = util.TraceLine( trace )
+	
+	local bomb = ents.Create( "sent_c4" )
+	bomb:SetPos( tr.HitPos )
+	bomb:SetOwner( ply )
+	bomb:Spawn()
+
+end
+
+item.Register( { 
+	Name = "Timed Explosives", 
+	Description = "This is a homemade Composition-C explosive. The timer is set to last 10 seconds.",
+	Stackable = true, 
+	Type = ITEM_WPN_COMMON,
+	Weight = 3, 
+	Price = 100,
+	Rarity = 0.90,
+	Model = "models/weapons/w_c4.mdl",
+	Functions = { FUNC_PLANTBOMB },
+	CamPos = Vector(-13,-3,-3),
+	CamOrigin = Vector(0,5,0)
+} )
+
 item.Register( { 
 	Name = "HE Grenade", 
 	Description = "These grenades have a large explosion radius and a fuse that lasts 3 seconds.",
