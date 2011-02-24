@@ -19,9 +19,11 @@ function ENT:Initialize()
 	self.Entity:SetTrigger( true )
 	self.Entity:SetNotSolid( true )
 	self.Entity:DrawShadow( false )	
-		
+	
 	self.Entity:SetCollisionBounds( Vector( -150, -150, -150 ), Vector( 150, 150, 150 ) )
 	self.Entity:PhysicsInitBox( Vector( -150, -150, -150 ), Vector( 150, 150, 150 ) )
+	
+	self.NextSetOff = 0
 	
 end
 
@@ -34,6 +36,8 @@ end
 function ENT:Touch( ent ) 
 	
 	if self.SetOff then return end
+	
+	if self.NextSetOff > CurTime() then return end
 	
 	if ent:IsPlayer() or string.find( ent:GetClass(), "npc" ) or string.find( ent:GetClass(), "prop_phys" ) then
 	
@@ -68,6 +72,7 @@ function ENT:Think()
 		end
 		
 		self.SetOff = nil
+		self.NextSetOff = CurTime() + 2
 	
 	end
 
