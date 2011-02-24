@@ -4,23 +4,23 @@ function team.GetDescription( num )
 	if num == TEAM_EXODUS then
 	
 		return "radbox/logo_exodus",
-			   {"Exodus is a faction devoted to researching the landscape and collecting samples.",
+			   { GAMEMODE.ExodusTeamName .. " is a faction devoted to researching the landscape and collecting information.",
 			   " Their scientific background gives them access to many useful utilities that would otherwise be difficult to obtain.",
-			   " Though they are generally a peaceful faction, Exodus members will not hesitate to defend themselves when attacked."}
+			   " Though they are generally a peaceful faction, " .. GAMEMODE.ExodusTeamName .. " members will not hesitate to defend themselves when attacked."}
 	
 	elseif num == TEAM_ARMY then
 	
 		return "radbox/logo_nma",
-			   {"When society fell apart, a large group of mercenaries and ex-soldiers banded together to form the Western Military Alliance.",
+			   {"When society fell apart, a large group of mercenaries and ex-soldiers banded together to form the " .. GAMEMODE.ArmyTeamName .. ".",
 			   " Their connections to various arms dealers gives them access to some especially powerful weapons.",
 			   " The main goal of this faction is to eliminate any potential threats that get in their way and create a new world order."}
 	
 	else
 	
 		return "radbox/logo_bandoliers",
-		       {"The Bandoliers are a group of bandits and rebels focused on looting the remains of what once was society.",
+		       {"The " .. GAMEMODE.BandoliersTeamName .. " are a group of bandits and rebels focused on looting the remains of what once was society.",
 			   " Their network of black market dealers provides them with increased mission payoffs and better selling prices.",
-			   " The Bandoliers are notorious for their greedy and aggressive mindset."}
+			   " The " .. GAMEMODE.BandoliersTeamName .. " are notorious for their greedy and aggressive mindset."}
 	
 	end
 
@@ -28,19 +28,7 @@ end
 
 function team.GetLeaderModel( num )
 
-	if num == TEAM_EXODUS then
-	
-		return "models/player/magnusson.mdl"
-	
-	elseif num == TEAM_ARMY then
-	
-		return "models/player/leet.mdl"
-	
-	else
-	
-		return "models/player/guerilla.mdl"
-	
-	end
+	return GAMEMODE.TeamLeaderModels[ num ]
 
 end
 

@@ -1,6 +1,7 @@
 
 require( "glon" ) 
 
+include( 'moddable.lua' )
 include( 'items.lua' )
 include( 'quests.lua' )
 include( 'shared.lua' )
@@ -9,7 +10,6 @@ include( 'team.lua' )
 include( 'tables.lua' )
 include( 'enums.lua' )
 include( 'daycycle.lua' )
-include( 'moddable.lua' )
 include( 'events.lua' )
 include( 'db.lua' )
 
@@ -100,7 +100,7 @@ resource.AddFile( "sound/radbox/warning.vtf" )
 resource.AddFile( "sound/radbox/heartbeat.vtf" )
 
 CreateConVar( "sv_radbox_team_dmg", "0", { FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_SERVER_CAN_EXECUTE }, "Controls whether teammates can hurt eachother." )
-CreateConVar( "sv_radbox_dmg_scale", "1", { FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_SERVER_CAN_EXECUTE }, "Controls bullet damage scaling." )
+CreateConVar( "sv_radbox_dmg_scale", "1.0", { FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_SERVER_CAN_EXECUTE }, "Controls bullet damage scaling." )
 CreateConVar( "sv_radbox_allow_build", "0", { FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_SERVER_CAN_EXECUTE }, "Controls whether players can spawn props and use the physics gun." )
 CreateConVar( "sv_radbox_max_props", "10", { FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_SERVER_CAN_EXECUTE }, "Maximum number of props that players can spawn if building is allowed." )
 CreateConVar( "sv_radbox_allow_loners", "0", { FCVAR_REPLICATED, FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_SERVER_CAN_EXECUTE }, "Controls whether players spawn initially as a loner." )

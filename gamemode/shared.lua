@@ -7,20 +7,15 @@ GM.Email 		= ""
 GM.Website 		= ""
 GM.TeamBased 	= true
 
-TEAM_ARMY = 1
-TEAM_BANDOLIERS = 2
-TEAM_EXODUS = 3
-TEAM_LONER = 4
-
 function GM:CreateTeams()
 	
-	team.SetUp( TEAM_ARMY, "Western Military Alliance", Color( 255, 200, 80 ), true )
+	team.SetUp( TEAM_ARMY, GAMEMODE.ArmyTeamName, Color( 255, 200, 80 ), true )
 	team.SetSpawnPoint( TEAM_ARMY, "info_player_army" ) 
 	
-	team.SetUp( TEAM_BANDOLIERS, "Bandoliers", Color( 255, 80, 80 ), true )
+	team.SetUp( TEAM_BANDOLIERS, GAMEMODE.BandoliersTeamName, Color( 255, 80, 80 ), true )
 	team.SetSpawnPoint( TEAM_BANDOLIERS, "info_player_bandoliers" ) 
 	
-	team.SetUp( TEAM_EXODUS, "Exodus", Color( 80, 200, 255 ), true )
+	team.SetUp( TEAM_EXODUS, GAMEMODE.ExodusTeamName, Color( 80, 200, 255 ), true )
 	team.SetSpawnPoint( TEAM_EXODUS, "info_player_exodus" ) 
 	
 	team.SetUp( TEAM_LONER, "Loners", Color( 80, 200, 80 ), true )
