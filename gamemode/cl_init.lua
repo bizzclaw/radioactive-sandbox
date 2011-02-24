@@ -570,7 +570,7 @@ function GM:HUDPaint()
 	surface.SetMaterial( matArm )
 	surface.DrawTexturedRectRotated( centerx, centery, radius, radius, ArmAngle ) 
 	
-	local ent = LocalPlayer():GetNWEntity( "RadarTarget", nil )
+	local ent = LocalPlayer():GetDTEntity( 0 )
 	
 	if ValidEntity( ent ) then
 	

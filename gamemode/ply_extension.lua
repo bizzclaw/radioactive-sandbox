@@ -141,11 +141,13 @@ function meta:ViewBounce( scale )
 end
 
 function meta:SetRadarTarget( ent )
-	self:SetNWEntity( "RadarTarget", ent )
+	self:SetDTEntity( 0, ent )
+	//self:SetNWEntity( "RadarTarget", ent )
 end
 
 function meta:GetRadarTarget()
-	return self:GetNWEntity( "RadarTarget", NULL )
+	return self:GetDTEntity( 0 ) or NULL
+	//return self:GetNWEntity( "RadarTarget", NULL )
 end
 
 function meta:GetTeamTrader()

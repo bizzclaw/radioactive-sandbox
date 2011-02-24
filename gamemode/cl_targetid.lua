@@ -7,13 +7,13 @@ PlayerNames[4] = { "Kaz", "Sven", "Koslow", "Peter", "Vladik", "Moriz", "Stefan"
 PlayerNames[5] = { "Fang", "Ivanov", "Damien", "Tobias", "Boris", "Danil", "Dominik", "Alek", "Kobus", "Arman" }
 PlayerNames[6] = { "Jerome", "Alexander", "Jarec", "Wolfram", "Xavier", "Seb", "Felix", "Gustaf", "Jakob", "Andrei" }
 PlayerNames[7] = { "Yurik", "Pavel", "Jegor", "Vic", "Luthar", "Hawk", "Kruger", "Danko", "Dutch", "Viktor" }
-PlayerNames[8] = { "Sigil", "Marcus", "Sydric", "Nikola", "Valentin", "Yakim", "Dominic", "Syd", "Ilya", "Josef" }
+PlayerNames[8] = { "Sigil", "Marcus", "Sydric", "Nikolai", "Valentin", "Yakim", "Dominic", "Syd", "Ilya", "Josef" }
 PlayerNames[9] = { "Uri", "Kelthyr", "Erik", "Kilroy", "Sergei", "Duke", "Fredrik", "Hans", "Denis", "Anton" }
 PlayerNames[10] = { "Mikesh", "Sigmund", "Silas", "Rurik", "Nikita", "Dimitri", "Aleksei", "Vadym", "Viktor", "Kolya" }
 
 local LastNames = {}
 LastNames[1] = { "Dubnikov", "Sacharin", "Larin", "Berdjansk", "Dawydov", "Sakharov", "Nevrin", "Charkow", "Markov", "Havlik" } 
-LastNames[2] = { "Baranowski", "Lebedev", "Krylov", "Vicros", "Bellic", "Klimenko", "Kolovnik", "Lawrik", "Plochenko", "Klepacki" }
+LastNames[2] = { "Baranowski", "Lebedev", "Krylov", "Bellic", "Vicros", "Klimenko", "Kolovnik", "Lawrik", "Plochenko", "Klepacki" }
 LastNames[3] = { "Limansk", "Sidorow", "Pechenkin", "Petchenko", "Tarasov", "Kudinov", "Davidov", "Stanislav", "Kilgore", "Dombrik" }
 LastNames[4] = { "Ezrin", "Schabenko", "Black", "Maslov", "Gatsula", "Degtyarev", "Makarenko", "Viekko", "Burec", "Gusarov" }
 LastNames[5] = { "Hunter", "Brevin", "Constantin", "Lepechin", "Saveliy", "Vadim", "Vargan", "Vasek", "Vasko", "Yakov" }
