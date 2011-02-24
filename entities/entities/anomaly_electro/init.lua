@@ -131,7 +131,7 @@ function ENT:Explode()
 	
 	end
 	
-	for i=1, math.random( 8, 12 ) do
+	for i=1, math.random( 6, 12 ) do
 	
 		local vec = VectorRand() 
 		vec.z = math.Rand( -1.0, 0.5 )
@@ -141,8 +141,9 @@ function ENT:Explode()
 		trace.endpos = trace.start + vec * 500
 		
 		local tr = util.TraceLine( trace )
+		local count = 0
 		
-		while ( tr.HitPos:Distance( self.Entity:GetPos() ) < 50 or not tr.Hit ) do
+		while ( tr.HitPos:Distance( self.Entity:GetPos() ) < 50 or not tr.Hit ) and count < 20 do
 		
 			local vec = VectorRand() 
 			vec.z = math.Rand( -0.25, 0.50 )
@@ -153,6 +154,8 @@ function ENT:Explode()
 			trace.filter = self.Entity
 		
 			tr = util.TraceLine( trace )
+			
+			count = count + 1
 		
 		end
 		
@@ -222,7 +225,3 @@ function ENT:DrawBeams( ent1, ent2, pos )
 	target2:Fire( "kill", "", 0.2 )
 
 end 
-
-
-
-
