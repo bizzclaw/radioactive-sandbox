@@ -105,6 +105,8 @@ end
 
 function meta:AddRadiation( num )
 
+	if ply:Team() == TEAM_CONNECTING or ply:Team() == TEAM_UNASSIGNED or ply:Team() == TEAM_SPECTATOR then return end
+
 	if self:HasItem( "models/items/combine_rifle_cartridge01.mdl" ) and num > 0 then return end
 
 	self:SetRadiation( self:GetRadiation() + num ) 
