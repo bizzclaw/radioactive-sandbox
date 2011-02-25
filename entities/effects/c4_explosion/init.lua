@@ -54,7 +54,7 @@ function EFFECT:Init( data )
 	
 	for i=0,math.random(5,9) do
 	
-		local particle = emitter:Add("effects/fire_embers"..math.random(1,3).."", pos )
+		local particle = emitter:Add( "effects/fire_embers"..math.random(1,3), pos )
 		particle:SetVelocity( Vector(math.random(-400,400),math.random(-400,400),math.random(300,550)) )
 		particle:SetDieTime(math.Rand(2,5))
 		particle:SetStartAlpha(math.random(140,220))

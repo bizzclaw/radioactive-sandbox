@@ -1,8 +1,14 @@
 
 local EVENT = {}
 
-EVENT.Types = { "anomaly_whiplash", "anomaly_electro", "anomaly_vortex", "anomaly_warp", "anomaly_hoverstone", "anomaly_deathpearl" }
 EVENT.MaxAnomalies = 30
+EVENT.Types = { "anomaly_whiplash", 
+				"anomaly_electro", 
+				"anomaly_vortex", 
+				"anomaly_warp", 
+				"anomaly_hoverstone", 
+				"anomaly_deathpearl", 
+				"anomaly_cooker" }
 
 function EVENT:Start()
 
@@ -122,7 +128,7 @@ function EVENT:SpawnAnomaly( pos )
 	
 	elseif enttype == "anomaly_hoverstone" then
 	
-		for i = 1, math.random(1,4) do
+		for i=1, math.random(1,3) do
 
 			local ent = ents.Create( enttype )
 			ent:SetPos( pos + Vector( 0, 0, 100 ) + VectorRand() * 50 )
@@ -130,6 +136,49 @@ function EVENT:SpawnAnomaly( pos )
 
 		end
 			
+	elseif enttype == "anomaly_cooker" then
+	
+		local ent = ents.Create( enttype )
+		ent:SetPos( pos + Vector( 0, 0, 5 ) )
+		ent:Spawn()
+	
+		for i=1, math.random(1,3) do
+		
+			local count = 0		
+			local rand = VectorRand() * 500
+			rand.z = -50
+		
+			local trace = {}
+			trace.start = pos + Vector(0,0,100)
+			trace.endpos = trace.start + rand
+			
+			local tr = util.TraceLine( trace )
+			
+			while count < 50 and ( tr.HitPos:Distance( pos ) < 150 or not tr.Hit ) do
+			
+				rand = VectorRand() * 800
+				rand.z = math.random( -50, -10 )
+		
+				trace = {}
+				trace.start = pos + Vector(0,0,100)
+				trace.endpos = trace.start + rand
+			
+				tr = util.TraceLine( trace )
+				
+				count = count + 1
+			
+			end
+			
+			if count < 50 then
+
+				local ent = ents.Create( enttype )
+				ent:SetPos( tr.HitPos + Vector( 0, 0, 5 ) )
+				ent:Spawn()
+				
+			end
+
+		end
+	
 	else
 
 		local ent = ents.Create( enttype )
@@ -144,6 +193,8 @@ function EVENT:CheckPos( pos )
 
 	local tbl = player.GetAll()
 	tbl = table.Add( tbl, ents.FindByClass( "anomaly*" ) )
+	tbl = table.Add( tbl, ents.FindByClass( "info_player*" ) )
+	tbl = table.Add( tbl, ents.FindByClass( "npc_trader*" ) )
 
 	for k,v in pairs( tbl ) do
 	

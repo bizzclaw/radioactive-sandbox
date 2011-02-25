@@ -49,7 +49,7 @@ SWEP.Secondary.Ammo			= "none"
 
 SWEP.AmmoType = "Knife"
 
-SWEP.ItemTypes = { "anomaly_hoverstone", "anomaly_deathpearl" }
+SWEP.ItemTypes = { "anomaly_hoverstone", "anomaly_deathpearl", "anomaly_cooker" }
 
 function SWEP:Initialize()
 	
