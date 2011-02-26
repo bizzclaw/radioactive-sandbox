@@ -77,10 +77,11 @@ function ENT:InitializeCharacter()
 	"vo/k_lab/kl_mygoodness03.wav",
 	"vo/k_lab/kl_fiddlesticks.wav",
 	"vo/k_lab/kl_whatisit.wav",
-	"vo/k_lab/kl_ohdear.wav",
+	"vo/k_lab/kl_holdup02.wav",
 	"vo/k_lab2/kl_givenuphope.wav",
 	"vo/k_lab2/kl_howandwhen02.wav",
 	"vo/k_lab2/kl_cantleavelamarr.wav",
+	"vo/trainyard/kl_morewarn01.wav",
 	"vo/trainyard/kl_morewarn03.wav",
 	"vo/trainyard/kl_whatisit02.wav"}
 
@@ -88,11 +89,14 @@ function ENT:InitializeCharacter()
 	"vo/k_lab/kl_dearme.wav",
 	"vo/k_lab/kl_excellent.wav",
 	"vo/k_lab/kl_fewmoments02.wav",
+	"vo/k_lab/kl_ohdear.wav",
 	"vo/k_lab2/kl_notallhopeless_b.wav"}
 
 	self.Thank = {"vo/k_lab/kl_excellent.wav",
 	"vo/k_lab/kl_moduli02.wav",
 	"vo/k_lab/kl_relieved.wav",
+	"vo/k_lab/kl_almostforgot.wav",
+	"vo/k_lab/kl_nownow02.wav",
 	"vo/k_lab2/kl_slowteleport01.wav",
 	"vo/k_lab2/kl_slowteleport02.wav"}
 	

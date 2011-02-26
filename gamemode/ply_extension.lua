@@ -105,7 +105,7 @@ end
 
 function meta:AddRadiation( num )
 
-	if ply:Team() == TEAM_CONNECTING or ply:Team() == TEAM_UNASSIGNED or ply:Team() == TEAM_SPECTATOR then return end
+	if self:Team() == TEAM_CONNECTING or self:Team() == TEAM_UNASSIGNED or self:Team() == TEAM_SPECTATOR then return end
 
 	if self:HasItem( "models/items/combine_rifle_cartridge01.mdl" ) and num > 0 then return end
 
@@ -161,7 +161,7 @@ end
 function meta:Notify( text )
 
 	self:EmitSound( "npc/metropolice/vo/off1.wav", 50, 100 )
-	self:SendLua( "chat.AddText( Color( 0, 255, 0 ), team.GetTraderName(), Color( 255, 255, 255 ), [[: " .. text .. "]] )" )
+	self:SendLua( "chat.AddText( Color( 150, 150, 150 ), team.GetTraderName(), Color( 255, 255, 255 ), [[: " .. text .. "]] )" )
 
 end
 
@@ -376,13 +376,14 @@ function meta:Think()
 	if self:HasItem( "models/items/battery.mdl" ) then
 	
 		local tbl = ents.FindByClass( "anomaly*" )
+		tbl = table.Add( tbl, ents.FindByClass( "biganomaly*" ) )
 		tbl = table.Add( tbl, ents.FindByClass( "point_radiation" ) )
 	
 		for k,v in pairs( tbl ) do
 		
 			local dist = v:GetPos():Distance( self:GetPos() )
 		
-			if dist < v:GetRadiationRadius() + 300 and ( v:GetClass() != "point_radiation" or v:IsActive() ) then // and dist > v:GetRadiationRadius()
+			if dist < v:GetRadiationRadius() + 300 and ( v:GetClass() != "point_radiation" or v:IsActive() ) then 
 			
 				if ( self.WarningTime or 0 ) < CurTime() then
 				

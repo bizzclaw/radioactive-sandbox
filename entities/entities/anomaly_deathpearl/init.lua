@@ -38,6 +38,12 @@ function ENT:Initialize()
 
 end
 
+function ENT:GetRadiationRadius()
+
+	return 800
+
+end
+
 function ENT:PhysicsSimulate( phys, delta )
 
 	if not self.Active then return SIM_NOTHING end

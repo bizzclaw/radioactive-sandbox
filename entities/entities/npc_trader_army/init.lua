@@ -68,19 +68,27 @@ function ENT:InitializeCharacter()
 	
 	self.Greet = {"vo/k_lab/ba_thereheis.wav",
 	"vo/k_lab/ba_thereyouare.wav",
+	"vo/k_lab/ba_hesback01.wav",
+	"vo/k_lab/ba_nottoosoon01.wav",
 	"vo/k_lab2/ba_goodnews_b.wav",
+	"vo/k_lab2/ba_goodnews_c.wav",
 	"vo/streetwar/rubble/ba_illbedamned.wav",
+	"vo/streetwar/rubble/ba_helpmeout.wav",
 	"vo/npc/barney/ba_losttouch.wav",
+	"vo/npc/barney/ba_hurryup.wav",
 	"vo/npc/barney/ba_imwithyou.wav"}
 
 	self.Goodbye = {"vo/k_lab/ba_myshift01.wav",
+	"vo/k_lab/ba_careful02.wav",
 	"vo/streetwar/nexus/ba_done.wav",
 	"vo/trainyard/ba_goodluck01.wav",
 	"vo/trainyard/ba_meetyoulater01.wav",
 	"vo/trainyard/ba_exitnag03.wav",
 	"vo/trainyard/ba_exitnag04.wav",
 	"vo/trainyard/ba_exitnag05.wav",
-	"vo/streetwar/rubble/ba_nag_wall04.wav"}
+	"vo/trainyard/ba_exitnag07.wav",
+	"vo/streetwar/rubble/ba_nag_wall04.wav",
+	"vo/streetwar/rubble/ba_nag_wall05.wav"}
 
 	self.Thank = {"vo/k_lab/ba_geethanks.wav",
 	"vo/k_lab/ba_thingaway01.wav",

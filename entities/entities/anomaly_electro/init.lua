@@ -96,7 +96,14 @@ function ENT:Explode()
 	
 	for k,v in pairs( tbl ) do
 	
-		if v:GetPos():Distance( self.Entity:GetPos() ) < self.ZapRadius then
+		local trace = {}
+		trace.start = self.Entity:GetPos()
+		trace.endpos = v:GetPos() + Vector(0,0,30)
+		trace.filter = self.Entity
+		
+		local tr = util.TraceLine( trace )
+	
+		if v:GetPos():Distance( self.Entity:GetPos() ) < self.ZapRadius and not tr.HitWorld then
 			
 			if ( v:IsPlayer() and not ValidEntity( v:GetVehicle() ) ) or not v:IsPlayer() then
 			

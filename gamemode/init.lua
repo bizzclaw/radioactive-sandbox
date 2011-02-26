@@ -432,14 +432,22 @@ function GM:PlayerInitialSpawn( pl )
 
 	GAMEMODE:LoadInventory( pl )
 	
-	pl:SetTeam( TEAM_UNASSIGNED )
-	pl:Spectate( OBS_MODE_ROAMING )
+	if not GetConVar( "sv_radbox_allow_loners" ):GetBool() then 
+	
+		pl:SetTeam( TEAM_UNASSIGNED )
+		pl:Spectate( OBS_MODE_ROAMING )
+		
+	else
+	
+		pl:SetTeam( TEAM_LONER )
+	
+	end
 	
 end
 
 function GM:PlayerSpawn( pl )
 
-	if pl:Team() == TEAM_UNASSIGNED then
+	if pl:Team() == TEAM_UNASSIGNED and not GetConVar( "sv_radbox_allow_loners" ):GetBool() then
 	
 		pl:Spectate( OBS_MODE_ROAMING )
 		pl:SetPos( pl:GetPos() + Vector( 0, 0, 50 ) )
@@ -725,6 +733,8 @@ end
 function GM:ShowTeam( ply )
 	
 	if ply:Alive() and ply:Team() != TEAM_UNASSIGNED then return end
+	
+	if GetConVar( "sv_radbox_allow_loners" ):GetBool() and ply:Team() == TEAM_UNASSIGNED then return end
 	
 	ply:SendLua( "GAMEMODE:ShowTeam()" )
 

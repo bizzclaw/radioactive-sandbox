@@ -1,7 +1,19 @@
 
 local EVENT = {}
 
-EVENT.Types = { "biganomaly_vortex" }
+EVENT.Types = { "biganomaly_vortex", "biganomaly_deathfog" }
+
+EVENT.Notify = {}
+EVENT.Notify[ "biganomaly_vortex" ] = "An unusually large Vortex anomaly has been sighted in the area. Stay alert."
+EVENT.Notify[ "biganomaly_deathfog" ] = "A Death Fog anomaly has been sighted in the area. Be careful."
+
+EVENT.Alert = {}
+EVENT.Alert[ "biganomaly_vortex" ] = "A large Vortex anomaly has formed near your position! Get out of there now!"
+EVENT.Alert[ "biganomaly_deathfog" ] = "A Death Fog anomaly has formed above your position! Get indoors now or put on a respirator!"
+
+EVENT.MaxDist = {}
+EVENT.MaxDist[ "biganomaly_vortex" ] = 3000
+EVENT.MaxDist[ "biganomaly_deathfog" ] = 2500
 
 function EVENT:Start()
 
@@ -71,15 +83,30 @@ end
 
 function EVENT:SpawnAnomaly( pos )
 
-	local ent = ents.Create( table.Random( self.Types ) )
-	ent:SetPos( pos + Vector( 0, 0, 5 ) )
-	ent:Spawn()
+	local enttype = table.Random( self.Types )
+	
+	if enttype == "biganomaly_deathfog" then
+	
+		local ent = ents.Create( enttype )
+		ent:SetPos( pos + Vector( 0, 0, 600 ) )
+		ent:Spawn()
+	
+	else
+
+		local ent = ents.Create( enttype )
+		ent:SetPos( pos + Vector( 0, 0, 5 ) )
+		ent:Spawn()
+		
+	end
+	
+	self.Ent = enttype
+	self.EntPos = pos
 
 end
 	
 function EVENT:CheckPos( pos )
 
-	local tbl = player.GetAll()
+	local tbl = ents.FindByClass( "info_player*" )
 	tbl = table.Add( tbl, ents.FindByClass( "anomaly*" ) )
 
 	for k,v in pairs( tbl ) do
@@ -110,7 +137,15 @@ function EVENT:End()
 	
 		if v:Team() != TEAM_UNASSIGNED then
 		
-			v:Notify( "A strange anomaly has formed near your position, stay alert." )
+			if v:GetPos():Distance( self.EntPos ) < self.MaxDist[ self.Ent ] then
+		
+				v:Notify( self.Alert[ self.Ent ] )
+				
+			else
+			
+				v:Notify( self.Notify[ self.Ent ] )
+			
+			end
 		
 		end
 	

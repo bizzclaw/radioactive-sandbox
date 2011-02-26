@@ -105,7 +105,7 @@ function GM:HUDShouldDraw( name )
 
 	if GAMEMODE.ScoreboardVisible then return false end
 	
-	for k, v in pairs{"CHudHealth", "CHudBattery", "CHudAmmo", "CHudSecondaryAmmo"} do
+	for k, v in pairs{"CHudHealth", "CHudBattery", "CHudAmmo", "CHudSecondaryAmmo", "CHudSuitPower", "CHudPoisonDamageIndicator"} do
 		if name == v then return false end 
   	end 
 	

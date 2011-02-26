@@ -33,17 +33,23 @@ function ENT:InitializeCharacter()
 	
 	self.Greet = {"vo/ravenholm/pyre_anotherlife.wav",
 	"vo/ravenholm/monk_mourn04.wav",
+	"vo/ravenholm/monk_overhere.wav",
+	"vo/ravenholm/shotgun_bettergun.wav",
 	"vo/ravenholm/shotgun_closer.wav",
 	"vo/ravenholm/shotgun_overhere.wav",
 	"vo/ravenholm/wrongside_howcome.wav",
 	"vo/ravenholm/wrongside_town.wav",
 	"vo/ravenholm/yard_greetings.wav",
 	"vo/ravenholm/bucket_thereyouare.wav",
-	"vo/ravenholm/engage01.wav"}
+	"vo/ravenholm/engage01.wav",
+	"vo/ravenholm/engage02.wav",
+	"vo/ravenholm/engage03.wav"}
 
 	self.Goodbye = {"vo/ravenholm/pyre_keepeye.wav",
 	"vo/ravenholm/bucket_guardwell.wav",
 	"vo/ravenholm/monk_kill10.wav",
+	"vo/ravenholm/monk_rant17.wav",
+	"vo/ravenholm/monk_danger03.wav",
 	"vo/ravenholm/exit_goquickly.wav",
 	"vo/ravenholm/monk_mourn03.wav"}
 
@@ -51,6 +57,7 @@ function ENT:InitializeCharacter()
 	"vo/ravenholm/madlaugh01.wav",
 	"vo/ravenholm/madlaugh02.wav",
 	"vo/ravenholm/madlaugh04.wav",
+	"vo/ravenholm/shotgun_stirreduphell.wav",
 	"vo/ravenholm/cartrap_better.wav"}
 	
 end
