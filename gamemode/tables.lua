@@ -11,12 +11,7 @@ GM.Ricochet = {"weapons/fx/rics/ric1.wav",
 "weapons/fx/rics/ric4.wav",
 "weapons/fx/rics/ric5.wav"}
 
-GM.BombExplosion = {"weapons/hegrenade/explode3.wav",
-"weapons/hegrenade/explode4.wav",
-"weapons/hegrenade/explode5.wav"}
-
 GM.Corpses = {"models/player/Charple01.mdl",
-"models/player/corpse1.mdl",
 "models/humans/charple02.mdl",
 "models/humans/charple03.mdl",
 "models/humans/charple03.mdl",

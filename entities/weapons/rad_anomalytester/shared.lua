@@ -49,7 +49,14 @@ SWEP.Secondary.Ammo			= "none"
 
 SWEP.AmmoType = "Knife"
 
-SWEP.ItemTypes = { "anomaly_hoverstone", "biganomaly_deathfog", "anomaly_cooker" }
+SWEP.ItemTypes = { "anomaly_whiplash", 
+				"anomaly_electro", 
+				"anomaly_vortex", 
+				"anomaly_warp", 
+				"anomaly_hoverstone", 
+				"anomaly_deathpearl", 
+				"anomaly_cooker",
+				"biganomaly_deathfog"}
 
 function SWEP:Initialize()
 	
@@ -93,7 +100,7 @@ function SWEP:PlaceItem()
 	local tr = util.TraceLine( util.GetPlayerTrace( self.Owner ) )
 	
 	local ent = ents.Create( itemtype )
-	ent:SetPos( tr.HitPos + tr.HitNormal * 600 )
+	ent:SetPos( tr.HitPos + tr.HitNormal * 50 )
 	ent:Spawn()
 
 end

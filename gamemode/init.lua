@@ -717,6 +717,12 @@ end
 
 function GM:DoPlayerDeath( ply, attacker, dmginfo )
 
+	if dmginfo:IsExplosionDamage() then
+	
+		ply:SetModel( table.Random( GAMEMODE.Corpses ) )
+	
+	end
+
 	if attacker:IsPlayer() then
 	
 		attacker:AddFrags( 1 )

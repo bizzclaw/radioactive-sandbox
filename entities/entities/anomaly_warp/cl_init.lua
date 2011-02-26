@@ -38,7 +38,7 @@ function ENT:Think()
 
 end
 
-local function WarpThink( part )
+function WarpThink( part )
 
 	local dir = ( part.Pos - part:GetPos() ):Normalize()
 	
