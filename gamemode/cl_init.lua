@@ -173,11 +173,11 @@ function GM:Think()
 	
 		EmoteCooldown = CurTime() + math.random( 60, 120 )
 		
-		if Drunkness > 1 then
+		if Drunkness > 3 then
 			
 			RunConsoleCommand( "say", table.Random( GAMEMODE.ChatEmotes[ "Drunk" ] ) )
 		
-		elseif LocalPlayer():GetNWInt( "Radiation", 0 ) then
+		elseif LocalPlayer():GetNWInt( "Radiation", 0 ) > 0 then
 		
 			RunConsoleCommand( "say", table.Random( GAMEMODE.ChatEmotes[ "Radiation" ] ) )
 		
