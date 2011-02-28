@@ -14,7 +14,7 @@ Sound( "ambient/voices/citizen_beaten4.wav" ) }
 
 ENT.WaitTime = 5
 ENT.KillRadius = 2000
-ENT.Damage = 15
+ENT.Damage = 20
 
 function ENT:Initialize()
 	

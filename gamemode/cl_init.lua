@@ -177,7 +177,7 @@ function GM:Think()
 			
 			RunConsoleCommand( "say", table.Random( GAMEMODE.ChatEmotes[ "Drunk" ] ) )
 		
-		elseif LocalPlayer():GetNWInt( "Radiation", 0 ) > 0 then
+		elseif LocalPlayer():GetNWInt( "Radiation", 0 ) > 1 then
 		
 			RunConsoleCommand( "say", table.Random( GAMEMODE.ChatEmotes[ "Radiation" ] ) )
 		

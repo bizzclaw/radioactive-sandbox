@@ -108,7 +108,7 @@ function GM:LootThink()
 	
 	local num = amt - total
 	local tbl = { ITEM_FOOD, ITEM_SUPPLY, ITEM_LOOT, ITEM_AMMO, ITEM_MISC, ITEM_EXODUS, ITEM_WPN_COMMON }
-	local chancetbl = { 1.0,    0.8,        0.7,      0.4,        0.6,       0.1,        0.2 }
+	local chancetbl = { 1.00,    0.80,        0.80,      0.40,     0.60,       0.05,          0.05 }
 	
 	if num > 0 then
 	
@@ -125,7 +125,7 @@ function GM:LootThink()
 				local num = math.Rand(0,1)
 				local choice = math.random(1,7)
 				
-				while num < chancetbl[ choice ] do
+				while num > chancetbl[ choice ] do
 				
 					num = math.Rand(0,1)
 					choice = math.random(1,7)

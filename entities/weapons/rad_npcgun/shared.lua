@@ -17,7 +17,7 @@ SWEP.Base = "rad_base"
 SWEP.WorldModel	= "models/weapons/w_smg_mac10.mdl"
 
 SWEP.Primary.Sound			= Sound( "Weapon_mac10.Single" )
-SWEP.Primary.Damage			= 20
+SWEP.Primary.Damage			= 15
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.Cone			= 0.090
 SWEP.Primary.Delay			= 0.050
