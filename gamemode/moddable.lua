@@ -53,7 +53,7 @@ GM.ChatEmotes = {}
 GM.ChatEmotes[ "Drunk" ] = { "/me burps",
 "/me belches",
 "/me vomits",
-"/me feels dizzy",
+"/me feels dizzy and disoriented",
 "/me staggers to the left",
 "/me staggers to the right",
 "/me has a headache from drinking too much alcohol",
@@ -65,15 +65,21 @@ GM.ChatEmotes[ "Radiation" ] = { "/me is nauseous from radiation poisoning",
 "/me feels weak",
 "/me is fatigued",
 "/me has an unhealthy radioactive glow",
-"/me feels disoriented",
 "/me vomits up blood",
 "/me has a headache from radiation poisoning" }
 
 GM.ChatEmotes[ "Bleeding" ] = { "/me feels weak from blood loss",
 "/me has lost a lot of blood",
+"/me needs some bandages",
 "/me is covered in blood",
 "/me feels lightheaded" }
-										
+
+GM.ChatEmotes[ "Pain" ] = { "/me moans in pain",
+"/me requires first aid",
+"/me is in a lot of pain",
+"/me is severely injured",
+"/me is hurt badly" }
+	
 // Weight Limits (lbs)
 
 GM.OptimalWeight = 15 // If your weight is less than this then you gain stamina faster.

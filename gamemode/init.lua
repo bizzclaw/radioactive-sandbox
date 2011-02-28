@@ -570,6 +570,14 @@ function GM:KeyRelease( ply, key )
 
 	if ValidEntity( tr.Entity ) and tr.Entity:GetClass() == "prop_physics" then
 	
+		if ValidEntity( ply.Stash ) then
+		
+			ply.Stash:OnExit( ply )
+			
+			return true
+		
+		end
+	
 		ply:AddToInventory( tr.Entity )
 		return true
 		

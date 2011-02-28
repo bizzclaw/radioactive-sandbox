@@ -169,7 +169,7 @@ function GM:OnPlayerChat( ply, text, isteam, isdead )
 
 		local expl = string.Left( text, string.len( v ) )
 		
-		if expl == v then 
+		if expl == v and ply:Alive() then 
 		
 			text = string.Trim( string.Right( text, string.len( text ) - string.len( v ) ) )
 			ply.ChatWords = ply.ChatWords or {}

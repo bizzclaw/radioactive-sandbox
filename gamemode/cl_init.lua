@@ -185,6 +185,10 @@ function GM:Think()
 		
 			RunConsoleCommand( "say", table.Random( GAMEMODE.ChatEmotes[ "Bleeding" ] ) )
 		
+		elseif LocalPlayer():Health() < 100 then
+		
+			RunConsoleCommand( "say", table.Random( GAMEMODE.ChatEmotes[ "Pain" ] ) )
+		
 		end
 	
 	end
