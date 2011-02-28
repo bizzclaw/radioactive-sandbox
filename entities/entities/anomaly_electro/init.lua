@@ -113,6 +113,8 @@ function ENT:Explode()
 			
 				end
 				
+				self.Entity:DrawBeams( self.Entity, v )
+				
 				local ed = EffectData()
 				ed:SetOrigin( v:GetPos() )
 				util.Effect( "electric_zap", ed )
@@ -130,15 +132,13 @@ function ENT:Explode()
 				v:TakeDamageInfo( dmg )
 				v:EmitSound( table.Random( self.ZapHit ), 100, math.random(90,110) )
 				
-				self.Entity:DrawBeams( self.Entity, v )
-				
 			end
 				
 		end
 	
 	end
 	
-	for i=1, math.random( 6, 12 ) do
+	for i=1, math.random( 4, 8 ) do
 	
 		local vec = VectorRand() 
 		vec.z = math.Rand( -1.0, 0.5 )
@@ -190,7 +190,6 @@ function ENT:DrawBeams( ent1, ent2, pos )
 	target:SetParent( ent1 )
 	target:SetName( tostring( ent1 )..math.random(1,900) )
 	target:Spawn()
-	target:Activate()
 	
 	local target2 = ents.Create( "info_target" )
 	
@@ -208,7 +207,6 @@ function ENT:DrawBeams( ent1, ent2, pos )
 	end
 	
 	target2:Spawn()
-	target2:Activate()
 	
 	local laser = ents.Create( "env_beam" )
 	laser:SetPos( ent1:GetPos() )
@@ -228,7 +226,7 @@ function ENT:DrawBeams( ent1, ent2, pos )
 	laser:Activate()
 	
 	laser:Fire( "kill", "", 0.2 )
-	target:Fire( "kill", "", 0.2 )
-	target2:Fire( "kill", "", 0.2 )
+	target:Fire( "kill", "", 0.4 )
+	target2:Fire( "kill", "", 0.4 )
 
 end 
