@@ -17,7 +17,7 @@ QUEST.Start = function( ply )
 	
 	if ValidEntity( zombie ) then
 	
-		ply:SetRadarTarget( zombie )
+		ply:SetRadarStaticTarget( zombie )
 	
 	end
 	
@@ -43,7 +43,7 @@ end
 QUEST.Cancel = function( ply )
 
 	ply:SetInQuest( false, 0 )
-	ply:SetRadarTarget( NULL )
+	ply:SetRadarStaticTarget( NULL )
 	ply.QuestNum = nil
 
 end
@@ -71,6 +71,7 @@ QUEST.StatusThink = function( ply )
 		if count >= 3 then
 		
 			ply:Notify( "Bring the zombie body parts to me for your reward." )
+			ply:SetRadarStaticTarget( ply:GetTeamTrader() )
 		
 		elseif count == 2 then
 		
@@ -85,8 +86,6 @@ QUEST.StatusThink = function( ply )
 		
 		ply.QuestNum = count
 	
-		ply:SetRadarTarget( ply:GetTeamTrader() )
-	
 	end
 	
 	if not ValidEntity( ply:GetRadarTarget() ) and ply.QuestNum < 3 then
@@ -99,7 +98,7 @@ QUEST.StatusThink = function( ply )
 	
 		if ValidEntity( zombie ) then
 	
-			ply:SetRadarTarget( zombie )
+			ply:SetRadarStaticTarget( zombie )
 			ply:Notify( "Another zombie's position has been marked on your radar." )
 	
 		end
@@ -161,7 +160,7 @@ QUEST.End = function( ply )
 	ply:DialogueWindow( "You have earned $"..cash.."." )
 	
 	ply:SetInQuest( false, 0 )
-	ply:SetRadarTarget( NULL )
+	ply:SetRadarStaticTarget( NULL )
 	ply.QuestNum = nil
 
 end

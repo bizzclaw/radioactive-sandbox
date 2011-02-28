@@ -59,7 +59,7 @@ QUEST.Start = function( ply )
 	
 	ply.QuestLoot = tbl.ID
 	ply.QuestBag = ent
-	ply:SetRadarTarget( ent )
+	ply:SetRadarStaticTarget( ent )
 	ply:Notify( "The position of the item has been marked on your radar." )
 	
 end
@@ -87,7 +87,7 @@ QUEST.Cancel = function( ply )
 	end
 	
 	ply:SetInQuest( false, 0 )
-	ply:SetRadarTarget( NULL )
+	ply:SetRadarStaticTarget( NULL )
 	ply.QuestStatusChange = nil
 
 end
@@ -97,7 +97,7 @@ QUEST.StatusThink = function( ply )
 	if ply:HasItem( ply.QuestLoot ) and not ply.QuestStatusChange then
 	
 		ply:Notify( "You've found the item? Bring it to me as soon as possible." )
-		ply:SetRadarTarget( ply:GetTeamTrader() )
+		ply:SetRadarStaticTarget( ply:GetTeamTrader() )
 		ply.QuestStatusChange = true
 	
 	end
@@ -138,7 +138,7 @@ QUEST.End = function( ply )
 	ply:DialogueWindow( "You have earned $"..cash.."." )
 	
 	ply:SetInQuest( false, 0 )
-	ply:SetRadarTarget( NULL )
+	ply:SetRadarStaticTarget( NULL )
 	ply.QuestStatusChange = nil
 
 end

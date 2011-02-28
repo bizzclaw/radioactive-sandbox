@@ -60,7 +60,7 @@ QUEST.Start = function( ply )
 	
 	ply.QuestLoot = ent
 	ply.QuestPos = spawn:GetPos()
-	ply:SetRadarTarget( ent )
+	ply:SetRadarStaticTarget( ent )
 	ply:Notify( "The position of the rogue has been marked on your radar." )
 	
 end
@@ -91,7 +91,7 @@ QUEST.Cancel = function( ply )
 	ply.QuestLoot = nil
 	ply.QuestPos = nil
 	ply:SetInQuest( false, 0 )
-	ply:SetRadarTarget( NULL )
+	ply:SetRadarStaticTarget( NULL )
 	ply.QuestStatusChange = nil
 
 end
@@ -105,7 +105,7 @@ QUEST.StatusThink = function( ply )
 		ent:Spawn()
 	
 		ply:Notify( "The rogue faction member should be nearby. Eliminate him." )
-		ply:SetRadarTarget( ent )
+		ply:SetRadarStaticTarget( ent )
 	
 		ply.QuestNPC = ent
 		ply.QuestPos = nil
@@ -127,7 +127,7 @@ QUEST.StatusThink = function( ply )
 	if not ValidEntity( ply.QuestNPC ) and not ply.QuestStatusChange then
 	
 		ply:Notify( "The rogue is dead? Good. Come see me as soon as possible." )
-		ply:SetRadarTarget( ply:GetTeamTrader() )
+		ply:SetRadarStaticTarget( ply:GetTeamTrader() )
 		ply.QuestStatusChange = true
 	
 	end
@@ -166,7 +166,7 @@ QUEST.End = function( ply )
 	ply:DialogueWindow( "You have earned $"..cash.."." )
 	
 	ply:SetInQuest( false, 0 )
-	ply:SetRadarTarget( NULL )
+	ply:SetRadarStaticTarget( NULL )
 	ply.QuestStatusChange = nil
 	ply.QuestPos = nil
 	ply.QuestLoot = nil

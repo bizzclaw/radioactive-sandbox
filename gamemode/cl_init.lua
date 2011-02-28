@@ -28,6 +28,7 @@ function GM:Initialize( )
 	GAMEMODE:InitVGUI()
 	
 	WindVector = Vector( math.random(-10,10), math.random(-10,10), 0 )
+	StaticPos = Vector(0,0,0)
 	NightVision = false
 	VehicleView = false
 	Drunkness = 0
@@ -572,25 +573,29 @@ function GM:HUDPaint()
 	
 	local ent = LocalPlayer():GetDTEntity( 0 )
 	
-	if ValidEntity( ent ) then
+	if ValidEntity( ent ) or StaticPos != Vector(0,0,0) then
 	
-		for k,v in pairs( PosTable ) do
+		local ang = Angle(0,0,0)
+	
+		if ValidEntity( ent ) then
 		
-			if v.Ent == ent then
+			ang = ( ent:GetPos() - LocalPlayer():GetShootPos()):Angle() - LocalPlayer():GetForward():Angle()
 			
-				local diff = ( v.Pos - LocalPlayer():GetPos() )
+			local diff = ( ent:GetPos() - LocalPlayer():GetPos() )
 				
-				if math.sqrt( diff.x * diff.x + diff.y * diff.y ) < MaxDist * FadeDist then 
+			if math.sqrt( diff.x * diff.x + diff.y * diff.y ) < MaxDist * FadeDist then 
 				
-					return
+				return
 				
-				end
-			
 			end
 		
 		end
 		
-		local ang = ( ent:GetPos() - LocalPlayer():GetShootPos()):Angle() - LocalPlayer():GetForward():Angle()
+		if StaticPos != Vector(0,0,0) then
+		
+			ang = ( StaticPos - LocalPlayer():GetShootPos()):Angle() - LocalPlayer():GetForward():Angle()
+		
+		end
 		
 		surface.SetDrawColor( 255, 255, 255, 150 ) 
 		surface.SetMaterial( matArrow )
@@ -637,6 +642,13 @@ end
 function GM:CreateMove( cmd )
 
 end
+
+function SetRadarTarget( msg )
+ 
+	StaticPos = msg:ReadVector()
+ 
+end
+usermessage.Hook( "StaticTarget", SetRadarTarget )
 
 function AddDrunkness( msg )
  

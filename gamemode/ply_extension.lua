@@ -142,14 +142,32 @@ function meta:ViewBounce( scale )
 	self:ViewPunch( Angle( math.Rand( -0.2, -0.1 ) * scale, math.Rand( -0.05, 0.05 ) * scale, 0 ) )
 end
 
+function meta:SetRadarStaticTarget( ent )
+
+	self:SetDTEntity( 0, ent )
+	
+	umsg.Start( "StaticTarget", self )
+	
+	if ent == NULL then
+	
+		umsg.Vector( Vector(0,0,0) )
+		
+	else
+	
+		umsg.Vector( ent:GetPos() )
+	
+	end
+	
+	umsg.End()
+	
+end
+
 function meta:SetRadarTarget( ent )
 	self:SetDTEntity( 0, ent )
-	//self:SetNWEntity( "RadarTarget", ent )
 end
 
 function meta:GetRadarTarget()
 	return self:GetDTEntity( 0 ) or NULL
-	//return self:GetNWEntity( "RadarTarget", NULL )
 end
 
 function meta:GetTeamTrader()

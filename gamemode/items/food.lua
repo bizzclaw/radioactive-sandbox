@@ -83,7 +83,7 @@ item.Register( {
 	Rarity = 0.05,
 	Model = "models/props_junk/garbage_plasticbottle003a.mdl",
 	Functions = { FUNC_DRINK },
-	CamPos = Vector(20,22,0),
+	CamPos = Vector(22,22,0),
 	CamOrigin = Vector(0,0,0)	
 } )
 
