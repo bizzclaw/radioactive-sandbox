@@ -8,7 +8,7 @@ ENT.DebrisSound = Sound( "weapons/c4/c4_exp_deb2.wav" )
 ENT.DebrisSound2 = Sound( "weapons/debris2.wav" )
 ENT.BeepSound = Sound( "weapons/c4/c4_beep1.wav" )
 ENT.Damage = 400
-ENT.Radius = 600
+ENT.Radius = 650
 
 function ENT:Initialize()
 
@@ -79,7 +79,7 @@ function ENT:Explode()
 	
 		local ed = EffectData()
 		ed:SetOrigin( tr.HitPos )
-		ed:SetMagnitude( 1.25 )
+		ed:SetMagnitude( 1.2 )
 		util.Effect( "smoke_crater", ed, true, true )
 		
 		util.Decal( "Scorch", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal )

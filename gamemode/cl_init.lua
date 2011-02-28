@@ -23,6 +23,8 @@ include( 'vgui/vgui_itempanel.lua' )
 include( 'vgui/vgui_panelsheet.lua' )
 include( 'vgui/vgui_goodmodelpanel.lua' )
 
+CV_AutoEmote = CreateClientConVar( "cl_radbox_auto_emote", "1", true, false )
+
 function GM:Initialize( )
 	
 	GAMEMODE:InitVGUI()
@@ -31,6 +33,7 @@ function GM:Initialize( )
 	StaticPos = Vector(0,0,0)
 	NightVision = false
 	VehicleView = false
+	EmoteCooldown = 0
 	Drunkness = 0
 	DeathScreenTime = 0
 	DeathScreenScale = 0
@@ -165,6 +168,26 @@ function TimeSeed( num, min, max )
 end
 
 function GM:Think()
+
+	if EmoteCooldown < CurTime() and LocalPlayer():Alive() and CV_AutoEmote:GetBool() then
+	
+		EmoteCooldown = CurTime() + math.random( 60, 120 )
+		
+		if Drunkness > 1 then
+			
+			RunConsoleCommand( "say", table.Random( GAMEMODE.ChatEmotes[ "Drunk" ] ) )
+		
+		elseif LocalPlayer():GetNWInt( "Radiation", 0 ) then
+		
+			RunConsoleCommand( "say", table.Random( GAMEMODE.ChatEmotes[ "Radiation" ] ) )
+		
+		elseif LocalPlayer():GetNWBool( "Bleeding", false ) then
+		
+			RunConsoleCommand( "say", table.Random( GAMEMODE.ChatEmotes[ "Bleeding" ] ) )
+		
+		end
+	
+	end
 
 	for k,v in pairs( TimeSeedTable ) do
 	

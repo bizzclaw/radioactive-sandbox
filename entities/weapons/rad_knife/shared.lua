@@ -35,7 +35,7 @@ SWEP.Primary.Hit            = Sound( "Weapon_Knife.HitWall" )
 SWEP.Primary.HitFlesh		= Sound( "Weapon_Knife.Stab" )
 SWEP.Primary.Sound			= Sound( "Weapon_Knife.Slash" )
 SWEP.Primary.Recoil			= 3.5
-SWEP.Primary.Damage			= 120
+SWEP.Primary.Damage			= 90
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.Delay			= 0.850
 
@@ -85,15 +85,15 @@ function SWEP:MeleeTrace( dmg )
 	
 		self.Weapon:SendWeaponAnim( ACT_VM_HITCENTER )
 		
-		ent:TakeDamage( dmg, self.Owner, self.Weapon )
-		
 		if ent:IsPlayer() and ent:Team() != self.Owner:Team() then
 		
+			ent:TakeDamage( dmg, self.Owner, self.Weapon )
 			ent:SetBleeding( true )
 			ent:EmitSound( self.Primary.HitFlesh, 100, math.random(90,110) )
 			
 		elseif string.find( ent:GetClass(), "npc" ) then
 		
+			ent:TakeDamage( 60, self.Owner, self.Weapon )
 			ent:EmitSound( self.Primary.HitFlesh, 100, math.random(90,110) )
 		
 		elseif !ent:IsPlayer() then 

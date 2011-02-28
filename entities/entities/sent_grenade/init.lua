@@ -4,9 +4,9 @@ AddCSLuaFile( "shared.lua" )
 include( 'shared.lua' )
 
 ENT.HitSound = Sound( "physics/metal/metal_grenade_impact_hard2.wav" )
-ENT.Damage = 225
-ENT.Radius = 350
-ENT.Speed = 3000
+ENT.Damage = 250
+ENT.Radius = 450
+ENT.Speed = 3500
 
 function ENT:Initialize()
 
@@ -54,6 +54,24 @@ function ENT:Explode()
 	local ed = EffectData()
 	ed:SetOrigin( self.Entity:GetPos() )
 	util.Effect( "Explosion", ed, true, true )
+	
+	local trace = {}
+	trace.start = self.Entity:GetPos() + Vector(0,0,20)
+	trace.endpos = trace.start + Vector( 0, 0, -200 )
+	trace.filter = self.Entity
+	
+	local tr = util.TraceLine( trace )
+
+	if tr.HitWorld then
+	
+		local ed = EffectData()
+		ed:SetOrigin( tr.HitPos )
+		ed:SetMagnitude( 0.8 )
+		util.Effect( "smoke_crater", ed, true, true )
+		
+		util.Decal( "Scorch", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal )
+	
+	end
 
 	if ValidEntity( self.Entity:GetOwner() ) then
 	
