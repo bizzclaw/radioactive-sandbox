@@ -165,6 +165,8 @@ local LocalChat = "/"
 
 function GM:OnPlayerChat( ply, text, isteam, isdead )
 
+	if not ValidEntity( ply ) then return self.BaseClass:OnPlayerChat( ply, text, isteam, isdead ) end
+
 	for k,v in pairs( { LocalOOC, LocalMe, Whisper, LocalChat } ) do
 
 		local expl = string.Left( text, string.len( v ) )
