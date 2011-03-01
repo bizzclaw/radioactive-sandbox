@@ -1169,6 +1169,20 @@ end
 
 concommand.Add( "sv_radbox_save_map_config", SaveGameItems )
 
+function MapSetupMode( ply, cmd, args )
+
+	if ply:IsAdmin() or ply:IsSuperAdmin() then
+	
+		ply:Give( "rad_itemplacer" )
+		ply:Give( "rad_propplacer" )
+		ply:Give( "weapon_physgun" )
+	
+	end
+
+end
+
+concommand.Add( "sv_radbox_dev_mode", MapSetupMode )
+
 function IncludeEvents()
 
 	local folder = string.Replace( GM.Folder, "gamemodes/", "" )

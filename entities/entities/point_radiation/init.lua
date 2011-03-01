@@ -1,6 +1,7 @@
-AddCSLuaFile( "cl_init.lua" )
-AddCSLuaFile( "shared.lua" )
-include( 'shared.lua')
+
+
+ENT.Type 			= "anim"
+ENT.Base 			= "base_point"
 
 function ENT:Initialize()
 

@@ -47,7 +47,6 @@ function GM:Initialize( )
 	RadarEntTable = {}
 	TimeSeedTable = {}
 	
-	//surface.CreateFont ( "Hazard", 34, 300, true, true, "HUDBarFont" )
 	surface.CreateFont ( "Graffiare", 34, 200, true, true, "DeathFont" )
 	surface.CreateFont ( "Graffiare", 28, 200, true, true, "AmmoFont" )
 	surface.CreateFont ( "Verdana", 12, 300, true, true, "AmmoFontSmall" )

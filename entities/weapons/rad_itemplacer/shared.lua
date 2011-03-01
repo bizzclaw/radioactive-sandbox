@@ -10,6 +10,9 @@ end
 
 if CLIENT then
 
+	ClientItemPlacerTbl = {}
+	ClientItemPlacerTbl[ "teh" ] = {}
+
 	SWEP.DrawAmmo			= true
 	SWEP.DrawCrosshair		= true
 	SWEP.CSMuzzleFlashes	= true
@@ -61,6 +64,19 @@ SWEP.ItemTypes = { "info_player_loner",
 "point_stash",
 "point_radiation" }
 
+SWEP.ServersideItems = { "info_player_loner",
+"info_player_bandoliers",
+"info_player_army",
+"info_player_exodus",
+"info_lootspawn",
+"info_npcspawn",
+"point_radiation" }
+
+SWEP.SharedItems = { "point_stash",
+"npc_trader_army",
+"npc_trader_exodus",
+"npc_trader_bandoliers" }
+
 function SWEP:Initialize()
 
 	if SERVER then
@@ -71,7 +87,41 @@ function SWEP:Initialize()
 	
 end
 
+function SWEP:Synch()
+
+	for k,v in pairs( self.ServersideItems ) do
+	
+		local ents = ents.FindByClass( v )
+		local postbl = {}
+		
+		for c,d in pairs( ents ) do
+		
+			table.insert( postbl, d:GetPos() )
+		
+		end
+	
+		local tbl = { Name = v, Ents = postbl }
+		
+		datastream.StreamToClients( { self.Owner }, "ItemPlacerSynch", tbl )
+		
+	end
+
+end
+
+function PlacerSynch( handler, id, encoded, decoded )
+
+	ClientItemPlacerTbl[ decoded.Name ] = decoded.Ents
+
+end
+datastream.Hook( "ItemPlacerSynch", PlacerSynch )
+
 function SWEP:Deploy()
+
+	if SERVER then
+	
+		self.Weapon:Synch()
+	
+	end
 
 	self.Weapon:SendWeaponAnim( ACT_VM_DRAW )
 	
@@ -108,6 +158,8 @@ function SWEP:Think()
 			closest:Remove()
 			
 			self.Owner:EmitSound( self.Primary.Delete1 )
+			
+			self.Weapon:Synch()
 		
 		end
 		
@@ -124,6 +176,8 @@ function SWEP:Reload()
 		v:Remove()
 	
 	end
+	
+	self.Weapon:Synch()
 	
 	self.Owner:EmitSound( self.Primary.Delete )
 	
@@ -166,6 +220,8 @@ function SWEP:PrimaryAttack()
 	
 		self.Weapon:PlaceItem()
 		
+		self.Weapon:Synch()
+		
 	end
 
 end
@@ -195,7 +251,7 @@ function SWEP:DrawHUD()
 	draw.SimpleText( "PRIMARY FIRE: Place Item          SECONDARY FIRE: Change Item Type          +USE: Delete Nearest Item Of Current Type          RELOAD: Remove All Of Current Item Type", "AmmoFontSmall", ScrW() * 0.5, ScrH() - 120, Color(255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 	draw.SimpleText( "CURRENT ITEM TYPE: "..self.ItemTypes[ self.Weapon:GetNWInt( "ItemType", 1 ) ], "AmmoFontSmall", ScrW() * 0.5, ScrH() - 100, Color(255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 	
-	for k,v in pairs( self.ItemTypes ) do
+	for k,v in pairs( self.SharedItems ) do
 
 		for c,d in pairs( ents.FindByClass( v ) ) do
 		
@@ -208,6 +264,25 @@ function SWEP:DrawHUD()
 			
 			end
 		
+		end
+	
+	end
+	
+	for k,v in pairs( ClientItemPlacerTbl ) do
+	
+		for c,d in pairs( v ) do
+	
+			local vec = Vector( d[1], d[2], d[3] )
+		
+			local pos = vec:ToScreen()
+				
+			if pos.visible then
+				
+				draw.SimpleText( k, "AmmoFontSmall", pos.x, pos.y - 15, Color(80,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+				draw.RoundedBox( 0, pos.x - 2, pos.y - 2, 4, 4, Color(255,255,255) )
+				
+			end
+			
 		end
 	
 	end

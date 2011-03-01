@@ -239,14 +239,6 @@ function meta:OnLoadout()
 		self:Give( "weapon_physgun" )
 	
 	end
-
-	if self:IsAdmin() or self:IsSuperAdmin() then
-	
-		self:Give( "rad_itemplacer" )
-		self:Give( "rad_propplacer" )
-		self:Give( "weapon_physgun" )
-	
-	end
 	
 	if self:GetInventory()[1] then return end
 	
