@@ -47,7 +47,7 @@ function GM:GetPlayerGayName( ply, name )
 	
 	end
 
-	local crc = string.Explode( "", tostring( util.CRC( name ) ) )
+	local crc = tostring( util.CRC( name ) )
 	local firstname = PlayerNames[ tonumber( crc[2] ) + 1 ][ tonumber( crc[3] + 1 ) ] 
 	local lastname = LastNames[ tonumber( crc[4] ) + 1 ][ tonumber( crc[5] + 1 ) ]
 	
