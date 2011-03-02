@@ -1,8 +1,8 @@
 
 local PlayerNames = {}
 PlayerNames[1] = { "Joseph", "Strelok", "Koscha", "Lex", "Wolf", "Lukas", "Gabor", "Mikhail", "Mischa", "Nikolai" }
-PlayerNames[2] = { "Roman", "Scar", "Serjh", "Kalif", "Kobra", "Vlad", "Vladimir", "Yuri", "Johan", "Tolik" }
-PlayerNames[3] = { "Maksim", "Petrenko", "Rudik", "Lars", "Ischenko", "Ivan", "Karl", "Borat", "Jagori", "Igor" }
+PlayerNames[2] = { "Leonid", "Scar", "Serjh", "Kalif", "Kobra", "Vlad", "Vladimir", "Yuri", "Johan", "Tolik" }
+PlayerNames[3] = { "Maksim", "Petrenko", "Rudik", "Lars", "Ischenko", "Karl", "Ivan", "Jagori", "Borat", "Igor" }
 PlayerNames[4] = { "Kaz", "Sven", "Koslow", "Peter", "Vladik", "Moriz", "Stefan", "Pavlo", "Jaspar", "Avel" }
 PlayerNames[5] = { "Fang", "Ivanov", "Damien", "Tobias", "Boris", "Danil", "Dominik", "Alek", "Kobus", "Arman" }
 PlayerNames[6] = { "Jerome", "Alexander", "Jarec", "Wolfram", "Xavier", "Seb", "Felix", "Gustaf", "Jakob", "Andrei" }
@@ -24,16 +24,103 @@ LastNames[9] = { "Stamitz", "Tolstoi", "Kurkow", "Leskow", "Sorokin", "Korolenko
 LastNames[10] = { "Puktov", "Brodsky", "Nabokov", "Ragosin", "Moskitow", "Kerenski", "Dubrovnik", "Gauss", "Gavrilov", "Faustin" }
 
 local TargetedEntity = nil
+local TargetedName = nil
 local TargetedTime = 0
+local TargetedDist = Vector(0,0,0)
 
 function GM:GetEntityID( ent )
+	
+	if ent:GetClass() == "prop_physics" then
+	
+		local tbl = item.GetByModel( ent:GetModel() )
+		
+		if tbl then
+	
+			TargetedName = tbl.Name
+			TargetedEntity = ent
+			TargetedTime = CurTime() + 5
+			TargetedDist = Vector( 0, 0, TargetedEntity:OBBCenter():Distance( TargetedEntity:OBBMaxs() ) )
+		
+		end
+		
+	elseif ent:GetClass() == "sent_droppedgun" then
+	
+		local tbl = item.GetByModel( ent:GetModel() )
+		
+		if tbl then
+	
+			TargetedName = tbl.Name
+			TargetedEntity = ent
+			TargetedTime = CurTime() + 5
+			TargetedDist = Vector( 0, 0, 10 )
+		
+		end
+	
+	elseif ent:GetClass() == "sent_lootbag" then
+	
+		TargetedName = "Loot"
+		TargetedEntity = ent
+		TargetedTime = CurTime() + 5
+		TargetedDist = Vector( 0, 0, 10 )
+	
+	elseif ent:GetClass() == "point_stash" then
+	
+		TargetedName = "Stash"
+		TargetedEntity = ent
+		TargetedTime = CurTime() + 5
+		TargetedDist = Vector( 0, 0, 10 )
+	
+	elseif string.find( ent:GetClass(), "npc" ) or ent:IsPlayer() then
+	
+		TargetedName = nil
+		TargetedEntity = ent
+		TargetedTime = CurTime() + 5
+		TargetedDist = Vector( 0, 0, 10 )
+	
+	end
+	
+end
 
-	local dist = ent:GetPos():Distance( LocalPlayer():GetPos() )
+function GM:HUDDrawTargetID()
+
+	if not ValidEntity( LocalPlayer() ) then return end
+	if not LocalPlayer():Alive() then return end
 	
-	if dist > 1000 then return end
+	if not F3Item:IsVisible() and LocalPlayer():GetNWBool( "InIron", false ) == false then
+		
+		F3Item:SetVisible( true )
+		F4Item:SetVisible( true )
+		
+	end
 	
-	TargetedEntity = ent
-	TargetedTime = CurTime() + 5
+	GAMEMODE:DrawPlayerChat()
+	
+	local tr = util.TraceLine( util.GetPlayerTrace( LocalPlayer() ) )
+	
+	if ValidEntity( tr.Entity ) and tr.Entity:GetPos():Distance( LocalPlayer():GetPos() ) < 1000 then
+	
+		GAMEMODE:GetEntityID( tr.Entity )
+		
+	end
+	
+	if ValidEntity( TargetedEntity ) and ( !TargetedEntity:IsPlayer() or TargetedEntity:Alive() ) and TargetedTime > CurTime() then
+
+		if string.find( TargetedEntity:GetClass(), "npc" ) or TargetedEntity:IsPlayer() then
+			
+			TargetScreen:SetEntity( TargetedEntity )
+			return
+			
+		end
+	
+		local pos = ( TargetedEntity:LocalToWorld( TargetedEntity:OBBCenter() ) + TargetedDist ):ToScreen()
+		
+		if pos.visible and TargetedName then
+			
+			draw.SimpleTextOutlined( TargetedName, "AmmoFontSmall", pos.x, pos.y, Color( 80, 150, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color( 0, 0, 0 ) )
+			
+		end
+	
+	end
 
 end
 
@@ -60,61 +147,6 @@ function GM:GetPlayerGayName( ply, name )
 	end
 
 	return firstname .. " " .. lastname
-
-end
-
-function GM:HUDDrawTargetID()
-
-	if not ValidEntity( LocalPlayer() ) then return end
-	if not LocalPlayer():Alive() then return end
-	
-	if not F3Item:IsVisible() and LocalPlayer():GetNWBool( "InIron", false ) == false then
-		
-		F3Item:SetVisible( true )
-		F4Item:SetVisible( true )
-		
-	end
-	
-	GAMEMODE:DrawPlayerChat()
-	
-	local tr = util.TraceLine( util.GetPlayerTrace( LocalPlayer() ) )
-	
-	if ValidEntity( tr.Entity ) then
-	
-		GAMEMODE:GetEntityID( tr.Entity )
-		
-	end
-	
-	if ValidEntity( TargetedEntity ) and ( !TargetedEntity:IsPlayer() or TargetedEntity:Alive() ) and TargetedTime > CurTime() then
-
-		if string.find( TargetedEntity:GetClass(), "npc" ) or TargetedEntity:IsPlayer() then
-			
-			TargetScreen:SetEntity( TargetedEntity )
-			return
-			
-		end
-	
-		local pos = ( TargetedEntity:GetPos() + Vector(0,0,10) ):ToScreen()
-		
-		if pos.visible then
-		
-			local name = ""
-			
-			if string.find( TargetedEntity:GetClass(), "loot" ) then
-			
-				name = "Loot"
-				
-			elseif string.find( TargetedEntity:GetClass(), "stash" ) then
-			
-				name = "Stash"
-				
-			end
-			
-			draw.SimpleTextOutlined( name, "AmmoFontSmall", pos.x, pos.y, Color( 80, 150, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color( 0, 0, 0 ) )
-			
-		end
-	
-	end
 
 end
 

@@ -8,7 +8,7 @@ function FUNC_ENERGY( ply, id, client )
 	
 	ply:RemoveFromInventory( id )
 	ply:EmitSound( table.Random{ "npc/barnacle/barnacle_gulp1.wav", "npc/barnacle/barnacle_gulp2.wav" }, 100, math.random( 90, 110 ) )
-	ply:AddStamina( 80 )
+	ply:AddStamina( 100 )
 
 end
 
@@ -17,6 +17,7 @@ function FUNC_HEAL( ply, id, client )
 	if client then return "Use" end
 	
 	ply:RemoveFromInventory( id )
+	ply:AddRadiation( -1 )
 	ply:SetBleeding( false )
 	ply:AddHealth( 200 )
 	ply:EmitSound( "HealthVial.Touch" )
@@ -29,7 +30,7 @@ function FUNC_BANDAGE( ply, id, client )
 	
 	ply:RemoveFromInventory( id )
 	ply:SetBleeding( false )
-	ply:AddHealth( 20 )
+	ply:AddHealth( 100 )
 	ply:EmitSound( "Cardboard.Strain" )
 
 end
@@ -50,11 +51,11 @@ item.Register( {
 
 item.Register( { 
 	Name = "Medikit", 
-	Description = "This kit will restore your health and stop any bleeding when used.",
+	Description = "This kit will heal 100% of your health, stop all bleeding and relieve some radiaition poisoning when used.",
 	Stackable = true, 
 	Type = ITEM_SUPPLY,
 	Weight = 1.25, 
-	Price = 35,
+	Price = 40,
 	Rarity = 0.50,
 	Model = "models/items/healthkit.mdl",
 	Functions = { FUNC_HEAL },
@@ -64,16 +65,13 @@ item.Register( {
 
 item.Register( { 
 	Name = "Bandages", 
-	Description = "These bandages will cover any open wounds and stop any bleeding.",
+	Description = "These bandages will heal 50% of your health and stop all bleeding.",
 	Stackable = true, 
 	Type = ITEM_SUPPLY,
 	Weight = 0.50, 
-	Price = 15,
+	Price = 25,
 	Rarity = 0.50,
 	Model = "models/props_lab/box01a.mdl",
 	Functions = { FUNC_BANDAGE } 
 } )
-
-
-
 

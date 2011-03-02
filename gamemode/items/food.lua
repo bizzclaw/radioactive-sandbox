@@ -9,7 +9,6 @@ WEIGHT_FOOD_LARGE = 0.30
 // Price constants
 PRICE_FOOD = 5
 PRICE_RAREFOOD = 50
-PRICE_BOOZE = 25
 
 function FUNC_DRINK( ply, id, client )
 

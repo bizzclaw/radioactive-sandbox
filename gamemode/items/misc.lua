@@ -7,7 +7,7 @@ ITEM_QUEST = 420 // 420 do quests erryday
 ITEM_QUEST_ZOMBIE = 421 // zombie quests
 
 PRICE_QUEST_ZOMBIE_ITEM = 20
-PRICE_QUEST_ITEM = 100
+PRICE_QUEST_ITEM = 80
 
 function FUNC_BADWATER( ply, id, client )
 
@@ -234,7 +234,7 @@ item.Register( {
 
 item.Register( { 
 	Name = "Moonshine Vodka", 
-	Description = "This old glass bottle is full of homemade vodka. It's less potent than normal vodka.",
+	Description = "This old glass bottle is full of homemade vodka. It's less potent than regular vodka.",
 	Stackable = true, 
 	Type = ITEM_BUYABLE,
 	Weight = 0.30, 
@@ -248,7 +248,7 @@ item.Register( {
 
 item.Register( { 
 	Name = "Vodka", 
-	Description = "This bottle is full of cheap vodka. It should provide some relief from radiation poisoning.",
+	Description = "This glass bottle is full of vodka. It should provide some relief from radiation poisoning.",
 	Stackable = true, 
 	Type = ITEM_MISC,
 	Weight = 0.30, 
@@ -266,8 +266,8 @@ item.Register( {
 	Stackable = true, 
 	Type = ITEM_MISC,
 	Weight = 1.50, 
-	Price = 40,
-	Rarity = 0.60,
+	Price = 45,
+	Rarity = 0.70,
 	Model = "models/gibs/manhack_gib03.mdl",
 	Functions = {},
 	PickupFunction = FUNC_NIGHTVIS,
