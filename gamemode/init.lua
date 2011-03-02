@@ -38,66 +38,59 @@ AddCSLuaFile( 'vgui/vgui_playerdisplay.lua' )
 AddCSLuaFile( 'vgui/vgui_panelsheet.lua' )
 AddCSLuaFile( 'vgui/vgui_goodmodelpanel.lua' )
 
-resource.AddFile( "materials/models/weapons/v_models/shot_m3super91/shot_m3super91_norm.vmt" )
-resource.AddFile( "materials/models/weapons/v_models/shot_m3super91/shot_m3super91_norm.vtf" )
-resource.AddFile( "materials/models/weapons/v_models/shot_m3super91/shot_m3super91_2_norm.vmt" )
-resource.AddFile( "materials/models/weapons/v_models/shot_m3super91/shot_m3super91_2_norm.vtf" )
-resource.AddFile( "materials/models/weapons/v_models/shot_m3super91/shot_m3super91.vmt" )
-resource.AddFile( "materials/models/weapons/v_models/shot_m3super91/shot_m3super91.vtf" )
-resource.AddFile( "materials/models/weapons/v_models/shot_m3super91/shot_m3super91_2.vmt" )
-resource.AddFile( "materials/models/weapons/v_models/shot_m3super91/shot_m3super91_2.vtf" )
-resource.AddFile( "materials/models/ammoboxes/smg.vtf" )
-resource.AddFile( "materials/models/ammoboxes/smg.vmt" )
 resource.AddFile( "materials/radbox/radar.vmt" )
 resource.AddFile( "materials/radbox/radar_back.vtf" )
-resource.AddFile( "materials/radbox/radar_arm.vmt" )
-resource.AddFile( "materials/radbox/radar_arm.vtf" )
-resource.AddFile( "materials/radbox/radar_arrow.vmt" )
-resource.AddFile( "materials/radbox/radar_arrow.vtf" )
-resource.AddFile( "materials/radbox/logo_nma.vmt" )
-resource.AddFile( "materials/radbox/logo_nma.vtf" )
-resource.AddFile( "materials/radbox/logo_exodus.vmt" )
-resource.AddFile( "materials/radbox/logo_exodus.vtf" )
-resource.AddFile( "materials/radbox/logo_bandoliers.vmt" )
-resource.AddFile( "materials/radbox/logo_bandoliers.vtf" )
-resource.AddFile( "materials/radbox/menu_quest.vmt" )
-resource.AddFile( "materials/radbox/menu_quest.vtf" )
-resource.AddFile( "materials/radbox/menu_loot.vmt" )
-resource.AddFile( "materials/radbox/menu_loot.vtf" )
-resource.AddFile( "materials/radbox/menu_trade.vmt" )
-resource.AddFile( "materials/radbox/menu_trade.vtf" )
-resource.AddFile( "materials/radbox/menu_cancel.vmt" )
-resource.AddFile( "materials/radbox/menu_cancel.vtf" )
-resource.AddFile( "materials/radbox/menu_save.vmt" )
-resource.AddFile( "materials/radbox/menu_save.vtf" )
-resource.AddFile( "materials/radbox/nvg_noise.vmt" )
-resource.AddFile( "materials/radbox/nvg_noise.vtf" )
-resource.AddFile( "materials/radbox/refract_ring.vmt" )
-resource.AddFile( "materials/radbox/refract_ring.vtf" )
-resource.AddFile( "materials/radbox/img_blood.vtf" )
-resource.AddFile( "materials/radbox/img_health.vtf" )
-resource.AddFile( "materials/radbox/img_radiation.vtf" )
-resource.AddFile( "materials/radbox/img_stamina.vtf" )
-resource.AddFile( "materials/radbox/img_blood.vmt" )
-resource.AddFile( "materials/radbox/img_health.vmt" )
-resource.AddFile( "materials/radbox/img_radiation.vmt" )
-resource.AddFile( "materials/radbox/img_stamina.vmt" )
-
-resource.AddFile( "models/weapons/v_shot_m3super91.vvd" )
-resource.AddFile( "models/weapons/v_shot_m3super91.sw.vtx" )
-resource.AddFile( "models/weapons/v_shot_m3super91.mdl" )
-resource.AddFile( "models/weapons/v_shot_m3super91.dx80.vtx" )
-resource.AddFile( "models/weapons/v_shot_m3super91.dx90.vtx" )
-resource.AddFile( "models/items/boxqrounds.vvd" )
-resource.AddFile( "models/items/boxqrounds.sw.vtx" )
-resource.AddFile( "models/items/boxqrounds.mdl" )
-resource.AddFile( "models/items/boxqrounds.dx80.vtx" )
-resource.AddFile( "models/items/boxqrounds.dx90.vtx" )
-
 resource.AddFile( "resource/fonts/Graffiare.ttf" )
-
 resource.AddFile( "sound/radbox/warning.vtf" )
 resource.AddFile( "sound/radbox/heartbeat.vtf" )
+
+local include_mat = { "materials/models/weapons/v_models/shot_m3super91/shot_m3super91_norm",
+"materials/models/weapons/v_models/shot_m3super91/shot_m3super91_2_norm",
+"materials/models/weapons/v_models/shot_m3super91/shot_m3super91",
+"materials/models/weapons/v_models/shot_m3super91/shot_m3super91_2",
+"materials/models/ammoboxes/smg",
+"materials/radbox/radar_arm",
+"materials/radbox/radar_arrow",
+"materials/radbox/logo_nma",
+"materials/radbox/logo_exodus",
+"materials/radbox/logo_bandoliers",
+"materials/radbox/menu_quest",
+"materials/radbox/menu_loot",
+"materials/radbox/menu_trade",
+"materials/radbox/menu_cancel",
+"materials/radbox/menu_save",
+"materials/radbox/nvg_noise",
+"materials/radbox/refract_ring",
+"materials/radbox/img_radiation",
+"materials/radbox/img_blood",
+"materials/radbox/img_health",
+"materials/radbox/img_stamina",
+"materials/radbox/healthpack",
+"materials/radbox/healthpack2",
+"materials/radbox/bandage" }
+
+for k,v in pairs( include_mat ) do
+
+	resource.AddFile( v..".vmt" )
+	resource.AddFile( v..".vtf" )
+
+end
+
+local include_model = { "models/weapons/v_shot_m3super91",
+"models/items/boxqrounds",
+"models/radbox/bandage",
+"models/radbox/healthpack",
+"models/radbox/healthpack2" }
+
+for k,v in pairs( include_model ) do
+
+	resource.AddFile( v..".vvd" )
+	resource.AddFile( v..".sw.vtx" )
+	resource.AddFile( v..".mdl" )
+	resource.AddFile( v..".dx80.vtx" )
+	resource.AddFile( v..".dx90.vtx" )
+
+end
 
 CreateConVar( "sv_radbox_team_dmg", "0", { FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_SERVER_CAN_EXECUTE }, "Controls whether teammates can hurt eachother." )
 CreateConVar( "sv_radbox_dmg_scale", "1.0", { FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_SERVER_CAN_EXECUTE }, "Controls bullet damage scaling." )
@@ -656,7 +649,7 @@ function GM:ScaleBulletDamage( ply, hitgroup, dmginfo )
 
 	if hitgroup == HITGROUP_HEAD then
 		
-		if ( dmginfo:GetDamage() > 30 or math.random(1,5) == 1 ) and dmginfo:GetAttacker():IsPlayer() and ( dmginfo:GetAttacker():Team() != ply:Team() or GetConVar( "sv_radbox_team_dmg" ):GetBool() ) then
+		if math.random(1,5) == 1 and dmginfo:GetAttacker():IsPlayer() and ( dmginfo:GetAttacker():Team() != ply:Team() or GetConVar( "sv_radbox_team_dmg" ):GetBool() ) then
 		
 			ply:SetBleeding( true )
 			ply:EmitSound( "Player.DamageHeadShot" )
@@ -667,6 +660,14 @@ function GM:ScaleBulletDamage( ply, hitgroup, dmginfo )
 		dmginfo:ScaleDamage( 1.75 * GetConVar( "sv_radbox_dmg_scale" ):GetFloat() ) 
 		
     elseif hitgroup == HITGROUP_CHEST then
+	
+		if math.random(1,10) == 1 and dmginfo:GetAttacker():IsPlayer() and ( dmginfo:GetAttacker():Team() != ply:Team() or GetConVar( "sv_radbox_team_dmg" ):GetBool() ) then
+		
+			ply:SetBleeding( true )
+			ply:EmitSound( "Player.DamageKevlar" )
+			ply:ViewBounce( 15 )
+			
+		end
 	
 		dmginfo:ScaleDamage( 0.50 * GetConVar( "sv_radbox_dmg_scale" ):GetFloat() ) 
 		
@@ -1182,6 +1183,19 @@ function MapSetupMode( ply, cmd, args )
 end
 
 concommand.Add( "sv_radbox_dev_mode", MapSetupMode )
+
+function WipeDatabase( ply, cmd, args )
+
+	if ply:IsAdmin() or ply:IsSuperAdmin() then
+	
+		db.Wipe()
+		db.Initialize()
+	
+	end
+
+end
+
+concommand.Add( "sv_radbox_reset_db", WipeDatabase )
 
 function IncludeEvents()
 

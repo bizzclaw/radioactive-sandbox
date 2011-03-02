@@ -17,8 +17,17 @@ function FUNC_HEAL( ply, id, client )
 	if client then return "Use" end
 	
 	ply:RemoveFromInventory( id )
+	ply:AddHealth( 100 )
+	ply:EmitSound( "HealthVial.Touch" )
+
+end
+
+function FUNC_SUPERHEAL( ply, id, client )
+
+	if client then return "Use" end
+	
+	ply:RemoveFromInventory( id )
 	ply:AddRadiation( -1 )
-	ply:SetBleeding( false )
 	ply:AddHealth( 200 )
 	ply:EmitSound( "HealthVial.Touch" )
 
@@ -30,14 +39,14 @@ function FUNC_BANDAGE( ply, id, client )
 	
 	ply:RemoveFromInventory( id )
 	ply:SetBleeding( false )
-	ply:AddHealth( 100 )
+	ply:AddHealth( 20 )
 	ply:EmitSound( "Cardboard.Strain" )
 
 end
 
 item.Register( { 
 	Name = "Energy Drink", 
-	Description = "This is a carbonated energy drink. It should replenish some of your stamina.",
+	Description = "This is a carbonated energy drink. It will replenish your stamina when used.",
 	Stackable = true, 
 	Type = ITEM_SUPPLY,
 	Weight = 0.25, 
@@ -50,28 +59,42 @@ item.Register( {
 } )
 
 item.Register( { 
-	Name = "Medikit", 
-	Description = "This kit will heal 100% of your health, stop all bleeding and relieve some radiaition poisoning when used.",
+	Name = "Basic Medikit", 
+	Description = "This kit will heal 50% of your health when used.",
 	Stackable = true, 
 	Type = ITEM_SUPPLY,
 	Weight = 1.25, 
 	Price = 40,
-	Rarity = 0.50,
-	Model = "models/items/healthkit.mdl",
+	Rarity = 0.65,
+	Model = "models/radbox/healthpack.mdl",
 	Functions = { FUNC_HEAL },
-	CamPos = Vector(0,30,12),
-	CamOrigin = Vector(3,10,6)	
+	CamPos = Vector(23,8,5)	
 } )
 
 item.Register( { 
-	Name = "Bandages", 
-	Description = "These bandages will heal 50% of your health and stop all bleeding.",
+	Name = "Scientific Medikit", 
+	Description = "This kit will heal 100% of your health and relieve a small amount of radiaition poisoning when used.",
+	Stackable = true, 
+	Type = ITEM_SUPPLY,
+	Weight = 1.25, 
+	Price = 55,
+	Rarity = 0.85,
+	Model = "models/radbox/healthpack2.mdl",
+	Functions = { FUNC_SUPERHEAL },
+	CamPos = Vector(23,8,5)
+} )
+
+item.Register( { 
+	Name = "Bandage", 
+	Description = "This medicinal gauze will effectively cover your open wounds and stop all bleeding.",
 	Stackable = true, 
 	Type = ITEM_SUPPLY,
 	Weight = 0.50, 
 	Price = 25,
 	Rarity = 0.50,
-	Model = "models/props_lab/box01a.mdl",
-	Functions = { FUNC_BANDAGE } 
+	Model = "models/radbox/bandage.mdl",
+	Functions = { FUNC_BANDAGE },
+	CamPos = Vector(20,10,5),
+	CamOrigin = Vector(0,1,1)	
 } )
 

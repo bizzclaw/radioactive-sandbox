@@ -55,3 +55,11 @@ function db.DeleteInventory( steamid )
 	sql.Query( "DELETE FROM radbox_inv WHERE uid = " .. aid )
 
 end
+
+function db.Wipe()
+
+	MsgN( "Erasing all radbox player profiles..." )
+	
+	sql.Query( "DROP TABLE radbox_inv" )
+
+end

@@ -10,14 +10,40 @@ WEIGHT_FOOD_LARGE = 0.30
 PRICE_FOOD = 5
 PRICE_RAREFOOD = 50
 
+function FUNC_MILK( ply, id, client )
+
+	if client then return "Drink" end
+
+	ply:RemoveFromInventory( id )
+	ply:EmitSound( table.Random{ "npc/barnacle/barnacle_gulp1.wav", "npc/barnacle/barnacle_gulp2.wav" }, 100, math.random( 90, 110 ) )
+	
+	if math.random(1,8) == 1  then
+	
+		ply:AddStamina( -50 )
+		ply:AddHealth( -10 )
+		ply:EmitSound( "ambient/voices/citizen_beaten" .. math.random(3,4) .. ".wav" )
+		
+		umsg.Start( "Drunk", ply )
+		umsg.Short( 3 )
+		umsg.End()
+	
+	else
+	
+		ply:AddStamina( 50 )
+		ply:AddHealth( 25 )
+		
+	end
+
+end
+
 function FUNC_DRINK( ply, id, client )
 
 	if client then return "Drink" end
 
 	ply:RemoveFromInventory( id )
 	ply:EmitSound( table.Random{ "npc/barnacle/barnacle_gulp1.wav", "npc/barnacle/barnacle_gulp2.wav" }, 100, math.random( 90, 110 ) )
-	ply:AddHealth( 20 )
-	ply:AddStamina( 20 )
+	ply:AddHealth( 10 )
+	ply:AddStamina( 50 )
 
 end
 
@@ -27,8 +53,8 @@ function FUNC_EAT( ply, id, client )
 	
 	ply:RemoveFromInventory( id )
 	ply:EmitSound( "npc/barnacle/barnacle_crunch2.wav", 100, math.random( 90, 110 ) )
-	ply:AddHealth( 20 )
-	ply:AddStamina( 20 )
+	ply:AddHealth( 10 )
+	ply:AddStamina( 50 )
 
 end
 
@@ -60,7 +86,7 @@ item.Register( {
 
 item.Register( { 
 	Name = "Milk", 
-	Description = "Dairy products are a rare delicacy to find nowadays. This milk smells a bit strange, but it should still be safe to drink.",
+	Description = "Dairy products are a rare delicacy to find around here. This milk smells a bit strange...",
 	Stackable = true, 
 	Type = ITEM_FOOD,
 	Weight = WEIGHT_FOOD_SMALL, 
@@ -68,13 +94,13 @@ item.Register( {
 	Rarity = 0.95,
 	Model = "models/props_junk/garbage_milkcarton002a.mdl", 
 	Functions = { FUNC_DRINK },
-	CamPos = Vector(20,15,0),
+	CamPos = Vector(20,16,0),
 	CamOrigin = Vector(0,0,0)
 } )
 
 item.Register( { 
 	Name = "Water", 
-	Description = "This dirty bottle is full of water. It should be safe to drink.",
+	Description = "This old bottle is full of clean water. It should be safe to drink.",
 	Stackable = true, 
 	Type = ITEM_FOOD,
 	Weight = WEIGHT_FOOD_SMALL, 

@@ -233,22 +233,8 @@ item.Register( {
 } )
 
 item.Register( { 
-	Name = "Moonshine Vodka", 
-	Description = "This old glass bottle is full of homemade vodka. It's less potent than regular vodka.",
-	Stackable = true, 
-	Type = ITEM_BUYABLE,
-	Weight = 0.30, 
-	Price = 15,
-	Rarity = 0.25,
-	Model = "models/props_junk/garbage_glassbottle003a.mdl",
-	Functions = { FUNC_MOONSHINE },
-	CamPos = Vector(16,18,-3),
-	CamOrigin = Vector(0,0,0)	
-} )
-
-item.Register( { 
 	Name = "Vodka", 
-	Description = "This glass bottle is full of vodka. It should provide some relief from radiation poisoning.",
+	Description = "This glass bottle is full of vodka. It will provide some relief from radiation poisoning and make you slightly drunk when used.",
 	Stackable = true, 
 	Type = ITEM_MISC,
 	Weight = 0.30, 
@@ -275,4 +261,16 @@ item.Register( {
 	CamOrigin = Vector(0,0,1)		
 } )
 
-
+item.Register( { 
+	Name = "Moonshine Vodka", 
+	Description = "This old glass bottle is full of homemade vodka. It's less potent than regular vodka but tastes twice as strong.",
+	Stackable = true, 
+	Type = ITEM_BUYABLE,
+	Weight = 0.30, 
+	Price = 15,
+	Rarity = 0.25,
+	Model = "models/props_junk/garbage_glassbottle003a.mdl",
+	Functions = { FUNC_MOONSHINE },
+	CamPos = Vector(16,18,-3),
+	CamOrigin = Vector(0,0,0)	
+} )

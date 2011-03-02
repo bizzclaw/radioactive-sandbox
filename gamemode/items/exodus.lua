@@ -32,7 +32,7 @@ end
 
 item.Register( { 
 	Name = "Anti-Rad", 
-	Description = "This medication will neutralize radiation poisoning.",
+	Description = "This powerful medication will neutralize all radiation poisoning.",
 	Stackable = true, 
 	Type = ITEM_EXODUS,
 	Weight = WEIGHT_MEDS, 
@@ -41,7 +41,7 @@ item.Register( {
 	Model = "models/healthvial.mdl",
 	Functions = { FUNC_ANTIRAD },
 	CamPos = Vector(15,10,9),
-	CamOrigin = Vector(0,0,6)	
+	CamOrigin = Vector(0,0,5)	//6
 } )
 
 item.Register( { 
