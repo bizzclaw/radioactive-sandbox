@@ -11,14 +11,14 @@ function team.GetDescription( num )
 	elseif num == TEAM_ARMY then
 	
 		return "radbox/logo_nma",
-			   {"When society fell apart, a large group of mercenaries and ex-soldiers banded together to form the " .. GAMEMODE.ArmyTeamName .. ".",
+			   {"The " .. GAMEMODE.ArmyTeamName .. " is a large group of mercenaries and ex-soldiers working together.",
 			   " Their connections to various arms dealers gives them access to some especially powerful weapons.",
 			   " The main goal of this faction is to eliminate any potential threats that get in their way and create a new world order."}
 	
 	else
 	
 		return "radbox/logo_bandoliers",
-		       {"The " .. GAMEMODE.BandoliersTeamName .. " are a group of bandits and rebels focused on looting the remains of what once was society.",
+		       {"The " .. GAMEMODE.BandoliersTeamName .. " are a group of marauders and rebels focused on looting the remains of the wastelands.",
 			   " Their network of black market dealers provides them with increased mission payoffs and better selling prices.",
 			   " The " .. GAMEMODE.BandoliersTeamName .. " are notorious for their greedy and aggressive mindset."}
 	
@@ -34,41 +34,7 @@ end
 
 function team.GetPlayerModel( num )
 
-	if num == TEAM_EXODUS then
-	
-		return "models/player/gasmask.mdl"
-	
-	elseif num == TEAM_ARMY then
-	
-		return "models/player/phoenix.mdl"
-	
-	elseif num == TEAM_BANDOLIERS then
-	
-		return table.Random({"models/player/Group03/male_01.mdl", 
-							"models/player/Group03/male_02.mdl", 
-							"models/player/Group03/male_03.mdl", 
-							"models/player/Group03/male_04.mdl", 
-							"models/player/Group03/male_05.mdl", 
-							"models/player/Group03/male_06.mdl",
-							"models/player/Group03/male_07.mdl",
-							"models/player/Group03/male_08.mdl",
-							"models/player/Group03/male_09.mdl"})
-	
-	else
-	
-		return table.Random({"models/player/Group01/male_01.mdl", 
-							"models/player/Group01/male_02.mdl", 
-							"models/player/Group01/male_03.mdl", 
-							"models/player/Group01/male_04.mdl", 
-							"models/player/Group01/male_05.mdl", 
-							"models/player/Group01/male_06.mdl",
-							"models/player/Group01/male_07.mdl",
-							"models/player/Group01/male_08.mdl",
-							"models/player/Group01/male_09.mdl",
-							"models/player/eli.mdl",
-							"models/player/odessa.mdl"})
-		
-	end
+	return table.Random( GAMEMODE.TeamPlayerModels[ num ] )
 
 end
 
