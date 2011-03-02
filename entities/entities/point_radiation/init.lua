@@ -13,7 +13,7 @@ function ENT:Initialize()
 	
 	self.Entity:DrawShadow( false )
 	
-	self.Active = math.Rand(0,1) > 0.5
+	self.Active = true
 	self.Radius = 500
 	self.SoundRadius = 800
 	self.Pos = self.Entity:GetPos()

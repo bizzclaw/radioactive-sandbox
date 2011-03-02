@@ -91,6 +91,7 @@ if CLIENT then return end
 GM.MinEventDelay = 60 * 5  // The minimum possible time, in seconds, between random events
 GM.MaxEventDelay = 60 * 25 // The maximum possible time, in seconds, between random events
 
+GM.RadiationAmount = 0.6   // How much of the radiation on the map should be disabled on map startup? ( Scalar - 0.6 means 60% will be disabled )
 GM.MaxLoot = 0.05          // Maximum amount of loot to be generated ( Scalar - 0.10 means 10% of the info_lootspawns will have loot at them. )
 GM.MaxZombiesScale = 1.0   // Scalar for amount of zombies to spawn per player - 1.0 means spawning 1 zombie per player, 2.0 means 2 per player, etc.
 GM.MaxRoguesScale = 0.75   // Scalar for amount of rogues to spawn per player - 1.0 means spawning 1 rogue per player, 2.0 means 2 per player, etc.

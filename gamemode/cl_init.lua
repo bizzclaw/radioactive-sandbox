@@ -548,8 +548,14 @@ function GM:HUDPaint()
 	
 	for k,v in pairs( PosTable ) do
 		
-		local diff = ( v.Pos - LocalPlayer():GetPos() )
+		local diff = v.Pos - LocalPlayer():GetPos()
 		local alpha = 50 
+		
+		if ValidEntity( v.Ent ) and v.Ent:IsPlayer() then
+		
+			diff = v.Ent:GetPos() - LocalPlayer():GetPos()
+		
+		end
 		
 		if v.DieTime != -1 then
 		
@@ -563,7 +569,7 @@ function GM:HUDPaint()
 			
 		if math.sqrt( diff.x * diff.x + diff.y * diff.y ) > MaxDist * FadeDist and v.DieTime == -1 then
 			
-			PosTable[k].DieTime = CurTime() + 1.0
+			PosTable[k].DieTime = CurTime() + 1.0 // Remove the dot because they left our inner circle
 			
 		end
 			

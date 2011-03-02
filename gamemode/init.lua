@@ -72,7 +72,7 @@ function GM:InitPostEntity( )
 	
 	local num = #ents.FindByClass( "point_radiation" )
 	
-	for i=1, math.floor( num * 0.5 ) do
+	for i=1, math.floor( num * GAMEMODE.RadiationAmount ) do
 	
 		local rad = table.Random( ents.FindByClass( "point_radiation" ) )
 		
@@ -205,15 +205,25 @@ function GM:LoadAllEnts()
 
 				for c,d in pairs( v ) do
 				
-					local function spawnent()
+					if k != "point_radiation" then
+				
+						local function spawnent()
+						
+							local ent = ents.Create( k )
+							ent:SetPos( d )
+							ent:Spawn()
+						
+						end
+					
+						timer.Simple( c * 0.1, spawnent )
+						
+					else
 					
 						local ent = ents.Create( k )
 						ent:SetPos( d )
 						ent:Spawn()
-					
-					end
 				
-					timer.Simple( c * 0.1, spawnent )
+					end
 
 				end
 				
