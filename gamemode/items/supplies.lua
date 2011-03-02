@@ -73,7 +73,7 @@ item.Register( {
 
 item.Register( { 
 	Name = "Scientific Medikit", 
-	Description = "This kit will heal 100% of your health and relieve a small amount of radiaition poisoning when used.",
+	Description = "This kit will heal 100% of your health and relieve a small amount of radiation poisoning when used.",
 	Stackable = true, 
 	Type = ITEM_SUPPLY,
 	Weight = 1.25, 
