@@ -1,0 +1,6 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "radbox\healthpack2"
+	"$surfaceprop" "metal"
+	"$model" 1
+}

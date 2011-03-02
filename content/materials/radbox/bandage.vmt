@@ -1,0 +1,6 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "radbox\bandage"
+	"$surfaceprop" "wood"
+	"$model" 1
+}
