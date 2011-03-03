@@ -190,9 +190,9 @@ end
 
 local LocalChatDist = 1000
 local HushDist = 400
-local LocalOOC = "//"
+local LocalOOC = "/."
 local LocalMe = "/me"
-local Whisper = "/w"
+local Whisper = "//"
 local LocalChat = "/"
 
 function GM:OnPlayerChat( ply, text, isteam, isdead )
@@ -228,7 +228,7 @@ function GM:OnPlayerChat( ply, text, isteam, isdead )
 					
 				elseif v == LocalOOC then
 				
-					chat.AddText( ply, Color( 255, 255, 255 ), ": ", text )
+					chat.AddText( Color( 255, 255, 255 ), "(OOC) ", ply, Color( 255, 255, 255 ), ": ", text )
 					
 				elseif v == Whisper then
 				
