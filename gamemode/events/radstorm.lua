@@ -40,10 +40,27 @@ function EVENT:Start()
 	self.EndTime = CurTime() + self.Duration + 10
 	self.StirTime = CurTime() + 15
 	self.PlayerTime = CurTime() + 10
+	self.GeigerTime = CurTime() + 10
 	
 end
 	
 function EVENT:Think()
+
+	if self.GeigerTime < CurTime() then
+	
+		self.GeigerTime = CurTime() + math.Rand( 0.5, 1.0 )
+		
+		for k,v in pairs( player.GetAll() ) do
+			
+			v:EmitSound( table.Random( GAMEMODE.Geiger ), 100, math.random( 80, 90 ) )
+			
+			umsg.Start( "RadScale", v )
+			umsg.Float( math.Rand( 0.2, 0.5 ) )
+			umsg.End()
+		
+		end
+	
+	end
 
 	if self.PlayerTime < CurTime() then
 	
@@ -60,9 +77,12 @@ function EVENT:Think()
 				if math.random(1,3) == 1 then
 				
 					v:AddRadiation( 1 )
-					v:EmitSound( table.Random( self.RadSounds ) )
 				
 				end
+				
+				umsg.Start( "RadScale", v )
+				umsg.Float( math.Rand( 0.5, 1.0 ) )
+				umsg.End()
 
 			end
 	

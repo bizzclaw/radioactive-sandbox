@@ -77,20 +77,19 @@ function ENT:Think()
 		
 			if ( v.NextRadSound or 0 ) < CurTime() then
 			
-				local scale = math.Clamp( dist / self.Radius, 0.1, 1.0 )
+				local scale = math.Clamp( dist / self.SoundRadius, 0.1, 1.0 )
 			
-				v.NextRadSound = CurTime() + scale * 1.25
+				v.NextRadSound = CurTime() + scale * 0.5
+				v:EmitSound( table.Random( GAMEMODE.Geiger ), 100, math.random( 80, 90 ) )
 				
-				if v:GetRadiation() < 3 then
+				if math.random(1,3) > 1 then
 				
-					v:EmitSound( "Geiger.BeepLow", 100, math.random( 90, 110 ) )
-				
-				else
-				
-					v:EmitSound( "Geiger.BeepHigh", 100, math.random( 90, 110 ) )
-				
+					umsg.Start( "RadScale", v )
+					umsg.Float( 1.2 - scale )
+					umsg.End()
+					
 				end
-			
+				
 			end
 		
 		end

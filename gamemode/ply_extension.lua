@@ -106,10 +106,20 @@ end
 function meta:AddRadiation( num )
 
 	if self:Team() == TEAM_CONNECTING or self:Team() == TEAM_UNASSIGNED or self:Team() == TEAM_SPECTATOR then return end
+	
+	if num > 0 then
+	
+		umsg.Start( "RadScale", ply )
+		umsg.Float( 1.0 )
+		umsg.End()
+		
+	end
 
 	if self:HasItem( "models/items/combine_rifle_cartridge01.mdl" ) and num > 0 then return end
 
 	self:SetRadiation( self:GetRadiation() + num ) 
+	
+	self:EmitSound( table.Random{ "Geiger.BeepLow", "Geiger.BeepHigh" }, 100, math.random( 90, 110 ) )
 	
 end
 

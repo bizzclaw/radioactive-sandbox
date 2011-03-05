@@ -11,6 +11,15 @@ GM.Ricochet = {"weapons/fx/rics/ric1.wav",
 "weapons/fx/rics/ric4.wav",
 "weapons/fx/rics/ric5.wav"}
 
+GM.Geiger = {"radbox/geiger_1.wav",
+"radbox/geiger_2.wav",
+"radbox/geiger_3.wav",
+"radbox/geiger_4.wav",
+"radbox/geiger_5.wav",
+"radbox/geiger_6.wav",
+"radbox/geiger_7.wav",
+"radbox/geiger_8.wav"}
+
 GM.Corpses = {"models/player/Charple01.mdl",
 "models/humans/charple02.mdl",
 "models/humans/charple03.mdl",

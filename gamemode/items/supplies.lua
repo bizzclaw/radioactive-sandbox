@@ -89,12 +89,26 @@ item.Register( {
 	Description = "This medicinal gauze will effectively cover your open wounds and stop all bleeding.",
 	Stackable = true, 
 	Type = ITEM_SUPPLY,
-	Weight = 0.50, 
+	Weight = 0.35, 
 	Price = 25,
 	Rarity = 0.50,
 	Model = "models/radbox/bandage.mdl",
 	Functions = { FUNC_BANDAGE },
 	CamPos = Vector(20,10,5),
-	CamOrigin = Vector(0,1,1)	
+	CamOrigin = Vector(0,1,1)
+} )
+
+item.Register( { 
+	Name = "Geiger Counter", 
+	Description = "This device will warn you of dangerous amounts of radiation. Every wise traveler should carry one.",
+	Stackable = true, 
+	Type = ITEM_SUPPLY,
+	Weight = 1.25, 
+	Price = 60,
+	Rarity = 0.95,
+	Model = "models/radbox/geiger.mdl",
+	Functions = {},
+	CamPos = Vector(15,10,5),
+	CamOrigin = Vector(0,0,3)	
 } )
 

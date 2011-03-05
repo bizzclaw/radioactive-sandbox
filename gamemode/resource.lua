@@ -5,6 +5,12 @@ resource.AddFile( "resource/fonts/Graffiare.ttf" )
 resource.AddFile( "sound/radbox/warning.vtf" )
 resource.AddFile( "sound/radbox/heartbeat.vtf" )
 
+for i=1,8 do
+
+	resource.AddFile( "sound/radbox/geiger_" .. i .. ".vtf" )
+
+end
+
 local include_mat = { "materials/models/weapons/v_models/shot_m3super91/shot_m3super91_norm",
 "materials/models/weapons/v_models/shot_m3super91/shot_m3super91_2_norm",
 "materials/models/weapons/v_models/shot_m3super91/shot_m3super91",
@@ -28,7 +34,8 @@ local include_mat = { "materials/models/weapons/v_models/shot_m3super91/shot_m3s
 "materials/radbox/img_stamina",
 "materials/radbox/healthpack",
 "materials/radbox/healthpack2",
-"materials/radbox/bandage" }
+"materials/radbox/bandage",
+"materials/radbox/geiger_model" }
 
 for k,v in pairs( include_mat ) do
 
@@ -40,6 +47,7 @@ end
 local include_model = { "models/weapons/v_shot_m3super91",
 "models/items/boxqrounds",
 "models/radbox/bandage",
+"models/radbox/geiger",
 "models/radbox/healthpack",
 "models/radbox/healthpack2" }
 

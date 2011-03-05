@@ -35,6 +35,8 @@ function GM:Initialize( )
 	VehicleView = false
 	EmoteCooldown = 0
 	Drunkness = 0
+	RadScale = 0
+	NeedleAngle = 0
 	DeathScreenTime = 0
 	DeathScreenScale = 0
 	HeartBeat = 0
@@ -56,6 +58,8 @@ function GM:Initialize( )
 	matArm = Material( "radbox/radar_arm" )
 	matArrow = Material( "radbox/radar_arrow" )
 	matNoise = Material( "radbox/nvg_noise" )
+	matGeiger = Material( "radbox/geiger" )
+	matNeedle = Material( "radbox/geiger_needle" )
 	
 	matHealth = Material( "radbox/img_health" )
 	matStamina = Material( "radbox/img_stamina" )
@@ -329,8 +333,6 @@ function DrawBar( x, y, w, h, value, maxvalue, icon, colorlight, colordark )
 	surface.SetMaterial( icon ) 
 	surface.DrawTexturedRect( x, y + 1, h - 1, h - 2 ) 
 	
-	//draw.SimpleText( icon, "HUDBarFont", x + ( h * 0.5 ), y + ( h * 0.5 ) - 1, colorlight, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
-	
 	x = x + h + 2
 	
 	draw.RoundedBox( 4, x, y, w, h, Color( 0, 0, 0, 200 ) )
@@ -352,7 +354,6 @@ end
 function DrawIcon( x, y, w, h, icon, color )
 
 	draw.RoundedBox( 4, x - 1, y, h + 1, h, Color( 0, 0, 0, 200 ) )
-	//draw.SimpleText( icon, "HUDBarFont", x + ( h * 0.5 ), y + ( h * 0.5 ) - 1, color, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 	
 	surface.SetDrawColor( color.r, color.g, color.b, 200 ) 
 	surface.SetMaterial( icon ) 
@@ -464,6 +465,48 @@ function GM:HUDPaint()
 	
 		DrawAmmo( ScrW() - 5 - xlen, ScrH() - 55, xlen, 50, total, "TOTAL" )
 		DrawAmmo( ScrW() - 10 - xlen * 2, ScrH() - 55, xlen, 50, ammo, "AMMO" )
+		
+		if Inv_HasItem( "models/radbox/geiger.mdl" ) then
+		
+			surface.SetDrawColor( 255, 255, 255, 255 ) 
+			surface.SetMaterial( matGeiger ) 
+			surface.DrawTexturedRect( ScrW() - 120, ScrH() - 115, 115, 55 )
+			
+			NeedleAngle = math.Approach( NeedleAngle, RadScale * 100, TimeSeed( 10, 4, 8 ) ) 
+			RadScale = math.Approach( RadScale, 0, TimeSeed( 11, 0.001, 0.01 ) ) 
+			
+			if RadScale > 0.5 then
+			
+				surface.SetDrawColor( 255, 50, 50, 255 ) 
+			
+			end
+			
+			surface.SetMaterial( matNeedle ) 
+			surface.DrawTexturedRectRotated( ScrW() - 63, ScrH() - 65, 115, 55, 50 - NeedleAngle ) 
+	
+		end
+	
+	else
+	
+		if Inv_HasItem( "models/radbox/geiger.mdl" ) then
+	
+			surface.SetDrawColor( 255, 255, 255, 255 ) 
+			surface.SetMaterial( matGeiger ) 
+			surface.DrawTexturedRect( ScrW() - 120, ScrH() - 60, 115, 55 )
+			
+			NeedleAngle = math.Approach( NeedleAngle, RadScale * 100, TimeSeed( 10, 4, 8 ) ) 
+			RadScale = math.Approach( RadScale, 0, TimeSeed( 11, 0.001, 0.01 ) ) 
+			
+			if RadScale > 0.5 then
+			
+				surface.SetDrawColor( 255, 50, 50, 255 ) 
+			
+			end
+			
+			surface.SetMaterial( matNeedle ) 
+			surface.DrawTexturedRectRotated( ScrW() - 63, ScrH() - 8, 115, 55, 50 - NeedleAngle ) 
+			
+		end
 	
 	end
 	
@@ -477,7 +520,7 @@ function GM:HUDPaint()
 		ArmAngle = 0 + ( ArmAngle - 360 )
 	end
 	
-	surface.SetDrawColor( 255, 255, 255, 200 ) 
+	surface.SetDrawColor( 255, 255, 255, 220 ) 
 	surface.SetMaterial( matRadar ) 
 	surface.DrawTexturedRect( ScrW() - radius - 20, 20, radius, radius ) 
 	
@@ -549,7 +592,7 @@ function GM:HUDPaint()
 	for k,v in pairs( PosTable ) do
 		
 		local diff = v.Pos - LocalPlayer():GetPos()
-		local alpha = 50 
+		local alpha = 100 
 		
 		if ValidEntity( v.Ent ) and v.Ent:IsPlayer() then
 		
@@ -559,7 +602,7 @@ function GM:HUDPaint()
 		
 		if v.DieTime != -1 then
 		
-			alpha = 50 * ( math.Clamp( v.DieTime - CurTime(), 0, BlipTime ) / BlipTime )
+			alpha = 100 * ( math.Clamp( v.DieTime - CurTime(), 0, BlipTime ) / BlipTime )
 		
 		elseif ( !ValidEntity( v.Ent ) or ( v.Ent:IsPlayer() and !v.Ent:Alive() ) ) then
 			
@@ -599,7 +642,7 @@ function GM:HUDPaint()
 		
 	end
 		
-	surface.SetDrawColor( 255, 255, 255, 200 ) 
+	surface.SetDrawColor( 255, 255, 255, 220 ) 
 	surface.SetMaterial( matArm )
 	surface.DrawTexturedRectRotated( centerx, centery, radius, radius, ArmAngle ) 
 	
@@ -629,7 +672,7 @@ function GM:HUDPaint()
 		
 		end
 		
-		surface.SetDrawColor( 255, 255, 255, 150 ) 
+		surface.SetDrawColor( 255, 255, 255, 200 ) 
 		surface.SetMaterial( matArrow )
 		surface.DrawTexturedRectRotated( centerx, centery, radius, radius, ang.y )
 		
@@ -681,6 +724,13 @@ function SetRadarTarget( msg )
  
 end
 usermessage.Hook( "StaticTarget", SetRadarTarget )
+
+function SetRadScale( msg )
+ 
+	RadScale = math.max( msg:ReadFloat(), RadScale )
+ 
+end
+usermessage.Hook( "RadScale", SetRadScale )
 
 function AddDrunkness( msg )
  
