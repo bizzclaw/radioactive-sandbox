@@ -1,0 +1,7 @@
+"UnlitGeneric"
+{
+	"$basetexture" "radbox/geiger_needle"
+	"$vertexcolor" 1
+	"$vertexalpha" 1
+	"$translucent" 1
+}

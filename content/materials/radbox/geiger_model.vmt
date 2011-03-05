@@ -1,0 +1,6 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "radbox\geiger_model"
+	"$surfaceprop" "metal"
+	"$model" 1
+}
