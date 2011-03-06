@@ -266,6 +266,13 @@ function GM:Think()
 		RadarEntTable = table.Add( RadarEntTable, ents.FindByClass( "sent_lootbag" ) )
 		RadarEntTable = table.Add( RadarEntTable, ents.FindByClass( "point_stash" ) )
 		
+		if Inv_HasItem( "models/items/battery.mdl" ) then
+		
+			RadarEntTable = table.Add( RadarEntTable, ents.FindByClass( "anomaly*" ) )
+			RadarEntTable = table.Add( RadarEntTable, ents.FindByClass( "biganomaly*" ) )
+		
+		end
+		
 	end
 	
 end
@@ -556,6 +563,10 @@ function GM:HUDPaint()
 				elseif string.find( v:GetClass(), "npc" ) then
 				
 					color = Color( 255, 80, 80 )
+				
+				elseif string.find( v:GetClass(), "anomaly" ) then
+				
+					color = Color( 255, 150, 80 )
 				
 				end
 			

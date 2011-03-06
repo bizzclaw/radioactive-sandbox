@@ -2,12 +2,6 @@
 // This is the ID given to any item that is an exodus supply
 ITEM_EXODUS = 3
 
-// Weight constants
-WEIGHT_MEDS = 0.15
-
-// Price constants
-PRICE_MEDS = 30
-
 function FUNC_ANTIRAD( ply, id, client )
 
 	if client then return "Use" end
@@ -32,16 +26,16 @@ end
 
 item.Register( { 
 	Name = "Anti-Rad", 
-	Description = "This powerful medication will neutralize all radiation poisoning.",
+	Description = "This powerful medication will instantly neutralize all radiation poisoning.",
 	Stackable = true, 
 	Type = ITEM_EXODUS,
-	Weight = WEIGHT_MEDS, 
-	Price = PRICE_MEDS,
-	Rarity = 0.20,
+	Weight = 0.15, 
+	Price = 30,
+	Rarity = 0.30,
 	Model = "models/healthvial.mdl",
 	Functions = { FUNC_ANTIRAD },
 	CamPos = Vector(15,10,9),
-	CamOrigin = Vector(0,0,5)	//6
+	CamOrigin = Vector(0,0,5)	
 } )
 
 item.Register( { 
@@ -60,12 +54,12 @@ item.Register( {
 
 item.Register( { 
 	Name = "Sonar Module", 
-	Description = "This module connects to your radar, improving its detection range.",
+	Description = "This device connects to your radar, improving its detection range and speed.",
 	Stackable = true, 
 	Type = ITEM_EXODUS,
 	Weight = 0.75, 
 	Price = 100,
-	Rarity = 0.85,
+	Rarity = 0.90,
 	Model = "models/gibs/shield_scanner_gib1.mdl",
 	Functions = {},
 	CamPos = Vector(5,8,8),
@@ -73,12 +67,12 @@ item.Register( {
 } )
 
 item.Register( { 
-	Name = "Hazard Detector", 
-	Description = "This field detector will emit warning sounds when radioactive deposits or anomalies are nearby.",
+	Name = "Field Detector Module", 
+	Description = "This field detector will emit warning sounds when anomalies are nearby. It will also display them on your radar.",
 	Stackable = true, 
 	Type = ITEM_EXODUS,
 	Weight = 1.25, 
-	Price = 100,
+	Price = 120,
 	Rarity = 0.90,
 	Model = "models/items/battery.mdl",
 	Functions = {},

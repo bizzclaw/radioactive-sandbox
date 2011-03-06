@@ -262,6 +262,20 @@ item.Register( {
 } )
 
 item.Register( { 
+	Name = "Geiger Counter Module", 
+	Description = "This device will warn you of dangerous radioactive deposits near your position.",
+	Stackable = true, 
+	Type = ITEM_MISC,
+	Weight = 1.25, 
+	Price = 60,
+	Rarity = 0.90,
+	Model = "models/radbox/geiger.mdl",
+	Functions = {},
+	CamPos = Vector(15,10,5),
+	CamOrigin = Vector(0,0,3)	
+} )
+
+item.Register( { 
 	Name = "Moonshine Vodka", 
 	Description = "This old glass bottle is full of homemade vodka. It's less potent than regular vodka but tastes twice as strong.",
 	Stackable = true, 

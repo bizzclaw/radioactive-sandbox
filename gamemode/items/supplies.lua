@@ -98,17 +98,3 @@ item.Register( {
 	CamOrigin = Vector(0,1,1)
 } )
 
-item.Register( { 
-	Name = "Geiger Counter", 
-	Description = "This device will warn you of dangerous amounts of radiation. Every wise traveler should carry one.",
-	Stackable = true, 
-	Type = ITEM_SUPPLY,
-	Weight = 1.25, 
-	Price = 60,
-	Rarity = 0.95,
-	Model = "models/radbox/geiger.mdl",
-	Functions = {},
-	CamPos = Vector(15,10,5),
-	CamOrigin = Vector(0,0,3)	
-} )
-

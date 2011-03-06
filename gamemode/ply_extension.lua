@@ -397,19 +397,18 @@ function meta:Think()
 	
 		local tbl = ents.FindByClass( "anomaly*" )
 		tbl = table.Add( tbl, ents.FindByClass( "biganomaly*" ) )
-		tbl = table.Add( tbl, ents.FindByClass( "point_radiation" ) )
 	
 		for k,v in pairs( tbl ) do
 		
 			local dist = v:GetPos():Distance( self:GetPos() )
 		
-			if dist < v:GetRadiationRadius() + 300 and ( v:GetClass() != "point_radiation" or v:IsActive() ) then 
+			if dist < v:GetRadiationRadius() + 300 then 
 			
 				if ( self.WarningTime or 0 ) < CurTime() then
 				
 					local scale = math.Clamp( ( dist - v:GetRadiationRadius() ) / 300, 0.1, 1.0 )
 				
-					self.WarningTime = CurTime() + 0.1 + scale * 1.25
+					self.WarningTime = CurTime() + 0.1 + scale * 1.0
 					
 					self:EmitSound( "radbox/warning.wav", 50, 100 + ( 1 - scale ) * 20 )
 				

@@ -1,7 +1,7 @@
 
 require( "datastream" )
 
-GM.Name 		= "Radioactive RP"  // i wonder what will happen now?
+GM.Name 		= "Radioactive Sandbox"  
 GM.Author 		= "Rambo_6"
 GM.Email 		= ""
 GM.Website 		= ""
