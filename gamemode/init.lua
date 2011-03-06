@@ -1134,6 +1134,24 @@ concommand.Add( "sv_radbox_save_map_config", SaveGameItems )
 
 function MapSetupMode( ply, cmd, args )
 
+	if not ValidEntity( ply ) then 
+	
+		for k, ply in pairs( player.GetAll() ) do
+		
+			if ply:IsAdmin() or ply:IsSuperAdmin() then
+	
+				ply:Give( "rad_itemplacer" )
+				ply:Give( "rad_propplacer" )
+				ply:Give( "weapon_physgun" )
+			
+			end
+		
+		end
+		
+		return
+		
+	end
+
 	if ply:IsAdmin() or ply:IsSuperAdmin() then
 	
 		ply:Give( "rad_itemplacer" )
@@ -1148,7 +1166,7 @@ concommand.Add( "sv_radbox_dev_mode", MapSetupMode )
 
 function WipeDatabase( ply, cmd, args )
 
-	if ply:IsAdmin() or ply:IsSuperAdmin() then
+	if not ply or ( ValidEntity( ply ) and ( ply:IsAdmin() or ply:IsSuperAdmin() ) ) then
 	
 		db.Wipe()
 		db.Initialize()
