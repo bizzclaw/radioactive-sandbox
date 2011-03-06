@@ -843,7 +843,7 @@ function DropItem( ply, cmd, args )
 	
 	end
 	
-	loot:SetAngles( ply:GetAngles() )
+	loot:SetAngles( ply:GetAimVector():Angle() )
 	loot:SetPos( ply:GetItemDropPos() )
 	loot:SetRemoval( 60 * 5 )
 	loot:Spawn()

@@ -309,4 +309,8 @@ function PANEL:PerformLayout()
 	
 end
 
+function PANEL:Paint()
+
+end
+
 derma.DefineControl( "ItemPanel", "A HUD Element with a model in the middle", PANEL, "PanelBase" )
