@@ -45,6 +45,7 @@ CreateConVar( "sv_radbox_allow_build", "0", { FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR
 CreateConVar( "sv_radbox_max_props", "10", { FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_SERVER_CAN_EXECUTE }, "Maximum number of props that players can spawn if building is allowed." )
 CreateConVar( "sv_radbox_allow_loners", "0", { FCVAR_REPLICATED, FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_SERVER_CAN_EXECUTE }, "Controls whether players spawn initially as a loner." )
 CreateConVar( "sv_radbox_custom_names", "1", { FCVAR_REPLICATED, FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_SERVER_CAN_EXECUTE }, "Controls whether players can name themselves." )
+CreateConVar( "sv_radbox_daycycle", "1", { FCVAR_REPLICATED, FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_SERVER_CAN_EXECUTE }, "Controls whether the server has day/night enabled." )
 
 function GM:Initialize( )
 

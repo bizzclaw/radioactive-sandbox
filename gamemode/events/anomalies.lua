@@ -3,7 +3,7 @@ local EVENT = {}
 
 EVENT.MaxAnomalies = 30
 EVENT.Types = { "anomaly_whiplash", 
-				//"anomaly_electro", 
+				"anomaly_electro", 
 				"anomaly_vortex", 
 				"anomaly_warp", 
 				"anomaly_hoverstone", 

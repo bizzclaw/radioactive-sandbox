@@ -28,6 +28,8 @@ if CLIENT then
 	hook.Add( "Think", "DAYCYCLE.Think",
 	
 			function()
+			
+				if !GetConVar( "sv_radbox_daycycle" ):GetBool() then return end
 				
 				if GetGlobalBool( "Initialized" ) == false then return end
 				
@@ -88,7 +90,7 @@ if CLIENT then
 	
 end
 
-local MINUTE_LENGTH = 2.0
+local MINUTE_LENGTH = 0.01 //2
 local DAY_LENGTH	= 60 * 24
 local MORNING		= DAY_LENGTH / 4 
 local EVENING		= MORNING * 3
@@ -119,6 +121,12 @@ function DAYCYCLE.SetSunTime( minute )
 		
 	end
 	
+	if DAYCYCLE.FogControl then
+	
+		DAYCYCLE.FogControl:Fire( "setcolor", tbl.FogColor * DAYCYCLE.FogDefault.r .. " " .. tbl.FogColor * DAYCYCLE.FogDefault.g .. " " .. tbl.FogColor * DAYCYCLE.FogDefault.b )
+	
+	end
+	
 	SetGlobalVector( "DAYCYCLE:SkyMod", tbl.SkyColor )
 	SetGlobalFloat( "DAYCYCLE:SkyContrast", tbl.SkyContrast )
 	SetGlobalFloat( "DAYCYCLE:SkyBrightness", tbl.SkyBrightness )
@@ -127,28 +135,27 @@ end
 
 function DAYCYCLE.CalculateTimeColor( dayminute )
 
-	// default color to white.
 	local red = 1
 	local blue = 1
 	local green = 1
-	
-	//pp values
 	local brightness = 0
 	local contrast = 0
+	local fog = 0
 	
-	// golden sunrise calculations
+	// sunrise
 	if dayminute >= 1 and dayminute < MORNING_END then
 		
-		if dayminute < MORNING_START then
+		if dayminute < MORNING_START then // first
 
 			red = 0.25
 			green = 0.25
 			blue = 0.35
 			
-			brightness = -0.1
-			contrast = -0.5
+			brightness = -0.07
+			contrast = -0.3
+			fog = -0.5
 			
-		else
+		else // second
 		
 			local frac = ( dayminute - MORNING_START ) / ( MORNING_END - MORNING_START )
 
@@ -156,35 +163,38 @@ function DAYCYCLE.CalculateTimeColor( dayminute )
 			green = math.Clamp( frac * 1.2, 0, 0.25 )
 			blue = math.Clamp( frac, 0, 0.35 )
 			
-			brightness = -0.1 + frac * 0.1
-			contrast = -0.5 + frac * 0.5 
+			brightness = -0.07 + frac * 0.1
+			contrast = -0.3 + frac * 0.5 
+			fog = -0.5 + frac * 0.5
 
 		end
 		
 	end
 	
-	// red dusk
+	// dusk
 	if dayminute > EVENING_START and dayminute <= DAY_LENGTH then
 	
 		local frac = 1 - ( ( dayminute - EVENING_START ) / ( EVENING_END - EVENING_START ) )
 		
-		if dayminute > EVENING_END then
+		if dayminute > EVENING_END then // last
 		
 			red = 0.25
 			green = 0.25
 			blue = 0.35
 			
-			brightness = -0.1
-			contrast = -0.5
+			brightness = -0.07
+			contrast = -0.3
+			fog = -0.5
 			
-		else
+		else // second last
 		
 			red = math.Clamp( frac, 0, 0.25 )
 			green = math.Clamp( frac * 0.7, 0, 0.25 )
 			blue = math.Clamp( frac * 0.8, 0, 0.35 )
 			
-			brightness = -0.1 + frac * 0.1
-			contrast = -0.5 + frac * 0.5 
+			brightness = -0.07 + frac * 0.1
+			contrast = -0.3 + frac * 0.5 
+			fog = -0.5 + frac * 0.5
 
 		end
 		
@@ -195,8 +205,9 @@ function DAYCYCLE.CalculateTimeColor( dayminute )
 	green = math.Clamp( green, 0, 1 )
 	brightness = math.Clamp( brightness, -1, 1 )
 	contrast = math.Clamp( contrast, -1, 1 )
+	fog = math.Clamp( fog, 0, 1 )
 
-	return Vector( red, green, blue ), brightness, contrast
+	return Vector( red, green, blue ), brightness, contrast, fog
 	
 end
 
@@ -254,8 +265,9 @@ function DAYCYCLE.InitLightTable()
 		DAYCYCLE.LightTable[n].ShadowAngle = math.Approach( -1 , 1 , ( MIDDAY / n ) ) .. " 0 -1"
 		DAYCYCLE.LightTable[n].ShadowColor = DAYCYCLE.CalculateShadowColor( n )
 		
-		local col, bright, cont = DAYCYCLE.CalculateTimeColor( n )
+		local col, bright, cont, fogcol = DAYCYCLE.CalculateTimeColor( n )
 		
+		DAYCYCLE.LightTable[n].FogColor = fogcol
 		DAYCYCLE.LightTable[n].SkyColor = col
 		DAYCYCLE.LightTable[n].SkyBrightness = bright
 		DAYCYCLE.LightTable[n].SkyContrast = cont
@@ -272,6 +284,16 @@ hook.Add( "EntityKeyValue", "DAYCYCLE.KeyValue",
 			
 			SetGlobalString( "DAYCYCLE:SkyName", val )
 				
+		elseif ent:GetClass() == "env_fog_controller" then
+			
+			if key == "fogcolor" then
+		
+				local str = string.Explode( " ", val )
+		
+				DAYCYCLE.FogDefault = Color( tonumber( str[1] ), tonumber( str[2] ), tonumber( str[3] ) )
+			
+			end
+		
 		end
 			
 	end
@@ -293,39 +315,34 @@ hook.Add( "Initialize", "DAYCYCLE.Initialize",
 hook.Add( "InitPostEntity", "DAYCYCLE.PostEntInit",
 
 	function()
+	
+		if !GetConVar( "sv_radbox_daycycle" ):GetBool() then return end
 			
-		if not ValidEntity( ents.FindByClass( "env_fog_controller" )[1] ) then
+		DAYCYCLE.Sun = ents.FindByClass( "env_sun" )[1] 
+		DAYCYCLE.FogControl = ents.FindByClass( "env_fog_controller" )[1] 
 			
-			DAYCYCLE.Sun = ents.FindByClass( "env_sun" )[1] 
+		if not ValidEntity( DAYCYCLE.Sun ) then
 			
-			if not ValidEntity( DAYCYCLE.Sun ) then
+			DAYCYCLE.Sun = ents.Create( "env_sun" )
+			DAYCYCLE.Sun:SetKeyValue( "pitch", "90" )
+			DAYCYCLE.Sun:Spawn()
 			
-				DAYCYCLE.Sun = ents.Create( "env_sun" )
-				DAYCYCLE.Sun:SetKeyValue( "pitch", "90" )
-				DAYCYCLE.Sun:Spawn()
-			
-			end
-			
-			DAYCYCLE.Sun:SetKeyValue( "material", "sprites/light_glow02_add_noz.vmt" )
-			DAYCYCLE.Sun:SetKeyValue( "overlaymaterial", "sprites/light_glow02_add_noz.vmt" )
-			
-			DAYCYCLE.ShadowControl = ents.FindByClass( "shadow_control" )[1]
-			
-			if not ValidEntity( DAYCYCLE.ShadowControl ) then
-			
-				DAYCYCLE.ShadowControl = ents.Create( "shadow_control" )
-				DAYCYCLE.ShadowControl:Spawn()
-				
-			end
-			
-			DAYCYCLE.InitDone = true
-			SetGlobalBool( "Initialized", true )
-			
-			return
-				
 		end
-		
-		SetGlobalBool( "Initialized", false )
+			
+		DAYCYCLE.Sun:SetKeyValue( "material", "sprites/light_glow02_add_noz.vmt" )
+		DAYCYCLE.Sun:SetKeyValue( "overlaymaterial", "sprites/light_glow02_add_noz.vmt" )
+			
+		DAYCYCLE.ShadowControl = ents.FindByClass( "shadow_control" )[1]
+			
+		if not ValidEntity( DAYCYCLE.ShadowControl ) then
+			
+			DAYCYCLE.ShadowControl = ents.Create( "shadow_control" )
+			DAYCYCLE.ShadowControl:Spawn()
+			
+		end
+			
+		DAYCYCLE.InitDone = true
+		SetGlobalBool( "Initialized", true )
 		
 	end
 )

@@ -46,7 +46,7 @@ local function DrawInternal()
 	
 		if LocalPlayer():Alive() then
 		
-			ColorModify[ "$pp_colour_brightness" ] = math.Approach( ColorModify[ "$pp_colour_brightness" ], 0.15, FrameTime() * 0.25 ) 
+			ColorModify[ "$pp_colour_brightness" ] = math.Approach( ColorModify[ "$pp_colour_brightness" ], 0.20, FrameTime() * 0.25 ) 
 			ColorModify[ "$pp_colour_contrast" ] = math.Approach( ColorModify[ "$pp_colour_contrast" ], 1.50, FrameTime() * 0.25 ) 
 			ColorModify[ "$pp_colour_mulg" ] = math.Approach( ColorModify[ "$pp_colour_mulg" ], 0.20, FrameTime() * 0.25 ) 
 			ColorModify[ "$pp_colour_addg" ] = math.Approach( ColorModify[ "$pp_colour_addg" ], 0.10, FrameTime() * 0.25 ) 
@@ -57,6 +57,19 @@ local function DrawInternal()
 		
 		end
 	
+	end
+	
+	local rads = LocalPlayer():GetNWInt( "Radiation", 0 )
+	
+	if rads > 0 and LocalPlayer():Alive() then
+		
+		local scale = rads / 5
+		
+		MotionBlur = math.Approach( MotionBlur, scale * 0.5, FrameTime() )
+		Sharpen = math.Approach( Sharpen, scale * 5, FrameTime() * 3 )
+	
+		ColorModify[ "$pp_colour_colour" ] = math.Approach( ColorModify[ "$pp_colour_colour" ], 1.0 - scale * 0.8, FrameTime() * 0.1 )
+		
 	end
 	
 	for k,v in pairs( ColorModify ) do
@@ -71,25 +84,12 @@ local function DrawInternal()
 		
 		end
 	
-		MixedColorMod[k] = DayColor[k] + ColorModify[k]
+		MixedColorMod[k] = math.Approach( MixedColorMod[k] or 0, DayColor[k] + ColorModify[k], FrameTime() * 0.10 )
 	
 	end
 	
 	DrawColorModify( MixedColorMod )
 	
-	local rads = LocalPlayer():GetNWInt( "Radiation", 0 )
-	
-	if rads > 0 and LocalPlayer():Alive() then
-		
-		local scale = rads / 5
-		
-		MotionBlur = math.Approach( MotionBlur, scale * 0.5, FrameTime() )
-		Sharpen = math.Approach( Sharpen, scale * 5, FrameTime() * 3 )
-	
-		ColorModify[ "$pp_colour_colour" ] = math.Approach( ColorModify[ "$pp_colour_colour" ], 1.0 - scale * 0.8, FrameTime() * 0.1 )
-		
-	end
-
 end
 hook.Add( "RenderScreenspaceEffects", "RenderPostProcessing", DrawInternal )
 

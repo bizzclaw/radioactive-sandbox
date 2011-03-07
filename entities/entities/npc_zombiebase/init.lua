@@ -13,7 +13,6 @@ ENT.ClawMiss = {"npc/zombie/claw_miss1.wav",
 ENT.DoorHit = Sound("npc/zombie/zombie_hit.wav")
 
 ENT.IdleTalk = 0
-ENT.DoorTime = 0
 ENT.VoiceTime = 0
 ENT.RemoveTime = 0
 ENT.RemovePos = Vector(0,0,0)
@@ -187,29 +186,6 @@ function ENT:Think()
 		self.IdleTalk = CurTime() + math.random(15,25)
 		
 	end
-
-	if self.DoorTime < CurTime() then
-	
-		self.DoorTime = CurTime() + 5
-		local door = self.Entity:NearDoor()
-		
-		if ValidEntity( door ) then
-		
-			self.Entity:SetSchedule( SCHED_MELEE_ATTACK1 ) 
-		
-			door:TakeDamage( 100, self.Entity )
-			
-			if string.find( door:GetClass(), "door" ) then
-			
-				door:Fire( "kill", 0.01, 0.01 )
-				
-			end
-			
-			self.Entity:EmitSound( self.DoorHit, 100, math.random(90,110) )
-			
-		end
-		
-	end
 	
 	if self.AttackTime and self.AttackTime < CurTime() then
 	
@@ -241,34 +217,6 @@ function ENT:Think()
 end
 
 function ENT:OnDamageEnemy( enemy )
-
-end
-
-function ENT:GetDoors()
-
-	local tbl = ents.FindByClass( "prop_door_rotating" )
-	tbl = table.Add( tbl, ents.FindByClass( "func_breakable" ) )
-	
-	return tbl
-
-end
-
-function ENT:NearDoor()
-
-	local doors = self.Entity:GetDoors()
-	local pos = self.Entity:GetPos()
-	
-	for k,v in pairs( doors ) do
-	
-		if v:GetPos():Distance( pos ) < 100 then
-		
-			return v
-			
-		end
-		
-	end
-	
-	return nil
 
 end
 
