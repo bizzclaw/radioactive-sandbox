@@ -29,7 +29,7 @@ if CLIENT then
 	
 			function()
 			
-				if !GetConVar( "sv_radbox_daycycle" ):GetBool() then return end
+				if GetConVar( "sv_radbox_daycycle" ) and !GetConVar( "sv_radbox_daycycle" ):GetBool() then return end
 				
 				if GetGlobalBool( "Initialized" ) == false then return end
 				

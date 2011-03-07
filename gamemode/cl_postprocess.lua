@@ -84,7 +84,7 @@ local function DrawInternal()
 		
 		end
 		
-		local daycol = DayColor[k] * GetConVar( "sv_radbox_daycycle_intensity" ):GetFloat()
+		local daycol = ( DayColor[k] or 0 ) * GetConVar( "sv_radbox_daycycle_intensity" ):GetFloat()
 	
 		MixedColorMod[k] = math.Approach( MixedColorMod[k] or 0, daycol + ColorModify[k], FrameTime() * 0.10 )
 	

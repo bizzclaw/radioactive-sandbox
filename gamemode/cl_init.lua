@@ -547,7 +547,7 @@ function GM:HUDPaint()
 		
 		local close = math.sqrt( diff.x * diff.x + diff.y * diff.y ) < MaxDist * FadeDist
 
-		if ( !v:IsPlayer() or ( v != LocalPlayer() and v:Team() == LocalPlayer():Team() ) ) and !IsOnRadar( v ) and ( dot > 0.99 or close ) then
+		if ( !v:IsPlayer() or v != LocalPlayer() ) and !IsOnRadar( v ) and ( dot > 0.99 or close ) then
 			
 			local pos = v:GetPos()
 			local color = Color( 0, 255, 0 )
@@ -566,7 +566,7 @@ function GM:HUDPaint()
 				
 				elseif string.find( v:GetClass(), "anomaly" ) then
 				
-					color = Color( 255, 150, 80 )
+					color = Color( 255, 80, 255 )
 				
 				end
 			
@@ -582,7 +582,7 @@ function GM:HUDPaint()
 					
 			elseif v:Team() != LocalPlayer():Team() then
 				
-				color = Color( 255, 80, 80 )
+				color = Color( 255, 150, 80 )
 				
 			end
 				
@@ -605,7 +605,7 @@ function GM:HUDPaint()
 		local diff = v.Pos - LocalPlayer():GetPos()
 		local alpha = 100 
 		
-		if ValidEntity( v.Ent ) and v.Ent:IsPlayer() then
+		if ValidEntity( v.Ent ) and ( v.Ent:IsPlayer() or v.Ent:IsNPC() ) then
 		
 			diff = v.Ent:GetPos() - LocalPlayer():GetPos()
 		
@@ -615,15 +615,15 @@ function GM:HUDPaint()
 		
 			alpha = 100 * ( math.Clamp( v.DieTime - CurTime(), 0, BlipTime ) / BlipTime )
 		
-		elseif ( !ValidEntity( v.Ent ) or ( v.Ent:IsPlayer() and !v.Ent:Alive() ) ) then
+		elseif not ValidEntity( v.Ent ) then
 			
-			PosTable[k].DieTime = CurTime() + 1.0
+			PosTable[k].DieTime = CurTime() + 1.5
 			
 		end
 			
 		if math.sqrt( diff.x * diff.x + diff.y * diff.y ) > MaxDist * FadeDist and v.DieTime == -1 then
 			
-			PosTable[k].DieTime = CurTime() + 1.0 // Remove the dot because they left our inner circle
+			PosTable[k].DieTime = CurTime() + 1.5 // Remove the dot because they left our inner circle
 			
 		end
 			
