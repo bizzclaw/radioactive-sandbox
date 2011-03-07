@@ -247,7 +247,11 @@ function SWEP:ShootBullets( damage, numbullets, aimcone, zoommode )
 	
 		dmginfo:ScaleDamage( self:GetDamageFalloffScale( tr.HitPos:Distance( self.Owner:GetShootPos() ) ) )
 		
-		self.Weapon:BulletPenetration( attacker, tr, dmginfo, 0 )
+		if math.random(1,6) == 1 then
+		
+			self.Weapon:BulletPenetration( attacker, tr, dmginfo, 0 )
+			
+		end
 
 	end
 	

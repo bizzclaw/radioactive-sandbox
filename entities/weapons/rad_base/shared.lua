@@ -567,14 +567,18 @@ function SWEP:ShootBullets( damage, numbullets, aimcone, zoommode )
 	
 	end
 	
-	bullet.Callback = function ( attacker, tr, dmginfo )
+	if math.random(1,5) == 1 then
 	
-		dmginfo:ScaleDamage( self:GetDamageFalloffScale( tr.HitPos:Distance( self.Owner:GetShootPos() ) ) )
+		bullet.Callback = function ( attacker, tr, dmginfo )
+		
+			dmginfo:ScaleDamage( self:GetDamageFalloffScale( tr.HitPos:Distance( self.Owner:GetShootPos() ) ) )
 
-		if ValidEntity( tr.Entity ) and tr.Entity:IsPlayer() then return end
-	
-		self.Weapon:BulletPenetration( attacker, tr, dmginfo, 0 )
+			if ValidEntity( tr.Entity ) and tr.Entity:IsPlayer() then return end
+		
+			self.Weapon:BulletPenetration( attacker, tr, dmginfo, 0 )
 
+		end
+		
 	end
 	
 	self.Owner:FireBullets( bullet )

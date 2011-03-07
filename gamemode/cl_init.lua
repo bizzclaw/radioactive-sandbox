@@ -31,6 +31,8 @@ function GM:Initialize( )
 	
 	WindVector = Vector( math.random(-10,10), math.random(-10,10), 0 )
 	StaticPos = Vector(0,0,0)
+	IsIndoors = false
+	IndoorsThink = 0
 	NightVision = false
 	VehicleView = false
 	EmoteCooldown = 0
@@ -172,6 +174,25 @@ end
 
 function GM:Think()
 
+	if IndoorsThink < CurTime() then
+	
+		IndoorsThink = CurTime() + 2
+		
+		local trace = util.GetPlayerTrace( LocalPlayer(), Vector(0,0,1) )
+		local tr = util.TraceLine( trace )
+		
+		if tr.HitWorld and not tr.HitSky then
+		
+			IsIndoors = true
+		
+		else
+		
+			IsIndoors = false
+		
+		end
+	
+	end
+
 	if EmoteCooldown < CurTime() and LocalPlayer():Alive() and CV_AutoEmote:GetBool() then
 	
 		EmoteCooldown = CurTime() + math.random( 60, 120 )
@@ -259,7 +280,7 @@ function GM:Think()
 
 	if ( NextRadarThink or 0 ) < CurTime() then
 	
-		NextRadarThink = CurTime() + 1
+		NextRadarThink = CurTime() + 1.5
 	
 		RadarEntTable = player.GetAll()
 		RadarEntTable = table.Add( RadarEntTable, ents.FindByClass( "npc_*" ) )
@@ -547,7 +568,7 @@ function GM:HUDPaint()
 		
 		local close = math.sqrt( diff.x * diff.x + diff.y * diff.y ) < MaxDist * FadeDist
 
-		if ( !v:IsPlayer() or v != LocalPlayer() ) and !IsOnRadar( v ) and ( dot > 0.99 or close ) then
+		if ( !v:IsPlayer() or ( v != LocalPlayer() and ( v:Team() == LocalPlayer():Team() or ( v:GetVelocity():Length() > 0 or close ) ) ) ) and !IsOnRadar( v ) and ( dot > 0.99 or close ) then
 			
 			local pos = v:GetPos()
 			local color = Color( 0, 255, 0 )
