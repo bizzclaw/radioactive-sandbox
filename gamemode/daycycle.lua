@@ -90,7 +90,7 @@ if CLIENT then
 	
 end
 
-local MINUTE_LENGTH = 0.01 //2
+local MINUTE_LENGTH = 2.0 // change this to 0.01 - testing purposes
 local DAY_LENGTH	= 60 * 24
 local MORNING		= DAY_LENGTH / 4 
 local EVENING		= MORNING * 3
