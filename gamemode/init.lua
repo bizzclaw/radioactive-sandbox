@@ -699,6 +699,27 @@ function GM:DoPlayerDeath( ply, attacker, dmginfo )
 	
 end
 
+function GM:PlayerSay( ply, text, nonteam )
+
+	if nonteam then
+	
+		return ( ply.ChatMode or "" ) .. text
+	
+	else
+	
+		return text
+	
+	end
+
+end 
+
+local function GetChatMode( ply, cmd, args )
+
+	ply.ChatMode = args[1]
+
+end
+concommand.Add( "cl_radbox_chatmode", GetChatMode )
+
 function GM:ShowTeam( ply )
 	
 	if ply:Alive() and ply:Team() != TEAM_UNASSIGNED then return end

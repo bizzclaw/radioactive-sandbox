@@ -7,8 +7,8 @@ PANEL.Text = { "The Inventory System:\n",
  "Missions:\n",
  "If you go on a mission for your trader, your objective's direction will be marked by a compass on your radar. Talk to the trader when you complete the mission in order to earn cash.\n\n",
  "The Radar:\n",
- "The radar marks the position of many things. Blue dots are stashes and loot. White dots are traders. Red dots are enemies. Green dots are faction members. Beware, radioactive deposits are not marked on the radar.\n\n\n",
- "HEY SHITHEAD! READ ALL THIS CRAP IF YOU'RE A NEWBIE!" }
+ "The radar marks the position of many things. Blue dots are stashes and loot. White dots are traders. Red dots are enemies. Green dots are friendly faction members. Orange dots are other faction members.\n\n\n",
+ "HEY BUTTMUNCH! READ ALL THIS CRAP IF YOU'RE A NEWBIE!" }
 
 function PANEL:Init()
 
@@ -36,7 +36,7 @@ function PANEL:Init()
 
 		self:Remove() 
 		
-		if not GetConVar( "sv_radbox_allow_loners" ) or not GetConVar( "sv_radbox_allow_loners" ):GetBool() then
+		if not GetConVar( "sv_radbox_allow_loners" ):GetBool() then
 		
 			GAMEMODE:ShowTeam()
 			
@@ -60,7 +60,7 @@ end
 
 function PANEL:PerformLayout()
 
-	local x,y = self:GetPadding(), self:GetPadding()
+	local x,y = self:GetPadding(), self:GetPadding() + 10
 	
 	self.Label:SetPos( x, y )
 	

@@ -16,7 +16,7 @@ GM.ExodusTeamName = "Exodus"
 
 GM.TeamLeaderModels = {}
 GM.TeamLeaderModels[ TEAM_ARMY ] = "models/player/leet.mdl"
-GM.TeamLeaderModels[ TEAM_EXODUS ] = "models/player/magnusson.mdl"
+GM.TeamLeaderModels[ TEAM_EXODUS ] = "models/player/police.mdl"
 GM.TeamLeaderModels[ TEAM_BANDOLIERS ] = "models/player/guerilla.mdl"
 GM.TeamLeaderModels[ TEAM_LONER ] = "models/player/eli.mdl"
 
