@@ -90,7 +90,6 @@ if CLIENT then
 	
 end
 
-local MINUTE_LENGTH = 2.0 // change this to 0.01 - testing purposes
 local DAY_LENGTH	= 60 * 24
 local MORNING		= DAY_LENGTH / 4 
 local EVENING		= MORNING * 3
@@ -355,7 +354,7 @@ hook.Add( "Think", "DAYCYCLE.Think",
 			
 		if DAYCYCLE.NextTimeThink > CurTime() then return end
 
-		DAYCYCLE.NextTimeThink = CurTime() + MINUTE_LENGTH
+		DAYCYCLE.NextTimeThink = CurTime() + GetConVar( "sv_radbox_daycycle_speed" ):GetFloat() //MINUTE_LENGTH
 		DAYCYCLE.DayMinute = DAYCYCLE.DayMinute + 1
 			
 		if DAYCYCLE.DayMinute > DAY_LENGTH then 
