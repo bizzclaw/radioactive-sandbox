@@ -74,9 +74,9 @@ GM.ChatEmotes[ "Pain" ] = { "/me moans in pain",
 "/me is in a lot of pain",
 "/me is severely injured",
 "/me is hurt badly" }
-	
-// Weight Limits (lbs)
 
+// Weight Limits (lbs)
+	
 GM.OptimalWeight = 15 // If your weight is less than this then you gain stamina faster.
 GM.MaxWeight = 35     // If your weight is higher than this then you run slower. 
 GM.WeightCap = 50     // If your weight is higher than this then you run at a snail's pace.
@@ -86,9 +86,12 @@ if CLIENT then return end
 GM.MinEventDelay = 60 * 5  // The minimum possible time, in seconds, between random events
 GM.MaxEventDelay = 60 * 25 // The maximum possible time, in seconds, between random events
 
+GM.RadiationAmount = 0.6   // How much of the radiation on the map should be disabled on map startup? ( Scalar - 0.6 means 60% will be disabled )
 GM.MaxLoot = 0.05          // Maximum amount of loot to be generated ( Scalar - 0.10 means 10% of the info_lootspawns will have loot at them. )
-GM.MaxZombiesScale = 1.0   // Scalar for amount of zombies to spawn per player - 1.0 means spawning 1 zombie per player, 2.0 means 2 per player, etc.
-GM.MaxRoguesScale = 0.75   // Scalar for amount of rogues to spawn per player - 1.0 means spawning 1 rogue per player, 2.0 means 2 per player, etc.
+GM.MaxZombiesScale = 0.75  // Scalar for amount of zombies to spawn per player - 1.0 means spawning 1 zombie per player, 2.0 means 2 per player, etc.
+GM.MaxRoguesScale = 0.50   // Scalar for amount of rogues to spawn per player - 1.0 means spawning 1 rogue per player, 2.0 means 2 per player, etc.
+GM.MaxZombies = 8         // Max amount of zombies allowed.
+GM.MaxRogues = 6          // Max amount of rogues allowed.
 
 function GM:LootThink()
 
@@ -150,7 +153,7 @@ end
 
 function GM:NPCThink()
 	
-	if #ents.FindByClass( "npc_rogue" ) < math.Round( GAMEMODE.MaxRoguesScale * #player.GetAll() ) then
+	if #ents.FindByClass( "npc_rogue" ) < math.Round( GAMEMODE.MaxRoguesScale * #player.GetAll() ) and #ents.FindByClass( "npc_rogue" ) < GAMEMODE.MaxRogues then
 	
 		local tbl = ents.FindByClass( "info_npcspawn" )
 		
@@ -164,7 +167,7 @@ function GM:NPCThink()
 	
 	end
 	
-	if #ents.FindByClass( "npc_zombie*" ) < math.Round( GAMEMODE.MaxZombiesScale * #player.GetAll() ) then
+	if #ents.FindByClass( "npc_zombie*" ) < math.Round( GAMEMODE.MaxZombiesScale * #player.GetAll() ) and #ents.FindByClass( "npc_zombie*" ) < GAMEMODE.MaxZombies then
 	
 		local tbl = ents.FindByClass( "info_npcspawn" )
 		
@@ -216,4 +219,3 @@ function GM:VehicleThink()
 	end
 
 end
-

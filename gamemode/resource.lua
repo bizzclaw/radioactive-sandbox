@@ -35,6 +35,8 @@ local include_mat = { "materials/models/weapons/v_models/shot_m3super91/shot_m3s
 "materials/radbox/healthpack",
 "materials/radbox/healthpack2",
 "materials/radbox/bandage",
+"materials/radbox/geiger",
+"materials/radbox/geiger_needle",
 "materials/radbox/geiger_model" }
 
 for k,v in pairs( include_mat ) do

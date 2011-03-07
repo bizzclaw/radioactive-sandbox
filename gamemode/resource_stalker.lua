@@ -32,6 +32,9 @@ local include_mat = { "materials/models/weapons/v_models/shot_m3super91/shot_m3s
 "materials/radbox/img_stamina",
 "materials/radbox/healthpack",
 "materials/radbox/healthpack2",
+"materials/radbox/geiger_model",
+"materials/radbox/geiger",
+"materials/radbox/geiger_needle",
 "materials/radbox/bandage" }
 
 for k,v in pairs( include_mat ) do
@@ -46,6 +49,7 @@ local include_model = { "models/weapons/v_shot_m3super91",
 "models/radbox/bandage",
 "models/radbox/healthpack",
 "models/radbox/healthpack2",
+"models/radbox/geiger",
 "models/stalker_hood_duty.mdl",
 "models/stalker_antigas_killer_us.mdl",
 "models/stalker_bandit_veteran.mdl",

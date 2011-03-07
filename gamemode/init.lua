@@ -800,6 +800,7 @@ function DropItem( ply, cmd, args )
 		
 			local prop = ents.Create( "prop_physics" )
 			prop:SetPos( ply:GetItemDropPos() )
+			prop:SetAngles( ply:GetAimVector():Angle() )
 			prop:SetModel( tbl.Model ) 
 			prop:SetCollisionGroup( COLLISION_GROUP_WEAPON )
 			prop:Spawn()
