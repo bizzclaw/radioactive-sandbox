@@ -13,3 +13,4 @@ function ENT:DrawTranslucent()
 	self.Entity:Draw()
 	
 end
+

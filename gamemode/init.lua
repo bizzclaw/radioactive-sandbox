@@ -276,6 +276,173 @@ function GM:LoadInventory( pl )
 	
 end 
 
+function GM:LootThink()
+
+	if #ents.FindByClass( "info_lootspawn" ) < 10 then return end
+
+	local amt = math.floor( GAMEMODE.MaxLoot * #ents.FindByClass( "info_lootspawn" ) )
+	local total = 0
+	
+	for k,v in pairs( ents.FindByClass( "sent_lootbag" ) ) do
+	
+		if v.RandomLoot then
+		
+			total = total + 1
+		
+		end
+	
+	end
+	
+	local num = amt - total
+	local tbl = { ITEM_FOOD, ITEM_SUPPLY, ITEM_LOOT, ITEM_AMMO, ITEM_MISC, ITEM_EXODUS, ITEM_WPN_COMMON }
+	local chancetbl = { 1.00,    0.80,        0.80,      0.40,     0.60,       0.05,          0.05 }
+	
+	if num > 0 then
+	
+		for i=1, num do
+		
+			local ent = table.Random( ents.FindByClass( "info_lootspawn" ) )
+			local pos = ent:GetPos()
+		
+			local loot = ents.Create( "sent_lootbag" )
+			loot:SetPos( pos + Vector(0,0,5) )
+			
+			for j=1, math.random(2,5) do
+			
+				local num = math.Rand(0,1)
+				local choice = math.random(1,7)
+				
+				while num > chancetbl[ choice ] do
+				
+					num = math.Rand(0,1)
+					choice = math.random(1,7)
+				
+				end
+			
+				local rand = item.RandomItem( tbl[choice] )
+			
+				loot:AddItem( rand.ID )
+			
+			end
+			
+			loot.RandomLoot = true
+			loot:Spawn()
+		
+		end
+	
+	end
+
+end
+
+function GM:NPCThink()
+	
+	if #ents.FindByClass( "npc_rogue" ) < math.Round( GAMEMODE.MaxRoguesScale * #player.GetAll() ) and #ents.FindByClass( "npc_rogue" ) < GAMEMODE.MaxRogues then
+	
+		local tbl = ents.FindByClass( "info_npcspawn" )
+		
+		if #tbl < 1 then return end
+		
+		local spawn
+		local blocked = true 
+		local count = 0
+		
+		while blocked and count < 20 do
+		
+			spawn = table.Random( tbl )
+			blocked = false
+			count = count + 1
+		
+			for k,v in pairs( player.GetAll() ) do
+			
+				if v:GetPos():Distance( spawn:GetPos() ) < 800 then 
+				
+					blocked = true
+				
+				end
+			
+			end
+		
+		end
+		
+		local ent = ents.Create( "npc_rogue" )
+		ent:SetPos( spawn:GetPos() )
+		ent:Spawn()
+	
+	end
+	
+	if #ents.FindByClass( "npc_zombie*" ) < math.Round( GAMEMODE.MaxZombiesScale * #player.GetAll() ) and #ents.FindByClass( "npc_zombie*" ) < GAMEMODE.MaxZombies then
+	
+		local tbl = ents.FindByClass( "info_npcspawn" )
+		
+		if #tbl < 1 then return end
+		
+		local spawn
+		local blocked = true 
+		local count = 0
+		
+		while blocked and count < 20 do
+		
+			spawn = table.Random( tbl )
+			blocked = false
+			count = count + 1
+		
+			for k,v in pairs( player.GetAll() ) do
+			
+				if v:GetPos():Distance( spawn:GetPos() ) < 800 then 
+				
+					blocked = true
+				
+				end
+			
+			end
+		
+		end
+		
+		local zomb = table.Random{ "npc_zombie_normal", "npc_zombie_fast", "npc_zombie_poison" }
+		local ent = ents.Create( zomb )
+		ent:SetPos( spawn:GetPos() )
+		ent:Spawn()
+	
+	end
+
+end
+
+function GM:VehicleThink()
+
+	if #ents.FindByClass( "info_lootspawn" ) < 10 then return end
+
+	if #ents.FindByClass( "prop_vehicle_jeep" ) < 1 then
+		
+		local pos = table.Random( ents.FindByClass( "info_lootspawn" ) ):GetPos() 
+		
+		local trace = {}
+		trace.start = pos
+		trace.endpos = pos + Vector(0,0,90000)
+
+		local tr = util.TraceLine( trace )
+		
+		while not tr.HitSky do
+		
+			pos = table.Random( ents.FindByClass( "info_lootspawn" ) ):GetPos() 
+			
+			trace = {}
+			trace.start = pos
+			trace.endpos = pos + Vector(0,0,90000)
+
+			tr = util.TraceLine( trace )
+		
+		end
+		
+		local jeep = ents.Create( "prop_vehicle_jeep" )
+		jeep:SetKeyValue( "vehiclescript", "scripts/vehicles/jeep_test.txt" )
+		jeep:SetModel( "models/buggy.mdl" )
+		jeep:SetPos( trace.start + Vector(0,0,2500) )
+		jeep:Spawn()
+	
+	end
+
+end
+
 function GM:Think( )
 
 	GAMEMODE:EventThink()
@@ -591,7 +758,7 @@ function GM:ScaleNPCDamage( npc, hitgroup, dmginfo )
 
 end 
 
-function GM:ScaleBulletDamage( ply, hitgroup, dmginfo )
+function GM:ScalePlayerDamage( ply, hitgroup, dmginfo )
 
 	if ValidEntity( ply.Stash ) and ( string.find( ply.Stash:GetClass(), "npc" ) or ply.Stash:GetClass() == "info_storage" ) then
 	
@@ -602,28 +769,34 @@ function GM:ScaleBulletDamage( ply, hitgroup, dmginfo )
 	end
 
 	if hitgroup == HITGROUP_HEAD then
-		
-		if math.random(1,5) == 1 and dmginfo:GetAttacker():IsPlayer() and ( dmginfo:GetAttacker():Team() != ply:Team() or GetConVar( "sv_radbox_team_dmg" ):GetBool() ) then
-		
-			ply:SetBleeding( true )
-			ply:EmitSound( "Player.DamageHeadShot" )
-			ply:ViewBounce( 20 )
-			
-		end
+	
+		ply:EmitSound( "Player.DamageHeadShot" )
+		ply:ViewBounce( 20 )
 		
 		dmginfo:ScaleDamage( 1.75 * GetConVar( "sv_radbox_dmg_scale" ):GetFloat() ) 
 		
-    elseif hitgroup == HITGROUP_CHEST then
-	
-		if math.random(1,10) == 1 and dmginfo:GetAttacker():IsPlayer() and ( dmginfo:GetAttacker():Team() != ply:Team() or GetConVar( "sv_radbox_team_dmg" ):GetBool() ) then
+		if math.random(1,3) == 1 and dmginfo:GetAttacker():IsPlayer() and ( dmginfo:GetAttacker():Team() != ply:Team() or GetConVar( "sv_radbox_team_dmg" ):GetBool() ) then
 		
 			ply:SetBleeding( true )
-			ply:EmitSound( "Player.DamageKevlar" )
-			ply:ViewBounce( 15 )
-			
+
 		end
+		
+		return
+		
+    elseif hitgroup == HITGROUP_CHEST then
+	
+		ply:EmitSound( "Player.DamageKevlar" )
+		ply:ViewBounce( 15 )
 	
 		dmginfo:ScaleDamage( 0.50 * GetConVar( "sv_radbox_dmg_scale" ):GetFloat() ) 
+		
+		if math.random(1,15) == 1 and dmginfo:GetAttacker():IsPlayer() and ( dmginfo:GetAttacker():Team() != ply:Team() or GetConVar( "sv_radbox_team_dmg" ):GetBool() ) then
+		
+			ply:SetBleeding( true )
+			
+		end
+		
+		return
 		
 	elseif hitgroup == HITGROUP_STOMACH then
 	

@@ -62,6 +62,12 @@ function ENT:InitializeCharacter()
 	
 end
 
+function ENT:GetTraderTeam()
+
+	return self.Team 
+	
+end
+
 function ENT:GetBuybackScale() 
 
 	return self.BuybackScale

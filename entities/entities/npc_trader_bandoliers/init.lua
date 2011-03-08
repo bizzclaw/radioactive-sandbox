@@ -4,7 +4,6 @@ AddCSLuaFile( "shared.lua" )
 include('shared.lua')
 
 ENT.BuybackScale = 0.75
-ENT.Team = TEAM_BANDOLIERS
 
 function ENT:GenerateInventory()
 

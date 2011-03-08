@@ -447,7 +447,7 @@ function GM:HUDPaint()
 			
 			if dtime > 0 then
 			
-				draw.SimpleText( "YOU WILL BE ABLE TO RESPAWN IN "..time.." SECONDS", "DeathFont", ScrW() * 0.5, ScrH() * 0.1, Color( 255, 0, 0 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+				draw.SimpleText( "YOU WILL BE ABLE TO RESPAWN IN "..dtime.." SECONDS", "DeathFont", ScrW() * 0.5, ScrH() * 0.1, Color( 255, 0, 0 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 				
 			else
 			

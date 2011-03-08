@@ -78,45 +78,40 @@ function team.GetTrader( num )
 	
 end
 
+function team.ClassToName( ent )
+
+	local tbl = {}
+	tbl[ "npc_trader_army" ] = GAMEMODE.TraderNames[ TEAM_ARMY ]
+	tbl[ "npc_trader_exodus" ] = GAMEMODE.TraderNames[ TEAM_EXODUS ]
+	tbl[ "npc_trader_bandoliers" ] = GAMEMODE.TraderNames[ TEAM_BANDOLIERS ]
+	
+	return tbl[ ent:GetClass() ]
+
+end
+
 function team.GetTraderName( ent )
 	
-	if not ent and CLIENT then
-
-		if LocalPlayer():Team() == TEAM_EXODUS then
-		
-			return "Professor Kozerski"
+	if CLIENT then
+	
+		if ValidEntity( ent ) then
+	
+			return team.ClassToName( ent )
 			
-		elseif LocalPlayer():Team() == TEAM_ARMY then
-		
-			return "Bishop"
-		
-		elseif LocalPlayer():Team() == TEAM_BANDOLIERS then
-		
-			return "Grigorovich"
-		
 		else
 		
-			return "Transmission Received"
+			return GAMEMODE.TraderNames[ LocalPlayer():Team() ]
 		
 		end
 	
 	end
-
-	if ent:GetClass() == "npc_trader_exodus" then
+		
+	if ValidEntity( ent ) then
 	
-		return "Dr. Kleisner"
-	
-	elseif ent:GetClass() == "npc_trader_army" then
-	
-		return "Bishop"
-	
-	elseif ent:GetClass() == "npc_trader_bandoliers" then
-	
-		return "Grigorovich"
+		return team.ClassToName( ent )
 	
 	else
 	
-		return "Transmission Received"
+		return GAMEMODE.TraderNames[ TEAM_LONER ]
 	
 	end
 

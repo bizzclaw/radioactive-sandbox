@@ -21,7 +21,7 @@ LastNames[6] = { "Kruglov", "Fedorov", "Sidorov", "Sidorovich", "Petrov", "Alexa
 LastNames[7] = { "Soprovich", "Karolek", "Pavlik", "Moroshkin", "Gavrel", "Stanislov", "Kostya", "Brevich", "Solotar", "Berzin" }
 LastNames[8] = { "Sidorenko", "Burjak", "Dotsenko", "Suslov", "Sacharov", "Nepritski", "Putschek", "Gritsenko", "Lachnit", "Luschkow" }
 LastNames[9] = { "Stamitz", "Tolstoi", "Kurkow", "Leskow", "Sorokin", "Korolenko", "Rosoff", "Romanov", "Silvashko", "Oberst" }
-LastNames[10] = { "Puktov", "Brodsky", "Ozersky", "Ragosin", "Moskitow", "Kovalsky", "Dubrovnik", "Trodnik", "Gavrilov", "Faustin" }
+LastNames[10] = { "Puktov", "Brodsky", "Kozerski", "Ragosin", "Moskitow", "Kovalsky", "Dubrovnik", "Trodnik", "Gavrilov", "Faustin" }
 
 local TargetedEntity = nil
 local TargetedName = nil
@@ -292,11 +292,17 @@ function GM:OnPlayerChat( ply, text, isteam, isdead )
 				return true
 					
 			elseif v == Radio then
+			
+				if ply != LocalPlayer() then
+				
+					surface.PlaySound( Sound( "npc/combine_soldier/vo/on1.wav" ) ) 
+				
+				end
 				
 				chat.AddText( Color( 255, 255, 255 ), "(RADIO) ", team.GetColor( ply:Team() ), GAMEMODE:GetPlayerGayName( ply, tostring( ply:Deaths() + 1 ) .. ply:Name() ), Color( 255, 255, 255 ), ": ", text )
-					
+				
 				return true
-					
+				
 			elseif v == Whisper then
 				
 				if LocalPlayer():GetPos():Distance( ply:GetPos() ) < HushDist then
@@ -328,6 +334,12 @@ function GM:OnPlayerChat( ply, text, isteam, isdead )
 	end
 	
 	if ( isteam or ( LocalPlayer():Team() != ply:Team() and LocalPlayer():GetPos():Distance( ply:GetPos() ) < HushDist ) ) and not isdead then
+	
+		if ply != LocalPlayer() then
+			
+			surface.PlaySound( Sound( "npc/combine_soldier/vo/on2.wav" ) ) 
+			
+		end
 	
 		chat.AddText( Color( 255, 255, 255 ), "(FACTION) ", team.GetColor( ply:Team() ), GAMEMODE:GetPlayerGayName( ply, tostring( ply:Deaths() + 1 ) .. ply:Name() ), Color( 255, 255, 255 ), ": ", text )
 		
