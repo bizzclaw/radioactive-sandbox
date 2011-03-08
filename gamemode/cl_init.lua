@@ -199,18 +199,26 @@ function GM:Think()
 		
 		if LocalPlayer():GetNWInt( "Radiation", 0 ) > 1 then
 		
+			GAMEMODE.ChatMode = ""
+			RunConsoleCommand( "cl_radbox_chatmode", "" )
 			RunConsoleCommand( "say", table.Random( GAMEMODE.ChatEmotes[ "Radiation" ] ) )
 		
 		elseif LocalPlayer():GetNWBool( "Bleeding", false ) then
 		
+			GAMEMODE.ChatMode = ""
+			RunConsoleCommand( "cl_radbox_chatmode", "" )
 			RunConsoleCommand( "say", table.Random( GAMEMODE.ChatEmotes[ "Bleeding" ] ) )
 		
 		elseif LocalPlayer():Health() < 100 then
 		
+			GAMEMODE.ChatMode = ""
+			RunConsoleCommand( "cl_radbox_chatmode", "" )
 			RunConsoleCommand( "say", table.Random( GAMEMODE.ChatEmotes[ "Pain" ] ) )
 		
 		elseif Drunkness > 3 then
 			
+			GAMEMODE.ChatMode = ""
+			RunConsoleCommand( "cl_radbox_chatmode", "" )
 			RunConsoleCommand( "say", table.Random( GAMEMODE.ChatEmotes[ "Drunk" ] ) )
 		
 		end

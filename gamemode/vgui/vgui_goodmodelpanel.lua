@@ -97,7 +97,7 @@ end
 
 function PANEL:ExcludedModels()
 
-	return { "player", "models/human", "eli" }
+	return { "player", "models/human", "eli", "police" }
 
 end
 
