@@ -164,7 +164,27 @@ function GM:NPCThink()
 		
 		if #tbl < 1 then return end
 		
-		local spawn = table.Random( tbl )
+		local spawn
+		local blocked = true 
+		local count = 0
+		
+		while blocked and count < 20 do
+		
+			spawn = table.Random( tbl )
+			blocked = false
+			count = count + 1
+		
+			for k,v in pairs( player.GetAll() ) do
+			
+				if v:GetPos():Distance( spawn:GetPos() ) < 800 then 
+				
+					blocked = true
+				
+				end
+			
+			end
+		
+		end
 		
 		local ent = ents.Create( "npc_rogue" )
 		ent:SetPos( spawn:GetPos() )
@@ -178,9 +198,29 @@ function GM:NPCThink()
 		
 		if #tbl < 1 then return end
 		
-		local spawn = table.Random( tbl )
-		local zomb = table.Random{ "npc_zombie_normal", "npc_zombie_fast", "npc_zombie_poison" }
+		local spawn
+		local blocked = true 
+		local count = 0
 		
+		while blocked and count < 20 do
+		
+			spawn = table.Random( tbl )
+			blocked = false
+			count = count + 1
+		
+			for k,v in pairs( player.GetAll() ) do
+			
+				if v:GetPos():Distance( spawn:GetPos() ) < 800 then 
+				
+					blocked = true
+				
+				end
+			
+			end
+		
+		end
+		
+		local zomb = table.Random{ "npc_zombie_normal", "npc_zombie_fast", "npc_zombie_poison" }
 		local ent = ents.Create( zomb )
 		ent:SetPos( spawn:GetPos() )
 		ent:Spawn()

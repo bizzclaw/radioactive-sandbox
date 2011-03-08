@@ -39,17 +39,17 @@ local function DrawInternal()
 	
 	if LocalPlayer():FlashlightIsOn() then
 	
-		ColorModify[ "$pp_colour_brightness" ] = math.Approach( ColorModify[ "$pp_colour_brightness" ], 0.03, FrameTime() * 0.25 ) 
+		ColorModify[ "$pp_colour_brightness" ] = math.Approach( ColorModify[ "$pp_colour_brightness" ], 0.02, FrameTime() * 0.25 ) 
 		ColorModify[ "$pp_colour_contrast" ] = math.Approach( ColorModify[ "$pp_colour_contrast" ], 1.10, FrameTime() * 0.25 ) 
 	
 	elseif NightVision then
 	
 		if LocalPlayer():Alive() then
 		
-			ColorModify[ "$pp_colour_brightness" ] = math.Approach( ColorModify[ "$pp_colour_brightness" ], 0.20, FrameTime() * 0.25 ) 
-			ColorModify[ "$pp_colour_contrast" ] = math.Approach( ColorModify[ "$pp_colour_contrast" ], 1.50, FrameTime() * 0.25 ) 
+			ColorModify[ "$pp_colour_brightness" ] = math.Approach( ColorModify[ "$pp_colour_brightness" ], 0.35, FrameTime() * 0.25 ) 
+			ColorModify[ "$pp_colour_contrast" ] = math.Approach( ColorModify[ "$pp_colour_contrast" ], 1.35, FrameTime() * 0.25 ) 
 			ColorModify[ "$pp_colour_mulg" ] = math.Approach( ColorModify[ "$pp_colour_mulg" ], 0.20, FrameTime() * 0.25 ) 
-			ColorModify[ "$pp_colour_addg" ] = math.Approach( ColorModify[ "$pp_colour_addg" ], 0.10, FrameTime() * 0.25 ) 
+			ColorModify[ "$pp_colour_addg" ] = math.Approach( ColorModify[ "$pp_colour_addg" ], 0.12, FrameTime() * 0.25 ) 
 		
 		else
 		

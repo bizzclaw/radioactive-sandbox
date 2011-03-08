@@ -176,7 +176,7 @@ function GM:Think()
 
 	if IndoorsThink < CurTime() then
 	
-		IndoorsThink = CurTime() + 2
+		IndoorsThink = CurTime() + 1.5
 		
 		local trace = util.GetPlayerTrace( LocalPlayer(), Vector(0,0,1) )
 		local tr = util.TraceLine( trace )
