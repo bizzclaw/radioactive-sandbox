@@ -40,7 +40,7 @@ local function DrawInternal()
 	if LocalPlayer():FlashlightIsOn() then
 	
 		ColorModify[ "$pp_colour_brightness" ] = math.Approach( ColorModify[ "$pp_colour_brightness" ], 0.02, FrameTime() * 0.25 ) 
-		ColorModify[ "$pp_colour_contrast" ] = math.Approach( ColorModify[ "$pp_colour_contrast" ], 1.10, FrameTime() * 0.25 ) 
+		ColorModify[ "$pp_colour_contrast" ] = math.Approach( ColorModify[ "$pp_colour_contrast" ], 1.05, FrameTime() * 0.25 ) 
 	
 	elseif NightVision then
 	
@@ -48,17 +48,17 @@ local function DrawInternal()
 		
 			if IsIndoors then
 		
-				ColorModify[ "$pp_colour_brightness" ] = math.Approach( ColorModify[ "$pp_colour_brightness" ], 0.10, FrameTime() * 0.25 ) 
-				ColorModify[ "$pp_colour_contrast" ] = math.Approach( ColorModify[ "$pp_colour_contrast" ], 1.10, FrameTime() * 0.25 ) 
-				ColorModify[ "$pp_colour_mulg" ] = math.Approach( ColorModify[ "$pp_colour_mulg" ], 0.20, FrameTime() * 0.25 ) 
-				ColorModify[ "$pp_colour_addg" ] = math.Approach( ColorModify[ "$pp_colour_addg" ], 0.10, FrameTime() * 0.25 ) 
+				ColorModify[ "$pp_colour_brightness" ] = math.Approach( ColorModify[ "$pp_colour_brightness" ], 0.10, FrameTime() * 0.50 ) 
+				ColorModify[ "$pp_colour_contrast" ] = math.Approach( ColorModify[ "$pp_colour_contrast" ], 1.30, FrameTime() * 0.50 ) 
+				ColorModify[ "$pp_colour_mulg" ] = math.Approach( ColorModify[ "$pp_colour_mulg" ], 0.20, FrameTime() * 0.50 ) 
+				ColorModify[ "$pp_colour_addg" ] = math.Approach( ColorModify[ "$pp_colour_addg" ], 0.10, FrameTime() * 0.50 ) 
 				
 			else
 			
-				ColorModify[ "$pp_colour_brightness" ] = math.Approach( ColorModify[ "$pp_colour_brightness" ], 0.35, FrameTime() * 0.25 ) 
-				ColorModify[ "$pp_colour_contrast" ] = math.Approach( ColorModify[ "$pp_colour_contrast" ], 1.35, FrameTime() * 0.25 ) 
-				ColorModify[ "$pp_colour_mulg" ] = math.Approach( ColorModify[ "$pp_colour_mulg" ], 0.20, FrameTime() * 0.25 ) 
-				ColorModify[ "$pp_colour_addg" ] = math.Approach( ColorModify[ "$pp_colour_addg" ], 0.12, FrameTime() * 0.25 ) 
+				ColorModify[ "$pp_colour_brightness" ] = math.Approach( ColorModify[ "$pp_colour_brightness" ], 0.30, FrameTime() * 0.50 ) 
+				ColorModify[ "$pp_colour_contrast" ] = math.Approach( ColorModify[ "$pp_colour_contrast" ], 1.50, FrameTime() * 0.50 ) 
+				ColorModify[ "$pp_colour_mulg" ] = math.Approach( ColorModify[ "$pp_colour_mulg" ], 0.20, FrameTime() * 0.50 ) 
+				ColorModify[ "$pp_colour_addg" ] = math.Approach( ColorModify[ "$pp_colour_addg" ], 0.12, FrameTime() * 0.50 ) 
 			
 			end
 		
@@ -97,13 +97,13 @@ local function DrawInternal()
 		
 		if IsIndoors then
 		
-			local daycol = DayColor[k] * ( GetConVar( "sv_radbox_daycycle_intensity" ):GetFloat() * 0.2 )
-			MixedColorMod[k] = math.Approach( MixedColorMod[k] or 0, ColorModify[k], FrameTime() * 0.10 )
+			local daycol = DayColor[k] * ( GetConVar( "sv_radbox_daycycle_intensity" ):GetFloat() * 0.5 )
+			MixedColorMod[k] = math.Approach( MixedColorMod[k] or 0, daycol + ColorModify[k], FrameTime() * 0.25 )
 			
 		else
 		
 			local daycol = DayColor[k] * GetConVar( "sv_radbox_daycycle_intensity" ):GetFloat()
-			MixedColorMod[k] = math.Approach( MixedColorMod[k] or 0, daycol + ColorModify[k], FrameTime() * 0.10 )
+			MixedColorMod[k] = math.Approach( MixedColorMod[k] or 0, daycol + ColorModify[k], FrameTime() * 0.25 )
 		
 		end
 	
@@ -167,14 +167,6 @@ function GM:CalcView( ply, origin, angle, fov )
 	WalkTimer = WalkTimer + VelSmooth * FrameTime() * 0.1
 	
 	angle.roll = angle.roll + ang:Right():DotProduct( vel ) * 0.002
-	
-	--[[if ply:Alive() and ply:Health() <= 50 then
-	
-		local scale = math.Clamp( LocalPlayer():Health() / 50, 0, 1 )
-		local beat = math.Clamp(HeartBeat - CurTime(), 0, 1) * (1 - scale)
-		fov = fov - beat * 5
-		
-	end]]
 	
 	local scale = LocalPlayer():GetNWInt( "Radiation", 0 ) / 5
 	local wobble = 0

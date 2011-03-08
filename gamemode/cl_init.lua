@@ -351,7 +351,7 @@ function DrawNoise()
 	
 		for j=0, math.Round( ScrH() / 640 ) do
 		
-			surface.SetDrawColor( 200, 200, 200, 15 ) 
+			surface.SetDrawColor( 200, 200, 200, 20 ) 
 			surface.SetMaterial( matNoise ) 
 			surface.DrawTexturedRectRotated( i * 640, j * 640, 640, 640, math.random(0,3) * 90 ) 
 		
@@ -443,9 +443,9 @@ function GM:HUDPaint()
 		
 		if DeathScreenScale == 1 then
 		
-			local time = math.Round( DeathScreenTime - CurTime() )
+			local dtime = math.Round( DeathScreenTime - CurTime() )
 			
-			if time > 0 then
+			if dtime > 0 then
 			
 				draw.SimpleText( "YOU WILL BE ABLE TO RESPAWN IN "..time.." SECONDS", "DeathFont", ScrW() * 0.5, ScrH() * 0.1, Color( 255, 0, 0 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 				

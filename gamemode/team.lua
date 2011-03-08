@@ -84,7 +84,7 @@ function team.GetTraderName( ent )
 
 		if LocalPlayer():Team() == TEAM_EXODUS then
 		
-			return "Dr. Kleisner"
+			return "Professor Kozerski"
 			
 		elseif LocalPlayer():Team() == TEAM_ARMY then
 		

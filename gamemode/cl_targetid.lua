@@ -19,9 +19,9 @@ LastNames[4] = { "Ezrin", "Schabenko", "Black", "Maslov", "Gatsula", "Degtyarev"
 LastNames[5] = { "Hunter", "Brevin", "Constantin", "Lepechin", "Saveliy", "Vadim", "Vargan", "Vasek", "Vasko", "Yakov" }
 LastNames[6] = { "Kruglov", "Fedorov", "Sidorov", "Sidorovich", "Petrov", "Alexandrov", "Timur", "Ruslan", "Arkadiy", "Lukovich" }
 LastNames[7] = { "Soprovich", "Karolek", "Pavlik", "Moroshkin", "Gavrel", "Stanislov", "Kostya", "Brevich", "Solotar", "Berzin" }
-LastNames[8] = { "Sidorenko", "Burjak", "Dotsenko", "Dostovei", "Sacharov", "Nepritski", "Putschek", "Gritsenko", "Lachnit", "Luschkow" }
+LastNames[8] = { "Sidorenko", "Burjak", "Dotsenko", "Suslov", "Sacharov", "Nepritski", "Putschek", "Gritsenko", "Lachnit", "Luschkow" }
 LastNames[9] = { "Stamitz", "Tolstoi", "Kurkow", "Leskow", "Sorokin", "Korolenko", "Rosoff", "Romanov", "Silvashko", "Oberst" }
-LastNames[10] = { "Puktov", "Brodsky", "Nabokov", "Ragosin", "Moskitow", "Kerenski", "Dubrovnik", "Gauss", "Gavrilov", "Faustin" }
+LastNames[10] = { "Puktov", "Brodsky", "Ozersky", "Ragosin", "Moskitow", "Kovalsky", "Dubrovnik", "Trodnik", "Gavrilov", "Faustin" }
 
 local TargetedEntity = nil
 local TargetedName = nil
