@@ -50,6 +50,20 @@ GM.TeamPlayerModels[ TEAM_BANDOLIERS ] = { "models/stalker_bandit_veteran.mdl" }
 GM.TeamPlayerModels[ TEAM_LONER ] = { "models/stalker_hood_monolith.mdl",
 									  "models/stalker_hood_mono_corpse.mdl" }
 	
+// Chat Modes (RP Shit)
+
+GM.ChatModes = {}
+GM.ChatModes.OOC = ""
+GM.ChatModes.LocalMe = "/me"
+GM.ChatModes.Whisper = "//"
+GM.ChatModes.Radio = "/."
+GM.ChatModes.Local = "/"
+
+// Chat Params (RP Shit)
+
+GM.HushDist = 400  // Maximum whisper distance
+GM.LocalDist = 800 // Maximum local chat distance
+	
 // Chat Auto-Emotes
 
 GM.ChatEmotes = {}

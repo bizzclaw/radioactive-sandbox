@@ -188,16 +188,8 @@ function GM:DrawPlayerChat()
 
 end
 
-local LocalChatDist = 800
-local HushDist = 400
-local OOC = ""
-local LocalMe = "/me"
-local Whisper = "//"
-local Radio = "/."
-local Local = "/"
-
 GM.ChatBoxes = {}
-GM.ChatMode = OOC
+GM.ChatMode = GM.ChatModes.OOC
 
 function GM:StartChat( isteam )
 
@@ -205,7 +197,11 @@ function GM:StartChat( isteam )
 
 	local x, y = chat.GetChatBoxPos()
 	
-	for k,v in pairs{ { "OOC", OOC, 50, 0 }, { "Emote", LocalMe, 120, 55 }, { "Whisper", Whisper, 130, 120 }, { "Radio", Radio, 120, 190 }, { "Local", Local, 120, 250 } } do
+	for k,v in pairs{ { "OOC", GAMEMODE.ChatModes.OOC, 50, 0 }, 
+						{ "Emote", GAMEMODE.ChatModes.LocalMe, 120, 55 }, 
+						{ "Whisper", GAMEMODE.ChatModes.Whisper, 130, 120 }, 
+						{ "Radio", GAMEMODE.ChatModes.Radio, 120, 190 }, 
+						{ "Local", GAMEMODE.ChatModes.Local, 120, 250 } } do
 
 		local box = vgui.Create( "DCheckBoxLabel" )
 		box:SetPos( x + 10 + v[4], y - 20 )
@@ -264,7 +260,7 @@ function GM:OnPlayerChat( ply, text, isteam, isdead )
 
 	if not ValidEntity( ply ) or not GetConVar( "sv_radbox_roleplay" ):GetBool() then return self.BaseClass:OnPlayerChat( ply, text, isteam, isdead ) end
 
-	for k,v in pairs{ LocalMe, Whisper, Radio, Local } do
+	for k,v in pairs{ GAMEMODE.ChatModes.LocalMe, GAMEMODE.ChatModes.Whisper, GAMEMODE.ChatModes.Radio, GAMEMODE.ChatModes.Local } do
 
 		local expl = string.Left( text, string.len( v ) )
 		
@@ -273,7 +269,7 @@ function GM:OnPlayerChat( ply, text, isteam, isdead )
 			text = string.Trim( string.Right( text, string.len( text ) - string.len( v ) ) )
 			ply.ChatWords = ply.ChatWords or {}
 			
-			if v == Local and LocalPlayer():GetPos():Distance( ply:GetPos() ) < LocalChatDist then
+			if v == GAMEMODE.ChatModes.Local and LocalPlayer():GetPos():Distance( ply:GetPos() ) < GAMEMODE.LocalDist then
 			
 				if ( isteam and LocalPlayer():Team() == ply:Team() ) or not isteam then
 					
@@ -291,7 +287,7 @@ function GM:OnPlayerChat( ply, text, isteam, isdead )
 					
 				return true
 					
-			elseif v == Radio then
+			elseif v == GAMEMODE.ChatModes.Radio then
 			
 				if ply != LocalPlayer() then
 				
@@ -303,13 +299,13 @@ function GM:OnPlayerChat( ply, text, isteam, isdead )
 				
 				return true
 				
-			elseif v == Whisper then
+			elseif v == GAMEMODE.ChatModes.Whisper then
 				
-				if LocalPlayer():GetPos():Distance( ply:GetPos() ) < HushDist then
+				if LocalPlayer():GetPos():Distance( ply:GetPos() ) < GAMEMODE.HushDist then
 					
 					chat.AddText( Color( 255, 255, 255 ), "(WHISPER) ", team.GetColor( ply:Team() ), GAMEMODE:GetPlayerGayName( ply, tostring( ply:Deaths() + 1 ) .. ply:Name() ), Color( 255, 255, 255 ), ": ", text )
 					
-				elseif LocalPlayer():GetPos():Distance( ply:GetPos() ) < LocalChatDist then
+				elseif LocalPlayer():GetPos():Distance( ply:GetPos() ) < GAMEMODE.LocalDist then
 					
 					chat.AddText( team.GetColor( ply:Team() ), GAMEMODE:GetPlayerGayName( ply, tostring( ply:Deaths() + 1 ) .. ply:Name() ), Color( 255, 255, 255 ), " whispered something..." )
 					
@@ -317,7 +313,7 @@ function GM:OnPlayerChat( ply, text, isteam, isdead )
 					
 				return true
 				
-			elseif v == LocalMe and LocalPlayer():GetPos():Distance( ply:GetPos() ) < LocalChatDist then 
+			elseif v == GAMEMODE.ChatModes.LocalMe and LocalPlayer():GetPos():Distance( ply:GetPos() ) < GAMEMODE.LocalDist then 
 				
 				chat.AddText( team.GetColor( ply:Team() ), GAMEMODE:GetPlayerGayName( ply, tostring( ply:Deaths() + 1 ) .. ply:Name() ), Color( 255, 255, 255 ), " ", text )
 				
@@ -333,7 +329,7 @@ function GM:OnPlayerChat( ply, text, isteam, isdead )
 		
 	end
 	
-	if ( isteam or ( LocalPlayer():Team() != ply:Team() and LocalPlayer():GetPos():Distance( ply:GetPos() ) < HushDist ) ) and not isdead then
+	if ( isteam or ( LocalPlayer():Team() != ply:Team() and LocalPlayer():GetPos():Distance( ply:GetPos() ) < GAMEMODE.HushDist ) ) and not isdead then
 	
 		if ply != LocalPlayer() then
 			

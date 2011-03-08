@@ -197,31 +197,35 @@ function GM:Think()
 	
 		EmoteCooldown = CurTime() + math.random( 60, 120 )
 		
+		local oldmode = GAMEMODE.ChatMode
+		
 		if LocalPlayer():GetNWInt( "Radiation", 0 ) > 1 then
 		
-			GAMEMODE.ChatMode = ""
-			RunConsoleCommand( "cl_radbox_chatmode", "" )
-			RunConsoleCommand( "say", table.Random( GAMEMODE.ChatEmotes[ "Radiation" ] ) )
+			GAMEMODE.ChatMode = GAMEMODE.ChatModes.LocalMe
+			RunConsoleCommand( "cl_radbox_chatmode", GAMEMODE.ChatModes.LocalMe )
+			timer.Simple( 0.1, function() RunConsoleCommand( "say", table.Random( GAMEMODE.ChatEmotes[ "Radiation" ] ) ) end )
 		
 		elseif LocalPlayer():GetNWBool( "Bleeding", false ) then
 		
-			GAMEMODE.ChatMode = ""
-			RunConsoleCommand( "cl_radbox_chatmode", "" )
-			RunConsoleCommand( "say", table.Random( GAMEMODE.ChatEmotes[ "Bleeding" ] ) )
+			GAMEMODE.ChatMode = GAMEMODE.ChatModes.LocalMe
+			RunConsoleCommand( "cl_radbox_chatmode", GAMEMODE.ChatModes.LocalMe )
+			timer.Simple( 0.1, function() RunConsoleCommand( "say", table.Random( GAMEMODE.ChatEmotes[ "Bleeding" ] ) ) end )
 		
 		elseif LocalPlayer():Health() < 100 then
 		
-			GAMEMODE.ChatMode = ""
-			RunConsoleCommand( "cl_radbox_chatmode", "" )
-			RunConsoleCommand( "say", table.Random( GAMEMODE.ChatEmotes[ "Pain" ] ) )
+			GAMEMODE.ChatMode = GAMEMODE.ChatModes.LocalMe
+			RunConsoleCommand( "cl_radbox_chatmode", GAMEMODE.ChatModes.LocalMe )
+			timer.Simple( 0.1, function() RunConsoleCommand( "say", table.Random( GAMEMODE.ChatEmotes[ "Pain" ] ) ) end )
 		
 		elseif Drunkness > 3 then
 			
-			GAMEMODE.ChatMode = ""
-			RunConsoleCommand( "cl_radbox_chatmode", "" )
-			RunConsoleCommand( "say", table.Random( GAMEMODE.ChatEmotes[ "Drunk" ] ) )
+			GAMEMODE.ChatMode = GAMEMODE.ChatModes.LocalMe
+			RunConsoleCommand( "cl_radbox_chatmode", GAMEMODE.ChatModes.LocalMe )
+			timer.Simple( 0.1, function() RunConsoleCommand( "say", table.Random( GAMEMODE.ChatEmotes[ "Drunk" ] ) ) end )
 		
 		end
+		
+		timer.Simple( 0.2, function() RunConsoleCommand( "cl_radbox_chatmode", oldmode ) GAMEMODE.ChatMode = oldmode end )
 	
 	end
 
