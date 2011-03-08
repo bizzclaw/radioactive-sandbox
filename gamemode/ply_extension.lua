@@ -109,17 +109,17 @@ function meta:AddRadiation( num )
 	
 	if num > 0 then
 	
-		umsg.Start( "RadScale", ply )
+		umsg.Start( "RadScale", self )
 		umsg.Float( 1.0 )
 		umsg.End()
+		
+		self:EmitSound( table.Random{ "Geiger.BeepLow", "Geiger.BeepHigh" }, 100, math.random( 90, 110 ) )
 		
 	end
 
 	if self:HasItem( "models/items/combine_rifle_cartridge01.mdl" ) and num > 0 then return end
 
 	self:SetRadiation( self:GetRadiation() + num ) 
-	
-	self:EmitSound( table.Random{ "Geiger.BeepLow", "Geiger.BeepHigh" }, 100, math.random( 90, 110 ) )
 	
 end
 
