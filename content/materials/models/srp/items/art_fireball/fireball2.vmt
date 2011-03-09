@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "Models/srp/items/art_fireball/fireball2"
+	"$selfillum" "1"
+}

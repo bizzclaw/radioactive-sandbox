@@ -1,0 +1,7 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "Models/srp/items/art_moonlight/moonlight2"
+	"$translucent" "1"
+	"$envmapmask" "Models/srp/items/art_moonlight/moonlight2"
+	"$selfillum_envmapmask_alpha" "1"
+}

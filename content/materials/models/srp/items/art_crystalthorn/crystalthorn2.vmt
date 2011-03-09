@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "Models/srp/items/art_crystalthorn/crystalthorn2"
+	"$translucent" "1"
+}
