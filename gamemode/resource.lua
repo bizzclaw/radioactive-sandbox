@@ -35,6 +35,7 @@ local include_mat = { "materials/models/weapons/v_models/shot_m3super91/shot_m3s
 "materials/radbox/logo_exodus",
 "materials/radbox/logo_bandoliers",
 "materials/radbox/menu_quest",
+"materials/radbox/menu_qmark",
 "materials/radbox/menu_loot",
 "materials/radbox/menu_trade",
 "materials/radbox/menu_cancel",
