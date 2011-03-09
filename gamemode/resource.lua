@@ -1,9 +1,15 @@
 
 resource.AddFile( "materials/radbox/radar.vmt" )
 resource.AddFile( "materials/radbox/radar_back.vtf" )
+resource.AddFile( "materials/models/srp/items/art_urchen/urchen.vmt" )
+resource.AddFile( "materials/models/srp/items/art_urchen/urchen2.vmt" )
 resource.AddFile( "resource/fonts/Graffiare.ttf" )
-resource.AddFile( "sound/radbox/warning.vtf" )
-resource.AddFile( "sound/radbox/heartbeat.vtf" )
+resource.AddFile( "sound/radbox/warning.wav" )
+resource.AddFile( "sound/radbox/heartbeat.wav" )
+resource.AddFile( "sound/radbox/anom01.wav" )
+resource.AddFile( "sound/radbox/anom02.wav" )
+resource.AddFile( "sound/radbox/anom03.wav" )
+resource.AddFile( "sound/radbox/anom04.wav" )
 
 for i=1,8 do
 
@@ -16,6 +22,13 @@ local include_mat = { "materials/models/weapons/v_models/shot_m3super91/shot_m3s
 "materials/models/weapons/v_models/shot_m3super91/shot_m3super91",
 "materials/models/weapons/v_models/shot_m3super91/shot_m3super91_2",
 "materials/models/ammoboxes/smg",
+"materials/models/srp/items/art_crystalthorn/crystalthorn",
+"materials/models/srp/items/art_crystalthorn/crystalthorn2",
+"materials/models/srp/items/art_fireball/fireball",
+"materials/models/srp/items/art_fireball/fireball2",
+"materials/models/srp/items/art_moonlight/moonlight",
+"materials/models/srp/items/art_moonlight/moonlight2",
+"materials/models/srp/items/art_stoneblood/stoneblood",
 "materials/radbox/radar_arm",
 "materials/radbox/radar_arrow",
 "materials/radbox/logo_nma",
@@ -48,6 +61,11 @@ end
 
 local include_model = { "models/weapons/v_shot_m3super91",
 "models/items/boxqrounds",
+"models/srp/items/art_fireball",
+"models/srp/items/art_moonlight",
+"models/srp/items/art_stoneblood",
+"models/srp/items/art_urchen",
+"models/srp/items/art_crystalthorn",
 "models/radbox/bandage",
 "models/radbox/geiger",
 "models/radbox/healthpack",
