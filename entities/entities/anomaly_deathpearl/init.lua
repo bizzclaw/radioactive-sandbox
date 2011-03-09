@@ -33,14 +33,14 @@ function ENT:Initialize()
 	self.Entity:StartMotionController()
 	
 	self.Active = false
-	self.Distance = 700
+	self.Distance = 600
 	self.SoundTime = 0
 
 end
 
 function ENT:GetRadiationRadius()
 
-	return 800
+	return 700
 
 end
 

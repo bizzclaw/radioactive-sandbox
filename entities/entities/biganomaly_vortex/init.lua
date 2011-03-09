@@ -73,7 +73,7 @@ function ENT:Think()
 			
 				local vel = ( self.VortexPos - v:GetPos() ):Normalize()
 			
-				if ( v:IsPlayer() and v:Alive() ) or string.find( v:GetClass(), "npc" ) then
+				if ( v:IsPlayer() and v:Alive() ) or ( string.find( v:GetClass(), "npc" ) and not string.find( v:GetClass(), "trade" ) ) then
 					
 					local scale = math.Clamp( ( self.SuckRadius - v:GetPos():Distance( self.VortexPos ) ) / self.SuckRadius, 0.2, 1.0 )
 					

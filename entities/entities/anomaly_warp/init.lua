@@ -9,6 +9,7 @@ ENT.Appear = Sound( "ambient/levels/citadel/weapon_disintegrate4.wav" )
 ENT.Triggered = Sound( "npc/turret_floor/active.wav" )
 
 ENT.ZapRadius = 400
+ENT.SetOffDelay = 0.5
 
 function ENT:Initialize()
 	
@@ -27,6 +28,21 @@ function ENT:Initialize()
 	
 end
 
+function ENT:SetArtifact( ent )
+
+	self.Artifact = ent
+	self.SetOffDelay = 0.8
+	
+	ent:SetPos( self.Entity:GetPos() + Vector(0,0,22) )
+
+end
+
+function ENT:GetArtifact()
+
+	return self.Artifact or NULL
+
+end
+
 function ENT:GetRadiationRadius()
 
 	return 200
@@ -39,9 +55,11 @@ function ENT:Touch( ent )
 	
 	if self.NextSetOff > CurTime() then return end
 	
+	if ent == self.Entity:GetArtifact() then return end
+	
 	if ent:IsPlayer() or string.find( ent:GetClass(), "npc" ) or string.find( ent:GetClass(), "prop_phys" ) then
 	
-		self.SetOff = CurTime() + 0.5
+		self.SetOff = CurTime() + self.SetOffDelay
 		
 		self.Entity:EmitSound( self.Triggered, 100, math.random(90,110) )
 		
@@ -63,7 +81,7 @@ function ENT:Think()
 		
 		for k,v in pairs( tbl ) do
 			
-			if v:GetPos():Distance( self.Entity:GetPos() ) < self.ZapRadius then
+			if v:GetPos():Distance( self.Entity:GetPos() ) < self.ZapRadius and v != self.Entity:GetArtifact() then
 				
 				self.Entity:TeleportEnt( v )
 				
@@ -93,38 +111,48 @@ function ENT:ChooseDestination()
 	
 		if tr.HitSky then 
 		
-			local left = {}
-			left.start = tr.HitPos
-			left.endpos = left.start + Vector( 90000, 0, 0 )
+			local count = 0
+			local pos = self.Entity:GetPos()
 			
-			local right = {}
-			right.start = tr.HitPos
-			right.endpos = right.start + Vector( -90000, 0, 0 )
-			
-			local ltr = util.TraceLine( left )
-			local rtr = util.TraceLine( right )
-			
-			local north = {}
-			north.start = ltr.HitPos
-			north.endpos = north.start + Vector( 0, 90000, 0 )
-			
-			local south = {}
-			south.start = rtr.HitPos
-			south.endpos = south.start + Vector( 0, -90000, 0 )
-			
-			local ntr = util.TraceLine( north )
-			local str = util.TraceLine( south )
-			
-			local max = Vector( ltr.HitPos.x, ntr.HitPos.y, tr.HitPos.z - 5 )
-			local min = Vector( rtr.HitPos.x, str.HitPos.y, tr.HitPos.z - 5 )
-			
-			local trace = {}
-			trace.start = Vector( math.random( min.x, max.x ), math.random( min.y, max.y ), min.z )
-			trace.endpos = Vector( math.random( min.x, max.x ), math.random( min.y, max.y ), min.z - 90000 )
+			while count < 20 and pos:Distance( self.Entity:GetPos() ) < 500 do
+		
+				local left = {}
+				left.start = tr.HitPos
+				left.endpos = left.start + Vector( 90000, 0, 0 )
 				
-			local tr = util.TraceLine( trace )
+				local right = {}
+				right.start = tr.HitPos
+				right.endpos = right.start + Vector( -90000, 0, 0 )
+				
+				local ltr = util.TraceLine( left )
+				local rtr = util.TraceLine( right )
+				
+				local north = {}
+				north.start = ltr.HitPos
+				north.endpos = north.start + Vector( 0, 90000, 0 )
+				
+				local south = {}
+				south.start = rtr.HitPos
+				south.endpos = south.start + Vector( 0, -90000, 0 )
+				
+				local ntr = util.TraceLine( north )
+				local str = util.TraceLine( south )
+				
+				local max = Vector( ltr.HitPos.x, ntr.HitPos.y, tr.HitPos.z - 5 )
+				local min = Vector( rtr.HitPos.x, str.HitPos.y, tr.HitPos.z - 5 )
+				
+				local trace = {}
+				trace.start = Vector( math.random( min.x, max.x ), math.random( min.y, max.y ), min.z )
+				trace.endpos = Vector( math.random( min.x, max.x ), math.random( min.y, max.y ), min.z - 90000 )
 					
-			return tr.HitPos + Vector( 0, 0, 100 )
+				local tr = util.TraceLine( trace )
+				
+				pos = tr.HitPos 
+				count = count + 1
+
+			end
+			
+			return pos + Vector( 0, 0, 100 )
 		
 		end
 	
@@ -163,15 +191,22 @@ function ENT:TeleportEnt( ent )
 	
 	else
 	
-		if ent:IsPlayer() and ValidEntity( ent:GetVehicle() ) then
+		if ent:IsPlayer() and ValidEntity( ent:GetVehicle() ) and ent:Alive() then
 
 			umsg.Start( "GrenadeHit", ent )
 			umsg.End()
 		
 			ent:SetDSP( 47 )
+			ent:EmitSound( self.Teleport, 100, math.random(150,170) )
+			ent:EmitSound( self.Appear, 100, math.random(90,110) )
 			ent:TakeDamage( 25, self.Entity, self.Entity )
 			
 			timer.Simple( 5, function( ply ) if ValidEntity( ply ) then ply:SetDSP( 0 ) end end, ent )
+			
+			local dest = self.Entity:ChooseDestination() + Vector(0,0,300)
+			
+			ent:GetVehicle():SetPos( dest )
+			ent:SetPos( dest )
 		
 			return 
 			

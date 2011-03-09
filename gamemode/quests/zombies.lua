@@ -32,7 +32,7 @@ QUEST.CanStart = function( ply )
 	
 	if not canstart then
 	
-		ply:DialogueWindow( "This mission is not available." )
+		ply:DialogueWindow( "This mission is not currently available." )
 	
 	end
 

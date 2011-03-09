@@ -64,7 +64,7 @@ QUEST.CanStart = function( ply )
 	
 	if not ( ValidEntity( enemy ) and maxkills > 0 ) then
 	
-		ply:DialogueWindow( "This mission is not available." )
+		ply:DialogueWindow( "This mission is not currently available." )
 	
 	end
 

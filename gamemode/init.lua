@@ -443,9 +443,85 @@ function GM:VehicleThink()
 
 end
 
+function GM:GetArtifacts()
+
+	local count = 0
+	
+	for k,v in pairs( ents.FindByClass( "prop_phys*" ) ) do
+	
+		local tbl = item.GetByModel( v:GetModel() )
+	
+		if tbl and tbl.Type == ITEM_ARTIFACT then
+		
+			count = count + 1
+			
+		end
+	
+	end
+	
+	return count
+
+end
+
+function GM:ArtifactThink()
+
+	local tbl = ents.FindByClass( "point_radiation" )
+	tbl = table.Add( tbl, ents.FindByClass( "anomaly_cooker" ) )
+	tbl = table.Add( tbl, ents.FindByClass( "anomaly_electro" ) )
+	tbl = table.Add( tbl, ents.FindByClass( "anomaly_warp" ) )
+	
+	local link = {}
+	link[ "point_radiation" ] = "models/srp/items/art_urchen.mdl"
+	link[ "anomaly_cooker" ] = "models/srp/items/art_fireball.mdl"
+	link[ "anomaly_electro" ] = "models/srp/items/art_crystalthorn.mdl"
+	link[ "anomaly_warp" ] = "models/srp/items/art_moonlight.mdl"	
+	
+	for k,v in pairs( tbl ) do
+	
+		local chance = math.Rand(0,1)
+		
+		if chance < GAMEMODE.ArtifactRarity[ v:GetClass() ] and GAMEMODE:GetArtifacts() <= GAMEMODE.MaxArtifacts and not ValidEntity( v:GetArtifact() ) then
+		
+			local ent = ents.Create( "prop_physics" )
+			ent:SetModel( link[ v:GetClass() ] )
+			ent:SetPos( v:GetPos() )
+			ent:Spawn()
+			
+			local phys = ent:GetPhysicsObject()
+			
+			if ValidEntity( phys ) then
+			
+				if v:GetClass() == "point_radiation" or v:GetClass() == "anomaly_electro" then
+				
+					phys:SetDamping( 50, 20 )
+					phys:Wake()
+				
+				else
+				
+					phys:EnableMotion( false )
+				
+				end
+			
+			end
+			
+			v:SetArtifact( ent )
+		
+		end
+	
+	end
+
+end
+
 function GM:Think( )
 
 	GAMEMODE:EventThink()
+	
+	if ( GAMEMODE.NextArtifactThink or 0 ) < CurTime() then
+		
+		GAMEMODE:ArtifactThink()
+		GAMEMODE.NextArtifactThink = CurTime() + 200
+			
+	end
 
 	if ( GAMEMODE.NextItemThink or 0 ) < CurTime() then
 

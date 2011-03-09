@@ -20,6 +20,18 @@ function ENT:Initialize()
 	
 end
 
+function ENT:SetArtifact( ent )
+
+	self.Artifact = ent
+
+end
+
+function ENT:GetArtifact()
+
+	return self.Artifact or NULL
+
+end
+
 function ENT:SetActive( bool )
 
 	self.Active = bool

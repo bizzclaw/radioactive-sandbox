@@ -39,7 +39,7 @@ function ENT:Touch( ent )
 	
 	if self.SetOff then return end
 	
-	if ent:IsPlayer() or string.find( ent:GetClass(), "npc" ) or string.find( ent:GetClass(), "prop_phys" ) or ent:GetClass() == "sent_lootbag" then
+	if ent:IsPlayer() or string.find( v:GetClass(), "npc" ) or string.find( ent:GetClass(), "prop_phys" ) or ent:GetClass() == "sent_lootbag" then
 	
 		self.SetOff = CurTime() + self.WaitTime
 		
@@ -73,7 +73,7 @@ function ENT:Think()
 			
 				local vel = ( self.VortexPos - v:GetPos() ):Normalize()
 			
-				if ( v:IsPlayer() and v:Alive() ) or string.find( v:GetClass(), "npc" ) then
+				if ( v:IsPlayer() and v:Alive() ) or ( string.find( v:GetClass(), "npc" ) and not string.find( v:GetClass(), "trade" ) ) then
 					
 					local scale = math.Clamp( ( self.SuckRadius - v:GetPos():Distance( self.VortexPos ) ) / self.SuckRadius, 0.2, 1.0 )
 					

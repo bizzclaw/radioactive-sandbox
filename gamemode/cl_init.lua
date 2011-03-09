@@ -778,7 +778,7 @@ usermessage.Hook( "RadScale", SetRadScale )
 
 function AddDrunkness( msg )
  
-	Drunkness = math.Clamp( Drunkness + msg:ReadShort(), 0, 10 )
+	Drunkness = math.Clamp( Drunkness + msg:ReadShort(), 0, 20 )
 	DrunkTimer = CurTime() + 60
  
 end

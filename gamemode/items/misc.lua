@@ -3,8 +3,8 @@
 ITEM_MISC = 5 // Can be found in stores or in loot
 ITEM_BUYABLE = 6 // Only found in stores
 ITEM_LOOT = 7 // Only found in loot
-ITEM_QUEST = 420 // 420 do quests erryday
-ITEM_QUEST_ZOMBIE = 421 // zombie quests
+ITEM_QUEST = 420 
+ITEM_QUEST_ZOMBIE = 421 
 
 PRICE_QUEST_ZOMBIE_ITEM = 20
 PRICE_QUEST_ITEM = 80
@@ -76,6 +76,94 @@ function FUNC_NIGHTVIS( ply, id )
 end
 
 item.Register( { 
+	Name = "Money", 
+	Description = "A $20 bundle of money.",
+	Stackable = true, 
+	Sellable = false,
+	Type = ITEM_LOOT,
+	Weight = 0.02, 
+	Price = 0,
+	Rarity = 0.10,
+	Model = "models/props/cs_assault/money.mdl",
+	Functions = { },
+	PickupFunction = FUNC_MONEY,
+	DropFunction = FUNC_MONEYDROP,
+	CamPos = Vector(10,8,6),
+	CamOrigin = Vector(0,0,0)
+} )
+
+item.Register( { 
+	Name = "Murky Water", 
+	Description = "This old glass bottle is full of murky water. It doesn't look safe to drink.",
+	Stackable = true, 
+	Type = ITEM_LOOT,
+	Weight = 0.30, 
+	Price = 5,
+	Rarity = 0.90,
+	Model = "models/props_junk/garbage_glassbottle001a.mdl",
+	Functions = { FUNC_BADWATER },
+	CamPos = Vector(15,17,3),
+	CamOrigin = Vector(0,0,0)	
+} )
+
+item.Register( { 
+	Name = "Vodka", 
+	Description = "This glass bottle is full of vodka. It will provide some relief from radiation poisoning and make you slightly drunk when used.",
+	Stackable = true, 
+	Type = ITEM_MISC,
+	Weight = 0.30, 
+	Price = 25,
+	Rarity = 0.10,
+	Model = "models/props_junk/garbage_glassbottle002a.mdl",
+	Functions = { FUNC_BOOZE },
+	CamPos = Vector(15,20,0),
+	CamOrigin = Vector(0,0,0)
+} )
+
+item.Register( { 
+	Name = "Nightvision Module", 
+	Description = "This module replaces your flashlight. It should make it much easier to see in the dark.",
+	Stackable = true, 
+	Type = ITEM_MISC,
+	Weight = 1.50, 
+	Price = 45,
+	Rarity = 0.70,
+	Model = "models/gibs/manhack_gib03.mdl",
+	Functions = {},
+	PickupFunction = FUNC_NIGHTVIS,
+	CamPos = Vector(10,10,8),
+	CamOrigin = Vector(0,0,1)		
+} )
+
+item.Register( { 
+	Name = "Geiger Counter Module", 
+	Description = "This device will warn you of dangerous radioactive deposits near your position.",
+	Stackable = true, 
+	Type = ITEM_MISC,
+	Weight = 1.25, 
+	Price = 60,
+	Rarity = 0.90,
+	Model = "models/radbox/geiger.mdl",
+	Functions = {},
+	CamPos = Vector(15,10,5),
+	CamOrigin = Vector(0,0,3)	
+} )
+
+item.Register( { 
+	Name = "Moonshine Vodka", 
+	Description = "This old glass bottle is full of homemade vodka. It's less potent than regular vodka but tastes twice as strong.",
+	Stackable = true, 
+	Type = ITEM_BUYABLE,
+	Weight = 0.30, 
+	Price = 15,
+	Rarity = 0.25,
+	Model = "models/props_junk/garbage_glassbottle003a.mdl",
+	Functions = { FUNC_MOONSHINE },
+	CamPos = Vector(16,18,-3),
+	CamOrigin = Vector(0,0,0)	
+} )
+
+item.Register( { 
 	Name = "Binder", 
 	Description = "This binder is full of detailed notes. It probably belonged to a scientist at one point.",
 	Stackable = true, 
@@ -83,7 +171,7 @@ item.Register( {
 	Weight = 1.50, 
 	Price = PRICE_QUEST_ITEM,
 	Rarity = 0.25,
-	Model = "models/props_lab/bindergraylabel01a.mdl",
+	Model = "models/props_lab/bindergreenlabel.mdl",
 	Functions = { },
 	CamPos = Vector(25,15,0),
 	CamOrigin = Vector(0,0,8)	
@@ -199,92 +287,4 @@ item.Register( {
 	Functions = { },
 	CamPos = Vector(8,8,5),
 	CamOrigin = Vector(0,0,2.5)	
-} )
-
-item.Register( { 
-	Name = "Money", 
-	Description = "A $20 bundle of money.",
-	Stackable = true, 
-	Sellable = false,
-	Type = ITEM_LOOT,
-	Weight = 0.02, 
-	Price = 0,
-	Rarity = 0.10,
-	Model = "models/props/cs_assault/money.mdl",
-	Functions = { },
-	PickupFunction = FUNC_MONEY,
-	DropFunction = FUNC_MONEYDROP,
-	CamPos = Vector(10,8,6),
-	CamOrigin = Vector(0,0,0)
-} )
-
-item.Register( { 
-	Name = "Murky Water", 
-	Description = "This old glass bottle is full of murky water. It doesn't look safe to drink.",
-	Stackable = true, 
-	Type = ITEM_LOOT,
-	Weight = 0.30, 
-	Price = 5,
-	Rarity = 0.90,
-	Model = "models/props_junk/garbage_glassbottle001a.mdl",
-	Functions = { FUNC_BADWATER },
-	CamPos = Vector(15,17,3),
-	CamOrigin = Vector(0,0,0)	
-} )
-
-item.Register( { 
-	Name = "Vodka", 
-	Description = "This glass bottle is full of vodka. It will provide some relief from radiation poisoning and make you slightly drunk when used.",
-	Stackable = true, 
-	Type = ITEM_MISC,
-	Weight = 0.30, 
-	Price = 25,
-	Rarity = 0.10,
-	Model = "models/props_junk/garbage_glassbottle002a.mdl",
-	Functions = { FUNC_BOOZE },
-	CamPos = Vector(15,20,0),
-	CamOrigin = Vector(0,0,0)
-} )
-
-item.Register( { 
-	Name = "Nightvision Module", 
-	Description = "This module replaces your flashlight. It should make it much easier to see in the dark.",
-	Stackable = true, 
-	Type = ITEM_MISC,
-	Weight = 1.50, 
-	Price = 45,
-	Rarity = 0.70,
-	Model = "models/gibs/manhack_gib03.mdl",
-	Functions = {},
-	PickupFunction = FUNC_NIGHTVIS,
-	CamPos = Vector(10,10,8),
-	CamOrigin = Vector(0,0,1)		
-} )
-
-item.Register( { 
-	Name = "Geiger Counter Module", 
-	Description = "This device will warn you of dangerous radioactive deposits near your position.",
-	Stackable = true, 
-	Type = ITEM_MISC,
-	Weight = 1.25, 
-	Price = 60,
-	Rarity = 0.90,
-	Model = "models/radbox/geiger.mdl",
-	Functions = {},
-	CamPos = Vector(15,10,5),
-	CamOrigin = Vector(0,0,3)	
-} )
-
-item.Register( { 
-	Name = "Moonshine Vodka", 
-	Description = "This old glass bottle is full of homemade vodka. It's less potent than regular vodka but tastes twice as strong.",
-	Stackable = true, 
-	Type = ITEM_BUYABLE,
-	Weight = 0.30, 
-	Price = 15,
-	Rarity = 0.25,
-	Model = "models/props_junk/garbage_glassbottle003a.mdl",
-	Functions = { FUNC_MOONSHINE },
-	CamPos = Vector(16,18,-3),
-	CamOrigin = Vector(0,0,0)	
 } )

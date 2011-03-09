@@ -20,6 +20,14 @@ GM.Geiger = {"radbox/geiger_1.wav",
 "radbox/geiger_7.wav",
 "radbox/geiger_8.wav"}
 
+GM.Coughs = { "ambient/voices/cough1.wav",
+"ambient/voices/cough2.wav",
+"ambient/voices/cough3.wav",
+"ambient/voices/cough4.wav",
+"ambient/voices/citizen_beaten3.wav",
+"ambient/voices/citizen_beaten4.wav" }
+
+
 GM.Corpses = {"models/player/Charple01.mdl",
 "models/humans/charple02.mdl",
 "models/humans/charple03.mdl",

@@ -25,6 +25,18 @@ function ENT:Initialize()
 	
 end
 
+function ENT:SetArtifact( ent )
+
+	self.Artifact = ent
+
+end
+
+function ENT:GetArtifact()
+
+	return self.Artifact or NULL
+
+end
+
 function ENT:GetRadiationRadius()
 
 	return 200
@@ -76,6 +88,8 @@ function ENT:Think()
 end
 
 function ENT:Touch( ent ) 
+
+	if ent == self.Entity:GetArtifact() then return end
 
 	if self.BurnTime != nil then
 

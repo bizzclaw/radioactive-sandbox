@@ -36,6 +36,18 @@ function ENT:Initialize()
 	
 end
 
+function ENT:SetArtifact( ent )
+
+	self.Artifact = ent
+
+end
+
+function ENT:GetArtifact()
+
+	return self.Artifact or NULL
+
+end
+
 function ENT:GetRadiationRadius()
 
 	return 200
@@ -46,7 +58,7 @@ function ENT:Touch( ent )
 	
 	if self.SetOff then return end
 	
-	if ent:IsPlayer() or string.find( ent:GetClass(), "npc" ) or string.find( ent:GetClass(), "prop_phys" ) then
+	if ent:IsPlayer() or string.find( ent:GetClass(), "npc" ) or ( string.find( ent:GetClass(), "prop_phys" ) and ent != self.Entity:GetArtifact() ) then
 	
 		self.SetOff = CurTime() + 3
 		
@@ -103,7 +115,7 @@ function ENT:Explode()
 		
 		local tr = util.TraceLine( trace )
 	
-		if v:GetPos():Distance( self.Entity:GetPos() ) < self.ZapRadius and not tr.HitWorld then
+		if v:GetPos():Distance( self.Entity:GetPos() ) < self.ZapRadius and not tr.HitWorld and v != self.Entity:GetArtifact() then
 			
 			if ( v:IsPlayer() and not ValidEntity( v:GetVehicle() ) ) or not v:IsPlayer() then
 			

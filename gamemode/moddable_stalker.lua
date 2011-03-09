@@ -67,35 +67,30 @@ GM.LocalDist = 800 // Maximum local chat distance
 // Chat Auto-Emotes
 
 GM.ChatEmotes = {}
-GM.ChatEmotes[ "Drunk" ] = { "/me burps",
-"/me belches",
-"/me vomits",
-"/me feels dizzy and disoriented",
-"/me staggers to the left",
-"/me staggers to the right",
-"/me has a headache from drinking too much alcohol",
-"/me drank too much vodka",
-"/me is drunk",
-"/me has a stomach ache from drinking moonshine" }
+GM.ChatEmotes[ "Drunk" ] = { "vomits",
+"feels dizzy and disoriented",
+"staggers to the left",
+"staggers to the right",
+"has a stomach ache"}
 
-GM.ChatEmotes[ "Radiation" ] = { "/me is nauseous from radiation poisoning",
-"/me feels weak",
-"/me is fatigued",
-"/me has an unhealthy radioactive glow",
-"/me vomits up blood",
-"/me has a headache from radiation poisoning" }
+GM.ChatEmotes[ "Radiation"] = { "is nauseous from radiation poisoning",
+"feels weak",
+"is fatigued",
+"has an unhealthy radioactive glow",
+"vomits up blood",
+"has a headache from radiation poisoning"}
 
-GM.ChatEmotes[ "Bleeding" ] = { "/me feels weak from blood loss",
-"/me has lost a lot of blood",
-"/me needs some bandages",
-"/me is covered in blood",
-"/me feels lightheaded" }
+GM.ChatEmotes[ "Bleeding"] = { "feels weak from blood loss",
+"has lost a lot of blood",
+"needs some bandages",
+"is covered in blood",
+"feels lightheaded"}
 
-GM.ChatEmotes[ "Pain" ] = { "/me moans in pain",
-"/me requires first aid",
-"/me is in a lot of pain",
-"/me is severely injured",
-"/me is hurt badly" }
+GM.ChatEmotes[ "Pain"] = { "moans in pain",
+"requires first aid",
+"is in a lot of pain",
+"is severely injured",
+"is hurt badly"}
 
 // Weight Limits (lbs)
 	

@@ -5,13 +5,6 @@ include( 'shared.lua' )
 
 ENT.Awaken = Sound( "ambient/atmosphere/cave_hit5.wav" )
 
-ENT.Coughs = { Sound( "ambient/voices/cough1.wav" ),
-Sound( "ambient/voices/cough2.wav" ),
-Sound( "ambient/voices/cough3.wav" ),
-Sound( "ambient/voices/cough4.wav" ),
-Sound( "ambient/voices/citizen_beaten3.wav" ),
-Sound( "ambient/voices/citizen_beaten4.wav" ) }
-
 ENT.WaitTime = 5
 ENT.KillRadius = 2000
 ENT.Damage = 20
@@ -58,6 +51,26 @@ function ENT:Initialize()
 	
 	end
 	
+	if math.Rand(0,1) < GAMEMODE.ArtifactRarity[ "biganomaly_deathfog" ] then
+	
+		local ent = ents.Create( "prop_physics" )
+		ent:SetModel( "models/srp/items/art_stoneblood.mdl" )
+		ent:SetPos( self.Entity:GetPos() )
+		ent:Spawn()
+		
+		local phys = ent:GetPhysicsObject()
+		
+		if ValidEntity( phys ) then
+		
+			phys:SetDamping( 20, 20 )
+			phys:Wake()
+			
+		end
+		
+		self.Artifact = ent
+
+	end
+	
 end
 
 function ENT:GetRadiationRadius()
@@ -71,6 +84,12 @@ function ENT:Think()
 	if self.Timer > CurTime() then return end
 	
 	if self.KillTime < CurTime() then
+	
+		if ValidEntity( self.Artifact ) then
+		
+			timer.Simple( 30, function( ent ) if ValidEntity( ent ) then ent:Remove() end end, self.Artifact )
+		
+		end
 	
 		self.Entity:Remove()
 	
@@ -100,7 +119,7 @@ function ENT:Think()
 					
 					if v.CoughTimer < CurTime() then
 					
-						v:EmitSound( table.Random( self.Coughs ) )
+						v:EmitSound( table.Random( GAMEMODE.Coughs ) )
 						
 						v.CoughTimer = CurTime() + math.Rand( 1.5, 3.0 )
 					
