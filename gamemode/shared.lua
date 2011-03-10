@@ -17,6 +17,7 @@ CreateConVar( "sv_radbox_roleplay", "1", { FCVAR_REPLICATED, FCVAR_ARCHIVE, FCVA
 CreateConVar( "sv_radbox_daycycle", "1", { FCVAR_REPLICATED, FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_SERVER_CAN_EXECUTE }, "Controls whether the server has day/night cycles enabled. (def 1)" )
 CreateConVar( "sv_radbox_daycycle_speed", "2.0", { FCVAR_REPLICATED, FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_SERVER_CAN_EXECUTE }, "Controls the speed of the day/night cycle transitions. (def 2.0)" )
 CreateConVar( "sv_radbox_daycycle_intensity", "1.0", { FCVAR_REPLICATED, FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_SERVER_CAN_EXECUTE }, "Controls the intensity of nighttime for day/night cycles. (def 1.0)" )
+CreateConVar( "sv_radbox_daycycle_indoors_light", "0.4", { FCVAR_REPLICATED, FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_SERVER_CAN_EXECUTE }, "Controls how much day/night affects you while indoors. (def 0.4)" )
 
 function GM:CreateTeams()
 	

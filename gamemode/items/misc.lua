@@ -134,6 +134,7 @@ item.Register( {
 	Model = "models/gibs/manhack_gib03.mdl",
 	Functions = { FUNC_TOGGLEVIS },
 	PickupFunction = FUNC_NIGHTVIS,
+	DropFunction = FUNC_NIGHTVIS,
 	CamPos = Vector(10,10,8),
 	CamOrigin = Vector(0,0,1)		
 } )

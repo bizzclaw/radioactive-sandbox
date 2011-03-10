@@ -97,7 +97,7 @@ function GM:RenderScreenspaceEffects()
 		
 		if IsIndoors then
 		
-			local daycol = DayColor[k] * ( GetConVar( "sv_radbox_daycycle_intensity" ):GetFloat() * 0.5 )
+			local daycol = DayColor[k] * ( GetConVar( "sv_radbox_daycycle_intensity" ):GetFloat() * GetConVar( "sv_radbox_daycycle_indoors_light" ):GetFloat() )
 			MixedColorMod[k] = math.Approach( MixedColorMod[k] or 0, daycol + ColorModify[k], FrameTime() * 0.25 )
 			
 		else
@@ -185,7 +185,7 @@ function DrawPlayerRenderEffects()
 	
 	cam.Start3D( EyePos(), EyeAngles() )
 	
-	for k,v in pairs( player.GetAll() ) do
+	for k,v in pairs( tbl ) do
 	
 		if ( v:IsPlayer() and v:Alive() and v != LocalPlayer() and v:Team() != TEAM_UNASSIGNED and v:Team() != TEAM_SPECTATOR and v:Team() != TEAM_CONNECTING ) or v:IsNPC() then
 
