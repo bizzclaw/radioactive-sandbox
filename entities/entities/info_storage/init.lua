@@ -4,6 +4,18 @@ function ENT:Initialize()
 
 end
 
+function ENT:SetCash( amt )
+
+	self.Cash = amt
+
+end
+
+function ENT:GetCash()
+
+	return self.Cash
+
+end
+
 function ENT:GetUser()
 
 	return self.User
@@ -18,7 +30,19 @@ end
 
 function ENT:SetupItems( ply )
 
-	self.Items = GAMEMODE.PlayerInventories[ string.lower( ply:SteamID() ) ] or {}
+	if not GAMEMODE.PlayerInventories[ string.lower( ply:SteamID() ) ] then
+	
+		self.Items = {}
+		self.Cash = 0
+		
+		return
+	
+	end
+
+	self.Items = GAMEMODE.PlayerInventories[ string.lower( ply:SteamID() ) ].Tbl or {}
+	self.Cash = GAMEMODE.PlayerInventories[ string.lower( ply:SteamID() ) ].Money
+	
+	ply:SynchCash( self.Cash )
 
 end
 
@@ -27,7 +51,7 @@ function ENT:OnExit( ply )
 	ply:ToggleStashMenu( self.Entity, false, "StashMenu", 1.0 )
 	ply.Stash = nil
 	
-	GAMEMODE:SaveInventory( ply, self:GetItems() )
+	GAMEMODE:SaveInventory( ply, self.Entity:GetItems(), self.Entity:GetCash() )
 
 end
 
@@ -69,9 +93,10 @@ end
 function ENT:Synch()
 
 	if ValidEntity( self.Entity:GetUser() ) then
-			
+	
+		self.Entity:GetUser():SynchCash( self.Cash )
 		self.Entity:GetUser():SynchStash( self.Entity )
-			
+		
 	end
 
 end

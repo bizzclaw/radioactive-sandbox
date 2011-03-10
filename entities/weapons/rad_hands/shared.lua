@@ -21,7 +21,7 @@ SWEP.HoldType = "normal"
 SWEP.Base = "rad_base"
 
 SWEP.ViewModel			= ""
-SWEP.WorldModel			= "models/weapons/w_knife_t.mdl"
+SWEP.WorldModel			= ""
 
 SWEP.IsSniper = false
 SWEP.AmmoType = "Knife"

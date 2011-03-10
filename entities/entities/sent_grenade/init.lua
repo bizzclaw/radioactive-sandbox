@@ -105,7 +105,7 @@ function ENT:PhysicsCollide( data, phys )
 
 	if data.Speed > 50 and data.DeltaTime > 0.15 then
 	
-		self.Entity:EmitSound( self.HitSound, 100, math.random(90,110) )
+		self.Entity:EmitSound( self.HitSound, 50, math.random(90,110) )
 		
 	end
 	

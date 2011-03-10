@@ -65,6 +65,8 @@ function PANEL:PerformLayout()
 end
 
 function PANEL:Paint()
+
+	Derma_DrawBackgroundBlur( self )
 	
 	surface.SetFont( "ItemDisplayFont" )
 	

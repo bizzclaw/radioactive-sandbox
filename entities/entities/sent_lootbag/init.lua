@@ -4,15 +4,15 @@ AddCSLuaFile( "shared.lua" )
 include( 'shared.lua' )
 
 function ENT:Initialize()
-		
+	
 	self.Entity:SetModel( "models/props_junk/garbage_bag001a.mdl" )
-		
+	
 	self.Entity:PhysicsInit( SOLID_VPHYSICS )
 	self.Entity:SetMoveType( MOVETYPE_VPHYSICS )
 	self.Entity:SetSolid( SOLID_VPHYSICS )
 	
 	self.Entity:SetCollisionGroup( COLLISION_GROUP_WEAPON )
-		
+	
 	local phys = self.Entity:GetPhysicsObject()
 	
 	if ValidEntity( phys ) then
@@ -22,7 +22,20 @@ function ENT:Initialize()
 	end
 
 	self.LastUse = 0
+	self.Cash = 0
 	
+end
+
+function ENT:SetCash( amt )
+
+	self.Cash = amt
+
+end
+
+function ENT:GetCash()
+
+	return self.Cash
+
 end
 
 function ENT:Think() 
@@ -117,6 +130,8 @@ function ENT:OnUsed( ply )
 	self.LastUse = CurTime() + 1.0
 
 	if not ValidEntity( self.Entity:GetUser() ) then
+	
+		ply:SynchCash( self.Cash )
 	
 		self.Entity:SetUser( ply )
 		ply:ToggleStashMenu( self.Entity, true, "StashMenu" )

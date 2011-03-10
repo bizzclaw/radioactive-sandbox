@@ -109,11 +109,11 @@ if CLIENT then return end
 // Artifact rarities (Percentages)
 
 GM.ArtifactRarity = {}
-GM.ArtifactRarity[ "point_radiation" ] = 0.02         // Chance that a tainted moss will spawn
-GM.ArtifactRarity[ "biganomaly_deathfog" ] = 0.50     // Chance that a bitter coral will spawn
-GM.ArtifactRarity[ "anomaly_electro" ] = 0.05         // Chance that a porcupine will spawn
-GM.ArtifactRarity[ "anomaly_cooker" ] = 0.05          // Chance that a scaldstone will spawn
-GM.ArtifactRarity[ "anomaly_warp" ] = 0.05            // Chance that a blink will spawn
+GM.ArtifactRarity[ "point_radiation" ] = 0.01         // Chance that a tainted moss will spawn
+GM.ArtifactRarity[ "biganomaly_deathfog" ] = 0.40     // Chance that a bitter coral will spawn (when a death fog spawns)
+GM.ArtifactRarity[ "anomaly_electro" ] = 0.02         // Chance that a porcupine will spawn
+GM.ArtifactRarity[ "anomaly_cooker" ] = 0.02          // Chance that a scaldstone will spawn
+GM.ArtifactRarity[ "anomaly_warp" ] = 0.02            // Chance that a blink will spawn
 
 // Event delays (seconds)
 

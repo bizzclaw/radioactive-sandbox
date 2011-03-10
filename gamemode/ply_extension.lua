@@ -52,34 +52,10 @@ function meta:SetCash( num )
 	self:SetNWInt( "Cash", num )
 end
 
-function meta:AddCash( num, dropfunc )
+function meta:AddCash( num )
 	
 	self:SetCash( self:GetCash() + num ) 
 	self:EmitSound( Sound( "Chain.ImpactSoft" ), 100, math.random( 90, 110 ) )
-	
-	local count = math.floor( self:GetCash() / 20 )
-	local tbl = item.GetByModel( "models/props/cs_assault/money.mdl" )
-	
-	if num < 0 and not dropfunc then
-	
-		while self:HasItem( tbl.ID ) and self:GetItemCount( tbl.ID ) > count do
-				
-			self:RemoveFromInventory( tbl.ID )
-		
-		end
-	
-	else
-		
-		while self:GetItemCount( tbl.ID ) < count do
-			
-			table.insert( self.Inventory, tbl.ID )
-			self:AddWeight( tbl.Weight )
-			
-		end
-		
-		self:SynchInventory()
-	
-	end
 	
 end
 
@@ -270,7 +246,7 @@ function meta:OnLoadout()
 		gun:SetPos( self:GetPos() )
 		gun:SetModel( model )
 		gun:Spawn()
-			
+		
 		self:AddToInventory( gun )
 		
 	end
@@ -678,6 +654,16 @@ function meta:HasItem( thing )
 	
 	return false
 	
+end
+
+function meta:SynchCash( amt )
+
+	if not amt then return end
+
+	umsg.Start( "CashSynch", self )
+	umsg.Short( amt )
+	umsg.End()
+
 end
 
 function meta:SynchStash( ent )

@@ -124,7 +124,7 @@ function ENT:OnUsed( ply )
 	
 	self.Entity:SetAngles( ang )
 	self.Entity:VoiceSound( self.Greet )
-		
+	
 	ply:NPCMenu()
 	ply.Stash = self.Entity
 	

@@ -784,6 +784,13 @@ function AddDrunkness( msg )
 end
 usermessage.Hook( "Drunk", AddDrunkness )
 
+function CashSynch( msg )
+ 
+	Inv_SetStashCash( msg:ReadShort() )
+ 
+end
+usermessage.Hook( "CashSynch", CashSynch )
+
 function InventorySynch( handler, id, encoded, decoded )
 
 	LocalInventory = {}

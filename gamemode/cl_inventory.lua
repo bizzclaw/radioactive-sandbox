@@ -1,6 +1,7 @@
 
 LocalInventory = {}
 LocalStash = {}
+LocalStashCash = 0
 PreviewStyle = "Stash"
 PreviewPriceScale = 1
 
@@ -35,5 +36,17 @@ function Inv_ItemCount( id )
 	end
 	
 	return count
+
+end
+
+function Inv_GetStashCash()
+
+	return LocalStashCash
+	
+end
+
+function Inv_SetStashCash( amt )
+
+	LocalStashCash = amt
 
 end

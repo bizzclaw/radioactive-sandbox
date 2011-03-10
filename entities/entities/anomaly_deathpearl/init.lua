@@ -14,6 +14,8 @@ Sound( "ambient/levels/citadel/strange_talk9.wav" ),
 Sound( "ambient/levels/citadel/strange_talk10.wav" ),
 Sound( "ambient/levels/citadel/strange_talk11.wav" ) }
 
+ENT.Distance = 600
+
 function ENT:Initialize()
 	
 	self.Entity:SetModel( "models/XQM/Rails/gumball_1.mdl" )
@@ -33,8 +35,8 @@ function ENT:Initialize()
 	self.Entity:StartMotionController()
 	
 	self.Active = false
-	self.Distance = 600
 	self.SoundTime = 0
+	self.Target = {}
 
 end
 
@@ -56,9 +58,9 @@ function ENT:PhysicsSimulate( phys, delta )
 	
 	end
 	
-	if ValidEntity( self.Target ) then
+	if ValidEntity( self.Target[1] ) then
 	
-		local vel = ( self.Target:GetPos() - self.Entity:GetPos() ):Normalize()
+		local vel = ( self.Target[1]:GetPos() - self.Entity:GetPos() ):Normalize()
 		
 		phys:ApplyForceCenter( vel * 50 )
 	
@@ -72,10 +74,10 @@ function ENT:Think()
 
 	for k,v in pairs( player.GetAll() ) do
 	
-		if v:GetPos():Distance( self.Entity:GetPos() ) < self.Distance then
+		if v:GetPos():Distance( self.Entity:GetPos() ) < self.Distance and not table.HasValue( self.Target, v ) then
 		
 			active = true
-			self.Target = v
+			table.insert( self.Target, v )
 		
 		end
 	
@@ -87,18 +89,22 @@ function ENT:Think()
 	
 		self.ReActivate = true
 		
-		if ValidEntity( self.Target ) then
+		for k,v in pairs( self.Target ) do
 		
-			self.Target:SetDSP( 0, false )
-			self.Target = nil
-		
+			if ValidEntity( v ) then
+			
+				v:SetDSP( 0, false )
+				self.Target[k] = nil
+			
+			end
+			
 		end
 		
 		if self.SoundTime < CurTime() then
 			
-			self.SoundTime = CurTime() + 5
+			self.SoundTime = CurTime() + math.random( 5, 10 )
 			
-			self.Entity:EmitSound( table.Random( self.WeirdSounds ), 100, math.random( 150, 180 ) )
+			self.Entity:EmitSound( table.Random( self.WeirdSounds ), 100, math.random( 130, 160 ) )
 			
 		end
 	
@@ -112,24 +118,28 @@ function ENT:Think()
 
 		end
 		
-		if ValidEntity( self.Target ) and self.Target:Alive() then
+		for k,v in pairs( self.Target ) do
 		
-			local scale = 1 - math.Clamp( self.Entity:GetPos():Distance( self.Target:GetPos() ) / self.Distance, 0, 1 ) 
+			if ValidEntity( v ) and v:Alive() then
 			
-			util.ScreenShake( self.Target:GetPos(), scale * 5, scale * 3, 2, 100 )
-		
-			self.Target:TakeDamage( 3 * scale, self.Entity )
-			self.Target:AddStamina( math.floor( -3 * scale ) )
-			self.Target:SetDSP( 39, false )
+				local scale = 1 - math.Clamp( self.Entity:GetPos():Distance( v:GetPos() ) / self.Distance, 0, 1 ) 
+				
+				util.ScreenShake( v:GetPos(), scale * 5, scale * 3, 2, 100 )
 			
-			if scale > 0.75 then
-			
-				umsg.Start( "Drunk", self.Target )
-				umsg.Short( 1 )
-				umsg.End()
+				v:TakeDamage( 3 * scale, self.Entity )
+				v:AddStamina( math.floor( -3 * scale ) )
+				v:SetDSP( 39, false )
+				
+				if scale > 0.75 then
+				
+					umsg.Start( "Drunk", v )
+					umsg.Short( 1 )
+					umsg.End()
+				
+				end
 			
 			end
-		
+			
 		end
 	
 	end

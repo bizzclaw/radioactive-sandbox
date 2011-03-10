@@ -15,6 +15,7 @@ function ENT:Initialize()
 	
 	self.Entity:DrawShadow( false )
 	
+	self.Cash = 0
 	self.LastUse = 0
 	self.LastThink = 0
 	self.Items = {}
@@ -28,6 +29,18 @@ function ENT:Initialize()
 		self.Entity:AddItem( rand.ID )
 			
 	end
+
+end
+
+function ENT:SetCash( amt )
+
+	self.Cash = amt
+
+end
+
+function ENT:GetCash()
+
+	return self.Cash
 
 end
 
@@ -97,6 +110,8 @@ function ENT:OnUsed( ply )
 	if ValidEntity( self.Entity:GetUser() ) and self.Entity:GetUser() != ply then return end
 	
 	if not ValidEntity( self.Entity:GetUser() ) then
+	
+		ply:SynchCash( self.Cash )
 	
 		self.Entity:SetUser( ply )
 		ply:ToggleStashMenu( self.Entity, true, "StashMenu" )

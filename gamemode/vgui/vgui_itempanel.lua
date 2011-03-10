@@ -172,7 +172,6 @@ function PANEL:MouseMenu()
 		
 	end
 	
-	
 	if self:GetCount() > 1 and not self.IsWeapon then
 	
 		if self:GetCount() > 3 then

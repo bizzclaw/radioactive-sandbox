@@ -28,6 +28,7 @@ function GM:InitVGUI()
 	StashScreen:EnableHorizontal( true )
 	StashScreen:SetVisible( false )
 	StashScreen:SetStashable( true, "Take" )
+	StashScreen.GetCash = function() return Inv_GetStashCash() end
 	
 	TargetScreen = vgui.Create( "TargetID" )
 	TargetScreen:SetPos( 5, 5 )

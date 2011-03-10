@@ -62,6 +62,13 @@ function GM:GetEntityID( ent )
 		TargetedEntity = ent
 		TargetedTime = CurTime() + 5
 		TargetedDist = Vector( 0, 0, 10 )
+		
+	elseif ent:GetClass() == "sent_cash" then
+	
+		TargetedName = "Cash: $" .. ent:GetNWInt( "Cash", 10 )
+		TargetedEntity = ent
+		TargetedTime = CurTime() + 5
+		TargetedDist = Vector( 0, 0, 5 )
 	
 	elseif ent:GetClass() == "point_stash" then
 	
@@ -269,9 +276,9 @@ function GM:OnPlayerChat( ply, text, isteam, isdead )
 			text = string.Trim( string.Right( text, string.len( text ) - string.len( v ) ) )
 			ply.ChatWords = ply.ChatWords or {}
 			
-			if v == GAMEMODE.ChatModes.Local and LocalPlayer():GetPos():Distance( ply:GetPos() ) < GAMEMODE.LocalDist then
+			if v == GAMEMODE.ChatModes.Local then
 			
-				if ( isteam and LocalPlayer():Team() == ply:Team() ) or not isteam then
+				if LocalPlayer():GetPos():Distance( ply:GetPos() ) < GAMEMODE.LocalDist and ( isteam and LocalPlayer():Team() == ply:Team() ) or not isteam then
 					
 					chat.AddText( Color( 255, 255, 255 ), "(LOCAL) ", team.GetColor( ply:Team() ), GAMEMODE:GetPlayerGayName( ply, tostring( ply:Deaths() + 1 ) .. ply:Name() ), Color( 255, 255, 255 ), ": ", text )
 						
@@ -313,9 +320,13 @@ function GM:OnPlayerChat( ply, text, isteam, isdead )
 					
 				return true
 				
-			elseif v == GAMEMODE.ChatModes.LocalMe and LocalPlayer():GetPos():Distance( ply:GetPos() ) < GAMEMODE.LocalDist then 
+			elseif v == GAMEMODE.ChatModes.LocalMe then 
+			
+				if LocalPlayer():GetPos():Distance( ply:GetPos() ) < GAMEMODE.LocalDist then
 				
-				chat.AddText( team.GetColor( ply:Team() ), GAMEMODE:GetPlayerGayName( ply, tostring( ply:Deaths() + 1 ) .. ply:Name() ), Color( 255, 255, 255 ), " ", text )
+					chat.AddText( team.GetColor( ply:Team() ), GAMEMODE:GetPlayerGayName( ply, tostring( ply:Deaths() + 1 ) .. ply:Name() ), Color( 255, 255, 255 ), " ", text )
+					
+				end
 				
 				return true
 				

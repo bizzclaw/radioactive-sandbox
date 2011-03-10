@@ -14,7 +14,7 @@ function ENT:Initialize()
 	self.Entity:DrawShadow( false )
 	
 	self.Active = true
-	self.Radius = 500
+	self.Radius = 400
 	self.SoundRadius = 800
 	self.Pos = self.Entity:GetPos()
 	
@@ -89,15 +89,15 @@ function ENT:Think()
 		
 			if ( v.NextRadSound or 0 ) < CurTime() then
 			
-				local scale = math.Clamp( dist / self.SoundRadius, 0.1, 1.0 )
+				local scale = math.Clamp( ( self.SoundRadius - dist ) / ( self.SoundRadius - self.Radius ), 0.1, 1.0 )
 			
-				v.NextRadSound = CurTime() + scale * 0.5
-				v:EmitSound( table.Random( GAMEMODE.Geiger ), 100, math.random( 80, 90 ) )
+				v.NextRadSound = CurTime() + 1 - scale 
+				v:EmitSound( table.Random( GAMEMODE.Geiger ), 100, math.random( 80, 90 ) + scale * 20 )
 				
 				if math.random(1,3) > 1 then
 				
 					umsg.Start( "RadScale", v )
-					umsg.Float( 1.2 - scale )
+					umsg.Float( scale * 0.7 )
 					umsg.End()
 					
 				end

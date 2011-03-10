@@ -87,7 +87,7 @@ function GM:ShutDown()
 
 	for k,v in pairs( GAMEMODE.PlayerInventories ) do
 			
-		if !v[1] then
+		if not v.Tbl or not v.Tbl[1] then
 		
 			db.DeleteInventory( k )
 		
@@ -228,7 +228,7 @@ function GM:LoadAllEnts()
 
 end
 
-function GM:SaveInventory( ply, tbl )
+function GM:SaveInventory( ply, tbl, money )
 
 	local str
 	
@@ -246,11 +246,11 @@ function GM:SaveInventory( ply, tbl )
 		
 	end
 	
-	GAMEMODE.PlayerInventories[ string.lower( ply:SteamID() ) ] = tbl
+	GAMEMODE.PlayerInventories[ string.lower( ply:SteamID() ) ] = { Tbl = tbl, Money = money or 0 }
 	
 	if str then
 	
-		db.SetInventory( ply, str )
+		db.SetInventory( ply, str, money )
 	
 	end
 
@@ -258,7 +258,7 @@ end
 
 function GM:LoadInventory( pl )
 
-	local inv = db.GetInventory( pl )
+	local inv, money = db.GetInventory( pl )
 
 	if inv then
 		
@@ -269,9 +269,9 @@ function GM:LoadInventory( pl )
 			tbl[c] = tonumber( d )
 			
 		end
-			
-		GAMEMODE.PlayerInventories[ string.lower( pl:SteamID() ) ] = tbl
-			
+		
+		GAMEMODE.PlayerInventories[ string.lower( pl:SteamID() ) ] = { Tbl = tbl, Money = money or 0 }
+	
 	end
 	
 end 
@@ -643,7 +643,7 @@ function GM:PlayerSpawn( pl )
 	end
 	
 	umsg.Start( "Drunk", pl )
-	umsg.Short( -10 )
+	umsg.Short( -20 )
 	umsg.End()
 	
 	pl:SetDSP( 0, false )
@@ -1088,12 +1088,6 @@ function DropItem( ply, cmd, args )
 		if ply:HasItem( id ) then
 		
 			table.insert( items, id )
-			
-			if tbl.DropFunction then
-			
-				tbl.DropFunction( ply, id )
-			
-			end
 		
 		end
 		
@@ -1114,6 +1108,12 @@ function DropItem( ply, cmd, args )
 	
 	ply:EmitSound( Sound( "items/ammopickup.wav" ) )
 	ply:RemoveMultipleFromInventory( items )
+	
+	if tbl.DropFunction then
+		
+		tbl.DropFunction( ply, id )
+		
+	end
 
 end
 
@@ -1194,7 +1194,7 @@ function StoreItem( ply, cmd, args )
 		ply.Stash:AddItem( id )
 		
 		ply:RemoveFromInventory( id )
-		ply:EmitSound( Sound( "c4.disarmfinish" ), 100, math.random( 90, 110 ) )
+		ply:EmitSound( Sound( "c4.disarmfinish" ) )
 		
 		if tbl.DropFunction then
 			
@@ -1215,18 +1215,18 @@ function StoreItem( ply, cmd, args )
 			table.insert( items, id )
 			ply.Stash:AddItem( id )
 			
-			if tbl.DropFunction then
-			
-				tbl.DropFunction( ply, id )
-			
-			end
-			
 		end
 	
 	end
 	
 	ply:RemoveMultipleFromInventory( items )
-	ply:EmitSound( Sound( "c4.disarmfinish" ), 100, math.random( 90, 110 ) )
+	ply:EmitSound( Sound( "c4.disarmfinish" ) )
+	
+	if tbl.DropFunction then
+		
+		tbl.DropFunction( ply, id )
+		
+	end
 
 end
 
@@ -1236,7 +1236,7 @@ function SellItem( ply, cmd, args )
 
 	local id = tonumber( args[1] )
 	local count = math.Clamp( tonumber( args[2] ), 1, 100 )
-		
+	
 	if not ValidEntity( ply.Stash ) or not string.find( ply.Stash:GetClass(), "npc" ) or not ply:HasItem( id ) then return end
 	
 	local tbl = item.GetByID( id )
@@ -1258,25 +1258,27 @@ function SellItem( ply, cmd, args )
 	end
 	
 	local items = {}
+	local cashamt = 0
 	
 	for i=1, math.Clamp( count, 1, ply:GetItemCount( id ) ) do
 	
 		if ply:HasItem( id ) then
-				
+			
 			table.insert( items, id )
-			ply:AddCash( cash )
-			
-			if tbl.DropFunction then
-			
-				tbl.DropFunction( ply, id )
-			
-			end
+			cashamt = cashamt + cash
 			
 		end
 	
 	end
 	
+	ply:AddCash( cashamt )
 	ply:RemoveMultipleFromInventory( items )
+	
+	if tbl.DropFunction then
+		
+		tbl.DropFunction( ply, id )
+		
+	end
 
 end
 
@@ -1292,10 +1294,11 @@ function BuyItem( ply, cmd, args )
 	local tbl = item.GetByID( id )
 	
 	if tbl.Price > ply:GetCash() then 
-			
-		ply:DialogueWindow( "You don't have enough money!" ) 
+		
+		ply:DialogueWindow( "You don't have enough money!" )
+		
 		return 
-				
+		
 	end 
 	
 	if count == 1 then
@@ -1306,16 +1309,17 @@ function BuyItem( ply, cmd, args )
 		return
 	
 	end
-		
+	
 	if ( tbl.Price * count ) > ply:GetCash() then 
-			
+		
 		ply:DialogueWindow( "You don't have enough money!" ) 
+		
 		return 
-				
+		
 	end 
 	
 	local items = {}
-		
+	
 	for i=1, count do
 		
 		table.insert( items, id )
@@ -1348,6 +1352,51 @@ function OpenStorageMenu( ply, cmd, args )
 end
 
 concommand.Add( "inv_save", OpenStorageMenu )
+
+function DropCash( ply, cmd, args )
+
+	local amt = tonumber( args[1] )
+	
+	if amt > ply:GetCash() or amt < 5 then return end
+	
+	ply:AddCash( -amt )
+	
+	local money = ents.Create( "sent_cash" )
+	money:SetPos( ply:GetItemDropPos() )
+	money:Spawn()
+	money:SetCash( amt )
+
+end
+
+concommand.Add( "cash_drop", DropCash )
+
+function StashCash( ply, cmd, args )
+
+	local amt = tonumber( args[1] )
+	
+	if not ValidEntity( ply.Stash ) or amt > ply:GetCash() or amt < 5 or string.find( ply.Stash:GetClass(), "npc" ) then return end
+	
+	ply:AddCash( -amt )
+	ply:SynchCash( ply.Stash:GetCash() + amt )
+	ply.Stash:SetCash( ply.Stash:GetCash() + amt )
+
+end
+
+concommand.Add( "cash_stash", StashCash )
+
+function TakeCash( ply, cmd, args )
+
+	local amt = tonumber( args[1] )
+	
+	if not ValidEntity( ply.Stash ) or amt > ply.Stash:GetCash() or amt < 5 or string.find( ply.Stash:GetClass(), "npc" ) then return end
+	
+	ply:AddCash( amt )
+	ply:SynchCash( ply.Stash:GetCash() - amt )
+	ply.Stash:SetCash( ply.Stash:GetCash() - amt )
+
+end
+
+concommand.Add( "cash_take", TakeCash )
 
 function OpenNPCMenu( ply, cmd, args )
 

@@ -49,20 +49,6 @@ function FUNC_MOONSHINE( ply, id, client )
 
 end
 
-function FUNC_MONEY( ply, id )
-
-	ply:AddCash( 20 )
-
-	return false // Don't physically add to inventory, let AddCash() do the work
-	
-end
-
-function FUNC_MONEYDROP( ply, id )
-
-	ply:AddCash( -20, true )
-	
-end
-
 function FUNC_NIGHTVIS( ply, id )
 
 	if ply:FlashlightIsOn() then
@@ -75,7 +61,7 @@ function FUNC_NIGHTVIS( ply, id )
 	
 end
 
-item.Register( { 
+item.Register( {  // useless now!
 	Name = "Money", 
 	Description = "A $20 bundle of money.",
 	Stackable = true, 
@@ -99,7 +85,7 @@ item.Register( {
 	Type = ITEM_LOOT,
 	Weight = 0.30, 
 	Price = 5,
-	Rarity = 0.90,
+	Rarity = 0.50,
 	Model = "models/props_junk/garbage_glassbottle001a.mdl",
 	Functions = { FUNC_BADWATER },
 	CamPos = Vector(15,17,3),
