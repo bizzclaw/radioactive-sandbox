@@ -31,6 +31,10 @@ QUEST.ItemDesc[ "models/srp/items/art_urchen.mdl" ] = { "This Tainted Moss artif
 															"There is no information on how these artifacts are formed, or what anomaly creates them.",
 															"Agitating this useful artifact will often cause it to absorb all radiation in a wide radius.",
 															"However, when shaken too much this artifact will release radiation as well as highly toxic vapors." }
+QUEST.ItemDesc[ "models/props_phx/misc/smallcannonball.mdl" ] = { "These seemingly harmless artifacts are presumed to be the core of a Storm Pearl.",
+															"Agitating this artifact will cause it to vibrate so fast that it cannot be held still.",
+															"It is unwise to agitate this artifact, as it will unleeash hazardous energy once it is triggered.",
+															"These artifacts are often avoided by collectors since they are so dangerous."}
 
 QUEST.Start = function( ply )
 
@@ -56,15 +60,13 @@ QUEST.Start = function( ply )
 	
 	ply:Notify( "Artifacts are known to form around certain anomalies." )
 	
-	timer.Simple( 2, function( ply ) if ValidEntity( ply ) then ply:Notify( "You should look for Electro, Cooker, Death Fog and Warp anomalies." ) end end, ply )
-	
 	if ply:Team() == TEAM_EXODUS then
 	
-		timer.Simple( 4, function( ply ) if ValidEntity( ply ) then ply:Notify( "I suggest that you buy a Field Detector Module for this mission." ) end end, ply )
+		timer.Simple( 3, function( ply ) if ValidEntity( ply ) then ply:Notify( "I suggest that you buy a Field Detector Module for this mission." ) end end, ply )
 		
 	else
 	
-		timer.Simple( 4, function( ply ) if ValidEntity( ply ) then ply:Notify( "I suggest that you get a Field Detector Module for this mission." ) end end, ply )
+		timer.Simple( 3, function( ply ) if ValidEntity( ply ) then ply:Notify( "I suggest that you get a Field Detector Module for this mission." ) end end, ply )
 	
 	end
 	

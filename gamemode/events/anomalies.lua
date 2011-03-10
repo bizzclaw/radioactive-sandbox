@@ -7,7 +7,7 @@ EVENT.Types = { "anomaly_whiplash",
 				"anomaly_vortex", 
 				"anomaly_warp", 
 				"anomaly_hoverstone", 
-				"anomaly_deathpearl", 
+				"anomaly_stormpearl", 
 				"anomaly_cooker" }
 
 function EVENT:Start()

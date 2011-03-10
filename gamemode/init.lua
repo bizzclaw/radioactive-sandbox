@@ -295,7 +295,7 @@ function GM:LootThink()
 	
 	local num = amt - total
 	local tbl = { ITEM_FOOD, ITEM_SUPPLY, ITEM_LOOT, ITEM_AMMO, ITEM_MISC, ITEM_EXODUS, ITEM_WPN_COMMON }
-	local chancetbl = { 1.00,    0.80,        0.80,      0.40,     0.60,       0.05,          0.05 }
+	local chancetbl = { 1.00,    0.80,        0.20,      0.40,     0.60,       0.05,          0.05 }
 	
 	if num > 0 then
 	

@@ -27,7 +27,6 @@ GM.Coughs = { "ambient/voices/cough1.wav",
 "ambient/voices/citizen_beaten3.wav",
 "ambient/voices/citizen_beaten4.wav" }
 
-
 GM.Corpses = {"models/player/Charple01.mdl",
 "models/humans/charple02.mdl",
 "models/humans/charple03.mdl",

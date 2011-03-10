@@ -61,23 +61,6 @@ function FUNC_NIGHTVIS( ply, id )
 	
 end
 
-item.Register( {  // useless now!
-	Name = "Money", 
-	Description = "A $20 bundle of money.",
-	Stackable = true, 
-	Sellable = false,
-	Type = ITEM_LOOT,
-	Weight = 0.02, 
-	Price = 0,
-	Rarity = 0.10,
-	Model = "models/props/cs_assault/money.mdl",
-	Functions = { },
-	PickupFunction = FUNC_MONEY,
-	DropFunction = FUNC_MONEYDROP,
-	CamPos = Vector(10,8,6),
-	CamOrigin = Vector(0,0,0)
-} )
-
 item.Register( { 
 	Name = "Murky Water", 
 	Description = "This old glass bottle is full of murky water. It doesn't look safe to drink.",

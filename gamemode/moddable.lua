@@ -114,6 +114,7 @@ GM.ArtifactRarity[ "biganomaly_deathfog" ] = 0.40     // Chance that a bitter co
 GM.ArtifactRarity[ "anomaly_electro" ] = 0.02         // Chance that a porcupine will spawn
 GM.ArtifactRarity[ "anomaly_cooker" ] = 0.02          // Chance that a scaldstone will spawn
 GM.ArtifactRarity[ "anomaly_warp" ] = 0.02            // Chance that a blink will spawn
+GM.ArtifactRarity[ "anomaly_stormpearl" ] = 0.05      // Chance that a bead will spawn
 
 // Event delays (seconds)
 
@@ -122,7 +123,7 @@ GM.MaxEventDelay = 60 * 25 // The maximum possible time, in seconds, between ran
 
 // Server entity limits
 
-GM.MaxArtifacts = 5        // Maximum artifacts that can be randomly spawned anytime.
+GM.MaxArtifacts = 3        // Maximum artifacts that can be randomly spawned anytime.
 GM.RadiationAmount = 0.6   // How much of the radiation on the map should be disabled on map startup? ( Scalar - 0.6 means 60% will be disabled )
 GM.MaxLoot = 0.05          // Maximum amount of loot to be generated ( Scalar - 0.10 means 10% of the info_lootspawns will have loot at them. )
 GM.MaxZombiesScale = 0.75  // Scalar for amount of zombies to spawn per player - 1.0 means spawning 1 zombie per player, 2.0 means 2 per player, etc.

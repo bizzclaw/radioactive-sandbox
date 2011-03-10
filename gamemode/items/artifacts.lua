@@ -235,6 +235,32 @@ function FUNC_MOSS( ply, id, client )
 	
 end
 
+function FUNC_BEAD( ply, id, client )
+
+	if client then return "Shake" end
+
+	local bead = ents.Create( "anomaly_bead" )
+	bead:SetPos( ply:GetItemDropPos() )
+	bead:Spawn()
+	
+	ply:RemoveFromInventory( id )
+
+end
+
+item.Register( { 
+	Name = "'Storm Bead' Artifact", 
+	Description = "This artifact is presumed to be the core of a Storm Pearl anomaly. It vibrates when you shake it.",
+	Stackable = true, 
+	Type = ITEM_ARTIFACT,
+	Weight = 6.50, 
+	Price = 1500,
+	Rarity = 0.90,
+	Model = "models/props_phx/misc/smallcannonball.mdl",
+	Functions = { FUNC_BEAD },
+	CamPos = Vector(15,25,5),
+	CamOrigin = Vector(0,7,2)
+} )
+
 item.Register( { 
 	Name = "'Bitter Coral' Artifact", 
 	Description = "This artifact is found where Death Fog anomalies form. Your skin begins to blister whenever you touch it.",
@@ -293,7 +319,7 @@ item.Register( {
 
 item.Register( { 
 	Name = "'Tainted Moss' Artifact", 
-	Description = "This artifact is found near radioactive deposits. It emits trace amounts of radiation.",
+	Description = "This artifact is presumed to form near radioactive deposits. It emits trace amounts of radiation.",
 	Stackable = true, 
 	Type = ITEM_ARTIFACT,
 	Weight = 4.50, 
