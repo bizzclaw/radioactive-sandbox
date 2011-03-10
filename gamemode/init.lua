@@ -1345,6 +1345,10 @@ function OpenStorageMenu( ply, cmd, args )
 		ply.StorageBox:SetUser( ply )
 		ply.StorageBox:Spawn() 
 	
+	else
+	
+		ply:SynchCash( ply.StorageBox:GetCash() )
+		
 	end
 	
 	ply:ToggleStashMenu( ply.StorageBox, true, "StashMenu", ply.Stash:GetBuybackScale(), true )
