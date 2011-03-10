@@ -36,7 +36,7 @@ SWEP.AmmoType = "Pistol"
 
 SWEP.Primary.Sound			= Sound( "Weapon_Deagle.Single" )
 SWEP.Primary.Recoil			= 7.5
-SWEP.Primary.Damage			= 32
+SWEP.Primary.Damage			= 40
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.Cone			= 0.030
 SWEP.Primary.Delay			= 0.380

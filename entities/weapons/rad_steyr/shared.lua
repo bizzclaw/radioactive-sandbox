@@ -39,7 +39,7 @@ SWEP.AmmoType = "Rifle"
 
 SWEP.Primary.Sound			= Sound( "Weapon_AUG.Single" )
 SWEP.Primary.Recoil			= 8.5
-SWEP.Primary.Damage			= 70
+SWEP.Primary.Damage			= 65
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.Cone			= 0.012
 SWEP.Primary.Delay			= 0.190

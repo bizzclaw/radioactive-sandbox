@@ -22,10 +22,42 @@ function ENT:Initialize()
 	end
 	
 	self.Cash = 0
+	self.NPCThink = 0
+	self.RemoveTime = CurTime() + 10 * 60
 
 end
 
 function ENT:Think() 
+
+	if self.NPCThink < CurTime() then
+	
+		self.NPCThink = CurTime() + 10
+		
+		for k,v in pairs( ents.FindByClass( "npc_trader*" ) ) do
+		
+			if v:GetPos():Distance( self.Entity:GetPos() ) < 50 then
+			
+				local phys = self.Entity:GetPhysicsObject()
+				
+				if ValidEntity( phys ) then
+				
+					phys:ApplyForceCenter( ( self.Entity:GetPos() - v:GetPos() ):Normalize() * phys:GetMass() * 100 )
+					
+					return
+				
+				end
+			
+			end
+		
+		end
+		
+		if self.RemoveTime < CurTime() then
+		
+			self.Entity:Remove()
+		
+		end
+	
+	end
 	
 end 
 

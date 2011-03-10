@@ -56,7 +56,7 @@ end
 
 function ENT:Draw()
 
-	self.Entity:SetModelScale( Vector( math.Rand( 0.9, 1.1 ), math.Rand( 0.9, 1.1 ), math.Rand( 0.9, 1.1 ) ) )
+	self.Entity:SetModelScale( Vector( math.Rand( 0.85, 0.95 ), math.Rand( 0.85, 0.95 ), math.Rand( 0.85, 0.95 ) ) )
 	self.Entity:DrawModel()
 	
 end

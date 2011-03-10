@@ -39,7 +39,7 @@ SWEP.Primary.Pump           = Sound( "Weapon_M3.Pump" )
 SWEP.Primary.Recoil			= 9.5
 SWEP.Primary.Damage			= 30
 SWEP.Primary.NumShots		= 8
-SWEP.Primary.Cone			= 0.085
+SWEP.Primary.Cone			= 0.080
 SWEP.Primary.Delay			= 0.500
 
 SWEP.Primary.ClipSize		= 6

@@ -354,6 +354,7 @@ function meta:DropLoot()
 	ent:SetAngles( self:GetForward() )
 	ent:SetRemoval( 60 * 5 )
 	ent:Spawn()
+	ent:SetCash( self:GetCash() )
 	
 end
 

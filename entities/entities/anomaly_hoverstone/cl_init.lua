@@ -4,6 +4,7 @@ include('shared.lua')
 function ENT:Initialize()
 
 	self.Emitter = ParticleEmitter( self.Entity:GetPos() )
+	self.Dist = self.Entity:OBBCenter():Distance( self.Entity:OBBMaxs() )
 
 end
 
@@ -19,7 +20,7 @@ end
 
 function ENT:Think()
 
-	local particle = self.Emitter:Add( "effects/muzzleflash"..math.random(1,4), self.Entity:LocalToWorld( self.Entity:OBBCenter() ) + VectorRand() * 10 )
+	local particle = self.Emitter:Add( "effects/muzzleflash"..math.random(1,4), self.Entity:LocalToWorld( self.Entity:OBBCenter() ) + VectorRand() * self.Dist )
  	
  	particle:SetVelocity( VectorRand() * 10 ) 
  	particle:SetLifeTime( 0 )  

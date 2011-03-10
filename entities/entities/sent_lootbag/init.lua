@@ -42,7 +42,7 @@ function ENT:Think()
 
 	if not ValidEntity( self.Entity:GetUser() ) then
 		
-		if #self.Entity:GetItems() < 1 or ( self.DieTime and self.DieTime < CurTime() ) then
+		if ( #self.Entity:GetItems() < 1 and self:GetCash() < 5 ) or ( self.DieTime and self.DieTime < CurTime() ) then
 	
 			self.Entity:Remove()
 			
@@ -98,7 +98,7 @@ function ENT:SetUser( ply )
 	
 	end
 	
-	if not ply and #self.Entity:GetItems() < 1 then
+	if not ply and #self.Entity:GetItems() < 1 and self.Entity:GetCash() < 5 then
 	
 		self.Entity:Remove()
 	

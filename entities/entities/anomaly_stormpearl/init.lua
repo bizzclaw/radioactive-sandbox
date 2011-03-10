@@ -114,9 +114,8 @@ function ENT:OnRemove()
 	
 	if math.Rand(0,1) < GAMEMODE.ArtifactRarity[ self.Entity:GetClass() ] then
 	
-		local prop = ents.Create( "prop_physics" )
-		prop:SetPos( self.Entity:GetPos() )
-		prop:SetModel( "models/props_phx/misc/smallcannonball.mdl" )
+		local prop = ents.Create( "artifact_bead" )
+		prop:SetPos( self.Entity:GetPos() + Vector(0,0,10) )
 		prop:Spawn()
 		
 		timer.Simple( 60, function( ent ) if ValidEntity( ent ) then ent:Remove() end end, prop )
@@ -159,8 +158,6 @@ function ENT:Think()
 	
 		if ValidEntity( v ) and v:GetPos():Distance( self.Entity:GetPos() ) < self.Distance and not table.HasValue( self.Target, v ) then
 		
-			v:SetDSP( 23, false ) 
-		
 			table.insert( self.Target, v )
 		
 		end
@@ -170,8 +167,6 @@ function ENT:Think()
 	for k,v in pairs( player.GetAll() ) do
 	
 		if ValidEntity( v ) and v:GetPos():Distance( self.Entity:GetPos() ) >= self.Distance and table.HasValue( self.Target, v ) then
-		
-			v:SetDSP( 0, false )
 			
 			table.remove( self.Target, k )
 			

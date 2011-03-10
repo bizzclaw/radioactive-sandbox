@@ -35,6 +35,9 @@ QUEST.ItemDesc[ "models/props_phx/misc/smallcannonball.mdl" ] = { "These seeming
 															"Agitating this artifact will cause it to vibrate so fast that it cannot be held still.",
 															"It is unwise to agitate this artifact, as it will unleeash hazardous energy once it is triggered.",
 															"These artifacts are often avoided by collectors since they are so dangerous."}
+QUEST.ItemDesc[ "models/props_debris/concrete_chunk05g.mdl" ] = { "This Pet Rock artifact has a gravitational field that defies modern science.",
+															"When stimulated, it will temporarily spread its gravitational properties to whatever touched it.",
+															"However, like the Hoverstone anomaly, these rocks can cause internal bleeding." }
 
 QUEST.Start = function( ply )
 

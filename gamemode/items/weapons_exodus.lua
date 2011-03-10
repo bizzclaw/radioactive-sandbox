@@ -8,7 +8,7 @@ item.Register( {
 	Stackable = false, 
 	Type = ITEM_WPN_EXODUS,
 	Weight = 3, 
-	Price = 100,
+	Price = 70,
 	Rarity = 0.50,
 	Model = "models/weapons/w_pist_p228.mdl",
 	Weapon = "rad_p228",

@@ -80,7 +80,11 @@ function PANEL:RefreshItems( tbl )
 		
 	end
 	
-	if #tbl < 1 then return end
+	if #tbl < 1 then
+	
+		self:InvalidateLayout()
+	
+	end
 	
 	if self.StashButton then
 	
@@ -191,7 +195,8 @@ function PANEL:Rebuild()
 	
 	if ( self.Horizontal ) then
 	
-		local x, y = self.Padding, self.Padding;
+		local x, y = self.Padding, self.Padding
+		
 		for k, panel in pairs( self.Items ) do
 		
 			if ( panel:IsVisible() ) then

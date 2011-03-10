@@ -36,7 +36,7 @@ SWEP.AmmoType = "SMG"
 
 SWEP.Primary.Sound			= Sound( "Weapon_MP5Navy.Single" )
 SWEP.Primary.Recoil			= 3.5
-SWEP.Primary.Damage			= 16
+SWEP.Primary.Damage			= 25
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.Cone			= 0.050
 SWEP.Primary.Delay			= 0.085

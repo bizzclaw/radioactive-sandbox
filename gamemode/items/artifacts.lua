@@ -247,19 +247,59 @@ function FUNC_BEAD( ply, id, client )
 
 end
 
-item.Register( { 
-	Name = "'Storm Bead' Artifact", 
-	Description = "This artifact is presumed to be the core of a Storm Pearl anomaly. It vibrates when you shake it.",
-	Stackable = true, 
-	Type = ITEM_ARTIFACT,
-	Weight = 6.50, 
-	Price = 1500,
-	Rarity = 0.90,
-	Model = "models/props_phx/misc/smallcannonball.mdl",
-	Functions = { FUNC_BEAD },
-	CamPos = Vector(15,25,5),
-	CamOrigin = Vector(0,7,2)
-} )
+function FUNC_DROPBEAD( ply, id )
+
+	local bead = ents.Create( "artifact_bead" )
+	bead:SetPos( ply:GetItemDropPos() )
+	bead:Spawn()
+
+	return false // override spawning a prop for this item
+
+end
+
+function FUNC_PETROCK( ply, id, client )
+
+	if client then return "Poke" end
+	
+	if math.random(1,5) == 1 then
+	
+		ply:SetBleeding( true )
+		ply:TakeDamage( 50, ply )
+		ply:EmitSound( "NPC_HeadCrab.Bite" )
+	
+	end
+	
+	ply:EmitSound( Sound( "ambient/materials/metal4.wav" ), 100, math.random( 150, 200 ) )
+	
+	if ply.GravityMode then return end
+	
+	ply.GravityMode = true
+	
+	ply:SetGravity( 0.1 )
+	ply:SetVelocity( ply:GetForward() * 50 + Vector(0,0,50) )
+	
+	timer.Simple( math.random( 4, 8 ), function( ply ) 
+	
+			if ply.GravityMode then
+			
+				ply.GravityMode = false 
+				ply:SetGravity( 1 ) 
+				ply:SetVelocity( Vector(0,0,-100) ) 
+				ply:EmitSound( Sound( "ambient/machines/station_train_squeel.wav" ), 100, math.random( 150, 200 ) )
+				
+			end end, ply )
+
+end
+
+function FUNC_DROPROCK( ply, id )
+
+	local rock = ents.Create( "artifact_petrock" )
+	rock:SetPos( ply:GetItemDropPos() )
+	rock:Spawn()
+
+	return false // override spawning a prop for this item
+
+end
 
 item.Register( { 
 	Name = "'Bitter Coral' Artifact", 
@@ -267,7 +307,7 @@ item.Register( {
 	Stackable = true, 
 	Type = ITEM_ARTIFACT,
 	Weight = 3.50, 
-	Price = 2000,
+	Price = 2500,
 	Rarity = 0.90,
 	Model = "models/srp/items/art_stoneblood.mdl",
 	Functions = { FUNC_CORAL },
@@ -295,7 +335,7 @@ item.Register( {
 	Stackable = true, 
 	Type = ITEM_ARTIFACT,
 	Weight = 3.50, 
-	Price = 2000,
+	Price = 1800,
 	Rarity = 0.90,
 	Model = "models/srp/items/art_fireball.mdl",
 	Functions = { FUNC_SCALD },
@@ -323,10 +363,40 @@ item.Register( {
 	Stackable = true, 
 	Type = ITEM_ARTIFACT,
 	Weight = 4.50, 
-	Price = 2000,
+	Price = 1800,
 	Rarity = 0.90,
 	Model = "models/srp/items/art_urchen.mdl",
 	Functions = { FUNC_MOSS },
 	CamPos = Vector(8,10,8),
 	CamOrigin = Vector(0,0,4)
+} )
+
+item.Register( { 
+	Name = "'Storm Bead' Artifact", 
+	Description = "This artifact is presumed to be the core of a Storm Pearl anomaly. It vibrates rapidly when you hold it.",
+	Stackable = true, 
+	Type = ITEM_ARTIFACT,
+	Weight = 6.50, 
+	Price = 1500,
+	Rarity = 0.90,
+	Model = "models/props_phx/misc/smallcannonball.mdl",
+	Functions = { FUNC_BEAD },
+	DropFunction = FUNC_DROPBEAD,
+	CamPos = Vector(15,25,5),
+	CamOrigin = Vector(0,7,2)
+} )
+
+item.Register( { 
+	Name = "'Pet Rock' Artifact", 
+	Description = "This artifact is presumed to be a fragment of a Hoverstone anomaly. It is very lightweight.",
+	Stackable = true, 
+	Type = ITEM_ARTIFACT,
+	Weight = 0.50, 
+	Price = 2200,
+	Rarity = 0.90,
+	Model = "models/props_debris/concrete_chunk05g.mdl",
+	Functions = { FUNC_PETROCK },
+	DropFunction = FUNC_DROPROCK,
+	CamPos = Vector(7,7,0),
+	CamOrigin = Vector(0,0,0)
 } )

@@ -278,6 +278,16 @@ end
 
 function GM:LootThink()
 
+	for k,v in pairs( ents.FindByClass( "prop_phys*" ) ) do
+	
+		if v.Removal and v.Removal < CurTime() and ValidEntity( v ) then
+		
+			v:Remove()
+		
+		end
+	
+	end
+
 	if #ents.FindByClass( "info_lootspawn" ) < 10 then return end
 
 	local amt = math.floor( GAMEMODE.MaxLoot * #ents.FindByClass( "info_lootspawn" ) )
@@ -486,6 +496,7 @@ function GM:ArtifactThink()
 			ent:SetModel( link[ v:GetClass() ] )
 			ent:SetPos( v:GetPos() )
 			ent:Spawn()
+			ent.Removal = CurTime() + 600
 			
 			local phys = ent:GetPhysicsObject()
 			
@@ -715,7 +726,7 @@ end
 
 function GM:PlayerSwitchFlashlight( ply, on )
 
-	return !ply:HasItem( "models/gibs/manhack_gib03.mdl" )
+	return not ply.NVG
 	
 end
 
@@ -1058,22 +1069,29 @@ function DropItem( ply, cmd, args )
 	
 		if ply:HasItem( id ) then
 		
-			local prop = ents.Create( "prop_physics" )
-			prop:SetPos( ply:GetItemDropPos() )
-			prop:SetAngles( ply:GetAimVector():Angle() )
-			prop:SetModel( tbl.Model ) 
-			prop:SetCollisionGroup( COLLISION_GROUP_WEAPON )
-			prop:Spawn()
-			prop.IsItem = true
+			local makeprop = true
+		
+			if tbl.DropFunction then
+			
+				makeprop = tbl.DropFunction( ply, id )
+			
+			end
+			
+			if makeprop then
+		
+				local prop = ents.Create( "prop_physics" )
+				prop:SetPos( ply:GetItemDropPos() )
+				prop:SetAngles( ply:GetAimVector():Angle() )
+				prop:SetModel( tbl.Model ) 
+				prop:SetCollisionGroup( COLLISION_GROUP_WEAPON )
+				prop:Spawn()
+				prop.IsItem = true
+				prop.Removal = CurTime() + 5 * 60
+				
+			end
 			
 			ply:RemoveFromInventory( id, true )
 			ply:EmitSound( Sound( "items/ammopickup.wav" ) )
-				
-			if tbl.DropFunction then
-			
-				tbl.DropFunction( ply, id )
-			
-			end
 		
 		end
 		

@@ -9,7 +9,7 @@ if CLIENT then
 	SWEP.ViewModelFOV		= 74
 	SWEP.ViewModelFlip		= true
 	
-	SWEP.PrintName = "Glock 18"
+	SWEP.PrintName = "Glock 19"
 	SWEP.IconLetter = "c"
 	SWEP.Slot = 1
 	SWEP.Slotpos = 1
@@ -36,12 +36,12 @@ SWEP.AmmoType = "Pistol"
 
 SWEP.Primary.Sound			= Sound( "Weapon_Glock.Single" )
 SWEP.Primary.Recoil			= 5.5
-SWEP.Primary.Damage			= 24
+SWEP.Primary.Damage			= 25
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.Cone			= 0.050
 SWEP.Primary.Delay			= 0.100
 
-SWEP.Primary.ClipSize		= 17
+SWEP.Primary.ClipSize		= 15
 SWEP.Primary.Automatic		= false
 
 SWEP.Primary.ShellType = SHELL_9MM

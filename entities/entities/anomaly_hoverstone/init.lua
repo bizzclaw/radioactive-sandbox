@@ -7,19 +7,16 @@ ENT.Models = { "models/props_debris/concrete_column001a_chunk01.mdl",
 "models/props_debris/concrete_column001a_chunk02.mdl",
 "models/props_debris/concrete_column001a_chunk03.mdl",
 "models/props_debris/concrete_column001a_chunk04.mdl",
-"models/props_debris/concrete_column001a_chunk08.mdl",
-"models/props_debris/concrete_column001a_chunk09.mdl",
-"models/props_debris/building_brokenpillar001e.mdl",
 "models/props_debris/concrete_chunk01b.mdl",
 "models/props_debris/concrete_chunk02a.mdl",
 "models/props_debris/concrete_chunk03a.mdl",
-"models/props_debris/concrete_chunk05g.mdl",
 "models/props_debris/concrete_chunk06d.mdl",
 "models/props_debris/concrete_chunk07a.mdl",
 "models/props_debris/concrete_chunk08a.mdl",
 "models/props_debris/concrete_chunk09a.mdl",
 "models/props_debris/concrete_spawnchunk001a.mdl",
 "models/props_debris/concrete_spawnchunk001b.mdl",
+"models/props_debris/concrete_spawnchunk001e.mdl",
 "models/props_debris/concrete_spawnchunk001f.mdl",
 "models/props_wasteland/rockgranite03a.mdl",
 "models/props_wasteland/rockgranite03b.mdl",
@@ -42,6 +39,7 @@ function ENT:Initialize()
 	
 	if ValidEntity( phys ) then
 	
+		phys:SetMaterial( "wood" )
 		phys:Wake()
 
 	end
@@ -123,6 +121,22 @@ function ENT:Think()
 	end
 	
 end 
+
+function ENT:OnTakeDamage( dmg )
+
+	if dmg:GetAttacker():IsPlayer() then
+	
+		if math.Rand(0,1) < GM.ArtifactRarity[ "anomaly_hoverstone" ] then
+		
+			local prop = ents.Create( "artifact_petrock" )
+			prop:SetPos( self.Entity:GetPos() )
+			prop:Spawn()
+		
+		end
+	
+	end
+
+end
 
 function ENT:PhysicsCollide( data, phys )
 

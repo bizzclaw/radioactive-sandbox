@@ -52,7 +52,7 @@ item.Register( {
 	Stackable = false, 
 	Type = ITEM_WPN_ARMY,
 	Weight = 3, 
-	Price = 100,
+	Price = 70,
 	Rarity = 0.50,
 	Model = "models/weapons/w_pistol.mdl",
 	Weapon = "rad_usp",

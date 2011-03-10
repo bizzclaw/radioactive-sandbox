@@ -3,20 +3,20 @@ local PlayerNames = {}
 PlayerNames[1] = { "Joseph", "Orest", "Koscha", "Lex", "Wolf", "Lukas", "Gabor", "Mikhail", "Mischa", "Nikolai" }
 PlayerNames[2] = { "Leonid", "Scar", "Serjh", "Kalif", "Kobra", "Vlad", "Vladimir", "Yuri", "Johan", "Tolik" }
 PlayerNames[3] = { "Maksim", "Petrenko", "Rudik", "Lars", "Ischenko", "Karl", "Ivan", "Jagori", "Lukash", "Igor" }
-PlayerNames[4] = { "Kaz", "Sven", "Koslow", "Peter", "Vladik", "Moriz", "Stefan", "Pavlo", "Jaspar", "Avel" }
+PlayerNames[4] = { "Kaz", "Sven", "Koslow", "Garik", "Vladik", "Moriz", "Stefan", "Pavlo", "Jaspar", "Avel" }
 PlayerNames[5] = { "Fang", "Ivanov", "Damien", "Tobias", "Boris", "Danil", "Dominik", "Alek", "Kobus", "Arman" }
-PlayerNames[6] = { "Lefty", "Alexander", "Jarec", "Wolfram", "Xavier", "Seb", "Felix", "Gustaf", "Jakob", "Andrei" }
-PlayerNames[7] = { "Yurik", "Pavel", "Jegor", "Vic", "Luthar", "Hawk", "Kruger", "Danko", "Dutch", "Viktor" }
+PlayerNames[6] = { "Lefty", "Alexander", "Jarec", "Wolfram", "Cheslav", "Seb", "Felix", "Gustaf", "Jakob", "Andrei" }
+PlayerNames[7] = { "Yurik", "Pavel", "Jegor", "Vano", "Luthar", "Vasya", "Kruger", "Cardan", "Dutch", "Viktor" }
 PlayerNames[8] = { "Sigil", "Marcus", "Sydric", "Nikolai", "Valentin", "Kostyan", "Dominic", "Syd", "Ilya", "Josef" }
-PlayerNames[9] = { "Uri", "Kelthyr", "Erik", "Kilroy", "Sergei", "Ashot", "Fredrik", "Hans", "Milutin", "Anton" }
+PlayerNames[9] = { "Uri", "Kelthyr", "Barin", "Kilroy", "Sergei", "Ashot", "Senka", "Hans", "Milutin", "Anton" }
 PlayerNames[10] = { "Mikesh", "Sigmund", "Borov", "Rurik", "Nikita", "Dimitri", "Aleksei", "Vadym", "Viktor", "Kolya" }
 
 local LastNames = {}
 LastNames[1] = { "Dubnikov", "Sacharin", "Larin", "Berdjansk", "Dawydov", "Sakharov", "Nevrin", "Charkow", "Kremen", "Havlik" } 
 LastNames[2] = { "Baranowski", "Lebedev", "Krylov", "Bellic", "Vicros", "Klimenko", "Kolovnik", "Lawrik", "Plochenko", "Klepacki" }
 LastNames[3] = { "Limansk", "Sidorow", "Pechenkin", "Petchenko", "Tarasov", "Kudinov", "Davidov", "Stanislav", "Kilgore", "Dombrik" }
-LastNames[4] = { "Ezrin", "Schabenko", "Black", "Maslov", "Gatsula", "Degtyarev", "Makarenko", "Viekko", "Burec", "Gusarov" }
-LastNames[5] = { "Hunter", "Brevin", "Constantin", "Lepechin", "Saveliy", "Vadim", "Vargan", "Vasek", "Vasko", "Yakov" }
+LastNames[4] = { "Ezrin", "Schabenko", "Black", "Maslov", "Gatsula", "Degtyarev", "Makarenko", "Viekko", "Kitsenko", "Gusarov" }
+LastNames[5] = { "Hunter", "Brevin", "Constantin", "Lepechin", "Saveliy", "Vadim", "Vargan", "Voronin", "Vasko", "Yakov" }
 LastNames[6] = { "Kruglov", "Fedorov", "Sidorov", "Sidorovich", "Petrov", "Alexandrov", "Timur", "Ruslan", "Arkadiy", "Lukovich" }
 LastNames[7] = { "Soprovich", "Karolek", "Pavlik", "Moroshkin", "Gavrel", "Stanislov", "Kostya", "Brevich", "Solotar", "Berzin" }
 LastNames[8] = { "Sidorenko", "Burjak", "Dotsenko", "Suslov", "Sacharov", "Nepritski", "Putschek", "Gritsenko", "Lachnit", "Luschkow" }
@@ -30,7 +30,7 @@ local TargetedDist = Vector(0,0,0)
 
 function GM:GetEntityID( ent )
 	
-	if ent:GetClass() == "prop_physics" then
+	if ent:GetClass() == "prop_physics" or string.find( ent:GetClass(), "artifact" ) then
 	
 		local tbl = item.GetByModel( ent:GetModel() )
 		
@@ -65,7 +65,7 @@ function GM:GetEntityID( ent )
 		
 	elseif ent:GetClass() == "sent_cash" then
 	
-		TargetedName = "Cash: $" .. ent:GetNWInt( "Cash", 10 )
+		TargetedName = "Money: $" .. ent:GetNWInt( "Cash", 10 )
 		TargetedEntity = ent
 		TargetedTime = CurTime() + 5
 		TargetedDist = Vector( 0, 0, 5 )

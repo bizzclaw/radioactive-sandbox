@@ -34,6 +34,7 @@ function GM:Initialize( )
 	IsIndoors = false
 	IndoorsThink = 0
 	NightVision = false
+	NightVisionEnabled = false
 	VehicleView = false
 	EmoteCooldown = 0
 	Drunkness = 0
@@ -140,7 +141,7 @@ function GM:PlayerBindPress( ply, bind, pressed )
 		
 		return true
 	
-	elseif string.find( bind, "impulse 100" ) and Inv_HasItem( "models/gibs/manhack_gib03.mdl" ) then
+	elseif string.find( bind, "impulse 100" ) and Inv_HasItem( "models/gibs/manhack_gib03.mdl" ) and NightVisionEnabled then
 	
 		NightVision = !NightVision
 	
@@ -790,6 +791,19 @@ function CashSynch( msg )
  
 end
 usermessage.Hook( "CashSynch", CashSynch )
+
+function NVGToggle( msg )
+ 
+	NightVisionEnabled = msg:ReadBool()
+	
+	if not NightVisionEnabled then
+	
+		NightVision = false
+	
+	end
+ 
+end
+usermessage.Hook( "NVGToggle", NVGToggle )
 
 function InventorySynch( handler, id, encoded, decoded )
 

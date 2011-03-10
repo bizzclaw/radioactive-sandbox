@@ -3,12 +3,12 @@
 ITEM_WPN_BANDOLIERS = 8
 
 item.Register( { 
-	Name = "Glock 18", 
+	Name = "Glock 19", 
 	Description = "This well rounded pistol is an ideal sidearm for any situation.",
 	Stackable = false, 
 	Type = ITEM_WPN_BANDOLIERS,
 	Weight = 3, 
-	Price = 100,
+	Price = 70,
 	Rarity = 0.50,
 	Model = "models/weapons/w_pist_glock18.mdl",
 	Weapon = "rad_glock",

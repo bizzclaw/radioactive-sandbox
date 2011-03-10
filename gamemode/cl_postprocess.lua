@@ -17,7 +17,7 @@ ColorModify[ "$pp_colour_mulb" ] 		= 0
 
 MixedColorMod = {}
 
-local function DrawInternal()
+function GM:RenderScreenspaceEffects()
 
 	local approach = FrameTime() * 0.05
 
@@ -48,17 +48,17 @@ local function DrawInternal()
 		
 			if IsIndoors then
 		
-				ColorModify[ "$pp_colour_brightness" ] = math.Approach( ColorModify[ "$pp_colour_brightness" ], 0.10, FrameTime() * 0.50 ) 
-				ColorModify[ "$pp_colour_contrast" ] = math.Approach( ColorModify[ "$pp_colour_contrast" ], 1.30, FrameTime() * 0.50 ) 
+				ColorModify[ "$pp_colour_brightness" ] = math.Approach( ColorModify[ "$pp_colour_brightness" ], 0.20, FrameTime() * 0.50 ) 
+				ColorModify[ "$pp_colour_contrast" ] = math.Approach( ColorModify[ "$pp_colour_contrast" ], 1.10, FrameTime() * 0.50 ) 
 				ColorModify[ "$pp_colour_mulg" ] = math.Approach( ColorModify[ "$pp_colour_mulg" ], 0.20, FrameTime() * 0.50 ) 
-				ColorModify[ "$pp_colour_addg" ] = math.Approach( ColorModify[ "$pp_colour_addg" ], 0.10, FrameTime() * 0.50 ) 
+				ColorModify[ "$pp_colour_addg" ] = math.Approach( ColorModify[ "$pp_colour_addg" ], 0.15, FrameTime() * 0.50 ) 
 				
 			else
 			
-				ColorModify[ "$pp_colour_brightness" ] = math.Approach( ColorModify[ "$pp_colour_brightness" ], 0.30, FrameTime() * 0.50 ) 
-				ColorModify[ "$pp_colour_contrast" ] = math.Approach( ColorModify[ "$pp_colour_contrast" ], 1.50, FrameTime() * 0.50 ) 
+				ColorModify[ "$pp_colour_brightness" ] = math.Approach( ColorModify[ "$pp_colour_brightness" ], 0.40, FrameTime() * 0.50 ) 
+				ColorModify[ "$pp_colour_contrast" ] = math.Approach( ColorModify[ "$pp_colour_contrast" ], 1.20, FrameTime() * 0.50 ) 
 				ColorModify[ "$pp_colour_mulg" ] = math.Approach( ColorModify[ "$pp_colour_mulg" ], 0.20, FrameTime() * 0.50 ) 
-				ColorModify[ "$pp_colour_addg" ] = math.Approach( ColorModify[ "$pp_colour_addg" ], 0.12, FrameTime() * 0.50 ) 
+				ColorModify[ "$pp_colour_addg" ] = math.Approach( ColorModify[ "$pp_colour_addg" ], 0.20, FrameTime() * 0.50 ) 
 			
 			end
 		
@@ -110,9 +110,9 @@ local function DrawInternal()
 	end
 	
 	DrawColorModify( MixedColorMod )
+	DrawPlayerRenderEffects()
 	
 end
-hook.Add( "RenderScreenspaceEffects", "RenderPostProcessing", DrawInternal )
 
 function GM:GetMotionBlurValues( y, x, fwd, spin ) 
 
@@ -152,6 +152,63 @@ function RotateAroundCoord( x, y, speed, dist )
 	local newy = y + math.cos( CurTime() * speed ) * dist
 
 	return newx, newy
+
+end
+
+local MaterialWhite = Material( "white_outline" )
+local NightVisionScale = 0
+
+function DrawPlayerRenderEffects()
+	
+	if not NightVision then 
+	
+		NightVisionScale = math.Approach( NightVisionScale, 0, FrameTime() * 0.5 ) 
+	
+	else
+	
+		if IsIndoors then
+		
+			NightVisionScale = math.Approach( NightVisionScale, 0.6, FrameTime() * 0.5 ) 
+		
+		else
+		
+			NightVisionScale = math.Approach( NightVisionScale, 1.0, FrameTime() * 0.5 ) 
+		
+		end
+	
+	end
+	
+	if NightVisionScale == 0 then return end
+	
+	local tbl = ents.FindByClass( "npc*" )
+	tbl = table.Add( tbl, player.GetAll() )
+	
+	cam.Start3D( EyePos(), EyeAngles() )
+	
+	for k,v in pairs( player.GetAll() ) do
+	
+		if ( v:IsPlayer() and v:Alive() and v != LocalPlayer() and v:Team() != TEAM_UNASSIGNED and v:Team() != TEAM_SPECTATOR and v:Team() != TEAM_CONNECTING ) or v:IsNPC() then
+
+			render.SuppressEngineLighting( true )
+			render.SetColorModulation( 0.5, 1.0, 0.5 )
+			render.SetBlend( NightVisionScale * 0.25 )
+	
+			SetMaterialOverride( MaterialWhite )
+ 
+			cam.IgnoreZ( false )
+ 
+			v:DrawModel()
+ 
+			render.SuppressEngineLighting( false )
+			render.SetColorModulation( 1, 1, 1 )
+			render.SetBlend( 1 )
+			SetMaterialOverride( 0 )
+
+		end
+	
+	end
+	
+	cam.End3D()
 
 end
 

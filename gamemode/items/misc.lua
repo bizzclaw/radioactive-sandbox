@@ -49,6 +49,34 @@ function FUNC_MOONSHINE( ply, id, client )
 
 end
 
+function FUNC_TOGGLEVIS( ply, id, client )
+
+	if client then return "Toggle" end
+	
+	if ply:FlashlightIsOn() then
+	
+		ply:Flashlight( false )
+		
+	end
+	
+	ply.NVG = !ply.NVG
+	
+	if ply.NVG then
+	
+		ply:EmitSound( "Buttons.snd15" )
+	
+	else
+	
+		ply:EmitSound( "Buttons.snd14" )
+	
+	end
+	
+	umsg.Start( "NVGToggle", ply )
+    umsg.Bool( ply.NVG )
+	umsg.End()
+
+end
+
 function FUNC_NIGHTVIS( ply, id )
 
 	if ply:FlashlightIsOn() then
@@ -56,6 +84,12 @@ function FUNC_NIGHTVIS( ply, id )
 		ply:Flashlight( false )
 		
 	end
+	
+	ply.NVG = false
+	
+	umsg.Start( "NVGToggle", ply )
+    umsg.Bool( false )
+	umsg.End()
 	
 	return true
 	
@@ -95,10 +129,10 @@ item.Register( {
 	Stackable = true, 
 	Type = ITEM_MISC,
 	Weight = 1.50, 
-	Price = 45,
+	Price = 70,
 	Rarity = 0.70,
 	Model = "models/gibs/manhack_gib03.mdl",
-	Functions = {},
+	Functions = { FUNC_TOGGLEVIS },
 	PickupFunction = FUNC_NIGHTVIS,
 	CamPos = Vector(10,10,8),
 	CamOrigin = Vector(0,0,1)		
@@ -110,7 +144,7 @@ item.Register( {
 	Stackable = true, 
 	Type = ITEM_MISC,
 	Weight = 1.25, 
-	Price = 60,
+	Price = 50,
 	Rarity = 0.90,
 	Model = "models/radbox/geiger.mdl",
 	Functions = {},
