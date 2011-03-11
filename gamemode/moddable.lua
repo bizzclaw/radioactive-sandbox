@@ -115,7 +115,7 @@ GM.ArtifactRarity[ "anomaly_electro" ] = 0.02         // Chance that a porcupine
 GM.ArtifactRarity[ "anomaly_cooker" ] = 0.02          // Chance that a scaldstone will spawn
 GM.ArtifactRarity[ "anomaly_warp" ] = 0.02            // Chance that a blink will spawn
 GM.ArtifactRarity[ "anomaly_stormpearl" ] = 0.05      // Chance that a bead will spawn
-GM.ArtifactRarity[ "anomaly_hoverstone" ] = 0.05      // Chance that a pet rock will spawn
+GM.ArtifactRarity[ "anomaly_hoverstone" ] = 0.01      // Chance that a pet rock will spawn
 
 // Event delays (seconds)
 
