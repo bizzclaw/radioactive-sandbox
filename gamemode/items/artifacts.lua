@@ -392,7 +392,7 @@ item.Register( {
 	Stackable = true, 
 	Type = ITEM_ARTIFACT,
 	Weight = 0.50, 
-	Price = 2200,
+	Price = 1500,
 	Rarity = 0.90,
 	Model = "models/props_debris/concrete_chunk05g.mdl",
 	Functions = { FUNC_PETROCK },
