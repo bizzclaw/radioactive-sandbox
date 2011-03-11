@@ -126,6 +126,20 @@ function ENT:OnTakeDamage( dmg )
 
 	if dmg:GetAttacker():IsPlayer() then
 	
+		local phys = self.Entity:GetPhysicsObject()
+		
+		if ValidEntity( phys ) then
+		
+			phys:ApplyForceCenter( VectorRand() * ( phys:GetMass() * self.Scale * 2 ) )
+		
+		end
+	
+		if math.random(1,20) == 1 then
+		
+			self.Entity:EmitSound( table.Random( self.BumpSounds ), 100, math.random( 140, 180 ) )
+		
+		end
+	
 		if math.Rand(0,1) < GM.ArtifactRarity[ "anomaly_hoverstone" ] then
 		
 			local prop = ents.Create( "artifact_petrock" )
