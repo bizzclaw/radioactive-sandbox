@@ -1073,7 +1073,7 @@ function DropItem( ply, cmd, args )
 		
 			if tbl.DropFunction then
 			
-				makeprop = tbl.DropFunction( ply, id )
+				makeprop = tbl.DropFunction( ply, id, true )
 			
 			end
 			

@@ -247,7 +247,9 @@ function FUNC_BEAD( ply, id, client )
 
 end
 
-function FUNC_DROPBEAD( ply, id )
+function FUNC_DROPBEAD( ply, id, drop )
+
+	if not drop then return end
 
 	local bead = ents.Create( "artifact_bead" )
 	bead:SetPos( ply:GetItemDropPos() )
@@ -291,7 +293,9 @@ function FUNC_PETROCK( ply, id, client )
 
 end
 
-function FUNC_DROPROCK( ply, id )
+function FUNC_DROPROCK( ply, id, drop )
+
+	if not drop then return end
 
 	local rock = ents.Create( "artifact_petrock" )
 	rock:SetPos( ply:GetItemDropPos() )
