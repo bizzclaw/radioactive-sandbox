@@ -748,6 +748,12 @@ function meta:OnDeath()
 	self.Inventory = {}
 	self:SynchInventory()
 	
+	self.NVG = false
+	
+	umsg.Start( "NVGToggle", self )
+    umsg.Bool( false )
+	umsg.End()
+	
 	for k,v in pairs{ "Buckshot", "Rifle", "SMG", "Pistol", "Sniper" } do
 	
 		self:SetAmmo( v, 0 )
