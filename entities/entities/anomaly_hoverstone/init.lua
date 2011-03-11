@@ -134,13 +134,13 @@ function ENT:OnTakeDamage( dmg )
 		
 		end
 	
-		if math.random(1,20) == 1 then
+		if math.random(1,10) == 1 then
 		
 			self.Entity:EmitSound( table.Random( self.BumpSounds ), 100, math.random( 140, 180 ) )
 		
 		end
 	
-		if math.Rand(0,1) < GM.ArtifactRarity[ "anomaly_hoverstone" ] then
+		if math.Rand(0,1) < GAMEMODE.ArtifactRarity[ "anomaly_hoverstone" ] then
 		
 			local prop = ents.Create( "artifact_petrock" )
 			prop:SetPos( self.Entity:GetPos() )
