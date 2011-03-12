@@ -3,7 +3,7 @@ AddCSLuaFile( "shared.lua" )
 
 include('shared.lua')
 
-ENT.BuybackScale = 0.50
+ENT.BuybackScale = 0.40
 ENT.Team = TEAM_EXODUS
 
 function ENT:GenerateInventory()

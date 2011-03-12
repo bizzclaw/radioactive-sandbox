@@ -38,7 +38,7 @@ SWEP.Primary.Sound			= Sound( "Weapon_P228.Single" )
 SWEP.Primary.Recoil			= 4.5
 SWEP.Primary.Damage			= 25
 SWEP.Primary.NumShots		= 1
-SWEP.Primary.Cone			= 0.035
+SWEP.Primary.Cone			= 0.040
 SWEP.Primary.Delay			= 0.130
 
 SWEP.Primary.ClipSize		= 12

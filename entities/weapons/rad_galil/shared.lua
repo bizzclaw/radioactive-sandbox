@@ -37,7 +37,7 @@ SWEP.IronsightsFOV = 60
 
 SWEP.Primary.Sound			= Sound( "Weapon_Galil.Single" )
 SWEP.Primary.Recoil			= 7.5
-SWEP.Primary.Damage			= 30
+SWEP.Primary.Damage			= 35
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.Cone			= 0.040
 SWEP.Primary.Delay			= 0.110

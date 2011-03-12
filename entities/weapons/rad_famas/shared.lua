@@ -37,12 +37,12 @@ SWEP.IronsightsFOV = 60
 
 SWEP.Primary.Sound			= Sound( "Weapon_Famas.Single" )
 SWEP.Primary.Recoil			= 6.5
-SWEP.Primary.Damage			= 28
+SWEP.Primary.Damage			= 30
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.Cone			= 0.035
 SWEP.Primary.Delay			= 0.090
 
-SWEP.Primary.ClipSize		= 25
+SWEP.Primary.ClipSize		= 30
 SWEP.Primary.Automatic		= true
 
-SWEP.Primary.ShellType = SHELL_556
+SWEP.Primary.ShellType = SHELL_762NATO

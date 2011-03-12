@@ -36,7 +36,7 @@ SWEP.AmmoType = "Rifle"
 SWEP.IronsightsFOV = 60
 
 SWEP.Primary.Sound			= Sound( "Weapon_M249.Single" )
-SWEP.Primary.Recoil			= 7.5
+SWEP.Primary.Recoil			= 8.5
 SWEP.Primary.Damage			= 55
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.Cone			= 0.035

@@ -44,7 +44,7 @@ SWEP.Primary.NumShots		= 1
 SWEP.Primary.Cone			= 0.002
 SWEP.Primary.Delay			= 0.380
 
-SWEP.Primary.ClipSize		= 30
+SWEP.Primary.ClipSize		= 20
 SWEP.Primary.Automatic		= true
 
 SWEP.Primary.ShellType = SHELL_338MAG

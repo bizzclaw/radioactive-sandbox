@@ -36,7 +36,7 @@ SWEP.AmmoType = "Buckshot"
 
 SWEP.Primary.Sound			= Sound( "weapons/shotgun/shotgun_fire6.wav" )
 SWEP.Primary.Pump           = Sound( "Weapon_M3.Pump" )
-SWEP.Primary.Recoil			= 7.5
+SWEP.Primary.Recoil			= 8.5
 SWEP.Primary.Damage			= 30
 SWEP.Primary.NumShots		= 8
 SWEP.Primary.Cone			= 0.085

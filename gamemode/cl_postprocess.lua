@@ -273,11 +273,11 @@ function GM:CalcView( ply, origin, angle, fov )
 		DeathAngle = angle
 		DeathOrigin = origin
 		
-	else
+	elseif not ply:Alive() and CV_RagdollVision:GetBool() then
 	
 		local rag = ply:GetRagdollEntity()
 		
-		if ValidEntity( rag ) and CV_RagdollVision:GetBool() then
+		if ValidEntity( rag ) then
 			
 			local eyes = rag:LookupAttachment( "eyes" )
 			local tbl = rag:GetAttachment( eyes )
@@ -285,7 +285,7 @@ function GM:CalcView( ply, origin, angle, fov )
 			if tbl then
 			
 				angle = tbl.Ang
-				origin = tbl.Pos + tbl.Ang:Forward() * 1.5
+				origin = tbl.Pos + tbl.Ang:Forward() * 2
 				
 			end
 		

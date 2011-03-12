@@ -38,13 +38,13 @@ SWEP.IsSniper = true
 SWEP.AmmoType = "Sniper"
 
 SWEP.Primary.Sound			= Sound( "Weapon_SG550.Single" )
-SWEP.Primary.Recoil			= 6.5
+SWEP.Primary.Recoil			= 7.5
 SWEP.Primary.Damage			= 75
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.Cone			= 0.001
-SWEP.Primary.Delay			= 0.420
+SWEP.Primary.Delay			= 0.440
 
-SWEP.Primary.ClipSize		= 30
+SWEP.Primary.ClipSize		= 20
 SWEP.Primary.Automatic		= true
 
 SWEP.Primary.ShellType = SHELL_338MAG

@@ -39,10 +39,10 @@ SWEP.AmmoType = "Rifle"
 
 SWEP.Primary.Sound			= Sound( "Weapon_SG552.Single" )
 SWEP.Primary.Recoil			= 6.5
-SWEP.Primary.Damage			= 62
+SWEP.Primary.Damage			= 60
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.Cone			= 0.010
-SWEP.Primary.Delay			= 0.200
+SWEP.Primary.Delay			= 0.210
 
 SWEP.Primary.ClipSize		= 30
 SWEP.Primary.Automatic		= true

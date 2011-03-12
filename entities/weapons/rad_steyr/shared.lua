@@ -41,8 +41,8 @@ SWEP.Primary.Sound			= Sound( "Weapon_AUG.Single" )
 SWEP.Primary.Recoil			= 8.5
 SWEP.Primary.Damage			= 65
 SWEP.Primary.NumShots		= 1
-SWEP.Primary.Cone			= 0.012
-SWEP.Primary.Delay			= 0.190
+SWEP.Primary.Cone			= 0.015
+SWEP.Primary.Delay			= 0.180
 
 SWEP.Primary.ClipSize		= 30
 SWEP.Primary.Automatic		= true

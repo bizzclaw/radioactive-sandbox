@@ -36,7 +36,7 @@ SWEP.IronsightsFOV = 60
 
 SWEP.Primary.Sound			= Sound( "Weapon_AK47.Single" )
 SWEP.Primary.Recoil			= 6.5
-SWEP.Primary.Damage			= 32
+SWEP.Primary.Damage			= 35
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.Cone			= 0.035
 SWEP.Primary.Delay			= 0.100

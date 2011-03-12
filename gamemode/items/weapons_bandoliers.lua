@@ -8,7 +8,7 @@ item.Register( {
 	Stackable = false, 
 	Type = ITEM_WPN_BANDOLIERS,
 	Weight = 3, 
-	Price = 70,
+	Price = 50,
 	Rarity = 0.50,
 	Model = "models/weapons/w_pist_glock18.mdl",
 	Weapon = "rad_glock",
@@ -25,7 +25,7 @@ item.Register( {
 	Stackable = false, 
 	Type = ITEM_WPN_BANDOLIERS,
 	Weight = 6, 
-	Price = 350,
+	Price = 300,
 	Rarity = 0.60,
 	Model = "models/weapons/w_smg_ump45.mdl",
 	Weapon = "rad_ump45",
@@ -37,37 +37,37 @@ item.Register( {
 } )
 
 item.Register( { 
-	Name = "FAMAS", 
-	Description = "This automatic rifle has a smaller magazine but a faster rate of fire.",
+	Name = "AK-47", 
+	Description = "This automatic rifle is quite accurate and has a fast rate of fire.",
 	Stackable = false, 
-	Type = ITEM_WPN_BANDOLIERS,
+	Type = ITEM_WPN_EXODUS,
 	Weight = 7, 
-	Price = 500,
+	Price = 600,
 	Rarity = 0.60,
-	Model = "models/weapons/w_rif_famas.mdl",
-	Weapon = "rad_famas",
-	Functions = { FUNC_DROPWEAPON },
-	PickupFunction = FUNC_GRABWEAPON,
-	DropFunction = FUNC_REMOVEWEAPON,
-	CamPos = Vector(0,40,5),
-	CamOrigin = Vector(5,0,0)
-} )
-
-item.Register( { 
-	Name = "IMI Galil", 
-	Description = "This automatic rifle has a larger magazine.",
-	Stackable = false, 
-	Type = ITEM_WPN_BANDOLIERS,
-	Weight = 8, 
-	Price = 650,
-	Rarity = 0.60,
-	Model = "models/weapons/w_rif_galil.mdl",
-	Weapon = "rad_galil",
+	Model = "models/weapons/w_rif_ak47.mdl",
+	Weapon = "rad_ak47",
 	Functions = { FUNC_DROPWEAPON },
 	PickupFunction = FUNC_GRABWEAPON,
 	DropFunction = FUNC_REMOVEWEAPON,
 	CamPos = Vector(0,43,5),
 	CamOrigin = Vector(10,0,0)
+} )
+
+item.Register( { 
+	Name = "SG 552", 
+	Description = "This automatic rifle has a scope attached.",
+	Stackable = false, 
+	Type = ITEM_WPN_EXODUS,
+	Weight = 8, 
+	Price = 900,
+	Rarity = 0.80,
+	Model = "models/weapons/w_rif_sg552.mdl",
+	Weapon = "rad_sg552",
+	Functions = { FUNC_DROPWEAPON },
+	PickupFunction = FUNC_GRABWEAPON,
+	DropFunction = FUNC_REMOVEWEAPON,
+	CamPos = Vector(0,40,5),
+	CamOrigin = Vector(6,0,0)
 } )
 
 item.Register( { 

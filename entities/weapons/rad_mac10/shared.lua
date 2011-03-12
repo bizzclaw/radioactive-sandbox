@@ -36,9 +36,9 @@ SWEP.AmmoType = "SMG"
 
 SWEP.Primary.Sound			= Sound( "Weapon_mac10.Single" )
 SWEP.Primary.Recoil			= 6.5
-SWEP.Primary.Damage			= 22
+SWEP.Primary.Damage			= 20
 SWEP.Primary.NumShots		= 1
-SWEP.Primary.Cone			= 0.055
+SWEP.Primary.Cone			= 0.050
 SWEP.Primary.Delay			= 0.080
 
 SWEP.Primary.ClipSize		= 40
