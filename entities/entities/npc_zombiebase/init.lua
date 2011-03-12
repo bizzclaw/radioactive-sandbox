@@ -73,7 +73,7 @@ function ENT:SpawnRagdoll( att )
 	shooter:Fire( "shoot", 0, 0 )
 	shooter:Fire( "kill", 0.1, 0.1 )
 	
-	if not att:IsPlayer() then return end
+	if not ValidEntity( att ) or not att:IsPlayer() then return end
 	
 	if math.random( 1, 4 ) == 1 then
 	

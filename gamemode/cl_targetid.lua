@@ -12,11 +12,11 @@ PlayerNames[9] = { "Uri", "Kelthyr", "Barin", "Kilroy", "Sergei", "Ashot", "Senk
 PlayerNames[10] = { "Mikesh", "Sigmund", "Borov", "Rurik", "Nikita", "Dimitri", "Aleksei", "Vadym", "Viktor", "Kolya" }
 
 local LastNames = {}
-LastNames[1] = { "Dubnikov", "Sacharin", "Larin", "Berdjansk", "Dawydov", "Sakharov", "Nevrin", "Charkow", "Kremen", "Havlik" } 
-LastNames[2] = { "Baranowski", "Lebedev", "Krylov", "Bellic", "Vicros", "Klimenko", "Kolovnik", "Lawrik", "Plochenko", "Klepacki" }
+LastNames[1] = { "Dubnikov", "Sacharin", "Larin", "Berdjansk", "Dawydov", "Sakharov", "Nevrin", "Charkow", "Nelidov", "Havlik" } 
+LastNames[2] = { "Baranowski", "Lebedev", "Krylov", "Bellic", "Vicros", "Klimenko", "Kolovnik", "Lawrik", "Plochenko", "Petrovin" }
 LastNames[3] = { "Limansk", "Sidorow", "Pechenkin", "Petchenko", "Tarasov", "Kudinov", "Davidov", "Stanislav", "Kilgore", "Dombrik" }
-LastNames[4] = { "Ezrin", "Schabenko", "Black", "Maslov", "Gatsula", "Degtyarev", "Makarenko", "Viekko", "Kitsenko", "Gusarov" }
-LastNames[5] = { "Hunter", "Brevin", "Constantin", "Lepechin", "Saveliy", "Vadim", "Vargan", "Voronin", "Vasko", "Yakov" }
+LastNames[4] = { "Lenskaya", "Schabenko", "Black", "Maslov", "Gatsula", "Degtyarev", "Makarenko", "Belenki", "Kitsenko", "Gusarov" }
+LastNames[5] = { "Hunter", "Brevin", "Constantin", "Lepechin", "Saveliy", "Vadim", "Vargan", "Voronin", "Vasko", "Kozlov" }
 LastNames[6] = { "Kruglov", "Fedorov", "Sidorov", "Sidorovich", "Petrov", "Alexandrov", "Timur", "Ruslan", "Arkadiy", "Lukovich" }
 LastNames[7] = { "Soprovich", "Karolek", "Pavlik", "Moroshkin", "Gavrel", "Stanislov", "Kostya", "Brevich", "Solotar", "Berzin" }
 LastNames[8] = { "Sidorenko", "Burjak", "Dotsenko", "Suslov", "Sacharov", "Nepritski", "Putschek", "Gritsenko", "Lachnit", "Luschkow" }
@@ -278,10 +278,10 @@ function GM:OnPlayerChat( ply, text, isteam, isdead )
 			
 			if v == GAMEMODE.ChatModes.Local then
 			
-				if LocalPlayer():GetPos():Distance( ply:GetPos() ) < GAMEMODE.LocalDist and ( isteam and LocalPlayer():Team() == ply:Team() ) or not isteam then
+				if LocalPlayer():GetPos():Distance( ply:GetPos() ) < GAMEMODE.LocalDist and ( ( isteam and LocalPlayer():Team() == ply:Team() ) or ( !isteam and LocalPlayer():GetPos():Distance( ply:GetPos() ) < GAMEMODE.HushDist ) ) then
 					
 					chat.AddText( Color( 255, 255, 255 ), "(LOCAL) ", team.GetColor( ply:Team() ), GAMEMODE:GetPlayerGayName( ply, tostring( ply:Deaths() + 1 ) .. ply:Name() ), Color( 255, 255, 255 ), ": ", text )
-						
+					
 					if table.Count( ply.ChatWords ) >= 5 then
 				
 						table.remove( ply.ChatWords, 5 )
@@ -291,9 +291,9 @@ function GM:OnPlayerChat( ply, text, isteam, isdead )
 					table.insert( ply.ChatWords, 1, { Text = text, Time = CurTime() + 5, Alpha = 255 } )
 					
 				end
-					
+				
 				return true
-					
+				
 			elseif v == GAMEMODE.ChatModes.Radio then
 			
 				if ply != LocalPlayer() then

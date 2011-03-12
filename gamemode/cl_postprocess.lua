@@ -214,6 +214,8 @@ end
 
 WalkTimer = 0
 VelSmooth = 0
+DeathAngle = Angle(0,0,0)
+DeathOrigin = Vector(0,0,0)
 
 function GM:CalcView( ply, origin, angle, fov )
 
@@ -240,7 +242,7 @@ function GM:CalcView( ply, origin, angle, fov )
 	
 		if ( DrunkTimer or 0 ) < CurTime() then
 		
-			Drunkness = math.Clamp( Drunkness - 1, 0, 10 )
+			Drunkness = math.Clamp( Drunkness - 1, 0, 20 )
 			DrunkTimer = CurTime() + 20
 		
 		end
@@ -256,15 +258,39 @@ function GM:CalcView( ply, origin, angle, fov )
 		
 	end
 	
-	if wobble != 0 then ViewWobble = wobble end
+	ViewWobble = math.Approach( ViewWobble - 0.05 * FrameTime(), wobble, FrameTime() * 0.25 ) 
 	
-	if ViewWobble > 0 then
+	if ply:Alive() then
 	
-		angle.roll = angle.roll + math.sin( CurTime() + TimeSeed( 1, -2, 2 ) ) * ( ViewWobble * 15 )
-		angle.pitch = angle.pitch + math.sin( CurTime() + TimeSeed( 2, -2, 2 ) ) * ( ViewWobble * 15 )
-		angle.yaw = angle.yaw + math.sin( CurTime() + TimeSeed( 3, -2, 2 ) ) * ( ViewWobble * 15 )
-		ViewWobble = ViewWobble - 0.05 * FrameTime()
+		if ViewWobble > 0 then
+	
+			angle.roll = angle.roll + math.sin( CurTime() + TimeSeed( 1, -2, 2 ) ) * ( ViewWobble * 15 )
+			angle.pitch = angle.pitch + math.sin( CurTime() + TimeSeed( 2, -2, 2 ) ) * ( ViewWobble * 15 )
+			angle.yaw = angle.yaw + math.sin( CurTime() + TimeSeed( 3, -2, 2 ) ) * ( ViewWobble * 15 )
+			
+		end
 		
+		DeathAngle = angle
+		DeathOrigin = origin
+		
+	else
+	
+		local rag = ply:GetRagdollEntity()
+		
+		if ValidEntity( rag ) and CV_RagdollVision:GetBool() then
+			
+			local eyes = rag:LookupAttachment( "eyes" )
+			local tbl = rag:GetAttachment( eyes )
+			
+			if tbl then
+			
+				angle = tbl.Ang
+				origin = tbl.Pos + tbl.Ang:Forward() * 1.5
+				
+			end
+		
+		end
+	
 	end
 	
 	if ply:GetGroundEntity() != NULL then

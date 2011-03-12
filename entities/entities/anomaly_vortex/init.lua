@@ -9,8 +9,10 @@ ENT.SuckBang = Sound( "ambient/levels/labs/teleport_postblast_thunder1.wav" )
 
 ENT.WaitTime = 3
 ENT.SuckTime = 5
-ENT.SuckRadius = 700
-ENT.KillRadius = 300
+ENT.SuckRadius = 750
+ENT.KillRadius = 250
+
+ENT.NPCs = { "npc_zombie_fast", "npc_zombie_poison", "npc_zombie_normal", "npc_rogue" }
 
 function ENT:Initialize()
 	
@@ -26,6 +28,7 @@ function ENT:Initialize()
 	self.Entity:PhysicsInitBox( Vector( -350, -350, -350 ), Vector( 350, 350, 350 ) )
 	
 	self.VortexPos = self.Entity:GetPos() + Vector( 0, 0, 250 )
+	self.NextVortexThink = 0
 	
 end
 
@@ -39,7 +42,11 @@ function ENT:Touch( ent )
 	
 	if self.SetOff then return end
 	
-	if ent:IsPlayer() or string.find( v:GetClass(), "npc" ) or string.find( ent:GetClass(), "prop_phys" ) or ent:GetClass() == "sent_lootbag" then
+	if not ValidEntity( ent ) then return end
+	
+	if ent:IsPlayer() and not ent:Alive() then return end
+	
+	if ent:IsPlayer() or string.find( ent:GetClass(), "npc" ) or string.find( ent:GetClass(), "prop_phys" ) then
 	
 		self.SetOff = CurTime() + self.WaitTime
 		
@@ -59,7 +66,9 @@ function ENT:Think()
 	
 	end
 	
-	if self.VortexTime and self.VortexTime > CurTime() then
+	if self.VortexTime and self.VortexTime > CurTime() and self.NextVortexThink < CurTime() then
+		
+		self.NextVortexThink = CurTime() + 0.2
 	
 		local tbl = ents.FindByClass( "prop_phys*" )
 		tbl = table.Add( tbl, ents.FindByClass( "prop_veh*" ) )
@@ -73,27 +82,45 @@ function ENT:Think()
 			
 				local vel = ( self.VortexPos - v:GetPos() ):Normalize()
 			
-				if ( v:IsPlayer() and v:Alive() ) or ( string.find( v:GetClass(), "npc" ) and not string.find( v:GetClass(), "trade" ) ) then
+				if ( v:IsPlayer() and v:Alive() ) or table.HasValue( self.NPCs, v:GetClass() ) then
 					
-					local scale = math.Clamp( ( self.SuckRadius - v:GetPos():Distance( self.VortexPos ) ) / self.SuckRadius, 0.2, 1.0 )
+					local scale = math.Clamp( ( self.SuckRadius - v:GetPos():Distance( self.VortexPos ) ) / self.SuckRadius, 0.25, 1.00 )
 					
-					if v:GetPos():Distance( self.VortexPos ) > 80 then
+					if v:GetPos():Distance( self.VortexPos ) > self.KillRadius then
 					
-						v:SetVelocity( vel * ( scale * 500 ) )
+						v:SetVelocity( vel * ( scale * 600 ) )
 					
 					else
-					
-						v:SetLocalVelocity( vel * ( scale * 500 ) )
+						
+						if ( v:IsPlayer() and v:Alive() ) then
+
+							v:Kill() 
+						
+						elseif table.HasValue( self.NPCs, v:GetClass() ) then
+						
+							v:SpawnRagdoll()
+							v:SetSchedule( SCHED_FALL_TO_GROUND )
+							v:Remove()
+						
+						end
 					
 					end
 
 				else
 				
-					local phys = v:GetPhysicsObject()
+					if v:GetPos():Distance( self.VortexPos ) > self.KillRadius / 2 then
+				
+						local phys = v:GetPhysicsObject()
+						
+						if ValidEntity( phys ) then
+						
+							phys:ApplyForceCenter( vel * ( phys:GetMass() * 500 ) )
+						
+						end
+						
+					elseif not v:IsPlayer() then
 					
-					if ValidEntity( phys ) then
-					
-						phys:ApplyForceCenter( vel * ( phys:GetMass() * 500 ) )
+						v:Remove()
 					
 					end
 				
@@ -102,7 +129,7 @@ function ENT:Think()
 			end
 			
 		end
-			
+		
 	elseif self.VortexTime and self.VortexTime < CurTime() then
 	
 		self.VortexTime = nil

@@ -21,7 +21,7 @@ function FUNC_MILK( ply, id, client )
 	
 		ply:AddStamina( -50 )
 		ply:AddHealth( -10 )
-		ply:EmitSound( "ambient/voices/citizen_beaten" .. math.random(3,4) .. ".wav" )
+		ply:EmitSound( table.Random( GAMEMODE.Coughs ) )
 		
 		umsg.Start( "Drunk", ply )
 		umsg.Short( 3 )
@@ -29,7 +29,7 @@ function FUNC_MILK( ply, id, client )
 	
 	else
 	
-		ply:AddStamina( 50 )
+		ply:AddStamina( 75 )
 		ply:AddHealth( 25 )
 		
 	end
@@ -72,7 +72,7 @@ end
 
 item.Register( { 
 	Name = "Grapefruit", 
-	Description = "This kind of fruit is quite rare to find in these areas. It looks ripe.",
+	Description = "This kind of fruit is quite rare to find in these areas. It looks safe to eat.",
 	Stackable = true, 
 	Type = ITEM_FOOD,
 	Weight = WEIGHT_FOOD_SMALL, 
@@ -146,8 +146,8 @@ item.Register( {
 	Stackable = true, 
 	Type = ITEM_FOOD,
 	Weight = WEIGHT_FOOD_SMALL, 
-	Price = 35,
-	Rarity = 0.75,
+	Price = 50,
+	Rarity = 0.90,
 	Model = "models/props_phx/misc/potato.mdl",
 	Functions = { FUNC_POTATO },
 	CamPos = Vector(10,10,0),

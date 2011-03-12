@@ -44,9 +44,44 @@ function ENT:Think()
 	
 	if self.Entity:GetNWBool( "Suck", false ) and self.Timer < CurTime() then
 	
-		self.Timer = CurTime() + 9
+		self.Timer = CurTime() + 8
+		self.RagTimer = CurTime() + 1
 	
 	end	
+
+	if self.Timer > CurTime() and self.RagTimer < CurTime() then
+	
+		self.RagTimer = CurTime() + 0.2
+	
+		local tbl = ents.FindByClass( "class C_HL2MPRagdoll" )
+		tbl = table.Add( tbl, ents.FindByClass( "class C_ClientRagdoll" ) )
+	
+		for k,v in pairs( tbl ) do
+		
+			if v:GetPos():Distance( self.VortexPos ) < 3000 then
+			
+				local phys = v:GetPhysicsObject()
+				
+				if ValidEntity( phys ) then
+				
+					local vel = ( self.VortexPos - v:GetPos() ):Normalize()
+					local scale = math.Clamp( ( 3000 - v:GetPos():Distance( self.VortexPos ) ) / 3000, 0.6, 1.0 )
+					
+					phys:ApplyForceCenter( vel * ( scale * phys:GetMass() * 50000 ) )
+				
+				end
+				
+				if self.Timer - CurTime() < 0.2 and v:GetPos():Distance( self.VortexPos ) < 700 and v:GetClass() != "class C_HL2MPRagdoll" then
+				
+					v:Remove()
+				
+				end
+			
+			end
+		
+		end
+	
+	end
 
 end
 

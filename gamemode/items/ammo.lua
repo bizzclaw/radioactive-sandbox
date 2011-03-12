@@ -17,13 +17,15 @@ function FUNC_AMMO( ply, id )
 	
 end
 
-function FUNC_DROPAMMO( ply, id )
+function FUNC_DROPAMMO( ply, id, drop )
 
 	local tbl = item.GetByID( id )
 	
 	if not tbl.Ammo then return end
 
 	ply:AddAmmo( tbl.Ammo, -tbl.Amount, true )
+	
+	return true // we don't want to override spawning the prop
 
 end
 

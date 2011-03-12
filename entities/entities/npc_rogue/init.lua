@@ -19,10 +19,10 @@ function ENT:Initialize()
 	self.Entity:SetMaxYawSpeed( 5000 )
 	self.Entity:SetHealth( 100 )
 	
-	self.Entity:CapabilitiesAdd( CAP_MOVE_GROUND | CAP_TURN_HEAD | CAP_USE_WEAPONS | CAP_AIM_GUN | CAP_WEAPON_RANGE_ATTACK1 | CAP_MOVE_SHOOT ) 
+	self.Entity:CapabilitiesAdd( CAP_MOVE_GROUND | CAP_TURN_HEAD | CAP_USE_WEAPONS | CAP_AIM_GUN | CAP_WEAPON_RANGE_ATTACK1 | CAP_MOVE_SHOOT | CAP_OPEN_DOORS ) 
 	
 	self.Entity:DropToFloor()
-	self.Entity:Give( "rad_npcgun" )
+	self.Entity:Give( "rad_npcgun" .. math.random(1,2) )
 
 end
 
@@ -32,10 +32,24 @@ function ENT:InitializeCharacter()
 	
 	self.Items = {}
 	
+	local tbl = { ITEM_FOOD, ITEM_SUPPLY, ITEM_LOOT, ITEM_AMMO, ITEM_MISC, ITEM_EXODUS, ITEM_WPN_COMMON }
+	local chancetbl = { 1.00,    0.80,        0.20,      0.40,     0.60,       0.05,          0.05 }
+	
 	for i=1, math.random(3,6) do
 	
-		local tbl = item.RandomItem( table.Random{ ITEM_FOOD, ITEM_FOOD, ITEM_FOOD, ITEM_FOOD, ITEM_FOOD, ITEM_AMMO, ITEM_AMMO, ITEM_AMMO, ITEM_AMMO, ITEM_SUPPLY, ITEM_SUPPLY, ITEM_MISC, ITEM_LOOT, ITEM_WPN_COMMON } )
-		table.insert( self.Items, tbl.ID )
+		local num = math.Rand(0,1)
+		local choice = math.random(1,7)
+	
+		while num > chancetbl[ choice ] do
+		
+			num = math.Rand(0,1)
+			choice = math.random(1,7)
+		
+		end
+		
+		local rand = item.RandomItem( tbl[choice] )
+	
+		table.insert( self.Items, rand.ID )
 	
 	end
 	
@@ -51,7 +65,7 @@ function ENT:Think()
 			
 		end
 		
-		self.RemoveTime = CurTime() + 20
+		self.RemoveTime = CurTime() + 30
 		self.RemovePos = self.Entity:GetPos()
 	
 	end
@@ -96,7 +110,7 @@ function ENT:SpawnRagdoll( att, model )
 	shooter:Fire( "shoot", 0, 0 )
 	shooter:Fire( "kill", 0.1, 0.1 )
 	
-	if not att:IsPlayer() then return end
+	if not ValidEntity( att ) or not att:IsPlayer() then return end
 	
 	local ent = ents.Create( "sent_lootbag" )
 	
@@ -118,6 +132,7 @@ function ENT:DoDeath( dmginfo )
 	self.Dying = true
 
 	self.Entity:SpawnRagdoll( dmginfo:GetAttacker() )
+	self.Entity:VoiceSound( GAMEMODE.DeathSounds )
 	
 	self.Entity:SetSchedule( SCHED_FALL_TO_GROUND )
 	self.Entity:Remove()
@@ -213,7 +228,7 @@ function ENT:SelectSchedule()
 	
 	if ValidEntity( enemy ) and enemy:GetPos():Distance( self.Entity:GetPos() ) < 2000 then
 	
-		if self.Entity:HasCondition( 21 ) then // COND_CAN_RANGE_ATTACK1
+		if self.Entity:HasCondition( COND_CAN_RANGE_ATTACK1 or 21 ) then 
 		
 			sched = SCHED_RANGE_ATTACK1
 			

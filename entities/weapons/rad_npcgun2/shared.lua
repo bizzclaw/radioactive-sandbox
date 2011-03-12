@@ -6,21 +6,21 @@ end
 
 if CLIENT then
 	
-	killicon.AddFont( "rad_npcgun", "CSKillIcons", SWEP.IconLetter, Color( 255, 80, 0, 255 ) );
+	killicon.AddFont( "rad_npcgun2", "CSKillIcons", "g", Color( 255, 80, 0, 255 ) )
 	
 end
 
-SWEP.HoldType = "pistol"
+SWEP.HoldType = "smg"
 
 SWEP.Base = "rad_base"
 
-SWEP.WorldModel	= "models/weapons/w_smg_mac10.mdl"
+SWEP.WorldModel = "models/weapons/w_pistol.mdl"
 
-SWEP.Primary.Sound			= Sound( "Weapon_mac10.Single" )
+SWEP.Primary.Sound			= Sound( "Weapon_Pistol.NPC_Single" )
 SWEP.Primary.Damage			= 15
 SWEP.Primary.NumShots		= 1
-SWEP.Primary.Cone			= 0.090
-SWEP.Primary.Delay			= 0.050
+SWEP.Primary.Cone			= 0.060
+SWEP.Primary.Delay			= 0.650
 SWEP.Primary.Automatic		= true
 
 SWEP.Primary.ShellType = SHELL_9MM
@@ -34,8 +34,8 @@ function SWEP:PrimaryAttack()
 
 	if self.Burst < 1 then 
 		
-		self.Burst = math.random( 5, 10 )
-		self.NextFire = CurTime() + math.Rand( 1.0, 2.0 )
+		self.Burst = math.random( 4, 8 )
+		self.NextFire = CurTime() + math.Rand( 0.5, 2.0 )
 		return 
 		
 	end

@@ -15,8 +15,9 @@ function FUNC_BADWATER( ply, id, client )
 	
 	ply:RemoveFromInventory( id )
 	ply:EmitSound( table.Random{ "npc/barnacle/barnacle_gulp1.wav", "npc/barnacle/barnacle_gulp2.wav" }, 100, math.random( 90, 110 ) )
-	ply:AddRadiation( 1 )
-	ply:AddStamina( 40 )
+	ply:EmitSound( table.Random( GAMEMODE.Coughs ) )
+	ply:AddRadiation( math.random(1,2) )
+	ply:AddStamina( 50 )
 
 end
 
@@ -97,7 +98,7 @@ end
 
 item.Register( { 
 	Name = "Murky Water", 
-	Description = "This old glass bottle is full of murky water. It doesn't look safe to drink.",
+	Description = "This old glass bottle is full of murky water. It doesn't look safe to drink...",
 	Stackable = true, 
 	Type = ITEM_LOOT,
 	Weight = 0.30, 
@@ -130,7 +131,7 @@ item.Register( {
 	Type = ITEM_MISC,
 	Weight = 1.50, 
 	Price = 70,
-	Rarity = 0.70,
+	Rarity = 0.90,
 	Model = "models/gibs/manhack_gib03.mdl",
 	Functions = { FUNC_TOGGLEVIS },
 	PickupFunction = FUNC_NIGHTVIS,

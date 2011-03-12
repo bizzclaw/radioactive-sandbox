@@ -24,6 +24,7 @@ include( 'vgui/vgui_panelsheet.lua' )
 include( 'vgui/vgui_goodmodelpanel.lua' )
 
 CV_AutoEmote = CreateClientConVar( "cl_radbox_auto_emote", "1", true, false )
+CV_RagdollVision = CreateClientConVar( "cl_radbox_ragdoll_vision", "1", true, false)
 
 function GM:Initialize( )
 	
