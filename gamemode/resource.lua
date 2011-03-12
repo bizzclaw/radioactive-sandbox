@@ -13,7 +13,7 @@ resource.AddFile( "sound/radbox/anom04.wav" )
 
 for i=1,8 do
 
-	resource.AddFile( "sound/radbox/geiger_" .. i .. ".vtf" )
+	resource.AddFile( "sound/radbox/geiger_" .. i .. ".wav" )
 
 end
 

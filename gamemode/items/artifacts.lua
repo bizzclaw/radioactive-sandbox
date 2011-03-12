@@ -92,6 +92,18 @@ function FUNC_BLINK( ply, id, client )
 	
 end
 
+function FUNC_DROPBLINK( ply, id, drop )
+
+	if not drop then return end
+
+	local bead = ents.Create( "artifact_blink" )
+	bead:SetPos( ply:GetItemDropPos() )
+	bead:Spawn()
+
+	return false // override spawning a prop for this item
+
+end
+
 function FUNC_CORAL( ply, id, client )
 
 	if client then return "Touch" end
@@ -119,6 +131,18 @@ function FUNC_CORAL( ply, id, client )
 	
 end
 
+function FUNC_DROPCORAL( ply, id, drop )
+
+	if not drop then return end
+
+	local bead = ents.Create( "artifact_coral" )
+	bead:SetPos( ply:GetItemDropPos() )
+	bead:Spawn()
+
+	return false // override spawning a prop for this item
+
+end
+
 function FUNC_SCALD( ply, id, client )
 
 	if client then return "Touch" end
@@ -140,6 +164,18 @@ function FUNC_SCALD( ply, id, client )
 	
 	end
 	
+end
+
+function FUNC_DROPSCALD( ply, id, drop )
+
+	if not drop then return end
+
+	local bead = ents.Create( "artifact_scaldstone" )
+	bead:SetPos( ply:GetItemDropPos() )
+	bead:Spawn()
+
+	return false // override spawning a prop for this item
+
 end
 
 function FUNC_PORC( ply, id, client )
@@ -172,6 +208,18 @@ function FUNC_PORC( ply, id, client )
 	
 	end
 	
+end
+
+function FUNC_DROPPORC( ply, id, drop )
+
+	if not drop then return end
+
+	local bead = ents.Create( "artifact_porcupine" )
+	bead:SetPos( ply:GetItemDropPos() )
+	bead:Spawn()
+
+	return false // override spawning a prop for this item
+
 end
 
 function FUNC_MOSS( ply, id, client )
@@ -233,6 +281,18 @@ function FUNC_MOSS( ply, id, client )
 	
 	end
 	
+end
+
+function FUNC_DROPMOSS( ply, id, drop )
+
+	if not drop then return end
+
+	local bead = ents.Create( "artifact_moss" )
+	bead:SetPos( ply:GetItemDropPos() )
+	bead:Spawn()
+
+	return false // override spawning a prop for this item
+
 end
 
 function FUNC_BEAD( ply, id, client )
@@ -315,6 +375,7 @@ item.Register( {
 	Rarity = 0.90,
 	Model = "models/srp/items/art_stoneblood.mdl",
 	Functions = { FUNC_CORAL },
+	DropFunction = FUNC_DROPCORAL,
 	CamPos = Vector(14,0,0),
 	CamOrigin = Vector(0,0,0)
 } )
@@ -329,6 +390,7 @@ item.Register( {
 	Rarity = 0.90,
 	Model = "models/srp/items/art_moonlight.mdl",
 	Functions = { FUNC_BLINK },
+	DropFunction = FUNC_DROPBLINK,
 	CamPos = Vector(12,5,5),
 	CamOrigin = Vector(0,0,3)
 } )
@@ -343,6 +405,7 @@ item.Register( {
 	Rarity = 0.90,
 	Model = "models/srp/items/art_fireball.mdl",
 	Functions = { FUNC_SCALD },
+	DropFunction = FUNC_DROPSCALD,
 	CamPos = Vector(8,10,5),
 	CamOrigin = Vector(0,0,3)
 } )
@@ -357,6 +420,7 @@ item.Register( {
 	Rarity = 0.90,
 	Model = "models/srp/items/art_crystalthorn.mdl",
 	Functions = { FUNC_PORC },
+	DropFunction = FUNC_DROPPORC,
 	CamPos = Vector(10,8,5),
 	CamOrigin = Vector(0,0,5)
 } )
@@ -371,6 +435,7 @@ item.Register( {
 	Rarity = 0.90,
 	Model = "models/srp/items/art_urchen.mdl",
 	Functions = { FUNC_MOSS },
+	DropFunction = FUNC_DROPMOSS,
 	CamPos = Vector(8,10,8),
 	CamOrigin = Vector(0,0,4)
 } )

@@ -140,7 +140,7 @@ function ENT:OnTakeDamage( dmg )
 		
 		end
 	
-		if math.Rand(0,1) < GAMEMODE.ArtifactRarity[ "anomaly_hoverstone" ] and GAMEMODE:GetArtifacts() <= GAMEMODE.MaxArtifacts then
+		if math.Rand(0,1) < GAMEMODE.ArtifactRarity[ "anomaly_hoverstone" ] and GAMEMODE:GetArtifacts() <= GetConVar( "sv_radbox_max_anomalies" ):GetInt() then
 		
 			local prop = ents.Create( "artifact_petrock" )
 			prop:SetPos( self.Entity:GetPos() )

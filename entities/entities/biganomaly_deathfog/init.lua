@@ -53,8 +53,7 @@ function ENT:Initialize()
 	
 	if math.Rand(0,1) < GAMEMODE.ArtifactRarity[ "biganomaly_deathfog" ] then
 	
-		local ent = ents.Create( "prop_physics" )
-		ent:SetModel( "models/srp/items/art_stoneblood.mdl" )
+		local ent = ents.Create( "artifact_coral" )
 		ent:SetPos( self.Entity:GetPos() )
 		ent:Spawn()
 		

@@ -112,7 +112,7 @@ function ENT:OnRemove()
 	
 	self.Entity:EmitSound( self.Rape, 100, 160 )
 	
-	if math.Rand(0,1) < GAMEMODE.ArtifactRarity[ self.Entity:GetClass() ] then
+	if math.Rand(0,1) < GAMEMODE.ArtifactRarity[ self.Entity:GetClass() ] and GAMEMODE:GetArtifacts() <= GetConVar( "sv_radbox_max_anomalies" ):GetInt() then
 	
 		local prop = ents.Create( "artifact_bead" )
 		prop:SetPos( self.Entity:GetPos() + Vector(0,0,10) )

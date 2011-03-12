@@ -113,6 +113,7 @@ function GM:SaveAllEnts()
 		info_npcspawn = {},
 		point_stash = {},
 		point_radiation = {},
+		point_skymarker = {},
 		prop_physics = {}
 	}
 	
@@ -346,7 +347,7 @@ end
 
 function GM:NPCThink()
 	
-	if #ents.FindByClass( "npc_rogue" ) < math.Round( GAMEMODE.MaxRoguesScale * #player.GetAll() ) and #ents.FindByClass( "npc_rogue" ) < GAMEMODE.MaxRogues then
+	if #ents.FindByClass( "npc_rogue" ) < math.Round( GAMEMODE.MaxRoguesScale * #player.GetAll() ) and #ents.FindByClass( "npc_rogue" ) < GetConVar( "sv_radbox_max_rogues" ):GetInt() then
 	
 		local tbl = ents.FindByClass( "info_npcspawn" )
 		
@@ -380,7 +381,7 @@ function GM:NPCThink()
 	
 	end
 	
-	if #ents.FindByClass( "npc_zombie*" ) < math.Round( GAMEMODE.MaxZombiesScale * #player.GetAll() ) and #ents.FindByClass( "npc_zombie*" ) < GAMEMODE.MaxZombies then
+	if #ents.FindByClass( "npc_zombie*" ) < math.Round( GAMEMODE.MaxZombiesScale * #player.GetAll() ) and #ents.FindByClass( "npc_zombie*" ) < GetConVar( "sv_radbox_max_zombies" ):GetInt() then
 	
 		local tbl = ents.FindByClass( "info_npcspawn" )
 		
@@ -454,26 +455,14 @@ function GM:VehicleThink()
 end
 
 function GM:GetArtifacts()
-
-	local count = 0
 	
-	for k,v in pairs( ents.FindByClass( "prop_phys*" ) ) do
-	
-		local tbl = item.GetByModel( v:GetModel() )
-	
-		if tbl and tbl.Type == ITEM_ARTIFACT then
-		
-			count = count + 1
-			
-		end
-	
-	end
-	
-	return count
+	return #ents.FindByClass( "artifact*" )
 
 end
 
 function GM:ArtifactThink()
+	
+	if GAMEMODE:GetArtifacts() >= GetConVar( "sv_radbox_max_artifacts" ):GetInt() then return end
 
 	local tbl = ents.FindByClass( "point_radiation" )
 	tbl = table.Add( tbl, ents.FindByClass( "anomaly_cooker" ) )
@@ -481,22 +470,20 @@ function GM:ArtifactThink()
 	tbl = table.Add( tbl, ents.FindByClass( "anomaly_warp" ) )
 	
 	local link = {}
-	link[ "point_radiation" ] = "models/srp/items/art_urchen.mdl"
-	link[ "anomaly_cooker" ] = "models/srp/items/art_fireball.mdl"
-	link[ "anomaly_electro" ] = "models/srp/items/art_crystalthorn.mdl"
-	link[ "anomaly_warp" ] = "models/srp/items/art_moonlight.mdl"	
+	link[ "point_radiation" ] = "artifact_moss"
+	link[ "anomaly_cooker" ] = "artifact_scaldstone"
+	link[ "anomaly_electro" ] = "artifact_porcupine"
+	link[ "anomaly_warp" ] = "artifact_blink"
 	
 	for k,v in pairs( tbl ) do
 	
 		local chance = math.Rand(0,1)
 		
-		if chance < GAMEMODE.ArtifactRarity[ v:GetClass() ] and GAMEMODE:GetArtifacts() <= GAMEMODE.MaxArtifacts and not ValidEntity( v:GetArtifact() ) then
+		if chance < GAMEMODE.ArtifactRarity[ v:GetClass() ] and GAMEMODE:GetArtifacts() < GetConVar( "sv_radbox_max_artifacts" ):GetInt() and not ValidEntity( v:GetArtifact() ) then
 		
-			local ent = ents.Create( "prop_physics" )
-			ent:SetModel( link[ v:GetClass() ] )
+			local ent = ents.Create( link[ v:GetClass() ] )
 			ent:SetPos( v:GetPos() )
 			ent:Spawn()
-			ent.Removal = CurTime() + 600
 			
 			local phys = ent:GetPhysicsObject()
 			
@@ -504,8 +491,8 @@ function GM:ArtifactThink()
 			
 				if v:GetClass() == "point_radiation" or v:GetClass() == "anomaly_electro" then
 				
-					phys:SetDamping( 50, 20 )
 					phys:Wake()
+					phys:ApplyForceCenter( VectorRand() * 50 )
 				
 				else
 				

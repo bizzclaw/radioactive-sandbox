@@ -62,7 +62,8 @@ SWEP.ItemTypes = { "info_player_loner",
 "info_lootspawn",
 "info_npcspawn",
 "point_stash",
-"point_radiation" }
+"point_radiation",
+"point_skymarker" }
 
 SWEP.ServersideItems = { "info_player_loner",
 "info_player_bandoliers",
@@ -70,7 +71,8 @@ SWEP.ServersideItems = { "info_player_loner",
 "info_player_exodus",
 "info_lootspawn",
 "info_npcspawn",
-"point_radiation" }
+"point_radiation",
+"point_skymarker" }
 
 SWEP.SharedItems = { "point_stash",
 "npc_trader_army",

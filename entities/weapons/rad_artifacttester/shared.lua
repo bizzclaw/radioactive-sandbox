@@ -49,7 +49,7 @@ SWEP.Secondary.Ammo			= "none"
 
 SWEP.AmmoType = "Knife"
 
-SWEP.ItemTypes = { "artifact_petrock", "artifact_bead" }
+SWEP.ItemTypes = { "artifact_petrock", "artifact_bead", "artifact_moss", "artifact_coral", "artifact_blink", "artifact_scaldstone", "artifact_porcupine" }
 
 function SWEP:Initialize()
 	

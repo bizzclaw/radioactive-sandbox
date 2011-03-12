@@ -20,7 +20,7 @@ SWEP.Primary.Sound			= Sound( "Weapon_Pistol.NPC_Single" )
 SWEP.Primary.Damage			= 15
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.Cone			= 0.060
-SWEP.Primary.Delay			= 0.650
+SWEP.Primary.Delay			= 0.950
 SWEP.Primary.Automatic		= true
 
 SWEP.Primary.ShellType = SHELL_9MM

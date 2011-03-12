@@ -1,7 +1,6 @@
 
 local EVENT = {}
 
-EVENT.MaxAnomalies = 30
 EVENT.Types = { "anomaly_whiplash", 
 				"anomaly_electro", 
 				"anomaly_vortex", 
@@ -9,72 +8,70 @@ EVENT.Types = { "anomaly_whiplash",
 				"anomaly_hoverstone", 
 				"anomaly_stormpearl", 
 				"anomaly_cooker" }
+				
+function EVENT:GetSpawnPos()
 
-function EVENT:Start()
-
-	for k,v in pairs( ents.FindByClass( "info_lootspawn" ) ) do
+	if #ents.FindByClass( "point_skymarker" ) > 0 then
 	
-		local trace = {}
-		trace.start = v:GetPos()
-		trace.endpos = trace.start + Vector(0,0,90000)
-		trace.filter = v
+		local marker = table.Random( ents.FindByClass( "point_skymarker" ) )
+		local min, max = marker:GetBounds()
 		
-		local tr = util.TraceLine( trace )
+		local occ = true
+		local pos = Vector(0,0,0)
+		
+		while occ do
+			
+			local trace = {}
+			trace.start = Vector( math.random( min.x, max.x ), math.random( min.y, max.y ), min.z )
+			trace.endpos = Vector( math.random( min.x, max.x ), math.random( min.y, max.y ), min.z - 90000 )
+		
+			local tr = util.TraceLine( trace )
+			
+			occ = self:CheckPos( tr.HitPos )
+			pos = tr.HitPos
+			
+		end
+		
+		return pos
 	
-		if tr.HitSky then 
+	else
+	
+		for k,v in pairs( ents.FindByClass( "info_lootspawn" ) ) do
+	
+			local trace = {}
+			trace.start = v:GetPos()
+			trace.endpos = trace.start + Vector(0,0,90000)
+			trace.filter = v
+			
+			local tr = util.TraceLine( trace )
 		
-			local left = {}
-			left.start = tr.HitPos
-			left.endpos = left.start + Vector( 90000, 0, 0 )
+			if tr.HitSky then 
 			
-			local right = {}
-			right.start = tr.HitPos
-			right.endpos = right.start + Vector( -90000, 0, 0 )
-			
-			local ltr = util.TraceLine( left )
-			local rtr = util.TraceLine( right )
-			
-			local north = {}
-			north.start = ltr.HitPos
-			north.endpos = north.start + Vector( 0, 90000, 0 )
-			
-			local south = {}
-			south.start = rtr.HitPos
-			south.endpos = south.start + Vector( 0, -90000, 0 )
-			
-			local ntr = util.TraceLine( north )
-			local str = util.TraceLine( south )
-			
-			local max = Vector( ltr.HitPos.x, ntr.HitPos.y, tr.HitPos.z - 5 )
-			local min = Vector( rtr.HitPos.x, str.HitPos.y, tr.HitPos.z - 5 )
-			
-			local num = #ents.FindByClass( "anomaly*" )
-			
-			for c,d in pairs( ents.FindByClass( "anomaly*" ) ) do
+				local left = {}
+				left.start = tr.HitPos
+				left.endpos = left.start + Vector( 90000, 0, 0 )
 				
-				local dist = 90000
+				local right = {}
+				right.start = tr.HitPos
+				right.endpos = right.start + Vector( -90000, 0, 0 )
 				
-				for h,g in pairs( player.GetAll() ) do
-					
-					if g:GetPos():Distance( d:GetPos() ) < dist then
-						
-						dist = g:GetPos():Distance( d:GetPos() )
-						
-					end
-					
-				end
-					
-				if dist > 700 then  // take out anomalies that players arent close to
-					
-					d:Remove()
-					num = num - 1
-					
-				end
+				local ltr = util.TraceLine( left )
+				local rtr = util.TraceLine( right )
 				
-			end
-			
-			for i=1, self.MaxAnomalies - num do
-			
+				local north = {}
+				north.start = ltr.HitPos
+				north.endpos = north.start + Vector( 0, 90000, 0 )
+				
+				local south = {}
+				south.start = rtr.HitPos
+				south.endpos = south.start + Vector( 0, -90000, 0 )
+				
+				local ntr = util.TraceLine( north )
+				local str = util.TraceLine( south )
+				
+				local max = Vector( ltr.HitPos.x, ntr.HitPos.y, tr.HitPos.z - 5 )
+				local min = Vector( rtr.HitPos.x, str.HitPos.y, tr.HitPos.z - 5 )
+				
 				local occ = true
 				local pos = Vector(0,0,0)
 			
@@ -91,17 +88,50 @@ function EVENT:Start()
 				
 				end
 				
-				self:SpawnAnomaly( pos )
-			
+				return pos
+				
 			end
 			
-			GAMEMODE:SetEvent()
-			
-			return
-		
 		end
 	
 	end
+
+end
+
+function EVENT:Start()
+	
+	local num = #ents.FindByClass( "anomaly*" )
+	
+	for c,d in pairs( ents.FindByClass( "anomaly*" ) ) do
+	
+		local dist = 90000
+		
+		for k,v in pairs( player.GetAll() ) do
+			
+			if v:GetPos():Distance( d:GetPos() ) < dist then
+				
+				dist = v:GetPos():Distance( d:GetPos() )
+				
+			end
+			
+		end
+		
+		if dist > 700 then  // take out anomalies that players arent close to
+			
+			d:Remove()
+			num = num - 1
+			
+		end
+		
+	end
+	
+	for i=1, GetConVar( "sv_radbox_max_anomalies" ):GetInt() - num do
+
+		self:SpawnAnomaly( self:GetSpawnPos() )
+		
+	end
+	
+	GAMEMODE:SetEvent()
 	
 end
 

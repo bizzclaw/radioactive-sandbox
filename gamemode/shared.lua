@@ -7,6 +7,10 @@ GM.Email 		= ""
 GM.Website 		= ""
 GM.TeamBased 	= true
 
+CreateConVar( "sv_radbox_max_zombies", "8", { FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_SERVER_CAN_EXECUTE }, "Controls the amount of zombie NPCs that can spawn. (def 8)" )
+CreateConVar( "sv_radbox_max_rogues", "6", { FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_SERVER_CAN_EXECUTE }, "Controls the amount of rogue NPCs that can spawn. (def 6)" )
+CreateConVar( "sv_radbox_max_artifacts", "3", { FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_SERVER_CAN_EXECUTE }, "Controls the amount of artifacts that can spawn. (def 3)" )
+CreateConVar( "sv_radbox_max_anomalies", "30", { FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_SERVER_CAN_EXECUTE }, "Controls the amount of anomalies that can spawn. (def 30)" )
 CreateConVar( "sv_radbox_team_dmg", "0", { FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_SERVER_CAN_EXECUTE }, "Controls whether teammates can hurt eachother. (def 0)" )
 CreateConVar( "sv_radbox_dmg_scale", "1", { FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_SERVER_CAN_EXECUTE }, "Controls bullet damage scaling. (def 1.0)" )
 CreateConVar( "sv_radbox_allow_build", "0", { FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_SERVER_CAN_EXECUTE }, "Controls whether players can spawn props and use the physics gun. (def 0)" )

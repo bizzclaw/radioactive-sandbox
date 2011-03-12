@@ -1,17 +1,8 @@
 
-
-ENT.Type 			= "anim"
+ENT.Type 			= "point"
 ENT.Base 			= "base_point"
 
 function ENT:Initialize()
-
-	self.Entity:PhysicsInit( SOLID_NONE )
-	self.Entity:SetMoveType( MOVETYPE_NONE )
-	self.Entity:SetSolid( SOLID_NONE )
-	
-	self.Entity:SetCollisionGroup( COLLISION_GROUP_WEAPON )
-	
-	self.Entity:DrawShadow( false )
 	
 	self.Active = true
 	self.Radius = 400

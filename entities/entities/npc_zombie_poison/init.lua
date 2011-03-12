@@ -3,7 +3,7 @@ AddCSLuaFile( "shared.lua" )
 
 include('shared.lua')
 	
-ENT.Damage = 60
+ENT.Damage = 75
 
 ENT.VoiceSounds = {}
 

@@ -285,7 +285,7 @@ function GM:CalcView( ply, origin, angle, fov )
 			if tbl then
 			
 				angle = tbl.Ang
-				origin = tbl.Pos + tbl.Ang:Forward() * 2
+				origin = tbl.Pos + ( tbl.Ang:Up() * 16 ) + ( tbl.Ang:Forward() * -8 )
 				
 			end
 		
