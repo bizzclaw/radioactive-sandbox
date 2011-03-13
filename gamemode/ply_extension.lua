@@ -49,7 +49,7 @@ function meta:GetCash()
 end
 
 function meta:SetCash( num )
-	self:SetNWInt( "Cash", num )
+	self:SetNWInt( "Cash", math.Clamp( num, -32000, 32000 ) )
 end
 
 function meta:AddCash( num )
