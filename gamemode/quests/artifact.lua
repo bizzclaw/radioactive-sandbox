@@ -79,27 +79,19 @@ end
 
 QUEST.CanStart = function( ply )
 
-	local exists = false
-
-	for k,v in pairs( ents.FindByClass( "prop_phys*" ) ) do
+	local exists = #ents.FindByClass( "artifact*" ) > 0
+	local anoms = ents.FindByClass( "anomaly_hoverstone" )
+	anoms = table.Add( anoms, ents.FindByClass( "anomaly_stormpearl" ) )
 	
-		local tbl = item.GetByModel( v:GetModel() )
-		
-		if tbl and tbl.Type == ITEM_ARTIFACT then
-		
-			exists = true
-		
-		end
-	
-	end
-	
-	if not exists then
+	if not exists and #anoms < 1 then
 	
 		ply:DialogueWindow( "This mission is not currently available." )
+		
+		return false
 	
 	end
 
-	return exists
+	return true
 
 end
 
