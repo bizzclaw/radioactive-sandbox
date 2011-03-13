@@ -34,7 +34,7 @@ end
 
 function ENT:SetCash( amt )
 
-	self.Cash = amt
+	self.Cash = math.Clamp( amt, 0, 32000 ) 
 
 end
 
