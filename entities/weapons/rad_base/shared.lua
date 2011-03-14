@@ -69,6 +69,8 @@ SWEP.Secondary.DefaultClip	= -1
 SWEP.Secondary.Automatic	= false
 SWEP.Secondary.Ammo			= "none"
 
+SWEP.HolsterMode = false
+SWEP.HolsterTime = 0
 SWEP.LastRunFrame = 0
 SWEP.InIron = false
 SWEP.ApproachPos = Vector(0,0,0)
@@ -125,7 +127,7 @@ function SWEP:GetViewModelPosition( pos, ang )
 	self.SwayScale 	= 1.0
 	self.BobScale 	= 1.0
 	
-	if ( self.Owner:KeyDown( IN_SPEED ) and self.Owner:GetVelocity():Length() > 0 and self.Owner:GetNWFloat( "Weight", 0 ) < 50 ) or InventoryScreen:IsVisible() then
+	if ( self.Owner:KeyDown( IN_SPEED ) and self.Owner:GetVelocity():Length() > 0 and self.Owner:GetNWFloat( "Weight", 0 ) < 50 ) or InventoryScreen:IsVisible() or self.HolsterMode then
 	
 		self.SwayScale 	= 1.25
 		self.BobScale 	= 1.25
@@ -259,7 +261,32 @@ function SWEP:Deploy()
 	
 end  
 
+function SWEP:Holster()
+
+	self.Owner:StopAllLuaAnimations( 0.5 )
+	
+	return true
+
+end
+
 function SWEP:Think()	
+
+	if self.Owner:KeyDown( IN_WALK ) and self.HolsterTime < CurTime() then
+	
+		self.HolsterTime = CurTime() + 2
+		self.HolsterMode = !self.HolsterMode
+		
+		if self.HolsterMode then
+		
+			self.Owner:SetLuaAnimation( self.HoldType )
+			
+		else
+		
+			self.Owner:StopAllLuaAnimations( 0.5 )
+		
+		end
+	
+	end
 
 	if self.Owner:GetVelocity():Length() > 0 then
 	
@@ -350,7 +377,7 @@ end
 
 function SWEP:Reload()
 
-	if self.Weapon:Clip1() == self.Primary.ClipSize then return end
+	if self.Weapon:Clip1() == self.Primary.ClipSize or self.HolsterMode then return end
 
 	if self.Weapon:GetZoomMode() != 1 then
 	
@@ -370,7 +397,7 @@ end
 
 function SWEP:CanSecondaryAttack()
 
-	if self.Owner:KeyDown( IN_SPEED ) or self.LastRunFrame > CurTime() then return false end
+	if self.HolsterMode or self.Owner:KeyDown( IN_SPEED ) or self.LastRunFrame > CurTime() then return false end
 
 	if ( self.Owner:KeyDown( IN_FORWARD ) or self.Owner:KeyDown( IN_BACK ) or self.Owner:KeyDown( IN_LEFT ) or self.Owner:KeyDown( IN_RIGHT ) or self.Weapon:Clip1() <= 0 ) and self.IsSniper then
 	
@@ -390,7 +417,7 @@ end
 
 function SWEP:CanPrimaryAttack()
 
-	if self.LastRunFrame > CurTime() then return false end
+	if self.HolsterMode or self.LastRunFrame > CurTime() then return false end
 	
 	if self.Owner:GetNWInt( "Ammo"..self.AmmoType, 0 ) < 1 then 
 	

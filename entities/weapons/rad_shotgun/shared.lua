@@ -70,7 +70,7 @@ end
 
 function SWEP:CanPrimaryAttack()
 
-	if self.LastRunFrame > CurTime() then return false end
+	if self.HolsterMode or self.LastRunFrame > CurTime() then return false end
 	
 	if self.Owner:GetNWInt( "Ammo"..self.AmmoType, 0 ) < 1 then 
 	
@@ -155,7 +155,7 @@ end
 
 function SWEP:Reload()
 
-	if self.Weapon:Clip1() == self.Primary.ClipSize then return end
+	if self.HolsterMode or self.Weapon:Clip1() == self.Primary.ClipSize then return end
 	
 	self.Weapon:SetIron( false )
 	
@@ -182,6 +182,23 @@ function SWEP:PumpIt()
 end
 
 function SWEP:Think()
+
+	if self.Owner:KeyDown( IN_WALK ) and self.HolsterTime < CurTime() then
+	
+		self.HolsterTime = CurTime() + 2
+		self.HolsterMode = !self.HolsterMode
+		
+		if self.HolsterMode then
+		
+			self.Owner:SetLuaAnimation( self.HoldType )
+			
+		else
+		
+			self.Owner:StopAllLuaAnimations( 0.5 )
+		
+		end
+	
+	end
 
 	if self.Weapon:GetVar( "PumpTime", 0 ) != 0 and self.Weapon:GetVar( "PumpTime", 0 ) < CurTime() then
 	

@@ -1,4 +1,8 @@
 
+include( 'sh_boneanimlib.lua' )
+include( 'cl_boneanimlib.lua' )
+include( 'cl_animeditor.lua' )
+include( 'ply_anims.lua' )
 include( 'team.lua' )
 include( 'items.lua' )
 include( 'quests.lua' )
@@ -22,6 +26,7 @@ include( 'vgui/vgui_playerdisplay.lua' )
 include( 'vgui/vgui_itempanel.lua' )
 include( 'vgui/vgui_panelsheet.lua' )
 include( 'vgui/vgui_goodmodelpanel.lua' )
+include( 'vgui/vgui_animlist.lua' )
 
 CV_AutoEmote = CreateClientConVar( "cl_radbox_auto_emote", "1", true, false )
 CV_RagdollVision = CreateClientConVar( "cl_radbox_ragdoll_vision", "1", true, false)

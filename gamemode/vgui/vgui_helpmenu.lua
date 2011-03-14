@@ -8,9 +8,10 @@ PANEL.Text = { "<html><body style=\"background-color:DimGray;\">",
 "<b>Missions:</b> If you go on a mission for your trader, your objective's direction will be marked by a compass on your radar. Talk to the trader when you complete the mission in order to earn money.<br><br>",
 "<b>The HUD:</b> The radar marks the position of many things. Blue dots are stashes and loot. White dots are traders. Red dots are enemies. Green dots are friendly faction members. Orange dots are other faction members. If an other faction member stands still they will not appear on the radar.",
 "If you have radiation poisoning, an icon indicating the severity of the poisoning will appear on the bottom left of your screen. An icon will also appear if you are bleeding.<br><br>",
-"<b>Radiation:</b> Radiation is visually unnoticeable. When near radiation, your handheld geiger counter will make sounds indicating how close you are to a radioactive deposit. Radiaiton poisoning is cured by by vodka or Anti-Rad.<br><br>",
+"<b>Radiation:</b> Radiation is visually unnoticeable. When near radiation, your handheld geiger counter will make sounds indicating how close you are to a radioactive deposit. Radiation poisoning is cured by vodka or Anti-Rad.<br><br>",
 "<b>Anomalies:</b> Anomalies appear randomly around the map. Some anomalies are more dangerous than others, and most of them cannot be destroyed. Certain anomalies are often difficult to spot without a Field Detector Module, and some are quite easy to notice.<br><br>",
 "<b>Artifacts:</b> Artifacts are the rarest and most expensive items. They are produced by most anomalies. Certain anomalies may produce artifacts when damaged. <br><br>",
+"<b>Player Animations:</b> You can make yourself do custom animations by right clicking while you have the 'Hands' weapon out. Press your WALK key (default alt) while holding a weapon to holster it.<br><br>",
 "<b>Chat Modes:</b> You can whisper, talk locally, use your radio or do emotes by ticking the appropriate checkbox above the chat panel (if the server has it activated). Team chat works the same as in any other gamemode.</p><br><br>" }
 
 function PANEL:Init()

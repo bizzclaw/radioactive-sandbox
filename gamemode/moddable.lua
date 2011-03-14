@@ -79,24 +79,32 @@ GM.ChatEmotes[ "Drunk" ] = { "vomits",
 "staggers to the right",
 "has a stomach ache"}
 
-GM.ChatEmotes[ "Radiation"] = { "is nauseous from radiation poisoning",
+GM.ChatEmotes[ "Radiation" ] = { "is nauseous from radiation poisoning",
 "feels weak",
 "is fatigued",
 "has an unhealthy radioactive glow",
 "vomits up blood",
 "has a headache from radiation poisoning"}
 
-GM.ChatEmotes[ "Bleeding"] = { "feels weak from blood loss",
+GM.ChatEmotes[ "Bleeding" ] = { "feels weak from blood loss",
 "has lost a lot of blood",
 "needs some bandages",
 "is covered in blood",
 "feels lightheaded"}
 
-GM.ChatEmotes[ "Pain"] = { "moans in pain",
+GM.ChatEmotes[ "Pain" ] = { "moans in pain",
 "requires first aid",
 "is in a lot of pain",
 "is severely injured",
 "is hurt badly"}
+
+// Player poses (for hand SWEP) - uses Lua Player Animations
+
+GM.PoseList = { { Name = "Normal Pose" },
+{ Name = "Hostage Pose", Pose = "hostage" },
+{ Name = "Hands Up Pose", Pose = "handsup" },
+{ Name = "Wave", Pose = "wave" },
+{ Name = "Point", Pose = "point" } }
 	
 // Weight Limits (lbs)
 

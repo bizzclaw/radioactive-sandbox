@@ -35,9 +35,9 @@ SWEP.Primary.Hit            = Sound( "Weapon_Knife.HitWall" )
 SWEP.Primary.HitFlesh		= Sound( "Weapon_Knife.Stab" )
 SWEP.Primary.Sound			= Sound( "Weapon_Knife.Slash" )
 SWEP.Primary.Recoil			= 3.5
-SWEP.Primary.Damage			= 90
+SWEP.Primary.Damage			= 95
 SWEP.Primary.NumShots		= 1
-SWEP.Primary.Delay			= 0.850
+SWEP.Primary.Delay			= 1.100
 
 SWEP.Primary.ClipSize		= 1
 SWEP.Primary.Automatic		= true
@@ -50,11 +50,45 @@ function SWEP:PrimaryAttack()
 
 	if self.Owner:KeyDown( IN_SPEED ) and self.Owner:GetVelocity():Length() > 0 then return end
 
+	self.Owner:SetLuaAnimation( "shank" )
+	
 	self.Weapon:SetNextPrimaryFire( CurTime() + self.Primary.Delay )
 	self.Weapon:MeleeTrace( self.Primary.Damage )
 	
-	self.Owner:SetAnimation( PLAYER_ATTACK1 )	
+end
+
+function SWEP:Think()	
+
+	if self.Owner:GetVelocity():Length() > 0 then
 	
+		if self.Owner:KeyDown( IN_SPEED ) and self.Owner:GetNWFloat( "Weight", 0 ) < 50 then
+		
+			self.LastRunFrame = CurTime() + 0.3
+			
+			if self.InIron and not self.IsSniper then
+		
+				self.Weapon:SetIron( false )
+			
+			end
+		
+		end
+		
+		if self.Weapon:GetZoomMode() != 1 then
+		
+			self.Weapon:UnZoom()
+			
+		end
+		
+	end
+	
+	if self.MoveTime and self.MoveTime < CurTime() and SERVER then
+	
+		self.MoveTime = nil
+		self.Weapon:SetZoomMode( self.Weapon:GetZoomMode() + 1 )
+		self.Owner:DrawViewModel( false )
+		
+	end
+
 end
 
 function SWEP:MeleeTrace( dmg )
@@ -64,7 +98,7 @@ function SWEP:MeleeTrace( dmg )
 	if CLIENT then return end
 	
 	local pos = self.Owner:GetShootPos()
-	local aim = self.Owner:GetAimVector() * 50
+	local aim = self.Owner:GetAimVector() * 64
 	
 	local tr = {}
 	tr.start = pos
