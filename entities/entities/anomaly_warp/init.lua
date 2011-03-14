@@ -96,70 +96,6 @@ function ENT:Think()
 
 end
 
-function ENT:ChooseDestination()
-
-	local min, max
-
-	for k,v in pairs( ents.FindByClass( "info_lootspawn" ) ) do
-	
-		local trace = {}
-		trace.start = v:GetPos()
-		trace.endpos = trace.start + Vector(0,0,90000)
-		trace.filter = v
-		
-		local tr = util.TraceLine( trace )
-	
-		if tr.HitSky then 
-		
-			local count = 0
-			local pos = self.Entity:GetPos()
-			
-			while count < 20 and pos:Distance( self.Entity:GetPos() ) < 500 do
-		
-				local left = {}
-				left.start = tr.HitPos
-				left.endpos = left.start + Vector( 90000, 0, 0 )
-				
-				local right = {}
-				right.start = tr.HitPos
-				right.endpos = right.start + Vector( -90000, 0, 0 )
-				
-				local ltr = util.TraceLine( left )
-				local rtr = util.TraceLine( right )
-				
-				local north = {}
-				north.start = ltr.HitPos
-				north.endpos = north.start + Vector( 0, 90000, 0 )
-				
-				local south = {}
-				south.start = rtr.HitPos
-				south.endpos = south.start + Vector( 0, -90000, 0 )
-				
-				local ntr = util.TraceLine( north )
-				local str = util.TraceLine( south )
-				
-				local max = Vector( ltr.HitPos.x, ntr.HitPos.y, tr.HitPos.z - 5 )
-				local min = Vector( rtr.HitPos.x, str.HitPos.y, tr.HitPos.z - 5 )
-				
-				local trace = {}
-				trace.start = Vector( math.random( min.x, max.x ), math.random( min.y, max.y ), min.z )
-				trace.endpos = Vector( math.random( min.x, max.x ), math.random( min.y, max.y ), min.z - 90000 )
-					
-				local tr = util.TraceLine( trace )
-				
-				pos = tr.HitPos 
-				count = count + 1
-
-			end
-			
-			return pos + Vector( 0, 0, 100 )
-		
-		end
-	
-	end
-
-end
-
 function ENT:TeleportEnt( ent )
 
 	local min, max = ent:WorldSpaceAABB()
@@ -203,7 +139,7 @@ function ENT:TeleportEnt( ent )
 			
 			timer.Simple( 5, function( ply ) if ValidEntity( ply ) then ply:SetDSP( 0 ) end end, ent )
 			
-			local dest = self.Entity:ChooseDestination() + Vector(0,0,300)
+			local dest = GAMEMODE:GetRandomSpawnPos() + Vector(0,0,300)
 			
 			ent:GetVehicle():SetPos( dest )
 			ent:SetPos( dest )
@@ -212,7 +148,7 @@ function ENT:TeleportEnt( ent )
 			
 		end
 		
-		ent:SetPos( self.Entity:ChooseDestination() )
+		ent:SetPos( GAMEMODE:GetRandomSpawnPos() + Vector(0,0,50) )
 		
 		local vec = VectorRand()
 		vec.z = 0.1

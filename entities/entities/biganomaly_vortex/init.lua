@@ -98,9 +98,7 @@ function ENT:Think()
 						
 						elseif table.HasValue( self.NPCs, v:GetClass() ) then
 						
-							v:SpawnRagdoll()
-							v:SetSchedule( SCHED_FALL_TO_GROUND )
-							v:Remove()
+							v:DoDeath()
 						
 						end
 					

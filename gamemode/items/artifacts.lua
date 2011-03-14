@@ -14,62 +14,7 @@ function FUNC_BLINK( ply, id, client )
 	ed:SetMagnitude( ply:BoundingRadius() )
 	util.Effect( "prop_teleport", ed )
 	
-	local count = 0
-	local pos = ply:GetPos()
-
-	while count < 20 and pos:Distance( ply:GetPos() ) < 500 do
-	
-		local spawn = table.Random( ents.FindByClass( "info_lootspawn" ) )
-		
-		local trace = {}
-		trace.start = spawn:GetPos()
-		trace.endpos = trace.start + Vector(0,0,90000)
-		trace.filter = spawn
-		
-		local tr = util.TraceLine( trace )
-		
-		if tr.HitSky then 
-
-			local left = {}
-			left.start = tr.HitPos
-			left.endpos = left.start + Vector( 90000, 0, 0 )
-			
-			local right = {}
-			right.start = tr.HitPos
-			right.endpos = right.start + Vector( -90000, 0, 0 )
-			
-			local ltr = util.TraceLine( left )
-			local rtr = util.TraceLine( right )
-			
-			local north = {}
-			north.start = ltr.HitPos
-			north.endpos = north.start + Vector( 0, 90000, 0 )
-			
-			local south = {}
-			south.start = rtr.HitPos
-			south.endpos = south.start + Vector( 0, -90000, 0 )
-			
-			local ntr = util.TraceLine( north )
-			local str = util.TraceLine( south )
-			
-			local max = Vector( ltr.HitPos.x, ntr.HitPos.y, tr.HitPos.z - 5 )
-			local min = Vector( rtr.HitPos.x, str.HitPos.y, tr.HitPos.z - 5 )
-			
-			local trace = {}
-			trace.start = Vector( math.random( min.x, max.x ), math.random( min.y, max.y ), min.z )
-			trace.endpos = Vector( math.random( min.x, max.x ), math.random( min.y, max.y ), min.z - 90000 )
-			
-			local tr = util.TraceLine( trace )
-			
-			pos = tr.HitPos + Vector(0,0,100)
-
-		end
-		
-		count = count + 1
-		
-	end
-	
-	ply:SetPos( pos )
+	ply:SetPos( GAMEMODE:GetRandomSpawnPos() + Vector(0,0,50) )
 	
 	local vec = VectorRand()
 	vec.z = 0.1
@@ -369,6 +314,7 @@ item.Register( {
 	Name = "'Bitter Coral' Artifact", 
 	Description = "This artifact is found where Death Fog anomalies form. Your skin begins to blister whenever you touch it.",
 	Stackable = true, 
+	Sellable = false,
 	Type = ITEM_ARTIFACT,
 	Weight = 3.50, 
 	Price = 2200,
@@ -384,6 +330,7 @@ item.Register( {
 	Name = "'Blink' Artifact", 
 	Description = "This artifact is found where Warp anomalies form. It sparkles and flickers when you shake it.",
 	Stackable = true, 
+	Sellable = false,
 	Type = ITEM_ARTIFACT,
 	Weight = 3.50, 
 	Price = 2000,
@@ -399,6 +346,7 @@ item.Register( {
 	Name = "'Scaldstone' Artifact", 
 	Description = "This artifact is found where Cooker anomalies form. It seems to constantly radiate warmth.",
 	Stackable = true, 
+	Sellable = false,
 	Type = ITEM_ARTIFACT,
 	Weight = 3.50, 
 	Price = 1800,
@@ -414,6 +362,7 @@ item.Register( {
 	Name = "'Porcupine' Artifact", 
 	Description = "This artifact is found where Electro anomalies form. Your muscles tense up when you hold it.",
 	Stackable = true, 
+	Sellable = false,
 	Type = ITEM_ARTIFACT,
 	Weight = 3.50, 
 	Price = 2000,
@@ -429,6 +378,7 @@ item.Register( {
 	Name = "'Tainted Moss' Artifact", 
 	Description = "This artifact is presumed to form near radioactive deposits. It emits trace amounts of radiation.",
 	Stackable = true, 
+	Sellable = false,
 	Type = ITEM_ARTIFACT,
 	Weight = 4.50, 
 	Price = 1800,
@@ -444,6 +394,7 @@ item.Register( {
 	Name = "'Storm Bead' Artifact", 
 	Description = "This artifact is presumed to be the core of a Storm Pearl anomaly. It vibrates rapidly when you hold it.",
 	Stackable = true, 
+	Sellable = false,
 	Type = ITEM_ARTIFACT,
 	Weight = 6.50, 
 	Price = 1500,
@@ -459,6 +410,7 @@ item.Register( {
 	Name = "'Pet Rock' Artifact", 
 	Description = "This artifact is presumed to be a fragment of a Hoverstone anomaly. It is very lightweight.",
 	Stackable = true, 
+	Sellable = false,
 	Type = ITEM_ARTIFACT,
 	Weight = 0.50, 
 	Price = 1300,

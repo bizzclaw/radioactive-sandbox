@@ -53,8 +53,6 @@ function SWEP:ShootEffects()
 	
 	self.Owner:MuzzleFlash()								
 	
-	self.Weapon:SendWeaponAnim( ACT_VM_PRIMARYATTACK ) 
-	
 	if CLIENT then return end
 
 	local ed = EffectData()

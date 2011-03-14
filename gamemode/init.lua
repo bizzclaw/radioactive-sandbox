@@ -454,6 +454,116 @@ function GM:VehicleThink()
 
 end
 
+function GM:GetRandomSpawnPos()
+
+	if #ents.FindByClass( "point_skymarker" ) > 0 then
+	
+		local marker = table.Random( ents.FindByClass( "point_skymarker" ) )
+		local min, max = marker:GetBounds()
+		
+		local occ = true
+		local pos = Vector(0,0,0)
+		
+		while occ do
+			
+			local trace = {}
+			trace.start = Vector( math.random( min.x, max.x ), math.random( min.y, max.y ), min.z )
+			trace.endpos = Vector( math.random( min.x, max.x ), math.random( min.y, max.y ), min.z - 90000 )
+		
+			local tr = util.TraceLine( trace )
+			
+			occ = self:CheckPos( tr.HitPos )
+			pos = tr.HitPos
+			
+		end
+		
+		return pos
+	
+	else
+	
+		for k,v in pairs( ents.FindByClass( "info_lootspawn" ) ) do
+	
+			local trace = {}
+			trace.start = v:GetPos()
+			trace.endpos = trace.start + Vector(0,0,90000)
+			trace.filter = v
+			
+			local tr = util.TraceLine( trace )
+		
+			if tr.HitSky then 
+			
+				local left = {}
+				left.start = tr.HitPos
+				left.endpos = left.start + Vector( 90000, 0, 0 )
+				
+				local right = {}
+				right.start = tr.HitPos
+				right.endpos = right.start + Vector( -90000, 0, 0 )
+				
+				local ltr = util.TraceLine( left )
+				local rtr = util.TraceLine( right )
+				
+				local north = {}
+				north.start = ltr.HitPos
+				north.endpos = north.start + Vector( 0, 90000, 0 )
+				
+				local south = {}
+				south.start = rtr.HitPos
+				south.endpos = south.start + Vector( 0, -90000, 0 )
+				
+				local ntr = util.TraceLine( north )
+				local str = util.TraceLine( south )
+				
+				local max = Vector( ltr.HitPos.x, ntr.HitPos.y, tr.HitPos.z - 5 )
+				local min = Vector( rtr.HitPos.x, str.HitPos.y, tr.HitPos.z - 5 )
+				
+				local occ = true
+				local pos = Vector(0,0,0)
+			
+				while occ do
+				
+					local trace = {}
+					trace.start = Vector( math.random( min.x, max.x ), math.random( min.y, max.y ), min.z )
+					trace.endpos = Vector( math.random( min.x, max.x ), math.random( min.y, max.y ), min.z - 90000 )
+				
+					local tr = util.TraceLine( trace )
+					
+					occ = GAMEMODE:CheckPos( tr.HitPos )
+					pos = tr.HitPos
+				
+				end
+				
+				return pos
+				
+			end
+			
+		end
+	
+	end
+
+end
+
+function GM:CheckPos( pos )
+
+	local tbl = player.GetAll()
+	tbl = table.Add( tbl, ents.FindByClass( "anomaly*" ) )
+	tbl = table.Add( tbl, ents.FindByClass( "info_player*" ) )
+	tbl = table.Add( tbl, ents.FindByClass( "npc_trader*" ) )
+
+	for k,v in pairs( tbl ) do
+	
+		if v:GetPos():Distance( pos ) < 500 then
+		
+			return true
+		
+		end
+	
+	end
+	
+	return false
+
+end
+
 function GM:GetArtifacts()
 	
 	return #ents.FindByClass( "artifact*" )
@@ -966,6 +1076,12 @@ local function GetChatMode( ply, cmd, args )
 
 end
 concommand.Add( "cl_radbox_chatmode", GetChatMode )
+
+function GM:ShowHelp( ply )
+
+	ply:SendLua( "GAMEMODE:ShowHelp()" )
+
+end
 
 function GM:ShowTeam( ply )
 	

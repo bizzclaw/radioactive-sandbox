@@ -76,6 +76,8 @@ function GM:ShowTeam()
 
 	if IsValid( self.TeamSelectFrame ) then return end
 	
+	if InventoryScreen:IsVisible() then return end
+	
 	self.TeamSelectFrame = vgui.Create( "TeamPicker" )
 	self.TeamSelectFrame:SetSize( 415, 370 )
 	self.TeamSelectFrame:Center()
@@ -92,7 +94,7 @@ function GM:ShowHelp()
 	self.HelpFrame:SetSize( 415, 370 )
 	self.HelpFrame:Center()
 	self.HelpFrame:MakePopup()
-	self.HelpFrame:SetKeyboardInputEnabled( false )
+	//self.HelpFrame:SetKeyboardInputEnabled( false )
 
 end
 

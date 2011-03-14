@@ -15,69 +15,100 @@ EVENT.MaxDist = {}
 EVENT.MaxDist[ "biganomaly_vortex" ] = 3000
 EVENT.MaxDist[ "biganomaly_deathfog" ] = 2500
 
-function EVENT:Start()
+function EVENT:GetSpawnPos()
 
-	for k,v in pairs( ents.FindByClass( "info_lootspawn" ) ) do
+	if #ents.FindByClass( "point_skymarker" ) > 0 then
 	
-		local trace = {}
-		trace.start = v:GetPos()
-		trace.endpos = trace.start + Vector(0,0,90000)
-		trace.filter = v
+		local marker = table.Random( ents.FindByClass( "point_skymarker" ) )
+		local min, max = marker:GetBounds()
 		
-		local tr = util.TraceLine( trace )
+		local occ = true
+		local pos = Vector(0,0,0)
+		
+		while occ do
+			
+			local trace = {}
+			trace.start = Vector( math.random( min.x, max.x ), math.random( min.y, max.y ), min.z )
+			trace.endpos = Vector( math.random( min.x, max.x ), math.random( min.y, max.y ), min.z - 90000 )
+		
+			local tr = util.TraceLine( trace )
+			
+			occ = self:CheckPos( tr.HitPos )
+			pos = tr.HitPos
+			
+		end
+		
+		return pos
 	
-		if tr.HitSky then 
+	else
+	
+		for k,v in pairs( ents.FindByClass( "info_lootspawn" ) ) do
+	
+			local trace = {}
+			trace.start = v:GetPos()
+			trace.endpos = trace.start + Vector(0,0,90000)
+			trace.filter = v
+			
+			local tr = util.TraceLine( trace )
 		
-			local left = {}
-			left.start = tr.HitPos
-			left.endpos = left.start + Vector( 90000, 0, 0 )
+			if tr.HitSky then 
 			
-			local right = {}
-			right.start = tr.HitPos
-			right.endpos = right.start + Vector( -90000, 0, 0 )
-			
-			local ltr = util.TraceLine( left )
-			local rtr = util.TraceLine( right )
-			
-			local north = {}
-			north.start = ltr.HitPos
-			north.endpos = north.start + Vector( 0, 90000, 0 )
-			
-			local south = {}
-			south.start = rtr.HitPos
-			south.endpos = south.start + Vector( 0, -90000, 0 )
-			
-			local ntr = util.TraceLine( north )
-			local str = util.TraceLine( south )
-			
-			local max = Vector( ltr.HitPos.x, ntr.HitPos.y, tr.HitPos.z - 5 )
-			local min = Vector( rtr.HitPos.x, str.HitPos.y, tr.HitPos.z - 5 )
-			
-			local occ = true
-			local pos = Vector(0,0,0)
-			
-			while occ do
+				local left = {}
+				left.start = tr.HitPos
+				left.endpos = left.start + Vector( 90000, 0, 0 )
 				
-				local trace = {}
-				trace.start = Vector( math.random( min.x, max.x ), math.random( min.y, max.y ), min.z )
-				trace.endpos = Vector( math.random( min.x, max.x ), math.random( min.y, max.y ), min.z - 90000 )
+				local right = {}
+				right.start = tr.HitPos
+				right.endpos = right.start + Vector( -90000, 0, 0 )
 				
-				local tr = util.TraceLine( trace )
+				local ltr = util.TraceLine( left )
+				local rtr = util.TraceLine( right )
 				
-				occ = self:CheckPos( tr.HitPos )
-				pos = tr.HitPos
+				local north = {}
+				north.start = ltr.HitPos
+				north.endpos = north.start + Vector( 0, 90000, 0 )
+				
+				local south = {}
+				south.start = rtr.HitPos
+				south.endpos = south.start + Vector( 0, -90000, 0 )
+				
+				local ntr = util.TraceLine( north )
+				local str = util.TraceLine( south )
+				
+				local max = Vector( ltr.HitPos.x, ntr.HitPos.y, tr.HitPos.z - 5 )
+				local min = Vector( rtr.HitPos.x, str.HitPos.y, tr.HitPos.z - 5 )
+				
+				local occ = true
+				local pos = Vector(0,0,0)
+			
+				while occ do
+				
+					local trace = {}
+					trace.start = Vector( math.random( min.x, max.x ), math.random( min.y, max.y ), min.z )
+					trace.endpos = Vector( math.random( min.x, max.x ), math.random( min.y, max.y ), min.z - 90000 )
+				
+					local tr = util.TraceLine( trace )
+					
+					occ = self:CheckPos( tr.HitPos )
+					pos = tr.HitPos
+				
+				end
+				
+				return pos
 				
 			end
-				
-			self:SpawnAnomaly( pos )
 			
-			GAMEMODE:SetEvent()
-			
-			return
-		
 		end
 	
 	end
+
+end
+
+function EVENT:Start()
+	
+	self:SpawnAnomaly( GAMEMODE:GetRandomSpawnPos() )
+	
+	GAMEMODE:SetEvent()
 	
 end
 

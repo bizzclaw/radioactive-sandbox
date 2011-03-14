@@ -10,7 +10,7 @@ if CLIENT then
 	
 end
 
-SWEP.HoldType = "smg"
+SWEP.HoldType = "pistol"
 
 SWEP.Base = "rad_base"
 
@@ -19,18 +19,20 @@ SWEP.WorldModel = "models/weapons/w_pistol.mdl"
 SWEP.Primary.Sound			= Sound( "Weapon_Pistol.NPC_Single" )
 SWEP.Primary.Damage			= 15
 SWEP.Primary.NumShots		= 1
-SWEP.Primary.Cone			= 0.060
-SWEP.Primary.Delay			= 0.950
+SWEP.Primary.Cone			= 0.055
+SWEP.Primary.Delay			= 0.480
 SWEP.Primary.Automatic		= true
 
 SWEP.Primary.ShellType = SHELL_9MM
 
 SWEP.Burst = 5
 SWEP.NextFire = 0
+SWEP.NextShot = 0
 
 function SWEP:PrimaryAttack()
 
 	if self.NextFire > CurTime() then return end
+	if self.NextShot > CurTime() then return end
 
 	if self.Burst < 1 then 
 		
@@ -41,6 +43,7 @@ function SWEP:PrimaryAttack()
 	end
 
 	self.Burst = self.Burst - 1
+	self.NextShot = CurTime() + self.Primary.Delay
 	
 	self.Weapon:SetNextPrimaryFire( CurTime() + self.Primary.Delay )
 	self.Weapon:EmitSound( self.Primary.Sound, 100, math.random(95,105) )
@@ -52,8 +55,6 @@ end
 function SWEP:ShootEffects()	
 	
 	self.Owner:MuzzleFlash()								
-	
-	self.Weapon:SendWeaponAnim( ACT_VM_PRIMARYATTACK ) 
 	
 	if CLIENT then return end
 

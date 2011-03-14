@@ -66,24 +66,39 @@ QUEST.Start = function( ply )
 	if ply:Team() == TEAM_EXODUS then
 	
 		timer.Simple( 3, function( ply ) if ValidEntity( ply ) then ply:Notify( "I suggest that you buy a Field Detector Module for this mission." ) end end, ply )
+		timer.Simple( 6, function( ply ) if ValidEntity( ply ) then ply:Notify( "Once you find an artifact, bring it to me and I will analyze its properties." ) end end, ply )
 		
 	else
 	
 		timer.Simple( 3, function( ply ) if ValidEntity( ply ) then ply:Notify( "I suggest that you get a Field Detector Module for this mission." ) end end, ply )
+		timer.Simple( 6, function( ply ) if ValidEntity( ply ) then ply:Notify( "Your payment will depend on the rarity of the artifact you bring me." ) end end, ply )
 	
 	end
 	
-	timer.Simple( 6, function( ply ) if ValidEntity( ply ) then ply:Notify( "Once you find an artifact, bring it to me and I will analyze its properties." ) end end, ply )
+	
 	
 end
 
 QUEST.CanStart = function( ply )
 
+	local has = false
 	local exists = #ents.FindByClass( "artifact*" ) > 0
 	local anoms = ents.FindByClass( "anomaly_hoverstone" )
 	anoms = table.Add( anoms, ents.FindByClass( "anomaly_stormpearl" ) )
 	
-	if not exists and #anoms < 1 then
+	for k,v in pairs( ply:GetInventory() ) do
+	
+		local tbl = item.GetByID( v )
+		
+		if tbl.Type == ITEM_ARTIFACT then
+			
+			has = true
+			
+		end
+		
+	end
+	
+	if not exists and #anoms < 1 and not has then
 	
 		ply:DialogueWindow( "This mission is not currently available." )
 		
@@ -152,16 +167,9 @@ end
 
 QUEST.End = function( ply )
 
-	local cash = 4000
-	
-	if ply:Team() == TEAM_BANDOLIERS then
-	
-		cash = 5000
-		
-	end
-	
 	local removed = false
 	local model = "models/srp/items/art_stoneblood.mdl"
+	local price = 3000
 
 	for k,v in pairs( ply:GetInventory() ) do
 	
@@ -172,22 +180,37 @@ QUEST.End = function( ply )
 			ply:RemoveFromInventory( tbl.ID )
 			removed = true
 			model = tbl.Model
+			price = tbl.Price
 			
 		end
 		
 	end
 	
-	ply:AddCash( cash )
-	ply:DialogueWindow( "You have earned $"..cash.."." )
+	if ply:Team() == TEAM_BANDOLIERS then
+	
+		price = price + 1000
+		
+	elseif ply:Team() == TEAM_EXODUS then
+	
+		price = price - 200
+	
+	end
+	
+	ply:AddCash( price )
+	ply:DialogueWindow( "You have earned $"..price.."." )
 	
 	ply:SetInQuest( false, 0 )
 	ply:SetRadarStaticTarget( NULL )
 	
-	timer.Simple( 60, function( ply ) if ValidEntity( ply ) then ply:Notify( "The artifact analysis process is nearly done." ) end end, ply )
+	if ply:Team() == TEAM_EXODUS then
 	
-	for k,v in pairs( QUEST.ItemDesc[ model ] ) do
-	
-		timer.Simple( 80 + k * 4, function( ply ) if ValidEntity( ply ) then ply:Notify( v ) end end, ply )
+		timer.Simple( 60, function( ply ) if ValidEntity( ply ) then ply:Notify( "The artifact analysis process is nearly done." ) end end, ply )
+		
+		for k,v in pairs( QUEST.ItemDesc[ model ] ) do
+		
+			timer.Simple( 80 + k * 4, function( ply ) if ValidEntity( ply ) then ply:Notify( v ) end end, ply )
+		
+		end
 	
 	end
 

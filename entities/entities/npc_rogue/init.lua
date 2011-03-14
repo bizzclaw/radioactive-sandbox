@@ -56,6 +56,12 @@ function ENT:InitializeCharacter()
 end
 
 function ENT:Think()
+
+	if self.RemoveTimer and self.RemoveTimer < CurTime() then
+	
+		self.Entity:Remove()
+	
+	end
 	
 	if self.RemoveTime < CurTime() then
 	
@@ -85,30 +91,8 @@ function ENT:Think()
 end
 
 function ENT:SpawnRagdoll( att, model )
-
-	local ang = self.Entity:GetAngles()
-
-	local shooter = ents.Create("env_shooter")
-	shooter:SetPos( self.Entity:GetPos() )
-	shooter:SetKeyValue( "m_iGibs", "1" )
-	shooter:SetKeyValue( "shootsounds", "3" )
-	shooter:SetKeyValue( "gibangles", ang.p.." "..ang.y.." "..ang.r )
-	shooter:SetKeyValue( "angles", ang.p.." "..ang.y.." "..ang.r )
-	shooter:SetKeyValue( "shootmodel", ( model or self.Entity:GetModel() ) ) 
-	shooter:SetKeyValue( "simulation", "2" )
-	shooter:SetKeyValue( "gibanglevelocity", math.random(-50,50).." "..math.random(-250,250).." "..math.random(-250,250) )
 	
-	if ValidEntity( att ) then
-	
-		shooter:SetKeyValue( "m_flVelocity", tostring( math.Rand( -40, 0 ) ) )
-		shooter:SetKeyValue( "m_flVariance", tostring( math.Rand( -2, 0 ) ) )
-		
-	end
-	
-	shooter:Spawn()
-	
-	shooter:Fire( "shoot", 0, 0 )
-	shooter:Fire( "kill", 0.1, 0.1 )
+	self.Entity:Fire( "BecomeRagdoll", "", 0 )
 	
 	if not ValidEntity( att ) or not att:IsPlayer() then return end
 	
@@ -129,13 +113,23 @@ end
 function ENT:DoDeath( dmginfo )
 
 	if self.Dying then return end
-	self.Dying = true
-
-	self.Entity:SpawnRagdoll( dmginfo:GetAttacker() )
-	self.Entity:VoiceSound( GAMEMODE.DeathSounds )
 	
+	self.Dying = true
+	self.RemoveTimer = CurTime() + 1
+
+	if not dmginfo then
+	
+		self.Entity:SpawnRagdoll( self.Entity )
+	
+	else
+	
+		self.Entity:SpawnRagdoll( dmginfo:GetAttacker() )
+	
+	end
+	
+	self.Entity:Give( "rad_npcdummy" )
+	self.Entity:VoiceSound( GAMEMODE.DeathSounds )
 	self.Entity:SetSchedule( SCHED_FALL_TO_GROUND )
-	self.Entity:Remove()
 	
 end
 

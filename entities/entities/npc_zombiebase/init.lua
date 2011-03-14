@@ -48,30 +48,8 @@ function ENT:VoiceSound( tbl )
 end
 
 function ENT:SpawnRagdoll( att )
-
-	local ang = self.Entity:GetAngles()
-
-	local shooter = ents.Create("env_shooter")
-	shooter:SetPos( self.Entity:GetPos() )
-	shooter:SetKeyValue( "m_iGibs", "1" )
-	shooter:SetKeyValue( "shootsounds", "3" )
-	shooter:SetKeyValue( "gibangles", ang.p.." "..ang.y.." "..ang.r )
-	shooter:SetKeyValue( "angles", ang.p.." "..ang.y.." "..ang.r )
-	shooter:SetKeyValue( "shootmodel", self.Entity:GetModel() ) 
-	shooter:SetKeyValue( "simulation", "2" )
-	shooter:SetKeyValue( "gibanglevelocity", math.random(-50,50).." "..math.random(-150,150).." "..math.random(-150,150) )
 	
-	if ValidEntity( att ) then
-		
-		shooter:SetKeyValue( "m_flVelocity", tostring( math.Rand( -40, 0 ) ) )
-		shooter:SetKeyValue( "m_flVariance", tostring( math.Rand( -2, 0 ) ) )
-		
-	end
-	
-	shooter:Spawn()
-	
-	shooter:Fire( "shoot", 0, 0 )
-	shooter:Fire( "kill", 0.1, 0.1 )
+	self.Entity:Fire( "BecomeRagdoll", "", 0 )
 	
 	if not ValidEntity( att ) or not att:IsPlayer() then return end
 	
@@ -88,16 +66,25 @@ function ENT:SpawnRagdoll( att )
 
 end
 
-function ENT:DoDeath( attacker )
+function ENT:DoDeath( dmginfo )
 
 	if self.Dying then return end
+	
 	self.Dying = true
+	self.RemoveTimer = CurTime() + 1
+
+	if not dmginfo then
 	
-	self.Entity:SpawnRagdoll( attacker )
+		self.Entity:SpawnRagdoll( self.Entity )
+	
+	else
+	
+		self.Entity:SpawnRagdoll( dmginfo:GetAttacker() )
+	
+	end
+	
 	self.Entity:VoiceSound( self.VoiceSounds.Death )
-	
 	self.Entity:SetSchedule( SCHED_FALL_TO_GROUND )
-	self.Entity:Remove()
 	
 end
 
@@ -107,7 +94,7 @@ function ENT:OnTakeDamage( dmginfo )
 	
 	if self.Entity:Health() <= 0 then
 	
-		self.Entity:DoDeath( dmginfo:GetAttacker() )
+		self.Entity:DoDeath( dmginfo )
 		
 	elseif math.random( 1, 3 ) == 1 then
 	
@@ -166,6 +153,12 @@ function ENT:UpdateEnemy( enemy )
 end
 
 function ENT:Think()
+
+	if self.RemoveTimer and self.RemoveTimer < CurTime() then
+	
+		self.Entity:Remove()
+	
+	end
 
 	if self.RemoveTime < CurTime() then
 	
