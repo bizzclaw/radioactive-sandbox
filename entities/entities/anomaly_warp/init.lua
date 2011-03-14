@@ -112,7 +112,7 @@ function ENT:TeleportEnt( ent )
 		
 		if not ValidEntity( phys ) or not phys:IsMoveable() then return end
 	
-		ent:SetPos( self.Entity:ChooseDestination() )
+		ent:SetPos( GAMEMODE:GetRandomSpawnPos() )
 		
 		local phys = ent:GetPhysicsObject()
 		
