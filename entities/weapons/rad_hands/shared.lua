@@ -46,38 +46,6 @@ function SWEP:SecondaryAttack()
 
 end
 
-function SetPlayerPose( ply, cmd, args )
-
-	if not args[1] or args[1] == "" then
-	
-		ply:StopAllLuaAnimations( 0.5 )
-		
-		return
-	
-	end
-
-	for k,v in pairs( GAMEMODE.PoseList ) do
-	
-		if v.Pose == args[1] then
-		
-			if ply.CurrentPose then
-			
-				ply:StopLuaAnimation( ply.CurrentPose )
-			
-			end
-
-			ply:SetLuaAnimation( v.Pose )
-			ply.CurrentPose = v.Pose
-			
-			return
-			
-		end
-		
-	end
-
-end
-concommand.Add( "cl_radbox_set_pose", SetPlayerPose )
-
 function SWEP:Holster()
 
 	self.Owner:StopAllLuaAnimations()

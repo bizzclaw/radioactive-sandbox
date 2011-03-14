@@ -103,6 +103,9 @@ GM.ChatEmotes[ "Pain" ] = { "moans in pain",
 GM.PoseList = { { Name = "Normal Pose" },
 { Name = "Hostage Pose", Pose = "hostage" },
 { Name = "Hands Up Pose", Pose = "handsup" },
+{ Name = "Handcuffed Pose", Pose = "cuffed" },
+{ Name = "Military Salute", Pose = "salute" },
+{ Name = "Halt", Pose = "stop" },
 { Name = "Wave", Pose = "wave" },
 { Name = "Point", Pose = "point" } }
 	

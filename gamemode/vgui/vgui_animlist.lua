@@ -23,12 +23,12 @@ function PANEL:Init()
 					
 					end
 			
-					RunConsoleCommand( "cl_radbox_set_pose", v.Pose )
+					RunConsoleCommand( "cl_radbox_pose", v.Pose )
 					LocalPlayer():SetLuaAnimation( v.Pose )
 					
 				else
 				
-					RunConsoleCommand( "cl_radbox_set_pose" )
+					RunConsoleCommand( "cl_radbox_pose" )
 					LocalPlayer():StopAllLuaAnimations( 0.5 )
 				
 				end

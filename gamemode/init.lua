@@ -1078,12 +1078,65 @@ function GM:PlayerSay( ply, text, nonteam )
 
 end 
 
-local function GetChatMode( ply, cmd, args )
+function GetChatMode( ply, cmd, args )
 
 	ply.ChatMode = args[1]
 
 end
+
 concommand.Add( "cl_radbox_chatmode", GetChatMode )
+
+function SetPlayerAnimPose( ply, cmd, args )
+
+	if not ValidEntity( ply ) or not ValidEntity( ply:GetActiveWeapon() ) then return end
+	
+	if not ply:GetActiveWeapon():GetClass() == "rad_hands" then return end
+	
+	if ply:IsAdmin() and args[1] == "secret" then
+	
+		if ply.CurrentPose then
+			
+			ply:StopLuaAnimation( ply.CurrentPose )
+			
+		end
+	
+		ply:SetLuaAnimation( args[1] )
+		ply.CurrentPose = args[1]
+		
+		return
+	
+	end
+
+	if not args[1] or args[1] == "" then
+	
+		ply:StopAllLuaAnimations( 0.5 )
+		
+		return
+	
+	end
+
+	for k,v in pairs( GAMEMODE.PoseList ) do
+	
+		if v.Pose == args[1] then
+		
+			if ply.CurrentPose then
+			
+				ply:StopLuaAnimation( ply.CurrentPose )
+			
+			end
+
+			ply:SetLuaAnimation( v.Pose )
+			ply.CurrentPose = v.Pose
+			
+			return
+			
+		end
+		
+	end
+
+end
+
+concommand.Add( "cl_radbox_pose", SetPlayerAnimPose )
 
 function GM:ShowHelp( ply )
 
