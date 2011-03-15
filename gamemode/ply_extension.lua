@@ -228,7 +228,26 @@ function meta:OnLoadout()
 	
 	if self:GetInventory()[1] then return end
 	
-	if not self:GetSavedItems()[1] then
+	local saved = self:GetSavedItems()
+	local wep = false
+	
+	if saved[1] then
+	
+		for k,v in pairs( saved ) do
+		
+			local tbl = item.GetByID( v )
+			
+			if tbl.Weapon then
+			
+				wep = true
+			
+			end
+		
+		end
+	
+	end
+	
+	if not saved[1] or ( saved[1] and not wep ) then
 
 		local model = "models/weapons/w_pist_p228.mdl"
 
@@ -287,7 +306,9 @@ function meta:GetDroppedItems()
 	
 		self:SetSavedItems()
 		
-		return { item.RandomItem( ITEM_FOOD ) } 
+		local rand = item.RandomItem( ITEM_FOOD )
+		
+		return { rand.ID } 
 	
 	end
 	
@@ -334,14 +355,6 @@ end
 function meta:DropLoot()
 
 	if not self:GetInventory() then return end
-	
-	if #self:GetInventory() < 1 then 
-		
-		self:SetSavedItems()
-		
-		return 
-		
-	end
 
 	local ent = ents.Create( "sent_lootbag" )
 	
