@@ -281,15 +281,16 @@ end
 
 function meta:GetDroppedItems()
 
-	if #self:GetInventory() < 4 then 
-		
-		self:SetSavedItems()
+	local inv = self:GetInventory()
+
+	if not inv[1] then
 	
-		return self:GetInventory() 
+		self:SetSavedItems()
 		
+		return { item.RandomItem( ITEM_FOOD ) } 
+	
 	end
 	
-	local inv = self:GetInventory()
 	local keep = {}
 	
 	local price = 0
