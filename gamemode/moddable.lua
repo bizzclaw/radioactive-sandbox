@@ -73,8 +73,9 @@ GM.LocalDist = 800 // Maximum local chat distance
 
 GM.ChatEmotes = {}
 GM.ChatEmotes[ "Drunk" ] = { "vomits",
-"feels dizzy",
-"is disoriented",
+"hiccups",
+"burps",
+"mumbles something completely unintelligible",
 "staggers to the left",
 "staggers to the right",
 "has a stomach ache"}

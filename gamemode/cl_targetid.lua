@@ -280,6 +280,12 @@ function GM:OnPlayerChat( ply, text, isteam, isdead )
 			
 				if LocalPlayer():GetPos():Distance( ply:GetPos() ) < GAMEMODE.LocalDist and ( ( isteam and LocalPlayer():Team() == ply:Team() ) or ( !isteam and LocalPlayer():GetPos():Distance( ply:GetPos() ) < GAMEMODE.HushDist ) ) then
 					
+					if Drunkness > 2 then
+					
+						text = Drunkify( text )
+					
+					end
+					
 					chat.AddText( Color( 255, 255, 255 ), "(LOCAL) ", team.GetColor( ply:Team() ), GAMEMODE:GetPlayerGayName( ply, tostring( ply:Deaths() + 1 ) .. ply:Name() ), Color( 255, 255, 255 ), ": ", text )
 					
 					if table.Count( ply.ChatWords ) >= 5 then
@@ -302,6 +308,12 @@ function GM:OnPlayerChat( ply, text, isteam, isdead )
 				
 				end
 				
+				if Drunkness > 2 then
+					
+					text = Drunkify( text )
+					
+				end
+				
 				chat.AddText( Color( 255, 255, 255 ), "(RADIO) ", team.GetColor( ply:Team() ), GAMEMODE:GetPlayerGayName( ply, tostring( ply:Deaths() + 1 ) .. ply:Name() ), Color( 255, 255, 255 ), ": ", text )
 				
 				return true
@@ -309,6 +321,12 @@ function GM:OnPlayerChat( ply, text, isteam, isdead )
 			elseif v == GAMEMODE.ChatModes.Whisper then
 				
 				if LocalPlayer():GetPos():Distance( ply:GetPos() ) < GAMEMODE.HushDist then
+				
+					if Drunkness > 2 then
+					
+						text = Drunkify( text )
+					
+					end
 					
 					chat.AddText( Color( 255, 255, 255 ), "(WHISPER) ", team.GetColor( ply:Team() ), GAMEMODE:GetPlayerGayName( ply, tostring( ply:Deaths() + 1 ) .. ply:Name() ), Color( 255, 255, 255 ), ": ", text )
 					
@@ -360,4 +378,17 @@ function GM:OnPlayerChat( ply, text, isteam, isdead )
 
 end
  
+function Drunkify( txt )
 
+	txt = string.gsub( txt, "%sthe%s", " due " )
+	txt = string.gsub( txt, "h", "" )
+	txt = string.gsub( txt, "s", "sh" )
+	txt = string.gsub( txt, "ce", "sh" )
+	txt = string.gsub( txt, "ck", "ggh" )
+	txt = string.gsub( txt, "k%s", "gh " )
+	txt = string.gsub( txt, "t%s", "g " )
+	txt = string.gsub( txt, "ing", "ig" )
+	
+	return txt
+
+end
