@@ -51,7 +51,7 @@ function EVENT:SpawnAnomaly( pos )
 
 	local enttype = table.Random( self.Types )
 	
-	if ( enttype == "anomaly_electro" or enttype == "anomaly_deathpearl" ) and math.random(1,3) == 1 then
+	if ( enttype == "anomaly_electro" or enttype == "anomaly_deathpearl" or enttype == "anomaly_trippy" ) and math.random(1,3) == 1 then
 	
 		local spot = table.Random( ents.FindByClass( "info_lootspawn" ) )
 		
