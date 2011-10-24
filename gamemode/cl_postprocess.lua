@@ -87,7 +87,7 @@ function GM:RenderScreenspaceEffects()
 		
 		if k == "$pp_colour_colour" or k == "$pp_colour_contrast" then
 		
-			ColorModify[k] = math.Approach( ColorModify[k], 1, approach ) 
+			ColorModify[k] = math.Approach( ColorModify[k], 1, FrameTime() * 0.2 ) 
 		
 		else
 	

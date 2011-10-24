@@ -56,6 +56,7 @@ SWEP.ItemTypes = { "anomaly_whiplash",
 				"anomaly_hoverstone", 
 				"anomaly_deathpearl", 
 				"anomaly_cooker",
+				"anomaly_trippy",
 				"biganomaly_vortex",
 				"biganomaly_deathfog"}
 
