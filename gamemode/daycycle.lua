@@ -141,10 +141,10 @@ function DAYCYCLE.CalculateTimeColor( dayminute )
 	local contrast = 0
 	local fog = 0
 	
-	// sunrise
+	--// sunrise
 	if dayminute >= 1 and dayminute < MORNING_END then
 		
-		if dayminute < MORNING_START then // first
+		if dayminute < MORNING_START then --// first
 
 			red = 0.25
 			green = 0.25
@@ -154,7 +154,7 @@ function DAYCYCLE.CalculateTimeColor( dayminute )
 			contrast = -0.3
 			fog = -0.5
 			
-		else // second
+		else --// second
 		
 			local frac = ( dayminute - MORNING_START ) / ( MORNING_END - MORNING_START )
 
@@ -170,12 +170,12 @@ function DAYCYCLE.CalculateTimeColor( dayminute )
 		
 	end
 	
-	// dusk
+	--// dusk
 	if dayminute > EVENING_START and dayminute <= DAY_LENGTH then
 	
 		local frac = 1 - ( ( dayminute - EVENING_START ) / ( EVENING_END - EVENING_START ) )
 		
-		if dayminute > EVENING_END then // last
+		if dayminute > EVENING_END then --// last
 		
 			red = 0.25
 			green = 0.25
@@ -185,7 +185,7 @@ function DAYCYCLE.CalculateTimeColor( dayminute )
 			contrast = -0.3
 			fog = -0.5
 			
-		else // second last
+		else --// second last
 		
 			red = math.Clamp( frac, 0, 0.25 )
 			green = math.Clamp( frac * 0.7, 0, 0.25 )
@@ -354,7 +354,7 @@ hook.Add( "Think", "DAYCYCLE.Think",
 			
 		if DAYCYCLE.NextTimeThink > CurTime() then return end
 
-		DAYCYCLE.NextTimeThink = CurTime() + GetConVar( "sv_radbox_daycycle_speed" ):GetFloat() //MINUTE_LENGTH
+		DAYCYCLE.NextTimeThink = CurTime() + GetConVar( "sv_radbox_daycycle_speed" ):GetFloat() --//MINUTE_LENGTH
 		DAYCYCLE.DayMinute = DAYCYCLE.DayMinute + 1
 			
 		if DAYCYCLE.DayMinute > DAY_LENGTH then 

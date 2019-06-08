@@ -372,7 +372,7 @@ function GM:OnPlayerChat( ply, text, isteam, isdead )
 	
 	end
 	
-	chat.AddText( ply, Color( 255, 255, 255 ), ": ", text ) // OOC
+	chat.AddText( ply, Color( 255, 255, 255 ), ": ", text ) --// OOC
 	
 	return true
 

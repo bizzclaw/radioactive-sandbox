@@ -1,5 +1,5 @@
 
-// This is the ID given to any weapon item for exodus
+--// This is the ID given to any weapon item for exodus
 ITEM_WPN_EXODUS = 10
 
 item.Register( { 

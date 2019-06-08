@@ -64,7 +64,7 @@ function EFFECT:Init( data )
 		particle:SetRoll(math.random(-200,200))
 		particle:SetRollDelta( math.random( -1, 1 ) )
 		particle:SetColor(255, 220, 100)
-		particle:SetGravity(Vector(0,0,-520)) //-600 is normal
+		particle:SetGravity(Vector(0,0,-520)) --//-600 is normal
 		particle:SetCollide(true)
 		particle:SetBounce(0.45) 
 		

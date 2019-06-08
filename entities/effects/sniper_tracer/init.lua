@@ -7,7 +7,7 @@ function EFFECT:Init( data )
 	self.WeaponEnt = data:GetEntity()
 	self.Attachment = data:GetAttachment()
 	
-	// Keep the start and end pos - we're going to interpolate between them
+	--// Keep the start and end pos - we're going to interpolate between them
 	self.StartPos = self:GetTracerShootPos( self.Position, self.WeaponEnt, self.Attachment )
 	self.EndPos = data:GetOrigin()
 	

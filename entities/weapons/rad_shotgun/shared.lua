@@ -211,7 +211,7 @@ function SWEP:Think()
 	
 		if self.Weapon:GetVar( "ReloadTimer", 0 ) < CurTime() then
 			
-			// Finsished reload
+			--// Finsished reload
 			if self.Weapon:Clip1() >= self.Primary.ClipSize then
 			
 				self.Weapon:SetNWBool( "Reloading", false )
@@ -223,11 +223,11 @@ function SWEP:Think()
 				
 			end
 			
-			// Next cycle
+			--// Next cycle
 			self.Weapon:SetVar( "ReloadTimer", CurTime() + 0.75 )
 			self.Weapon:SendWeaponAnim( ACT_VM_RELOAD )
 			
-			// Add ammo
+			--// Add ammo
 			self.Weapon:SetClip1( self.Weapon:Clip1() + 1 )
 			
 		end

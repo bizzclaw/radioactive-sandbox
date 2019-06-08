@@ -1,12 +1,12 @@
 
-// This is the ID given to any item that is edible 
+--// This is the ID given to any item that is edible 
 ITEM_FOOD = 1
 
-// Weight constants
+--// Weight constants
 WEIGHT_FOOD_SMALL = 0.15
 WEIGHT_FOOD_LARGE = 0.30
 
-// Price constants
+--// Price constants
 PRICE_FOOD = 5
 PRICE_RAREFOOD = 50
 

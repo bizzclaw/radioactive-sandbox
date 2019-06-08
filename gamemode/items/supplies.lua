@@ -1,5 +1,5 @@
 
-// This is the ID given to any item that is an essential supply for every faction
+--// This is the ID given to any item that is an essential supply for every faction
 ITEM_SUPPLY = 2
 
 function FUNC_ENERGY( ply, id, client )

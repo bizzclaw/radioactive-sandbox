@@ -1,8 +1,8 @@
 
-// This is the ID given to any item that doesnt fit in any other category - feel free to add your own items here
-ITEM_MISC = 5 // Can be found in stores or in loot
-ITEM_BUYABLE = 6 // Only found in stores
-ITEM_LOOT = 7 // Only found in loot
+--// This is the ID given to any item that doesnt fit in any other category - feel free to add your own items here
+ITEM_MISC = 5 --// Can be found in stores or in loot
+ITEM_BUYABLE = 6 --// Only found in stores
+ITEM_LOOT = 7 --// Only found in loot
 ITEM_QUEST = 420 
 ITEM_QUEST_ZOMBIE = 421 
 

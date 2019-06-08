@@ -1,5 +1,5 @@
 
-// Fetch artifact quest
+--// Fetch artifact quest
 
 if CLIENT then
 

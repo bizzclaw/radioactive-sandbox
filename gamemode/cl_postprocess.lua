@@ -119,9 +119,9 @@ function GM:GetMotionBlurValues( y, x, fwd, spin )
 	if LocalPlayer():Alive() and LocalPlayer():Health() <= 50 then
 	
 		local scale = math.Clamp( LocalPlayer():Health() / 50, 0, 1 )
-		// local beat = math.Clamp( HeartBeat - CurTime(), 0, 2 ) * ( 1 - scale )
+		--// local beat = math.Clamp( HeartBeat - CurTime(), 0, 2 ) * ( 1 - scale )
 		
-		fwd = 1 - scale // + beat
+		fwd = 1 - scale --// + beat
 		
 	elseif LocalPlayer():GetNWBool( "InIron", false ) then
 	

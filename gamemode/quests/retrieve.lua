@@ -1,5 +1,5 @@
 
-// Find the loot quest
+--// Find the loot quest
 
 if CLIENT then
 

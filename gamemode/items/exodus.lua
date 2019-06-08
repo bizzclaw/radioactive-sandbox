@@ -1,5 +1,5 @@
 
-// This is the ID given to any item that is an exodus supply
+--// This is the ID given to any item that is an exodus supply
 ITEM_EXODUS = 3
 
 function FUNC_ANTIRAD( ply, id, client )

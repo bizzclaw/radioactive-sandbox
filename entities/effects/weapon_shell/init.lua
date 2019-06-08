@@ -67,7 +67,7 @@ function EFFECT:GetBulletEjectPos( Position, Ent, Attachment )
 	if (!Ent:IsValid()) then return Angle(), Position end
 	if (!Ent:IsWeapon()) then return Angle(), Position end
 
-	// Shoot from the viewmodel
+	--// Shoot from the viewmodel
 	if ( Ent:IsCarriedByLocalPlayer() && GetViewEntity() == LocalPlayer() ) then
 	
 		local ViewModel = LocalPlayer():GetViewModel()
@@ -81,7 +81,7 @@ function EFFECT:GetBulletEjectPos( Position, Ent, Attachment )
 			
 		end
 	
-	// Shoot from the world model
+	--// Shoot from the world model
 	else
 	
 		local att = Ent:GetAttachment( Attachment )

@@ -1,5 +1,5 @@
 
-// This is the ID given to any weapon item for the bandoliers
+--// This is the ID given to any weapon item for the bandoliers
 ITEM_WPN_BANDOLIERS = 8
 
 item.Register( { 

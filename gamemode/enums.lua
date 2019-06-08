@@ -1,5 +1,5 @@
 
-// Bullet types (for the shell effect)
+--// Bullet types (for the shell effect)
 
 SHELL_9MM = 1
 SHELL_57 = 2

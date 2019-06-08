@@ -1008,13 +1008,13 @@ function GM:PlayerShouldTakeDamage( ply, attacker )
 
 	if ply:Team() == TEAM_UNASSIGNED then return false end
 	
-	if ValidEntity( ply.Stash ) and ( string.find( ply.Stash:GetClass(), "npc" ) or ply.Stash:GetClass() == "info_storage" ) then return false end // player using a stash, dont let them die
+	if ValidEntity( ply.Stash ) and ( string.find( ply.Stash:GetClass(), "npc" ) or ply.Stash:GetClass() == "info_storage" ) then return false end --// player using a stash, dont let them die
 
 	if string.find( attacker:GetClass(), "npc" ) then return true end
 	
 	if ValidEntity( attacker ) and ply == attacker then return true end
 	
-	if ValidEntity( attacker ) and attacker:IsPlayer() then return ( ply:Team() != attacker:Team() or GetConVar( "sv_radbox_team_dmg" ):GetBool() ) end // team damage is convar controlled
+	if ValidEntity( attacker ) and attacker:IsPlayer() then return ( ply:Team() != attacker:Team() or GetConVar( "sv_radbox_team_dmg" ):GetBool() ) end --// team damage is convar controlled
 
 	return true
 	

@@ -52,7 +52,7 @@ function GM:Initialize( )
 	ArmAngle = 0
 	ArmSpeed = 70
 	BlipTime = 2.0
-	FadeDist = 0.3 // radar vars
+	FadeDist = 0.3 --// radar vars
 	MaxDist = 1500
 	PosTable = {}
 	RadarEntTable = {}
@@ -99,7 +99,7 @@ function GM:ShowHelp()
 	self.HelpFrame:SetSize( 415, 370 )
 	self.HelpFrame:Center()
 	self.HelpFrame:MakePopup()
-	//self.HelpFrame:SetKeyboardInputEnabled( false )
+	--//self.HelpFrame:SetKeyboardInputEnabled( false )
 
 end
 
@@ -665,7 +665,7 @@ function GM:HUDPaint()
 			
 		if math.sqrt( diff.x * diff.x + diff.y * diff.y ) > MaxDist * FadeDist and v.DieTime == -1 then
 			
-			PosTable[k].DieTime = CurTime() + 1.5 // Remove the dot because they left our inner circle
+			PosTable[k].DieTime = CurTime() + 1.5 --// Remove the dot because they left our inner circle
 			
 		end
 			

@@ -1,5 +1,5 @@
 
-// This is the ID given to any weapon item for all teams
+--// This is the ID given to any weapon item for all teams
 ITEM_WPN_COMMON = 11
 
 function FUNC_PLANTBOMB( ply, id, client )

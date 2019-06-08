@@ -1,5 +1,5 @@
 
-// This is the ID given to any item that is rare and artifacts
+--// This is the ID given to any item that is rare and artifacts
 ITEM_ARTIFACT = 450
 
 function FUNC_BLINK( ply, id, client )
@@ -45,7 +45,7 @@ function FUNC_DROPBLINK( ply, id, drop )
 	bead:SetPos( ply:GetItemDropPos() )
 	bead:Spawn()
 
-	return false // override spawning a prop for this item
+	return false --// override spawning a prop for this item
 
 end
 
@@ -84,7 +84,7 @@ function FUNC_DROPCORAL( ply, id, drop )
 	bead:SetPos( ply:GetItemDropPos() )
 	bead:Spawn()
 
-	return false // override spawning a prop for this item
+	return false --// override spawning a prop for this item
 
 end
 
@@ -119,7 +119,7 @@ function FUNC_DROPSCALD( ply, id, drop )
 	bead:SetPos( ply:GetItemDropPos() )
 	bead:Spawn()
 
-	return false // override spawning a prop for this item
+	return false --// override spawning a prop for this item
 
 end
 
@@ -163,7 +163,7 @@ function FUNC_DROPPORC( ply, id, drop )
 	bead:SetPos( ply:GetItemDropPos() )
 	bead:Spawn()
 
-	return false // override spawning a prop for this item
+	return false --// override spawning a prop for this item
 
 end
 
@@ -236,7 +236,7 @@ function FUNC_DROPMOSS( ply, id, drop )
 	bead:SetPos( ply:GetItemDropPos() )
 	bead:Spawn()
 
-	return false // override spawning a prop for this item
+	return false --// override spawning a prop for this item
 
 end
 
@@ -260,7 +260,7 @@ function FUNC_DROPBEAD( ply, id, drop )
 	bead:SetPos( ply:GetItemDropPos() )
 	bead:Spawn()
 
-	return false // override spawning a prop for this item
+	return false --// override spawning a prop for this item
 
 end
 
@@ -306,7 +306,7 @@ function FUNC_DROPROCK( ply, id, drop )
 	rock:SetPos( ply:GetItemDropPos() )
 	rock:Spawn()
 
-	return false // override spawning a prop for this item
+	return false --// override spawning a prop for this item
 
 end
 

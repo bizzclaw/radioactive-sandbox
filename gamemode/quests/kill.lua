@@ -1,5 +1,5 @@
 
-// kill npc quest
+--// kill npc quest
 
 if CLIENT then
 

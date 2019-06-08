@@ -28,7 +28,7 @@ function EVENT:Start()
 			
 		end
 		
-		if dist > 700 then  // take out anomalies that players arent close to
+		if dist > 700 then  --// take out anomalies that players arent close to
 			
 			d:Remove()
 			num = num - 1

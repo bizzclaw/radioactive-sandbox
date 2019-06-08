@@ -651,10 +651,10 @@ function SWEP:BulletPenetration( attacker, tr, dmginfo, bounce )
 	end		
 	
 	
-	// Don't go through more than 3 times
+	--// Don't go through more than 3 times
 	if ( bounce > 3 ) then return false end
 	
-	// Direction (and length) that we are gonna penetrate
+	--// Direction (and length) that we are gonna penetrate
 	local PeneDir = tr.Normal * self:GetPenetrationDistance( tr.MatType )
 		
 	local PeneTrace = {}
@@ -665,7 +665,7 @@ function SWEP:BulletPenetration( attacker, tr, dmginfo, bounce )
 	   
 	local PeneTrace = util.TraceLine( PeneTrace ) 
 	
-	// Bullet didn't penetrate.
+	--// Bullet didn't penetrate.
 	if ( PeneTrace.StartSolid or PeneTrace.Fraction >= 1.0 or tr.Fraction <= 0.0 ) or tr.MatType == MAT_FLESH then return false end
 	
 	local distance = ( PeneTrace.HitPos - tr.HitPos ):Length()

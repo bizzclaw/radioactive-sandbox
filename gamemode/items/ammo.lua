@@ -1,8 +1,8 @@
 
-// This is the ID given to any item that is ammunition
+--// This is the ID given to any item that is ammunition
 ITEM_AMMO = 4
 
-// Price constants
+--// Price constants
 PRICE_AMMOBOX = 30
 
 function FUNC_AMMO( ply, id )
@@ -25,7 +25,7 @@ function FUNC_DROPAMMO( ply, id, drop )
 
 	ply:AddAmmo( tbl.Ammo, -tbl.Amount, true )
 	
-	return true // we don't want to override spawning the prop
+	return true --// we don't want to override spawning the prop
 
 end
 

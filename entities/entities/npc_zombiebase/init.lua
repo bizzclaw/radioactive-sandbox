@@ -228,7 +228,7 @@ function ENT:SelectSchedule()
 	
 	if ValidEntity( enemy ) then
 	
-		if self.Entity:HasCondition( 23 ) then //  COND_CAN_MELEE_ATTACK1 
+		if self.Entity:HasCondition( 23 ) then --//  COND_CAN_MELEE_ATTACK1 
 		
 			sched = SCHED_MELEE_ATTACK1
 			self.AttackTime = CurTime() + 1

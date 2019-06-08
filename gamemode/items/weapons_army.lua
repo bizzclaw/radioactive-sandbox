@@ -1,5 +1,5 @@
 
-// This is the ID given to any weapon item for the army
+--// This is the ID given to any weapon item for the army
 ITEM_WPN_ARMY = 9
 
 function FUNC_DROPWEAPON( ply, id, client )
