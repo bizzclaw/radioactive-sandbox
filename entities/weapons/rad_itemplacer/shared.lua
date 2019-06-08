@@ -1,5 +1,5 @@
 if SERVER then
-
+	util.AddNetworkString("radboxItemPlacerSynch")
 	AddCSLuaFile( "shared.lua" )
 	
 	SWEP.Weight				= 1
@@ -91,6 +91,8 @@ end
 
 function SWEP:Synch()
 
+	local data = {}
+
 	for k,v in pairs( self.ServersideItems ) do
 	
 		local ents = ents.FindByClass( v )
@@ -102,20 +104,18 @@ function SWEP:Synch()
 		
 		end
 	
-		local tbl = { Name = v, Ents = postbl }
-		
-		datastream.StreamToClients( { self.Owner }, "ItemPlacerSynch", tbl )
-		
+		data[v] = postbl
 	end
 
+	net.Start("radboxItemPlacerSynch")
+	net.WriteTable(data)
+	net.Send(self.Owner)
 end
 
-function PlacerSynch( handler, id, encoded, decoded )
-
-	ClientItemPlacerTbl[ decoded.Name ] = decoded.Ents
-
-end
-datastream.Hook( "ItemPlacerSynch", PlacerSynch )
+net.Receive("radboxItemPlacerSynch", function()
+	local data = net.ReadTable()
+	table.Merge(ClientItemPlacerTbl, data)
+end)
 
 function SWEP:Deploy()
 

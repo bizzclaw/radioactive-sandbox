@@ -813,30 +813,22 @@ function NVGToggle( msg )
 end
 usermessage.Hook( "NVGToggle", NVGToggle )
 
-function InventorySynch( handler, id, encoded, decoded )
+net.Receive("radboxInventorySynch", function() 
+	LocalInventory = net.ReadTable()
 
-	LocalInventory = {}
-	LocalInventory = decoded
-	
 	if InventoryScreen and InventoryScreen:IsVisible() then
 	
 		InventoryScreen:RefreshItems( LocalInventory )
 		
 	end
+end)
 
-end
-datastream.Hook( "InventorySynch", InventorySynch )
-
-function StashSynch( handler, id, encoded, decoded )
-
-	LocalStash = {}
-	LocalStash = decoded
+net.Receive("radboxStashSynch", function()
+	LocalStash = net.ReadTable()
 	
 	if StashScreen and StashScreen:IsVisible() then
 	
 		StashScreen:RefreshItems( LocalStash )
 		
 	end
-
-end
-datastream.Hook( "StashSynch", StashSynch )
+end)

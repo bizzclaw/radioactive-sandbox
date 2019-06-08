@@ -1,3 +1,5 @@
+util.AddNetworkString("radboxInventorySynch")
+util.AddNetworkString("radboxStashSynch")
 
 local meta = FindMetaTable( "Player" )
 if (!meta) then return end 
@@ -490,9 +492,9 @@ function meta:GetInventory()
 end
 
 function meta:SynchInventory()
-
-	datastream.StreamToClients( { self }, "InventorySynch", self:GetInventory() )
-
+	net.Start("radboxInventorySynch")
+	net.WriteTable(self:GetInventory())
+	net.Send(self)
 end
 
 function meta:AddMultipleToInventory( items )
@@ -682,9 +684,9 @@ function meta:SynchCash( amt )
 end
 
 function meta:SynchStash( ent )
-
-	datastream.StreamToClients( { self }, "StashSynch", ent:GetItems() )
-
+	net.Start("radboxStashSynch")
+	net.WriteTable(ent:GetItems())
+	net.Send(self)
 end
 
 function meta:ToggleStashMenu( ent, open, menutype, pricemod )
