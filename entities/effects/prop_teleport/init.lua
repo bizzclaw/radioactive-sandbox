@@ -30,7 +30,9 @@ function EFFECT:Init( data )
 		
 	end
 	
-	emitter:Finish()
+	if IsValid(emitter) then
+		emitter:Finish()
+	end
 	
 	local dlight = DynamicLight( self.Entity:EntIndex() )
 	

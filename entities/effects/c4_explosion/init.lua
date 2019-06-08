@@ -63,7 +63,7 @@ function EFFECT:Init( data )
 		particle:SetEndSize(0)
 		particle:SetRoll(math.random(-200,200))
 		particle:SetRollDelta( math.random( -1, 1 ) )
-		particle:(SetColorColor(255, 220, 100))
+		particle:SetColor(Color(255, 220, 100))
 		particle:SetGravity(Vector(0,0,-520)) --//-600 is normal
 		particle:SetCollide(true)
 		particle:SetBounce(0.45) 
@@ -118,8 +118,9 @@ function EFFECT:Init( data )
 		end
 		
 	end
-	
-	emitter:Finish()
+	if IsValid(emitter) then
+		emitter:Finish()
+	end
 	
 	local dlight = DynamicLight( self.Entity:EntIndex() )
 	
@@ -171,6 +172,8 @@ function CloudThink( part )
 	local dark = math.random( 10, 50 )
 	particle:SetColor( Color(dark, dark, dark) )
 	
-	emitter:Finish()
+	if IsValid(emitter) then
+		emitter:Finish()
+	end
 
 end

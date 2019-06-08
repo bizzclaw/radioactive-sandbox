@@ -36,7 +36,9 @@ function EFFECT:Init( data )
 	particle:SetRollDelta( math.random( -200, 200 ) )
 	particle:SetColor( Color(200, 200, 255) )
 	
-	self.Emitter:Finish()
+	if IsValid(self.Emitter) then
+		self.Emitter:Finish()
+	end
 	
 end
 
@@ -46,8 +48,9 @@ function EFFECT:Think( )
 	self.Size = self.Refract * 5000
 
 	if self.DieTime < CurTime() then
-	
-		self.Emitter:Finish()
+		if IsValid(self.Emitter) then
+			self.Emitter:Finish()
+		end
 		return false
 	
 	end

@@ -39,8 +39,10 @@ function EFFECT:Think( )
 		return true
 		
 	else
-	
-		self.Emitter:Finish()
+		if IsValid(self.Emitter) then
+			self.Emitter:Finish()
+		end
+		
 		return false
 		
 	end

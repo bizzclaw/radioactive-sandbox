@@ -77,10 +77,8 @@ function EFFECT:Think( )
 
 	if self.Time < CurTime() then
 	
-		if self.Emitter then
-		
+		if IsValid(self.Emitter) then
 			self.Emitter:Finish()
-		
 		end
 	
 		return false

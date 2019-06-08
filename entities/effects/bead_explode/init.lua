@@ -49,7 +49,7 @@ function EFFECT:Init( data )
 		
 	end
 	
-	if emitter then
+	if IsValid(emitter) then
 	
 		emitter:Finish()
 	

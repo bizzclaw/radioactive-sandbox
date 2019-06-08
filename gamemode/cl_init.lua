@@ -56,7 +56,7 @@ function GM:Initialize( )
 	TimeSeedTable = {}
 	
 	surface.CreateFont( "Graffiare", {
-		font = "DeathFont",
+		font = "Trebuchet MS",
 		size = 28,
 		weight = 200,
 		antialias = true
@@ -468,15 +468,15 @@ function GM:HUDPaint()
 			
 			if dtime > 0 then
 			
-				draw.SimpleText( "YOU WILL BE ABLE TO RESPAWN IN "..dtime.." SECONDS", "DeathFont", ScrW() * 0.5, ScrH() * 0.1, Color( 255, 0, 0 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+				draw.SimpleText( "YOU WILL BE ABLE TO RESPAWN IN "..dtime.." SECONDS", "Trebuchet24", ScrW() * 0.5, ScrH() * 0.1, Color( 255, 0, 0 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 				
 			else
 			
-				draw.SimpleText( "PRESS ANY KEY TO RESPAWN", "DeathFont", ScrW() * 0.5, ScrH() * 0.1, Color( 255, 0, 0 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+				draw.SimpleText( "PRESS ANY KEY TO RESPAWN", "Trebuchet24", ScrW() * 0.5, ScrH() * 0.1, Color( 255, 0, 0 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 			
 			end
 			
-			draw.SimpleText( "PRESS F2 TO JOIN A DIFFERENT FACTION", "DeathFont", ScrW() * 0.5, ScrH() * 0.9, Color( 255, 0, 0 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+			draw.SimpleText( "PRESS F2 TO JOIN A DIFFERENT FACTION", "Trebuchet24", ScrW() * 0.5, ScrH() * 0.9, Color( 255, 0, 0 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 		
 		end
 	

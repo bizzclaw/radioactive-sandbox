@@ -25,7 +25,7 @@ function ENT:Think()
 	
 	end
 
-	if self.Timer < CurTime() then
+	if self.Timer < CurTime() and IsValid(self.Emitter) then
 
 		local particle = self.Emitter:Add( "sprites/heatwave", self.Entity:GetPos() + VectorRand() * 10 )
 		particle:SetVelocity( self.Normal * 50 + VectorRand() * 5 + Vector(0,0,20) ) 
@@ -95,7 +95,7 @@ end
 
 function ENT:OnRemove()
 
-	if self.Emitter then
+	if IsValid(self.Emitter) then
 	
 		self.Emitter:Finish()
 	

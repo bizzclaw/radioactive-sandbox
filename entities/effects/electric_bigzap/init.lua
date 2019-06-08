@@ -35,7 +35,9 @@ function EFFECT:Init( data )
 	particle:SetRoll( math.Rand( -360, 360 ) )
 	particle:SetRollDelta( math.Rand( -5, 5 ) )
 	
-	emitter:Finish()
+	if IsValid(emitter) then
+		emitter:Finish()
+	end
 	
 	local dlight = DynamicLight( self.Entity:EntIndex() )
 	

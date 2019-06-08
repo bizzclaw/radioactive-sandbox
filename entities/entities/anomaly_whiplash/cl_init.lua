@@ -15,7 +15,7 @@ end
 
 function ENT:OnRemove()
 
-	if self.Emitter then
+	if IsValid(self.Emitter) then
 	
 		self.Emitter:Finish()
 	
