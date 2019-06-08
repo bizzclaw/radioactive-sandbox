@@ -29,7 +29,7 @@ function ENT:Draw()
 
 	self.Fraction = 0.15 + math.sin( CurTime() ) * 0.15
 
-	matRefract:SetMaterialFloat( "$refractamount", self.Fraction )
+	matRefract:SetFloat( "$refractamount", self.Fraction )
 
 	if render.GetDXLevel() >= 80 then
 		

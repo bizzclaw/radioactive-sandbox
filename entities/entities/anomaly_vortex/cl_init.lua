@@ -134,7 +134,7 @@ function ENT:Draw()
 	
 	end
 	
-	matRefract:SetMaterialFloat( "$refractamount", self.Fraction )
+	matRefract:SetFloat( "$refractamount", self.Fraction )
 
 	if render.GetDXLevel() >= 80 then
 			

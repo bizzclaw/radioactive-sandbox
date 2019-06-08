@@ -52,11 +52,11 @@ function ENT:Draw()
 
 	if self.Entity:GetNWBool( "Explode", false ) then
 	
-		self.Entity:SetModelScale( Vector( math.Rand( 0.8, 1.2 ), math.Rand( 0.8, 1.2 ), math.Rand( 0.8, 1.2 ) ) )
+		self.Entity:SetModelScale( math.Rand( 0.8, 1.2 ), 0)
 		
 	else
 	
-		self.Entity:SetModelScale( Vector( math.Rand( 0.9, 1.1 ), math.Rand( 0.9, 1.1 ), math.Rand( 0.9, 1.1 ) ) )
+		self.Entity:SetModelScale( math.Rand( 0.9, 1.1 ), 0)
 	
 	end
 	

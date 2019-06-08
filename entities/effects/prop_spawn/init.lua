@@ -83,7 +83,7 @@ function EFFECT:Render()
 			--// Update the refraction texture with whatever is drawn right now
 			render.UpdateRefractTexture()
 			
-			matRefract:SetMaterialFloat( "$refractamount", Fraction * 0.1 )
+			matRefract:SetFloat( "$refractamount", Fraction * 0.1 )
 		
 			--// Draw model with refraction texture
 			render.MaterialOverride( matRefract )
