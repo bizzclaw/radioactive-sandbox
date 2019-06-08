@@ -78,9 +78,9 @@ function ENT:RemoveItem( id )
 	
 		if v == id then
 		
-			self.Entity:Synch()
-		
 			table.remove( self.Items, k )
+			
+			self.Entity:Synch()
 			
 			return
 		

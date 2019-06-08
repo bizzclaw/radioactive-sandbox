@@ -840,6 +840,10 @@ end)
 
 net.Receive("radboxStashSynch", function()
 	LocalStash = net.ReadTable()
+
+	PrintTable(LocalStash)
+	
+	print(StashScreen)
 	
 	if StashScreen and StashScreen:IsVisible() then
 	

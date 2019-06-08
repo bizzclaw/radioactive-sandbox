@@ -684,8 +684,13 @@ function meta:SynchCash( amt )
 end
 
 function meta:SynchStash( ent )
+
+	local items = ent:GetItems()
+
+	PrintTable(items)
+
 	net.Start("radboxStashSynch")
-	net.WriteTable(ent:GetItems())
+	net.WriteTable(items)
 	net.Send(self)
 end
 
