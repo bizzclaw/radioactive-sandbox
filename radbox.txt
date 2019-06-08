@@ -1,0 +1,10 @@
+"radbox"
+{
+	"base"		"base"
+	"version"	"Alpha"
+	"title"		"Radioactive Sandbox "
+	
+	"author_name"	"Rambo_6, fixed by Bizz"
+	"author_email"	""
+	"author_url"	""
+}

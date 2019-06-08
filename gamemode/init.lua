@@ -13,14 +13,14 @@ include( 'enums.lua' )
 include( 'daycycle.lua' )
 include( 'events.lua' )
 include( 'db.lua' )
-include( 'boneanimlib.lua' )
-include( 'sh_boneanimlib.lua' )
-include( 'ply_anims.lua' )
+-- include( 'boneanimlib.lua' )
+-- include( 'sh_boneanimlib.lua' )
+-- include( 'ply_anims.lua' )
 
-AddCSLuaFile( 'sh_boneanimlib.lua' )
-AddCSLuaFile( 'cl_animeditor.lua' )
-AddCSLuaFile( 'cl_boneanimlib.lua' )
-AddCSLuaFile( 'ply_anims.lua' )
+-- AddCSLuaFile( 'sh_boneanimlib.lua' )
+-- AddCSLuaFile( 'cl_animeditor.lua' )
+-- AddCSLuaFile( 'cl_boneanimlib.lua' )
+-- AddCSLuaFile( 'ply_anims.lua' )
 AddCSLuaFile( 'quests.lua' )
 AddCSLuaFile( 'moddable.lua' )
 AddCSLuaFile( 'shared.lua' )
@@ -45,7 +45,7 @@ AddCSLuaFile( 'vgui/vgui_itemdisplay.lua' )
 AddCSLuaFile( 'vgui/vgui_playerdisplay.lua' )
 AddCSLuaFile( 'vgui/vgui_panelsheet.lua' )
 AddCSLuaFile( 'vgui/vgui_goodmodelpanel.lua' )
-AddCSLuaFile( 'vgui/vgui_animlist.lua' )
+-- AddCSLuaFile( 'vgui/vgui_animlist.lua' )
 
 function GM:Initialize( )
 
@@ -1675,17 +1675,3 @@ function WipeDatabase( ply, cmd, args )
 end
 
 concommand.Add( "sv_radbox_reset_db", WipeDatabase )
-
-function IncludeEvents()
-
-	local folder = string.Replace( GM.Folder, "gamemodes/", "" )
-
-	for c,d in pairs( file.FindInLua( folder .. "/gamemode/events/*.lua" ) ) do
-	
-		include( folder .. "/gamemode/events/" .. d )
-		
-	end
-
-end
-
-IncludeEvents()

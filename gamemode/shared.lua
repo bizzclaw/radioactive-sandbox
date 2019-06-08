@@ -1,11 +1,9 @@
-
-require( "datastream" )
-
 GM.Name 		= "Radioactive Sandbox"  
 GM.Author 		= "Rambo_6"
 GM.Email 		= ""
 GM.Website 		= ""
 GM.TeamBased 	= true
+RADBOX_PATH = "radbox/"
 
 CreateConVar( "sv_radbox_max_zombies", "8", { FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_SERVER_CAN_EXECUTE }, "Controls the amount of zombie NPCs that can spawn. (def 8)" )
 CreateConVar( "sv_radbox_max_rogues", "6", { FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_SERVER_CAN_EXECUTE }, "Controls the amount of rogue NPCs that can spawn. (def 6)" )
@@ -71,42 +69,47 @@ function GM:PlayerNoClip( pl, on )
 	
 end
 
-function IncludeItems()
+local filecount_sv = 0
+local filecount_cl = 0
 
-	local folder = string.Replace( GM.Folder, "gamemodes/", "" )
+REALM_SH = 0
+REALM_CL = 1
+REALM_SV = 2
 
-	for c,d in pairs( file.FindInLua( folder.."/gamemode/items/*.lua" ) ) do
-	
-		include( folder.."/gamemode/items/"..d )
-		
-		if SERVER then
-		
-			AddCSLuaFile( folder.."/gamemode/items/"..d )
-			
-		end
-		
-	end
-
+local function getRealm(dir)
+	local sub = string.lower(string.sub(dir, 0, 3))
+	local realm = (sub == "cl_" and REALM_CL) or (sub == "sv_" and REALM_SV) or REALM_SH
+	return realm
 end
 
-IncludeItems()
-
-function IncludeQuests()
-
-	local folder = string.Replace( GM.Folder, "gamemodes/", "" )
-
-	for c,d in pairs( file.FindInLua( folder.."/gamemode/quests/*.lua" ) ) do
-	
-		include( folder.."/gamemode/quests/"..d )
-		
-		if SERVER then
-		
-			AddCSLuaFile( folder.."/gamemode/quests/"..d )
-			
+local function InitFiles(dir, realm)
+	realm = realm or getRealm(dir)
+	local fil, fol = file.Find(dir.."/*", "LUA")
+	for _, v in ipairs(fil) do
+		local fileRealm = realm and realm != REALM_SH and realm or getRealm(v)
+		if string.sub(v, 0, 1) == "#" then continue end
+		if fileRealm != REALM_SV then -- Only cl_ files will pass this check and is loaded only on the client
+			AddCSLuaFile(dir.."/"..v)
+			if CLIENT then
+				include(dir.."/"..v)
+			end
+			-- print("Loading "..dir.."/"..v.." on the CLIENT...")
 		end
-		
+		if SERVER and fileRealm != REALM_CL then -- Only sv_ files will pass this check and is loaded only on the server.
+			include(dir.."/"..v)
+			-- print("Loading "..dir.."/"..v.." on the server...")
+		end --Everytihng else, such as sh_, will pass both checks and is shared.
 	end
 
-end
+	for _, folder in ipairs(fol) do
+		-- print(folder)
+		local folderRealm = getRealm(folder)
+		if folder == "noload" then continue end
 
-IncludeQuests()
+		-- if SERVER and folderRealm == REALM_CL then continue end
+		-- if CLIENT and folderRealm == REALM_SV then continue end
+
+		-- print("Mounting Folder: "..dir.." on "..(SERVER and "server" or "client"))
+		InitFiles(dir.."/"..folder, folderRealm)
+	end
+end
