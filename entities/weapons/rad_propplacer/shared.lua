@@ -223,7 +223,7 @@ function SWEP:Think()
 		
 		end
 		
-		if ValidEntity( closest ) then
+		if IsValid( closest ) then
 		
 			closest:Remove()
 			

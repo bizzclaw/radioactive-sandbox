@@ -110,13 +110,13 @@ function ENT:TeleportEnt( ent )
 	
 		local phys = ent:GetPhysicsObject()
 		
-		if not ValidEntity( phys ) or not phys:IsMoveable() then return end
+		if not IsValid( phys ) or not phys:IsMoveable() then return end
 	
 		ent:SetPos( GAMEMODE:GetRandomSpawnPos() )
 		
 		local phys = ent:GetPhysicsObject()
 		
-		if ValidEntity( phys ) then
+		if IsValid( phys ) then
 		
 			local vec = VectorRand()
 			vec.z = 0.1
@@ -127,7 +127,7 @@ function ENT:TeleportEnt( ent )
 	
 	else
 	
-		if ent:IsPlayer() and ValidEntity( ent:GetVehicle() ) and ent:Alive() then
+		if ent:IsPlayer() and IsValid( ent:GetVehicle() ) and ent:Alive() then
 
 			umsg.Start( "GrenadeHit", ent )
 			umsg.End()
@@ -137,7 +137,7 @@ function ENT:TeleportEnt( ent )
 			ent:EmitSound( self.Appear, 100, math.random(90,110) )
 			ent:TakeDamage( 25, self.Entity, self.Entity )
 			
-			timer.Simple( 5, function( ply ) if ValidEntity( ply ) then ply:SetDSP( 0 ) end end, ent )
+			timer.Simple( 5, function( ply ) if IsValid( ply ) then ply:SetDSP( 0 ) end end, ent )
 			
 			local dest = GAMEMODE:GetRandomSpawnPos() + Vector(0,0,300)
 			
@@ -164,7 +164,7 @@ function ENT:TeleportEnt( ent )
 			ent:EmitSound( self.Teleport, 100, math.random(150,170) )
 			ent:TakeDamage( 50, self.Entity, self.Entity )
 			
-			timer.Simple( 5, function( ply ) if ValidEntity( ply ) then ply:SetDSP( 0 ) end end, ent )
+			timer.Simple( 5, function( ply ) if IsValid( ply ) then ply:SetDSP( 0 ) end end, ent )
 		
 		end
 	

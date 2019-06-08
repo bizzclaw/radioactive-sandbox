@@ -61,7 +61,7 @@ end
 
 function GM:PlayerNoClip( pl, on )
 	
-	if ( SinglePlayer() ) then return true end
+	if ( game.SinglePlayer() ) then return true end
 	
 	if pl:IsAdmin() or pl:IsSuperAdmin() then return true end
 	
@@ -84,7 +84,7 @@ end
 
 local function InitFiles(dir, realm)
 	realm = realm or getRealm(dir)
-	local fil, fol = file.Find(dir.."/*", "LUA")
+	local fil, fol = file.Find(dir.."--[[", "LUA")
 	for _, v in ipairs(fil) do
 		local fileRealm = realm and realm != REALM_SH and realm or getRealm(v)
 		if string.sub(v, 0, 1) == "#" then continue end

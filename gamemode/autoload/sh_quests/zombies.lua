@@ -15,7 +15,7 @@ QUEST.Start = function( ply )
 	
 	local zombie = table.Random( ents.FindByClass( "npc_zombie*" ) )
 	
-	if ValidEntity( zombie ) then
+	if IsValid( zombie ) then
 	
 		ply:SetRadarStaticTarget( zombie )
 	
@@ -88,7 +88,7 @@ QUEST.StatusThink = function( ply )
 	
 	end
 	
-	if not ValidEntity( ply:GetRadarTarget() ) and ply.QuestNum < 3 then
+	if not IsValid( ply:GetRadarTarget() ) and ply.QuestNum < 3 then
 	
 		local tbl = ents.FindByClass( "npc_zombie*" )
 		
@@ -96,7 +96,7 @@ QUEST.StatusThink = function( ply )
 	
 		local zombie = table.Random( tbl )
 	
-		if ValidEntity( zombie ) then
+		if IsValid( zombie ) then
 	
 			ply:SetRadarStaticTarget( zombie )
 			ply:Notify( "Another zombie's position has been marked on your radar." )

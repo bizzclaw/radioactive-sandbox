@@ -21,7 +21,7 @@ function ENT:Initialize()
 	
 	local phys = self.Entity:GetPhysicsObject()
 	
-	if ValidEntity( phys ) then
+	if IsValid( phys ) then
 	
 		phys:Wake()
 		phys:SetDamping( 0, 5 )
@@ -73,7 +73,7 @@ function ENT:Explode()
 	
 	end
 
-	if ValidEntity( self.Entity:GetOwner() ) then
+	if IsValid( self.Entity:GetOwner() ) then
 	
 		util.BlastDamage( self.Entity, self.Entity:GetOwner(), self.Entity:GetPos(), self.Radius, self.Damage )
 		

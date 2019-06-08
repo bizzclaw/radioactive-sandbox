@@ -135,7 +135,7 @@ function GM:SaveAllEnts()
 				
 					local phys = d:GetPhysicsObject()
 					
-					if ValidEntity( phys ) then
+					if IsValid( phys ) then
 				
 						table.insert( enttbl[k], { d:GetPos(), d:GetModel(), d:GetAngles(), phys:IsMoveable() } )
 						
@@ -185,7 +185,7 @@ function GM:LoadAllEnts()
 						
 						local phys = ent:GetPhysicsObject()
 						
-						if ValidEntity( phys ) and not d[4] then
+						if IsValid( phys ) and not d[4] then
 						
 							phys:EnableMotion( false )
 						
@@ -289,7 +289,7 @@ function GM:LootThink()
 
 	for k,v in pairs( ents.FindByClass( "prop_phys*" ) ) do
 	
-		if v.Removal and v.Removal < CurTime() and ValidEntity( v ) then
+		if v.Removal and v.Removal < CurTime() and IsValid( v ) then
 		
 			v:Remove()
 		
@@ -597,7 +597,7 @@ function GM:ArtifactThink()
 	
 		local chance = math.Rand(0,1)
 		
-		if chance < GAMEMODE.ArtifactRarity[ v:GetClass() ] and GAMEMODE:GetArtifacts() < GetConVar( "sv_radbox_max_artifacts" ):GetInt() and not ValidEntity( v:GetArtifact() ) then
+		if chance < GAMEMODE.ArtifactRarity[ v:GetClass() ] and GAMEMODE:GetArtifacts() < GetConVar( "sv_radbox_max_artifacts" ):GetInt() and not IsValid( v:GetArtifact() ) then
 		
 			local ent = ents.Create( link[ v:GetClass() ] )
 			ent:SetPos( v:GetPos() )
@@ -605,7 +605,7 @@ function GM:ArtifactThink()
 			
 			local phys = ent:GetPhysicsObject()
 			
-			if ValidEntity( phys ) then
+			if IsValid( phys ) then
 			
 				if v:GetClass() == "point_radiation" or v:GetClass() == "anomaly_electro" then
 				
@@ -720,7 +720,7 @@ function GM:PlayerDisconnected( pl )
 	
 		pl:DropLoot()
 	
-		if ValidEntity( pl:GetVehicle() ) then
+		if IsValid( pl:GetVehicle() ) then
 		
 			pl:GetVehicle():Remove()
 		
@@ -874,9 +874,9 @@ function GM:KeyRelease( ply, key )
 	
 	local tr = util.TraceLine( trace )
 
-	if ValidEntity( tr.Entity ) and tr.Entity:GetClass() == "prop_physics" then
+	if IsValid( tr.Entity ) and tr.Entity:GetClass() == "prop_physics" then
 	
-		if ValidEntity( ply.Stash ) then
+		if IsValid( ply.Stash ) then
 		
 			ply.Stash:OnExit( ply )
 			
@@ -887,9 +887,9 @@ function GM:KeyRelease( ply, key )
 		ply:AddToInventory( tr.Entity )
 		return true
 		
-	elseif ValidEntity( tr.Entity ) and table.HasValue( { "info_storage", "sent_lootbag", "point_stash", "npc_trader_army", "npc_trader_exodus", "npc_trader_bandoliers" }, tr.Entity:GetClass() ) then
+	elseif IsValid( tr.Entity ) and table.HasValue( { "info_storage", "sent_lootbag", "point_stash", "npc_trader_army", "npc_trader_exodus", "npc_trader_bandoliers" }, tr.Entity:GetClass() ) then
 	
-		if ValidEntity( ply.Stash ) then
+		if IsValid( ply.Stash ) then
 		
 			ply.Stash:OnExit( ply )
 		
@@ -899,9 +899,9 @@ function GM:KeyRelease( ply, key )
 		
 		end
 	
-	elseif not ValidEntity( tr.Entity ) then
+	elseif not IsValid( tr.Entity ) then
 	
-		if ValidEntity( ply.Stash ) then
+		if IsValid( ply.Stash ) then
 		
 			ply.Stash:OnExit( ply )
 		
@@ -913,7 +913,8 @@ function GM:KeyRelease( ply, key )
 
 end
 
-function GM:EntityTakeDamage( ent, inflictor, attacker, amount, dmginfo )
+function GM:EntityTakeDamage( ent, dmginfo )
+	local inflictor, attacker, amount = dmginfo:GetInflictor(), dmginfo:GetAttacker(), dmginfo:GetDamage()
 
 	if not ent:IsPlayer() and ent.IsItem then 
 
@@ -921,9 +922,6 @@ function GM:EntityTakeDamage( ent, inflictor, attacker, amount, dmginfo )
 		return
 		
 	end
-	
-	return self.BaseClass:EntityTakeDamage( ent, inflictor, attacker, amount, dmginfo )
-	
 end
 
 function GM:ScaleNPCDamage( npc, hitgroup, dmginfo )
@@ -952,7 +950,7 @@ end
 
 function GM:ScalePlayerDamage( ply, hitgroup, dmginfo )
 
-	if ValidEntity( ply.Stash ) and ( string.find( ply.Stash:GetClass(), "npc" ) or ply.Stash:GetClass() == "info_storage" ) then
+	if IsValid( ply.Stash ) and ( string.find( ply.Stash:GetClass(), "npc" ) or ply.Stash:GetClass() == "info_storage" ) then
 	
 		dmginfo:ScaleDamage( 0 )
 		
@@ -1008,13 +1006,13 @@ function GM:PlayerShouldTakeDamage( ply, attacker )
 
 	if ply:Team() == TEAM_UNASSIGNED then return false end
 	
-	if ValidEntity( ply.Stash ) and ( string.find( ply.Stash:GetClass(), "npc" ) or ply.Stash:GetClass() == "info_storage" ) then return false end --// player using a stash, dont let them die
+	if IsValid( ply.Stash ) and ( string.find( ply.Stash:GetClass(), "npc" ) or ply.Stash:GetClass() == "info_storage" ) then return false end --// player using a stash, dont let them die
 
 	if string.find( attacker:GetClass(), "npc" ) then return true end
 	
-	if ValidEntity( attacker ) and ply == attacker then return true end
+	if IsValid( attacker ) and ply == attacker then return true end
 	
-	if ValidEntity( attacker ) and attacker:IsPlayer() then return ( ply:Team() != attacker:Team() or GetConVar( "sv_radbox_team_dmg" ):GetBool() ) end --// team damage is convar controlled
+	if IsValid( attacker ) and attacker:IsPlayer() then return ( ply:Team() != attacker:Team() or GetConVar( "sv_radbox_team_dmg" ):GetBool() ) end --// team damage is convar controlled
 
 	return true
 	
@@ -1088,7 +1086,7 @@ concommand.Add( "cl_radbox_chatmode", GetChatMode )
 
 function SetPlayerAnimPose( ply, cmd, args )
 
-	if not ValidEntity( ply ) or not ValidEntity( ply:GetActiveWeapon() ) then return end
+	if not IsValid( ply ) or not IsValid( ply:GetActiveWeapon() ) then return end
 	
 	if not ply:GetActiveWeapon():GetClass() == "rad_hands" then return end
 	
@@ -1325,7 +1323,7 @@ function TakeItem( ply, cmd, args )
 	local id = tonumber( args[1] )
 	local count = math.Clamp( tonumber( args[2] ), 1, 100 )
 	
-	if not ValidEntity( ply.Stash ) or not table.HasValue( ply.Stash:GetItems(), id ) or string.find( ply.Stash:GetClass(), "npc" ) then return end
+	if not IsValid( ply.Stash ) or not table.HasValue( ply.Stash:GetItems(), id ) or string.find( ply.Stash:GetClass(), "npc" ) then return end
 	
 	local tbl = item.GetByID( id )
 	
@@ -1340,7 +1338,7 @@ function TakeItem( ply, cmd, args )
 	
 	local items = {}
 	
-	if ValidEntity( ply.Stash ) then
+	if IsValid( ply.Stash ) then
 	
 		for i=1, count do
 	
@@ -1367,7 +1365,7 @@ function StoreItem( ply, cmd, args )
 	local id = tonumber( args[1] )
 	local count = math.Clamp( tonumber( args[2] ), 1, 100 )
 	
-	if not ValidEntity( ply.Stash ) or not ply:HasItem( id ) or string.find( ply.Stash:GetClass(), "npc" ) then return end
+	if not IsValid( ply.Stash ) or not ply:HasItem( id ) or string.find( ply.Stash:GetClass(), "npc" ) then return end
 	
 	local tbl = item.GetByID( id )
 	
@@ -1419,7 +1417,7 @@ function SellItem( ply, cmd, args )
 	local id = tonumber( args[1] )
 	local count = math.Clamp( tonumber( args[2] ), 1, 100 )
 	
-	if not ValidEntity( ply.Stash ) or not string.find( ply.Stash:GetClass(), "npc" ) or not ply:HasItem( id ) then return end
+	if not IsValid( ply.Stash ) or not string.find( ply.Stash:GetClass(), "npc" ) or not ply:HasItem( id ) then return end
 	
 	local tbl = item.GetByID( id )
 	local cash = math.Round( ply.Stash:GetBuybackScale() * tbl.Price )
@@ -1471,7 +1469,7 @@ function BuyItem( ply, cmd, args )
 	local id = tonumber( args[1] )
 	local count = tonumber( args[2] )
 	
-	if not ValidEntity( ply.Stash ) or not string.find( ply.Stash:GetClass(), "npc" ) or not table.HasValue( ply.Stash:GetItems(), id ) then return end
+	if not IsValid( ply.Stash ) or not string.find( ply.Stash:GetClass(), "npc" ) or not table.HasValue( ply.Stash:GetItems(), id ) then return end
 	
 	local tbl = item.GetByID( id )
 	
@@ -1517,9 +1515,9 @@ concommand.Add( "inv_buy", BuyItem )
 
 function OpenStorageMenu( ply, cmd, args )
 
-	if not ValidEntity( ply.Stash ) or not string.find( ply.Stash:GetClass(), "npc_trader" ) then return end
+	if not IsValid( ply.Stash ) or not string.find( ply.Stash:GetClass(), "npc_trader" ) then return end
 
-	if not ValidEntity( ply.StorageBox ) then
+	if not IsValid( ply.StorageBox ) then
 	
 		ply.StorageBox = ents.Create( "info_storage" )
 		ply.StorageBox:SetPos( ply:GetPos() )
@@ -1560,7 +1558,7 @@ function StashCash( ply, cmd, args )
 
 	local amt = tonumber( args[1] )
 	
-	if not ValidEntity( ply.Stash ) or amt > ply:GetCash() or amt < 5 or string.find( ply.Stash:GetClass(), "npc" ) then return end
+	if not IsValid( ply.Stash ) or amt > ply:GetCash() or amt < 5 or string.find( ply.Stash:GetClass(), "npc" ) then return end
 	
 	ply:AddCash( -amt )
 	ply:SynchCash( ply.Stash:GetCash() + amt )
@@ -1574,7 +1572,7 @@ function TakeCash( ply, cmd, args )
 
 	local amt = tonumber( args[1] )
 	
-	if not ValidEntity( ply.Stash ) or amt > ply.Stash:GetCash() or amt < 5 or string.find( ply.Stash:GetClass(), "npc" ) then return end
+	if not IsValid( ply.Stash ) or amt > ply.Stash:GetCash() or amt < 5 or string.find( ply.Stash:GetClass(), "npc" ) then return end
 	
 	ply:AddCash( amt )
 	ply:SynchCash( ply.Stash:GetCash() - amt )
@@ -1586,7 +1584,7 @@ concommand.Add( "cash_take", TakeCash )
 
 function OpenNPCMenu( ply, cmd, args )
 
-	if not ValidEntity( ply.Stash ) or not string.find( ply.Stash:GetClass(), "npc_trader" ) then return end
+	if not IsValid( ply.Stash ) or not string.find( ply.Stash:GetClass(), "npc_trader" ) then return end
 
 	ply:ToggleStashMenu( ply.Stash, true, "StoreMenu", ply.Stash:GetBuybackScale() )
 
@@ -1596,7 +1594,7 @@ concommand.Add( "tradermenu", OpenNPCMenu )
 
 function CloseNPCMenu( ply, cmd, args )
 
-	if not ValidEntity( ply.Stash ) then return end
+	if not IsValid( ply.Stash ) then return end
 
 	ply.Stash:VoiceSound( ply.Stash.Goodbye )
 	ply:ToggleStashMenu( ply.Stash, false, "StoreMenu", ply.Stash:GetBuybackScale() )
@@ -1633,7 +1631,7 @@ concommand.Add( "sv_radbox_save_map_config", SaveGameItems )
 
 function MapSetupMode( ply, cmd, args )
 
-	if not ValidEntity( ply ) then 
+	if not IsValid( ply ) then 
 	
 		for k, ply in pairs( player.GetAll() ) do
 		
@@ -1665,7 +1663,7 @@ concommand.Add( "sv_radbox_dev_mode", MapSetupMode )
 
 function WipeDatabase( ply, cmd, args )
 
-	if not ply or ( ValidEntity( ply ) and ( ply:IsAdmin() or ply:IsSuperAdmin() ) ) then
+	if not ply or ( IsValid( ply ) and ( ply:IsAdmin() or ply:IsSuperAdmin() ) ) then
 	
 		db.Wipe()
 		db.Initialize()

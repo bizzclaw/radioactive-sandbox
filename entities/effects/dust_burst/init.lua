@@ -18,7 +18,7 @@ function EFFECT:Init( data )
 	
 		local particle = emitter:Add( "particle/particle_smokegrenade", pos )
 		particle:SetVelocity( vec * 100 )
-		particle:SetColor( col.r, col.g, col.b )
+		particle:SetColor( Color(col.r, col.g, col.b) )
 		particle:SetDieTime( 1.0 )
 		particle:SetStartAlpha( 100 )
 		particle:SetEndAlpha( 0 )
@@ -35,7 +35,7 @@ function EFFECT:Init( data )
 		particle:SetStartSize( math.Rand( 2, 4 ) )
 		particle:SetEndSize( 1 )
 		particle:SetRoll( math.random( -360, 360 ) )
-		particle:SetColor( 100, 100, 100 )
+		particle:SetColor( Color(100, 100, 100) )
 		particle:SetGravity( Vector( 0, 0, -300 ) )
 		
 	end

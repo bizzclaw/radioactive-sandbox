@@ -26,7 +26,7 @@ function ENT:Initialize()
 	
 	local phys = self.Entity:GetPhysicsObject()
 	
-	if ValidEntity( phys ) then
+	if IsValid( phys ) then
 	
 		phys:Wake()
 		phys:SetMaterial( "gmod_silent" )
@@ -73,7 +73,7 @@ function ENT:OnRemove()
 
 	for k,v in pairs( player.GetAll() ) do
 		
-		if ValidEntity( v ) and v:Alive() and self.Entity:GetPos():Distance( v:GetPos() ) < self.Distance then
+		if IsValid( v ) and v:Alive() and self.Entity:GetPos():Distance( v:GetPos() ) < self.Distance then
 			
 			local scale = 1 - math.Clamp( self.Entity:GetPos():Distance( v:GetPos() ) / self.Distance, 0, 1 ) 
 			

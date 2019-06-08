@@ -63,7 +63,7 @@ function ENT:Think()
 		particle:SetStartSize( math.random( 400, 800 ) )
 		particle:SetEndSize( 600 )
 		particle:SetRoll( roll )
-		particle:SetColor( 150, 150, 100 )
+		particle:SetColor( Color(150, 150, 100) )
 		
 		table.insert( self.SpawnTable, { CurTime() + 10, tr.HitPos, roll } )
 	
@@ -81,7 +81,7 @@ function ENT:Think()
 			particle:SetStartSize( 600 )
 			particle:SetEndSize( math.random( 400, 800 ) )
 			particle:SetRoll( v[3] )
-			particle:SetColor( 150, 150, 100 )
+			particle:SetColor( Color(150, 150, 100) )
 			
 			table.remove( self.SpawnTable, k )
 			

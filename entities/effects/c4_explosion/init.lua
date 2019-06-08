@@ -16,7 +16,7 @@ function EFFECT:Init( data )
 		particle:SetEndSize( math.Rand( 140, 240 ) )
 		particle:SetRoll( math.Rand( -95, 95 ) )
 		particle:SetRollDelta( math.Rand( -0.12, 0.12 ) )
-		particle:SetColor( 10,10,10 )
+		particle:SetColor( Color(10,10,10) )
 		
 	end
 	
@@ -31,7 +31,7 @@ function EFFECT:Init( data )
 		particle:SetEndSize( math.Rand( 90, 100 ) )
 		particle:SetRoll( math.Rand( -360, 360 ) )
 		particle:SetRollDelta( math.Rand( -1, 1 ) )
-		particle:SetColor( math.Rand( 150, 255 ), math.Rand( 100, 150 ), 100 )
+		particle:SetColor( Color(math.Rand( 150, 255 ), math.Rand( 100, 150 ), 100) )
 		particle:VelocityDecay( false )
 				
 	end
@@ -47,7 +47,7 @@ function EFFECT:Init( data )
 		particle:SetEndSize( math.Rand( 168, 190 ) )
 		particle:SetRoll( math.Rand( 360,480 ) )
 		particle:SetRollDelta( math.Rand( -1, 1 ) )
-		particle:SetColor( math.Rand( 150, 255 ), math.Rand( 100, 150 ), 100 )
+		particle:SetColor( Color(math.Rand( 150, 255 ), math.Rand( 100, 150 ), 100) )
 		particle:VelocityDecay( true )	
 				
 	end
@@ -63,7 +63,7 @@ function EFFECT:Init( data )
 		particle:SetEndSize(0)
 		particle:SetRoll(math.random(-200,200))
 		particle:SetRollDelta( math.random( -1, 1 ) )
-		particle:SetColor(255, 220, 100)
+		particle:(SetColorColor(255, 220, 100))
 		particle:SetGravity(Vector(0,0,-520)) --//-600 is normal
 		particle:SetCollide(true)
 		particle:SetBounce(0.45) 
@@ -92,7 +92,7 @@ function EFFECT:Init( data )
 		particle:SetRollDelta( math.Rand( -0.1, 0.1 ) )
 		
 		local dark = math.random( 10, 50 )
-		particle:SetColor( dark, dark, dark )
+		particle:SetColor( Color(dark, dark, dark) )
 		
 		if math.random(1,4) != 1 then
 			
@@ -105,7 +105,7 @@ function EFFECT:Init( data )
 			particle:SetEndAlpha( 100 )
 			particle:SetStartSize( 8 )
 			particle:SetEndSize( 0 )
-			particle:SetColor( math.random( 150, 255 ), math.random( 100, 150 ), 100 )
+			particle:SetColor( Color(math.random( 150, 255 ), math.random( 100, 150 ), 100) )
 			
 			particle:SetGravity( Vector( 0, 0, math.random( -700, -500 ) ) )
 			particle:SetAirResistance( math.random( 20, 60 ) )
@@ -169,7 +169,7 @@ function CloudThink( part )
 	particle:SetRollDelta( math.Rand( -0.1, 0.1 ) )
 	
 	local dark = math.random( 10, 50 )
-	particle:SetColor( dark, dark, dark )
+	particle:SetColor( Color(dark, dark, dark) )
 	
 	emitter:Finish()
 

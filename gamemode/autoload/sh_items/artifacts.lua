@@ -29,7 +29,7 @@ function FUNC_BLINK( ply, id, client )
 	ply:EmitSound( Sound( "ambient/levels/labs/teleport_weird_voices1.wav" ), 100, math.random(150,170) )
 	ply:TakeDamage( 15, ply )
 	
-	timer.Simple( 5, function( ply ) if ValidEntity( ply ) then ply:SetDSP( 0 ) end end, ply )
+	timer.Simple( 5, function( ply ) if IsValid( ply ) then ply:SetDSP( 0 ) end end, ply )
 	
 	umsg.Start( "Drunk", ply )
 	umsg.Short( 5 )

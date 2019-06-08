@@ -26,7 +26,7 @@ function ENT:Initialize()
 	
 	self.Entity:SetSolid( SOLID_BBOX ) 
 	self.Entity:SetMoveType( MOVETYPE_STEP )
-	self.Entity:CapabilitiesAdd( CAP_MOVE_GROUND | CAP_INNATE_MELEE_ATTACK1 ) 
+	self.Entity:CapabilitiesAdd( bit.bor(CAP_MOVE_GROUND, CAP_INNATE_MELEE_ATTACK1) ) 
 	
 	self.Entity:SetMaxYawSpeed( 5000 )
 	self.Entity:SetHealth( 100 )
@@ -51,7 +51,7 @@ function ENT:SpawnRagdoll( att )
 	
 	self.Entity:Fire( "BecomeRagdoll", "", 0 )
 	
-	if not ValidEntity( att ) or not att:IsPlayer() then return end
+	if not IsValid( att ) or not att:IsPlayer() then return end
 	
 	if math.random( 1, 4 ) == 1 then
 	
@@ -122,7 +122,7 @@ function ENT:FindEnemy()
 		
 			local compare = v:GetPos():Distance( self.Entity:GetPos() )
 			
-			if compare < dist and ( ( v:IsPlayer() and v:Alive() and v:Team() != TEAM_UNASSIGNED and not ValidEntity( v.Stash ) ) or string.find( v:GetClass(), "npc" ) ) then
+			if compare < dist and ( ( v:IsPlayer() and v:Alive() and v:Team() != TEAM_UNASSIGNED and not IsValid( v.Stash ) ) or string.find( v:GetClass(), "npc" ) ) then
 			
 				enemy = v
 				dist = compare
@@ -139,7 +139,7 @@ end
 
 function ENT:UpdateEnemy( enemy )
 
-	if ValidEntity( enemy ) and ( ( enemy:IsPlayer() and enemy:Alive() and not ValidEntity( enemy.Stash ) ) or string.find( enemy:GetClass(), "npc" ) ) then
+	if IsValid( enemy ) and ( ( enemy:IsPlayer() and enemy:Alive() and not IsValid( enemy.Stash ) ) or string.find( enemy:GetClass(), "npc" ) ) then
 		
 		self:SetEnemy( enemy, true ) 
 		self:UpdateEnemyMemory( enemy, enemy:GetPos() ) 
@@ -185,7 +185,7 @@ function ENT:Think()
 		self.AttackTime = nil
 		local enemy = self.Entity:GetEnemy()
 		
-		if ValidEntity( enemy ) and enemy:GetPos():Distance( self.Entity:GetPos() ) < 64 then
+		if IsValid( enemy ) and enemy:GetPos():Distance( self.Entity:GetPos() ) < 64 then
 		
 			enemy:TakeDamage( self.Damage, self.Entity )
 			
@@ -215,7 +215,7 @@ end
 
 function ENT:GetRelationship( entity )
 
-	if ValidEntity( entity ) and ( entity:IsPlayer() or entity:GetClass() == "npc_rogue" ) then return D_HT end
+	if IsValid( entity ) and ( entity:IsPlayer() or entity:GetClass() == "npc_rogue" ) then return D_HT end
 	
 	return D_LI
 	
@@ -226,7 +226,7 @@ function ENT:SelectSchedule()
 	local enemy = self.Entity:GetEnemy()
 	local sched = SCHED_IDLE_WANDER 
 	
-	if ValidEntity( enemy ) then
+	if IsValid( enemy ) then
 	
 		if self.Entity:HasCondition( 23 ) then --//  COND_CAN_MELEE_ATTACK1 
 		

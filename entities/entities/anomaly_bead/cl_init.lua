@@ -49,7 +49,7 @@ function ENT:Think()
  	particle:SetEndAlpha( 0 ) 
  	particle:SetStartSize( math.random( 4, 8 ) ) 
  	particle:SetEndSize( 0 ) 
- 	particle:SetColor( 255, 255, 255 )
+ 	particle:SetColor( Color(255, 255, 255) )
 	particle:SetAirResistance( 10 )
 	
 end

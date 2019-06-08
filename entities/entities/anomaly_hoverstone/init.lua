@@ -37,7 +37,7 @@ function ENT:Initialize()
 	
 	local phys = self.Entity:GetPhysicsObject()
 	
-	if ValidEntity( phys ) then
+	if IsValid( phys ) then
 	
 		phys:SetMaterial( "wood" )
 		phys:Wake()
@@ -112,7 +112,7 @@ function ENT:Think()
 	
 		local phys = self.Entity:GetPhysicsObject()
 	
-		if ValidEntity( phys ) then
+		if IsValid( phys ) then
 	
 			phys:Wake()
 
@@ -128,7 +128,7 @@ function ENT:OnTakeDamage( dmg )
 	
 		local phys = self.Entity:GetPhysicsObject()
 		
-		if ValidEntity( phys ) then
+		if IsValid( phys ) then
 		
 			phys:ApplyForceCenter( VectorRand() * ( phys:GetMass() * self.Scale * 2 ) )
 		

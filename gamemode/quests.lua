@@ -15,7 +15,7 @@ end
 
 function StartQuest( ply, cmg, args )
 
-	if not ValidEntity( ply.Stash ) or not string.find( ply.Stash:GetClass(), "npc_trader" ) then return end
+	if not IsValid( ply.Stash ) or not string.find( ply.Stash:GetClass(), "npc_trader" ) then return end
 	
 	ply.Stash:VoiceSound( ply.Stash.Goodbye )
 	ply:ToggleStashMenu( ply.Stash, false, "StoreMenu", ply.Stash:GetBuybackScale() )
@@ -40,7 +40,7 @@ concommand.Add( "startquest", StartQuest )
 
 function EndQuest( ply, cmd, args ) 
 
-	if not ValidEntity( ply.Stash ) or not string.find( ply.Stash:GetClass(), "npc_trader" ) then return end
+	if not IsValid( ply.Stash ) or not string.find( ply.Stash:GetClass(), "npc_trader" ) then return end
 	
 	local quest = GAMEMODE:GetQuest( ply:GetQuestID() )
 	
@@ -59,7 +59,7 @@ concommand.Add( "cancelquest", EndQuest )
 
 function EndQuest( ply, cmd, args ) 
 
-	if not ValidEntity( ply.Stash ) or not string.find( ply.Stash:GetClass(), "npc_trader" ) then return end
+	if not IsValid( ply.Stash ) or not string.find( ply.Stash:GetClass(), "npc_trader" ) then return end
 	
 	local quest = GAMEMODE:GetQuest( ply:GetQuestID() )
 	

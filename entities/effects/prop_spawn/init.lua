@@ -3,10 +3,10 @@
 local matRefract = Material( "models/spawn_effect" )
 local matLight	 = Material( "models/spawn_effect2" )
 
-/*---------------------------------------------------------
+--[[---------------------------------------------------------
    Initializes the effect. The data is a table of data 
    which was passed from the server.
----------------------------------------------------------*/
+---------------------------------------------------------]]
 function EFFECT:Init( data )
 	
 	self.Time = 2
@@ -24,10 +24,10 @@ function EFFECT:Init( data )
 end
 
 
-/*---------------------------------------------------------
+--[[---------------------------------------------------------
    THINK
    Returning false makes the entity die
----------------------------------------------------------*/
+---------------------------------------------------------]]
 function EFFECT:Think( )
 
 	if (!self.ParentEntity || !self.ParentEntity:IsValid()) then return false end
@@ -41,9 +41,9 @@ end
 
 
 
-/*---------------------------------------------------------
+--[[---------------------------------------------------------
    Draw the effect
----------------------------------------------------------*/
+---------------------------------------------------------]]
 function EFFECT:Render()
 	
 	--// What fraction towards finishing are we at
@@ -54,7 +54,7 @@ function EFFECT:Render()
 	ColFrac =  math.Clamp( ColFrac, 0, 1 )
 	
 	--// Change our model's alpha so the texture will fade out
-	self:SetColor( 255, 255, 255, 1 + 254 * (ColFrac) )
+	self:SetColor( Color(255, 255, 255, 1 + 254 * (ColFrac)) )
 	
 	--// Place the camera a tiny bit closer to the entity.
 	--// It will draw a big bigger and we will skip any z buffer problems
@@ -71,9 +71,9 @@ function EFFECT:Render()
 		--// This is the underlying blue effect and it doubles as the DX7 only effect
 		if ( ColFrac > 0 ) then
 		
-			SetMaterialOverride( matLight )
+			render.MaterialOverride( matLight )
 				self:DrawModel()
-			SetMaterialOverride( 0 )
+			render.MaterialOverride( 0 )
 			
 		end
 		
@@ -86,9 +86,9 @@ function EFFECT:Render()
 			matRefract:SetMaterialFloat( "$refractamount", Fraction * 0.1 )
 		
 			--// Draw model with refraction texture
-			SetMaterialOverride( matRefract )
+			render.MaterialOverride( matRefract )
 				self:DrawModel()
-			SetMaterialOverride( 0 )
+			render.MaterialOverride( 0 )
 		
 		end
 	

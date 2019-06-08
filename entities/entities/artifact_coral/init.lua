@@ -14,7 +14,7 @@ function ENT:Initialize()
 	
 	local phys = self.Entity:GetPhysicsObject()
 	
-	if ValidEntity( phys ) then
+	if IsValid( phys ) then
 
 		phys:SetDamping( 20, 20 )
 		phys:Wake()

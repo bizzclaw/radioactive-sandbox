@@ -45,7 +45,7 @@ function RegisterLuaAnimation(sName, tInfo)
 	Animations[sName] = tInfo
 end
 
-/* EXAMPLES!
+--[[ EXAMPLES!
 
 -- If your animation is only used on one model, use numbers instead of bone names (cache the lookup).
 -- If it's being used on a wide array of models (including default player models) then you should use bone names.
@@ -164,4 +164,4 @@ RegisterLuaAnimation("staffholdspell", {
 	end
 })
 
-*/
+]]

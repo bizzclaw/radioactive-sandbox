@@ -34,7 +34,7 @@ function ENT:Think()
 		particle:SetStartSize( math.Rand( 5, 10 ) )
 		particle:SetEndSize( 1 )
 		particle:SetRoll( math.random( -360, 360 ) )
-		particle:SetColor( 100, 100, 100 )
+		particle:SetColor( Color(100, 100, 100) )
 		particle:SetAirResistance( math.random( 0, 15 ) )
 		particle:SetThinkFunction( DustThink )
 		particle:SetNextThink( CurTime() + 0.1 )
@@ -62,7 +62,7 @@ function ENT:Think()
 			
 				local phys = v:GetPhysicsObject()
 				
-				if ValidEntity( phys ) then
+				if IsValid( phys ) then
 				
 					local vel = ( self.VortexPos - v:GetPos() ):Normalize()
 					local scale = math.Clamp( ( 3000 - v:GetPos():Distance( self.VortexPos ) ) / 3000, 0.6, 1.0 )

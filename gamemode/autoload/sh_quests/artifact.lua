@@ -65,13 +65,13 @@ QUEST.Start = function( ply )
 	
 	if ply:Team() == TEAM_EXODUS then
 	
-		timer.Simple( 3, function( ply ) if ValidEntity( ply ) then ply:Notify( "I suggest that you buy a Field Detector Module for this mission." ) end end, ply )
-		timer.Simple( 6, function( ply ) if ValidEntity( ply ) then ply:Notify( "Once you find an artifact, bring it to me and I will analyze its properties." ) end end, ply )
+		timer.Simple( 3, function( ply ) if IsValid( ply ) then ply:Notify( "I suggest that you buy a Field Detector Module for this mission." ) end end, ply )
+		timer.Simple( 6, function( ply ) if IsValid( ply ) then ply:Notify( "Once you find an artifact, bring it to me and I will analyze its properties." ) end end, ply )
 		
 	else
 	
-		timer.Simple( 3, function( ply ) if ValidEntity( ply ) then ply:Notify( "I suggest that you get a Field Detector Module for this mission." ) end end, ply )
-		timer.Simple( 6, function( ply ) if ValidEntity( ply ) then ply:Notify( "Your payment will depend on the rarity of the artifact you bring me." ) end end, ply )
+		timer.Simple( 3, function( ply ) if IsValid( ply ) then ply:Notify( "I suggest that you get a Field Detector Module for this mission." ) end end, ply )
+		timer.Simple( 6, function( ply ) if IsValid( ply ) then ply:Notify( "Your payment will depend on the rarity of the artifact you bring me." ) end end, ply )
 	
 	end
 	
@@ -204,11 +204,11 @@ QUEST.End = function( ply )
 	
 	if ply:Team() == TEAM_EXODUS then
 	
-		timer.Simple( 60, function( ply ) if ValidEntity( ply ) then ply:Notify( "The artifact analysis process is nearly done." ) end end, ply )
+		timer.Simple( 60, function( ply ) if IsValid( ply ) then ply:Notify( "The artifact analysis process is nearly done." ) end end, ply )
 		
 		for k,v in pairs( QUEST.ItemDesc[ model ] ) do
 		
-			timer.Simple( 80 + k * 4, function( ply ) if ValidEntity( ply ) then ply:Notify( v ) end end, ply )
+			timer.Simple( 80 + k * 4, function( ply ) if IsValid( ply ) then ply:Notify( v ) end end, ply )
 		
 		end
 	

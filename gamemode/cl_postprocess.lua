@@ -193,7 +193,7 @@ function DrawPlayerRenderEffects()
 			render.SetColorModulation( 0.5, 1.0, 0.5 )
 			render.SetBlend( NightVisionScale * 0.25 )
 	
-			SetMaterialOverride( MaterialWhite )
+			render.MaterialOverride( MaterialWhite )
  
 			cam.IgnoreZ( false )
  
@@ -202,7 +202,7 @@ function DrawPlayerRenderEffects()
 			render.SuppressEngineLighting( false )
 			render.SetColorModulation( 1, 1, 1 )
 			render.SetBlend( 1 )
-			SetMaterialOverride( 0 )
+			render.MaterialOverride( 0 )
 
 		end
 	
@@ -277,7 +277,7 @@ function GM:CalcView( ply, origin, angle, fov )
 	
 		local rag = ply:GetRagdollEntity()
 		
-		if ValidEntity( rag ) then
+		if IsValid( rag ) then
 			
 			local eyes = rag:LookupAttachment( "eyes" )
 			local tbl = rag:GetAttachment( eyes )

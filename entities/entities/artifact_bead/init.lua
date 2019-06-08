@@ -21,7 +21,7 @@ function ENT:Initialize()
 	
 	local phys = self.Entity:GetPhysicsObject()
 	
-	if ValidEntity( phys ) then
+	if IsValid( phys ) then
 	
 		phys:Wake()
 		phys:SetMaterial( "gmod_silent" )

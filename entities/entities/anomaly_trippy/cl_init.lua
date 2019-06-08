@@ -39,7 +39,7 @@ function ENT:Think()
 	
 		local particle = self.Emitter:Add( "sprites/light_glow02_add", newpos )
 		particle:SetVelocity( Vector(0,0,-50) )
-		particle:SetColor( math.random(1,255), math.random(1,255), math.random(1,255) )
+		particle:SetColor( Color(math.random(1,255), math.random(1,255), math.random(1,255)) )
 		particle:SetDieTime( 1.5 )
 		particle:SetStartAlpha( 200 )
 		particle:SetEndAlpha( 0 )

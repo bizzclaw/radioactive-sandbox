@@ -14,7 +14,7 @@ function EFFECT:Init( data )
 			
 		local particle = emitter:Add( "effects/yellowflare", pos )
 		particle:SetVelocity( Vector(0,0,0) )
-		particle:SetColor( 150, 0, 255 )
+		particle:SetColor( Color(150, 0, 255) )
 		particle:SetDieTime( math.Rand( 2.0, 4.0 ) )
 		particle:SetStartAlpha( 255 )
 		particle:SetEndAlpha( 0 )

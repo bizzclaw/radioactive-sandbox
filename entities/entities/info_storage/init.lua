@@ -92,7 +92,7 @@ end
 
 function ENT:Synch()
 
-	if ValidEntity( self.Entity:GetUser() ) then
+	if IsValid( self.Entity:GetUser() ) then
 	
 		self.Entity:GetUser():SynchCash( self.Cash )
 		self.Entity:GetUser():SynchStash( self.Entity )

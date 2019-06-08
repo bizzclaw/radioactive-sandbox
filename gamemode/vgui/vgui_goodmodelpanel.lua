@@ -1,11 +1,11 @@
-/*   _                                
+--[[   _                                
     ( )                               
    _| |   __   _ __   ___ ___     _ _ 
  /'_` | /'__`\( '__)/' _ ` _ `\ /'_` )
 ( (_| |(  ___/| |   | ( ) ( ) |( (_| |
 `\__,_)`\____)(_)   (_) (_) (_)`\__,_) sucks shit
 
-*/
+]]
 local PANEL = {}
 
 AccessorFunc( PANEL, "m_fAnimSpeed", 	"AnimSpeed" )
@@ -150,7 +150,7 @@ function PANEL:Paint()
 		end
 	end
 	
-	if ValidEntity( self.Entity ) then
+	if IsValid( self.Entity ) then
 	
 		self.Entity:DrawModel()
 		

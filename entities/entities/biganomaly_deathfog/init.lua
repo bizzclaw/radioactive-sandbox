@@ -59,7 +59,7 @@ function ENT:Initialize()
 		
 		local phys = ent:GetPhysicsObject()
 		
-		if ValidEntity( phys ) then
+		if IsValid( phys ) then
 		
 			phys:SetDamping( 20, 20 )
 			phys:Wake()
@@ -84,9 +84,9 @@ function ENT:Think()
 	
 	if self.KillTime < CurTime() then
 	
-		if ValidEntity( self.Artifact ) then
+		if IsValid( self.Artifact ) then
 		
-			timer.Simple( 30, function( ent ) if ValidEntity( ent ) then ent:Remove() end end, self.Artifact )
+			timer.Simple( 30, function( ent ) if IsValid( ent ) then ent:Remove() end end, self.Artifact )
 		
 		end
 	

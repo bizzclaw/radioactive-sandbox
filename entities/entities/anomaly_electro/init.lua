@@ -117,9 +117,9 @@ function ENT:Explode()
 	
 		if v:GetPos():Distance( self.Entity:GetPos() ) < self.ZapRadius and not tr.HitWorld and v != self.Entity:GetArtifact() then
 			
-			if ( v:IsPlayer() and not ValidEntity( v:GetVehicle() ) ) or not v:IsPlayer() then
+			if ( v:IsPlayer() and not IsValid( v:GetVehicle() ) ) or not v:IsPlayer() then
 			
-				if v:IsPlayer() and not ValidEntity( v:GetVehicle() ) then
+				if v:IsPlayer() and not IsValid( v:GetVehicle() ) then
 			
 					v.Inventory = {}
 			

@@ -90,7 +90,7 @@ end
 
 function GM:HUDDrawTargetID()
 
-	if not ValidEntity( LocalPlayer() ) then return end
+	if not IsValid( LocalPlayer() ) then return end
 	if not LocalPlayer():Alive() then return end
 	
 	if not F3Item:IsVisible() and LocalPlayer():GetNWBool( "InIron", false ) == false then
@@ -104,13 +104,13 @@ function GM:HUDDrawTargetID()
 	
 	local tr = util.TraceLine( util.GetPlayerTrace( LocalPlayer() ) )
 	
-	if ValidEntity( tr.Entity ) and tr.Entity:GetPos():Distance( LocalPlayer():GetPos() ) < 1000 then
+	if IsValid( tr.Entity ) and tr.Entity:GetPos():Distance( LocalPlayer():GetPos() ) < 1000 then
 	
 		GAMEMODE:GetEntityID( tr.Entity )
 		
 	end
 	
-	if ValidEntity( TargetedEntity ) and ( !TargetedEntity:IsPlayer() or TargetedEntity:Alive() ) and TargetedTime > CurTime() then
+	if IsValid( TargetedEntity ) and ( !TargetedEntity:IsPlayer() or TargetedEntity:Alive() ) and TargetedTime > CurTime() then
 
 		if string.find( TargetedEntity:GetClass(), "npc" ) or TargetedEntity:IsPlayer() then
 			
@@ -133,7 +133,7 @@ end
 
 function GM:GetPlayerGayName( ply, name )
 
-	if not ValidEntity( LocalPlayer() ) then return "" end
+	if not IsValid( LocalPlayer() ) then return "" end
 
 	if GetConVar( "sv_radbox_custom_names" ):GetBool() and ply:GetNWString( "GayName", "" ) != "" then
 	
@@ -265,7 +265,7 @@ end
 
 function GM:OnPlayerChat( ply, text, isteam, isdead )
 
-	if not ValidEntity( ply ) or not GetConVar( "sv_radbox_roleplay" ):GetBool() then return self.BaseClass:OnPlayerChat( ply, text, isteam, isdead ) end
+	if not IsValid( ply ) or not GetConVar( "sv_radbox_roleplay" ):GetBool() then return self.BaseClass:OnPlayerChat( ply, text, isteam, isdead ) end
 
 	for k,v in pairs{ GAMEMODE.ChatModes.LocalMe, GAMEMODE.ChatModes.Whisper, GAMEMODE.ChatModes.Radio, GAMEMODE.ChatModes.Local } do
 

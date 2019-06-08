@@ -81,7 +81,7 @@ end
 
 QUEST.Cancel = function( ply )
 
-	if ValidEntity( ply.QuestLoot ) then
+	if IsValid( ply.QuestLoot ) then
 	
 		ply.QuestLoot:Remove()
 	
@@ -110,7 +110,7 @@ QUEST.StatusThink = function( ply )
 		ply.QuestNPC = ent
 		ply.QuestPos = nil
 		
-		if ValidEntity( ply.QuestLoot ) then
+		if IsValid( ply.QuestLoot ) then
 	
 			ply.QuestLoot:Remove()
 	
@@ -124,7 +124,7 @@ QUEST.StatusThink = function( ply )
 	
 	end
 
-	if not ValidEntity( ply.QuestNPC ) and not ply.QuestStatusChange then
+	if not IsValid( ply.QuestNPC ) and not ply.QuestStatusChange then
 	
 		ply:Notify( "The rogue is dead? Good. Come see me as soon as possible." )
 		ply:SetRadarStaticTarget( ply:GetTeamTrader() )
@@ -136,7 +136,7 @@ end
 
 QUEST.CanEnd = function( ply )
 
-	if not ValidEntity( ply.QuestNPC ) and not ply.QuestPos then 
+	if not IsValid( ply.QuestNPC ) and not ply.QuestPos then 
 	
 		return true
 	

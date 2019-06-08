@@ -46,7 +46,7 @@ end
 
 function ENT:Think() 
 	
-	if not ValidEntity( self.Entity:GetUser() ) then return end
+	if not IsValid( self.Entity:GetUser() ) then return end
 	
 	if not self.Entity:GetUser():Alive() then
 	
@@ -92,7 +92,7 @@ function ENT:OnExit( ply )
 	
 	self.LastUse = CurTime() + 1.0
 	
-	if ValidEntity( self.Entity:GetUser() ) then
+	if IsValid( self.Entity:GetUser() ) then
 	
 		self.Entity:SetUser()
 		ply:ToggleStashMenu( self.Entity, false, "StashMenu" )
@@ -107,9 +107,9 @@ function ENT:OnUsed( ply )
 	
 	self.LastUse = CurTime() + 1.0
 
-	if ValidEntity( self.Entity:GetUser() ) and self.Entity:GetUser() != ply then return end
+	if IsValid( self.Entity:GetUser() ) and self.Entity:GetUser() != ply then return end
 	
-	if not ValidEntity( self.Entity:GetUser() ) then
+	if not IsValid( self.Entity:GetUser() ) then
 	
 		ply:SynchCash( self.Cash )
 	
@@ -160,7 +160,7 @@ end
 
 function ENT:Synch()
 
-	if ValidEntity( self.Entity:GetUser() ) then
+	if IsValid( self.Entity:GetUser() ) then
 			
 		self.Entity:GetUser():SynchStash( self.Entity )
 			

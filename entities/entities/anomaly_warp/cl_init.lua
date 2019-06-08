@@ -20,7 +20,7 @@ function ENT:Think()
 	
 		local particle = self.Emitter:Add( "effects/yellowflare", self.Pos + VectorRand() * 20 )
 		particle:SetVelocity( VectorRand() * 150 )
-		particle:SetColor( 150, 0, 255 )
+		particle:SetColor( Color(150, 0, 255) )
 		particle:SetDieTime( 5 )
 		particle:SetStartAlpha( 255 )
 		particle:SetEndAlpha( 0 )

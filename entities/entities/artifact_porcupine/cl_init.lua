@@ -27,7 +27,7 @@ function ENT:Think()
 
 		local particle = self.Emitter:Add( "effects/spark", self.Entity:GetPos() + VectorRand() * 5 )
 		particle:SetVelocity( Vector(0,0,0) )
-		particle:SetColor( 200, 200, 255 )
+		particle:SetColor( Color(200, 200, 255) )
 		particle:SetDieTime( 0.5 )
 		particle:SetStartAlpha( 200 )
 		particle:SetEndAlpha( 0 )

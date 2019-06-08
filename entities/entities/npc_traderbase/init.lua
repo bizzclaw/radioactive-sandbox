@@ -18,7 +18,7 @@ function ENT:Initialize()
 	
 	self.Entity:SetMaxYawSpeed( 5000 )
 	
-	self.Entity:CapabilitiesAdd( CAP_ANIMATEDFACE | CAP_TURN_HEAD )
+	self.Entity:CapabilitiesAdd( bit.bor(CAP_ANIMATEDFACE, CAP_TURN_HEAD) )
 	
 	self.Entity:DropToFloor()
 	

@@ -600,7 +600,7 @@ function SWEP:ShootBullets( damage, numbullets, aimcone, zoommode )
 		
 			dmginfo:ScaleDamage( self:GetDamageFalloffScale( tr.HitPos:Distance( self.Owner:GetShootPos() ) ) )
 
-			if ValidEntity( tr.Entity ) and tr.Entity:IsPlayer() then return end
+			if IsValid( tr.Entity ) and tr.Entity:IsPlayer() then return end
 		
 			self.Weapon:BulletPenetration( attacker, tr, dmginfo, 0 )
 
@@ -640,9 +640,9 @@ end
 
 function SWEP:BulletPenetration( attacker, tr, dmginfo, bounce )
 
-	if ( !self or !ValidEntity( self.Weapon ) ) then return end
+	if ( !self or !IsValid( self.Weapon ) ) then return end
 	
-	if ValidEntity( tr.Entity ) and string.find( tr.Entity:GetClass(), "npc" ) then		
+	if IsValid( tr.Entity ) and string.find( tr.Entity:GetClass(), "npc" ) then		
 	
 		local effectdata = EffectData()		
 		effectdata:SetOrigin( tr.HitPos )		
@@ -700,7 +700,7 @@ function SWEP:BulletPenetration( attacker, tr, dmginfo, bounce )
 		
 		if SERVER and tr.MatType != MAT_FLESH then
 	
-			WorldSound( table.Random( GAMEMODE.Ricochet ), tr.HitPos, 100, math.random(90,120) )
+			sound.Play( table.Random( GAMEMODE.Ricochet ), tr.HitPos, 100, math.random(90,120) )
 	
 		end
 		
@@ -710,7 +710,7 @@ end
 
 function SWEP:ShouldNotDraw()
 
-	if ValidEntity( self.Owner:GetVehicle() ) then
+	if IsValid( self.Owner:GetVehicle() ) then
 	
 		return true
 	

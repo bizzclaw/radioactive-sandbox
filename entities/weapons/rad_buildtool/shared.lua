@@ -219,7 +219,7 @@ function SWEP:Think()
 		
 		end
 		
-		if ValidEntity( closest ) then
+		if IsValid( closest ) then
 		
 			closest:Remove()
 			
@@ -237,7 +237,7 @@ function SWEP:Reload()
 	
 	for k,v in pairs( ents.FindByClass( "prop_physics" ) ) do
 	
-		if ValidEntity( v.Placer ) and v.Placer == self.Owner then
+		if IsValid( v.Placer ) and v.Placer == self.Owner then
 	
 			v:Remove()
 			
@@ -271,7 +271,7 @@ function SWEP:PlaceItem()
 	
 	for k,v in pairs( ents.FindByClass( "prop_physics" ) ) do
 	
-		if ValidEntity( v.Placer ) and v.Placer == self.Owner then
+		if IsValid( v.Placer ) and v.Placer == self.Owner then
 		
 			count = count + 1
 		

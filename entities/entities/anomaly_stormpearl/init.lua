@@ -36,7 +36,7 @@ function ENT:Initialize()
 	
 	local phys = self.Entity:GetPhysicsObject()
 	
-	if ValidEntity( phys ) then
+	if IsValid( phys ) then
 	
 		phys:Wake()
 
@@ -58,7 +58,7 @@ function ENT:OnTakeDamage( dmg )
 
 	local phys = self.Entity:GetPhysicsObject()
 	
-	if ValidEntity( phys ) then
+	if IsValid( phys ) then
 	
 		phys:ApplyForceCenter( ( self.Entity:GetPos() - dmg:GetDamagePosition() ):Normalize() * dmg:GetDamageForce() * 2 )
 	
@@ -85,7 +85,7 @@ function ENT:OnRemove()
 
 	for k,v in pairs( player.GetAll() ) do
 		
-		if ValidEntity( v ) and v:Alive() and self.Entity:GetPos():Distance( v:GetPos() ) < 1000 then
+		if IsValid( v ) and v:Alive() and self.Entity:GetPos():Distance( v:GetPos() ) < 1000 then
 			
 			local scale = 1 - math.Clamp( self.Entity:GetPos():Distance( v:GetPos() ) / 1000, 0, 1 ) 
 			
@@ -118,7 +118,7 @@ function ENT:OnRemove()
 		prop:SetPos( self.Entity:GetPos() + Vector(0,0,10) )
 		prop:Spawn()
 		
-		timer.Simple( 60, function( ent ) if ValidEntity( ent ) then ent:Remove() end end, prop )
+		timer.Simple( 60, function( ent ) if IsValid( ent ) then ent:Remove() end end, prop )
 	
 	end
 
@@ -142,7 +142,7 @@ function ENT:Think()
 	
 		for k,v in pairs( player.GetAll() ) do
 	
-			if ValidEntity( v ) and table.HasValue( self.Target, v ) then
+			if IsValid( v ) and table.HasValue( self.Target, v ) then
 		
 				v:SetDSP( 0, false ) 
 
@@ -156,7 +156,7 @@ function ENT:Think()
 
 	for k,v in pairs( player.GetAll() ) do
 	
-		if ValidEntity( v ) and v:GetPos():Distance( self.Entity:GetPos() ) < self.Distance and not table.HasValue( self.Target, v ) then
+		if IsValid( v ) and v:GetPos():Distance( self.Entity:GetPos() ) < self.Distance and not table.HasValue( self.Target, v ) then
 		
 			table.insert( self.Target, v )
 		
@@ -166,7 +166,7 @@ function ENT:Think()
 	
 	for k,v in pairs( player.GetAll() ) do
 	
-		if ValidEntity( v ) and v:GetPos():Distance( self.Entity:GetPos() ) >= self.Distance and table.HasValue( self.Target, v ) then
+		if IsValid( v ) and v:GetPos():Distance( self.Entity:GetPos() ) >= self.Distance and table.HasValue( self.Target, v ) then
 			
 			table.remove( self.Target, k )
 			
@@ -178,7 +178,7 @@ function ENT:Think()
 	
 	for k,v in pairs( self.Target ) do
 		
-		if ValidEntity( v ) and v:Alive() then
+		if IsValid( v ) and v:Alive() then
 			
 			local scale = 1 - math.Clamp( self.Entity:GetPos():Distance( v:GetPos() ) / self.Distance, 0, 1 ) 
 			

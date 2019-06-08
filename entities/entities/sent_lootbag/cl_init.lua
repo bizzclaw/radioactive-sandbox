@@ -7,7 +7,7 @@ end
 
 function ENT:Draw()
 
-	if ValidEntity( self.Entity:GetNWEntity( "QuestOwner", nil ) ) and self.Entity:GetNWEntity( "QuestOwner", nil ) != LocalPlayer() then return end
+	if IsValid( self.Entity:GetNWEntity( "QuestOwner", nil ) ) and self.Entity:GetNWEntity( "QuestOwner", nil ) != LocalPlayer() then return end
 
 	self.Entity:DrawModel()
 	

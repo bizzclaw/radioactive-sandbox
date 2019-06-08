@@ -26,7 +26,7 @@ function ENT:Think()
 		self.NextPart = CurTime() + 1.5
 
 		local particle = self.Emitter:Add( "particle/particle_smokegrenade", self.Entity:GetPos() + VectorRand() * 5 )
-		particle:SetColor( 150, 150, 100 )
+		particle:SetColor( Color(150, 150, 100) )
 		particle:SetDieTime( 0.5 )
 		particle:SetStartAlpha( 200 )
 		particle:SetEndAlpha( 0 )

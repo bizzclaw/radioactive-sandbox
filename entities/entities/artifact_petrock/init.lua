@@ -14,7 +14,7 @@ function ENT:Initialize()
 	
 	local phys = self.Entity:GetPhysicsObject()
 	
-	if ValidEntity( phys ) then
+	if IsValid( phys ) then
 	
 		phys:SetMaterial( "wood" )
 		phys:Wake()
@@ -84,7 +84,7 @@ function ENT:Think()
 	
 		local phys = self.Entity:GetPhysicsObject()
 	
-		if ValidEntity( phys ) then
+		if IsValid( phys ) then
 	
 			phys:Wake()
 

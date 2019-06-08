@@ -320,7 +320,7 @@ hook.Add( "InitPostEntity", "DAYCYCLE.PostEntInit",
 		DAYCYCLE.Sun = ents.FindByClass( "env_sun" )[1] 
 		DAYCYCLE.FogControl = ents.FindByClass( "env_fog_controller" )[1] 
 			
-		if not ValidEntity( DAYCYCLE.Sun ) then
+		if not IsValid( DAYCYCLE.Sun ) then
 			
 			DAYCYCLE.Sun = ents.Create( "env_sun" )
 			DAYCYCLE.Sun:SetKeyValue( "pitch", "90" )
@@ -333,7 +333,7 @@ hook.Add( "InitPostEntity", "DAYCYCLE.PostEntInit",
 			
 		DAYCYCLE.ShadowControl = ents.FindByClass( "shadow_control" )[1]
 			
-		if not ValidEntity( DAYCYCLE.ShadowControl ) then
+		if not IsValid( DAYCYCLE.ShadowControl ) then
 			
 			DAYCYCLE.ShadowControl = ents.Create( "shadow_control" )
 			DAYCYCLE.ShadowControl:Spawn()

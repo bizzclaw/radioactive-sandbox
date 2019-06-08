@@ -80,7 +80,7 @@ end
 
 QUEST.Cancel = function( ply )
 
-	if ValidEntity( ply.QuestBag ) then
+	if IsValid( ply.QuestBag ) then
 	
 		ply.QuestBag:Remove()
 	

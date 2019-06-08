@@ -116,7 +116,7 @@ end
 
 function meta:SetBleeding( bool )
 
-	if bool and ValidEntity( self.Stash ) and ( string.find( self.Stash:GetClass(), "npc" ) or self.Stash:GetClass() == "info_storage" ) then return end
+	if bool and IsValid( self.Stash ) and ( string.find( self.Stash:GetClass(), "npc" ) or self.Stash:GetClass() == "info_storage" ) then return end
 
 	self:SetNWBool( "Bleeding", bool )
 	
@@ -577,7 +577,7 @@ function meta:AddToInventory( prop )
 	
 		if not tbl.PickupFunction( self, tbl.ID ) then 
 		
-			if ValidEntity( prop ) then
+			if IsValid( prop ) then
 	
 				prop:Remove()
 	
@@ -592,7 +592,7 @@ function meta:AddToInventory( prop )
 	table.insert( self.Inventory, tbl.ID )
 	self:AddWeight( tbl.Weight )
 	
-	if ValidEntity( prop ) then
+	if IsValid( prop ) then
 	
 		prop:Remove()
 	
@@ -745,7 +745,7 @@ end
 
 function meta:OnDeath()
 
-	if ValidEntity( self.Stash ) then
+	if IsValid( self.Stash ) then
 	
 		self:ToggleStashMenu( self.Stash, false, "StashMenu" )
 	

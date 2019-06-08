@@ -37,7 +37,7 @@ function ENT:Initialize()
 	
 	self.Entity:SetSolid( SOLID_BBOX ) 
 	self.Entity:SetMoveType( MOVETYPE_STEP )
-	self.Entity:CapabilitiesAdd( CAP_MOVE_GROUND | CAP_INNATE_MELEE_ATTACK1 | CAP_MOVE_JUMP | CAP_MOVE_CLIMB )
+	self.Entity:CapabilitiesAdd( bit.bot(CAP_MOVE_GROUND, CAP_INNATE_MELEE_ATTACK1, CAP_MOVE_JUMP, CAP_MOVE_CLIMB) )
 	
 	self.Entity:SetMaxYawSpeed( 5000 )
 	self.Entity:SetHealth( 100 )
@@ -54,7 +54,7 @@ function ENT:SelectSchedule()
 	local enemy = self.Entity:GetEnemy()
 	local sched = SCHED_IDLE_WANDER 
 	
-	if ValidEntity( enemy ) then
+	if IsValid( enemy ) then
 	
 		if self.Entity:HasCondition( 23 ) then --//  COND_CAN_MELEE_ATTACK1 
 		

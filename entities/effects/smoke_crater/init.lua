@@ -30,7 +30,7 @@ function EFFECT:Think( )
 		particle:SetRollDelta( math.Rand( -0.1, 0.1 ) )
 		
 		local rand = math.random(10,50)
-		particle:SetColor( rand, rand, rand ) 
+		particle:SetColor( Color(rand, rand, rand) ) 
 
 	end
 		

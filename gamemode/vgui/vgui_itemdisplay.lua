@@ -42,11 +42,11 @@ function PANEL:SetModel( model, campos, origin )
 	
 	if string.find( model, "models/weapons/w_" ) then
 	
-		self.ModelPanel.LayoutEntity = function( this, ent ) if ValidEntity( ent ) then ent:SetAngles( Angle( 0, 0, 0 ) ) end end
+		self.ModelPanel.LayoutEntity = function( this, ent ) if IsValid( ent ) then ent:SetAngles( Angle( 0, 0, 0 ) ) end end
 		
 	else
 	
-		self.ModelPanel.LayoutEntity = function( this, ent ) if ValidEntity( ent ) then ent:SetAngles( Angle( 0, RealTime() * 10, 0 ) ) end end
+		self.ModelPanel.LayoutEntity = function( this, ent ) if IsValid( ent ) then ent:SetAngles( Angle( 0, RealTime() * 10, 0 ) ) end end
 	
 	end
 	

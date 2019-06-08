@@ -30,7 +30,7 @@ function EVENT:Start()
 		if v:Team() != TEAM_UNASSIGNED then
 		
 			v:Notify( "A fallout storm is about to hit us hard." )
-			timer.Simple( 2, function( ply ) if ValidEntity( ply ) then ply:Notify( "Get indoors or find shelter quickly." ) end end, v )
+			timer.Simple( 2, function( ply ) if IsValid( ply ) then ply:Notify( "Get indoors or find shelter quickly." ) end end, v )
 		
 		end
 	
@@ -148,7 +148,7 @@ function EVENT:End()
 		if v:Team() != TEAM_UNASSIGNED then
 		
 			v:Notify( "It looks like the storm is finally over." )
-			timer.Simple( 2, function( ply ) if ValidEntity( ply ) then ply:Notify( "The wind probably stirred up radiation, be careful." ) end end, v )
+			timer.Simple( 2, function( ply ) if IsValid( ply ) then ply:Notify( "The wind probably stirred up radiation, be careful." ) end end, v )
 		
 		end
 	

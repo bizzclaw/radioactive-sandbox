@@ -21,7 +21,7 @@ function EFFECT:Init( data )
 		particle:SetStartSize( math.Rand( 5, 10 ) )
 		particle:SetEndSize( 1 )
 		particle:SetRoll( math.random( -360, 360 ) )
-		particle:SetColor( 100, 100, 100 )
+		particle:SetColor( Color(100, 100, 100) )
 		
 	end
 	
@@ -34,7 +34,7 @@ function EFFECT:Init( data )
 	particle:SetEndSize( 0 )
 	particle:SetRoll( math.random( -360, 360 ) )
 	particle:SetRollDelta( math.random( -200, 200 ) )
-	particle:SetColor( 200, 200, 255 )
+	particle:SetColor( Color(200, 200, 255) )
 	
 	self.Emitter:Finish()
 	

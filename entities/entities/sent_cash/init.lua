@@ -15,7 +15,7 @@ function ENT:Initialize()
 	
 	local phys = self.Entity:GetPhysicsObject()
 	
-	if ValidEntity( phys ) then
+	if IsValid( phys ) then
 	
 		phys:Wake()
 
@@ -39,7 +39,7 @@ function ENT:Think()
 			
 				local phys = self.Entity:GetPhysicsObject()
 				
-				if ValidEntity( phys ) then
+				if IsValid( phys ) then
 				
 					phys:ApplyForceCenter( ( self.Entity:GetPos() - v:GetPos() ):Normalize() * phys:GetMass() * 100 )
 					

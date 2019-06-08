@@ -19,7 +19,7 @@ function ENT:Initialize()
 	self.Entity:SetMaxYawSpeed( 5000 )
 	self.Entity:SetHealth( 100 )
 	
-	self.Entity:CapabilitiesAdd( CAP_MOVE_GROUND | CAP_TURN_HEAD | CAP_USE_WEAPONS | CAP_AIM_GUN | CAP_WEAPON_RANGE_ATTACK1 | CAP_MOVE_SHOOT | CAP_OPEN_DOORS ) 
+	self.Entity:CapabilitiesAdd( bit.bot(CAP_MOVE_GROUND, CAP_TURN_HEAD, CAP_USE_WEAPONS, CAP_AIM_GUN, CAP_WEAPON_RANGE_ATTACK1, CAP_MOVE_SHOOT, CAP_OPEN_DOORS) ) 
 	
 	self.Entity:DropToFloor()
 	self.Entity:Give( "rad_npcgun" .. math.random(1,2) )
@@ -80,7 +80,7 @@ function ENT:Think()
 	
 		local wep = self.Entity:GetActiveWeapon()
 		
-		if ValidEntity( wep ) then
+		if IsValid( wep ) then
 		
 			wep:PrimaryAttack()
 			
@@ -94,7 +94,7 @@ function ENT:SpawnRagdoll( att, model )
 	
 	self.Entity:Fire( "BecomeRagdoll", "", 0 )
 	
-	if not ValidEntity( att ) or not att:IsPlayer() then return end
+	if not IsValid( att ) or not att:IsPlayer() then return end
 	
 	local ent = ents.Create( "sent_lootbag" )
 	
@@ -169,7 +169,7 @@ end
 
 function ENT:UpdateEnemy( enemy )
 
-	if ValidEntity( enemy ) and ( ( enemy:IsPlayer() and enemy:Alive() ) or string.find( enemy:GetClass(), "npc_zombie" ) ) then
+	if IsValid( enemy ) and ( ( enemy:IsPlayer() and enemy:Alive() ) or string.find( enemy:GetClass(), "npc_zombie" ) ) then
 		
 		self.Entity:SetEnemy( enemy, true ) 
 		self.Entity:UpdateEnemyMemory( enemy, enemy:GetPos() ) 
@@ -220,7 +220,7 @@ function ENT:SelectSchedule()
 	local enemy = self.Entity:GetEnemy()
 	local sched = SCHED_IDLE_WANDER 
 	
-	if ValidEntity( enemy ) and enemy:GetPos():Distance( self.Entity:GetPos() ) < 2000 then
+	if IsValid( enemy ) and enemy:GetPos():Distance( self.Entity:GetPos() ) < 2000 then
 	
 		if self.Entity:HasCondition( COND_CAN_RANGE_ATTACK1 or 21 ) then 
 		

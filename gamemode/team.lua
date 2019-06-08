@@ -93,7 +93,7 @@ function team.GetTraderName( ent )
 	
 	if CLIENT then
 	
-		if ValidEntity( ent ) then
+		if IsValid( ent ) then
 	
 			return team.ClassToName( ent )
 			
@@ -105,7 +105,7 @@ function team.GetTraderName( ent )
 	
 	end
 		
-	if ValidEntity( ent ) then
+	if IsValid( ent ) then
 	
 		return team.ClassToName( ent )
 	

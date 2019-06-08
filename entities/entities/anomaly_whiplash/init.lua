@@ -67,7 +67,7 @@ function ENT:Think()
 				
 					local phys = ent:GetPhysicsObject()
 					
-					if ValidEntity( phys ) then
+					if IsValid( phys ) then
 				
 						local dir = ( self.Entity:GetPos() - ent:GetPos() ):Normalize()
 					

@@ -42,7 +42,7 @@ function ENT:Touch( ent )
 	
 	if self.SetOff then return end
 	
-	if not ValidEntity( ent ) then return end
+	if not IsValid( ent ) then return end
 	
 	if ent:IsPlayer() and not ent:Alive() then return end
 	
@@ -110,7 +110,7 @@ function ENT:Think()
 				
 						local phys = v:GetPhysicsObject()
 						
-						if ValidEntity( phys ) then
+						if IsValid( phys ) then
 						
 							phys:ApplyForceCenter( vel * ( phys:GetMass() * 500 ) )
 						

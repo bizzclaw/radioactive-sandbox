@@ -35,7 +35,7 @@ function ENT:Think()
 		particle:SetGravity( Vector( 0, 0, 10 ) )
 			
 		local col = math.random( 100, 150 )
-		particle:SetColor( col + 25, col, col )
+		particle:SetColor( Color(col + 25, col, col) )
 		
 	end
 	

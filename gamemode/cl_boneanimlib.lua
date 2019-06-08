@@ -238,7 +238,7 @@ function meta:GetBonePosition(id)
 	if self.BuildBonePositions then
 		local matrix = self:GetBoneMatrix(id)
 		if matrix then
-			return matrix:GetTranslation(), matrix:GetAngle()
+			return matrix:GetTranslation(), matrix:GetAngles()
 		end
 	end
 

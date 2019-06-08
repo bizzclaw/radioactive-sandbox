@@ -19,7 +19,7 @@ EFFECT.Sounds[7] = { Pitch = 70, Wavs = { "player/pl_shell1.wav", "player/pl_she
 
 function EFFECT:Init( data )
 	
-	if not ValidEntity( data:GetEntity() ) then 
+	if not IsValid( data:GetEntity() ) then 
 		self.Entity:SetModel( "models/shells/shell_9mm.mdl" )
 		self.RemoveMe = true
 		return 
@@ -41,7 +41,7 @@ function EFFECT:Init( data )
 	
 	local phys = self.Entity:GetPhysicsObject()
 	
-	if ValidEntity( phys ) then
+	if IsValid( phys ) then
 	
 		phys:Wake()
 		phys:SetDamping( 0, 15 )
@@ -103,14 +103,13 @@ function EFFECT:Think( )
 	if self.SoundTime and self.SoundTime < CurTime() then
 	
 		self.SoundTime = nil
-		WorldSound( self.HitSound, self.Entity:GetPos(), 75, self.HitPitch ) 
-	
+		sound.Play( self.HitSound, self.Entity:GetPos(), 75, self.HitPitch ) 
 	end
 	
 	if self.LifeTime < CurTime() then
 	
 		self.Alpha = ( self.Alpha or 255 ) - 2
-		self.Entity:SetColor( 255, 255, 255, self.Alpha )
+		self.Entity:SetColor( Color(255, 255, 255, self.Alpha) )
 		
 	end
 

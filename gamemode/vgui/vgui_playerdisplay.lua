@@ -47,7 +47,7 @@ end
 
 function PANEL:Think()
 
-	if not ValidEntity( LocalPlayer() ) then return end
+	if not IsValid( LocalPlayer() ) then return end
 
 	if self.LastModel != LocalPlayer():GetModel() then
 	
@@ -131,7 +131,7 @@ end
 
 function PANEL:Paint()
 
-	if not ValidEntity( LocalPlayer() ) then return end
+	if not IsValid( LocalPlayer() ) then return end
 
 	draw.RoundedBox( 4, 0, 0, self:GetWide(), self:GetTall(), Color( 0, 0, 0, 255 ) )
 	draw.RoundedBox( 4, 1, 1, self:GetWide() - 2, self:GetTall() - 2, Color( 150, 150, 150, 100 ) )

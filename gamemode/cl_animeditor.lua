@@ -110,7 +110,7 @@ local function PaintTopBar()
 			if boneID then
 				local matrix = LocalPlayer():GetBoneMatrix(boneID)
 				local vec = matrix:GetTranslation()
-				local ang = matrix:GetAngle()
+				local ang = matrix:GetAngles()
 
 				local upDir = ang:Up()*20
 				local rightDir = ang:Right()*20
@@ -293,7 +293,7 @@ function LoadAnimationFromFile()
 	local box = vgui.Create("DComboBox",frame)
 	box:SetMultiple(false)
 	box:StretchToParent(5,25,5,35)
-	for i,v in pairs(file.Find("animations/*.txt")) do
+	for i,v in pairs(file.Find("animations--[[.txt")) do
 		box:AddItem(string.sub(v,1,-5))
 	end
 	
@@ -327,7 +327,7 @@ end
 function RegisterAll()
 
 
-	for i,v in pairs(file.Find("animations/*.txt")) do
+	for i,v in pairs(file.Find("animations--[[.txt")) do
 		local str = file.Read("animations/"..string.sub(v,1,-5)..".txt")
 		if !str then return end
 		local success,t = pcall(glon.decode,str)

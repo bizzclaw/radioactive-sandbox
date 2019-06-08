@@ -10,7 +10,7 @@ end
 
 function ENT:PassesTriggerFilters( ent )
 
-	return ValidEntity( ent ) and ent:IsPlayer()
+	return IsValid( ent ) and ent:IsPlayer()
 	
 end
 

@@ -14,7 +14,7 @@ end
 
 function PANEL:SetEntity( ent )
 
-	if ValidEntity( self.Ent ) and self.Ent == ent then 
+	if IsValid( self.Ent ) and self.Ent == ent then 
 	
 		if not self:IsVisible() and LocalPlayer():GetNWBool( "InIron", false ) == false then
 		

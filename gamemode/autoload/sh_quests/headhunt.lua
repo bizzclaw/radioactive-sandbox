@@ -40,8 +40,8 @@ QUEST.Start = function( ply )
 	ply:SetRadarTarget( enemy )
 	ply:Notify( "The position of the wanted man has been marked on your radar." )
 	
-	timer.Simple( 2, function( ply, enemy ) if ValidEntity( ply ) then ply:Notify( "Your target is " .. enemy:Name() .. "." ) end end, ply, ply.QuestEnemy )
-	timer.Simple( 4, function( ply, amt ) if ValidEntity( ply ) then ply:Notify( "There is a bounty of $" .. amt .. " on your target's head." ) end end, ply, ply.QuestBounty )
+	timer.Simple( 2, function( ply, enemy ) if IsValid( ply ) then ply:Notify( "Your target is " .. enemy:Name() .. "." ) end end, ply, ply.QuestEnemy )
+	timer.Simple( 4, function( ply, amt ) if IsValid( ply ) then ply:Notify( "There is a bounty of $" .. amt .. " on your target's head." ) end end, ply, ply.QuestBounty )
 	
 end
 
@@ -62,13 +62,13 @@ QUEST.CanStart = function( ply )
 	
 	end
 	
-	if not ( ValidEntity( enemy ) and maxkills > 0 ) then
+	if not ( IsValid( enemy ) and maxkills > 0 ) then
 	
 		ply:DialogueWindow( "This mission is not currently available." )
 	
 	end
 
-	return ( ValidEntity( enemy ) and maxkills > 0 )
+	return ( IsValid( enemy ) and maxkills > 0 )
 
 end
 
@@ -84,7 +84,7 @@ end
 
 QUEST.StatusThink = function( ply )
 
-	if ValidEntity( ply.QuestEnemy ) and not ply.QuestStatusChange then
+	if IsValid( ply.QuestEnemy ) and not ply.QuestStatusChange then
 	
 		local bounty = 100 + ply.QuestEnemy:Frags() * 30
 		
@@ -103,7 +103,7 @@ QUEST.StatusThink = function( ply )
 	
 	end
 
-	if ( !ValidEntity( ply.QuestEnemy ) or !ply.QuestEnemy:Alive() ) and not ply.QuestStatusChange then
+	if ( !IsValid( ply.QuestEnemy ) or !ply.QuestEnemy:Alive() ) and not ply.QuestStatusChange then
 	
 		ply:Notify( "The wanted man is dead? Good. Come see me as soon as possible." )
 		ply:SetRadarTarget( ply:GetTeamTrader() )
