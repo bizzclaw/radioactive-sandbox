@@ -1,7 +1,3 @@
-
-include( 'sh_boneanimlib.lua' )
-include( 'cl_boneanimlib.lua' )
-include( 'cl_animeditor.lua' )
 include( 'ply_anims.lua' )
 include( 'team.lua' )
 include( 'items.lua' )
@@ -27,6 +23,7 @@ include( 'vgui/vgui_itempanel.lua' )
 include( 'vgui/vgui_panelsheet.lua' )
 include( 'vgui/vgui_goodmodelpanel.lua' )
 include( 'vgui/vgui_animlist.lua' )
+include( 'lib/animationsapi/cl_boneanimlib.lua' )
 
 CV_AutoEmote = CreateClientConVar( "cl_radbox_auto_emote", "1", true, false )
 CV_RagdollVision = CreateClientConVar( "cl_radbox_ragdoll_vision", "1", true, false)
@@ -271,7 +268,7 @@ function GM:Think()
 	
 	end
 
-	if not LocalPlayer():Alive() and InventoryScreen:IsVisible() then
+	if not LocalPlayer():Alive() and InventoryScreen and InventoryScreen:IsVisible() then
 	
 		InventoryScreen:SetVisible( false )
 		InfoScreen:SetVisible( false )
@@ -841,10 +838,6 @@ end)
 net.Receive("radboxStashSynch", function()
 	LocalStash = net.ReadTable()
 
-	PrintTable(LocalStash)
-	
-	print(StashScreen)
-	
 	if StashScreen and StashScreen:IsVisible() then
 	
 		StashScreen:RefreshItems( LocalStash )

@@ -43,7 +43,7 @@ function ENT:VoiceSound( tbl )
 
 	self.VoiceTime = CurTime() + 1
 	
-	self.Entity:EmitSound( Sound( table.Random( tbl ) ), 100, math.random( 90, 100 ) )
+	self.Entity:EmitSound( Sound( table.Random( tbl ) ), 70, math.random( 90, 100 ), 0.6 )
 	
 end
 

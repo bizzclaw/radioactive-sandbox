@@ -8,7 +8,7 @@ function PANEL:Init()
 	self:SetKeyboardInputEnabled( false )
 	self:SetDraggable( true ) 
 	
-	self.List = vgui.Create( "DMultiChoice", self )
+	self.List = vgui.Create( "DComboBox", self )
 	self.List.OnSelect = function( index, value, data )
 		
 		for k,v in pairs( GAMEMODE.PoseList ) do
@@ -71,7 +71,7 @@ function PANEL:Paint()
 	draw.RoundedBox( 4, 0, 0, self:GetWide(), self:GetTall(), Color( 0, 0, 0, 255 ) )
 	draw.RoundedBox( 4, 1, 1, self:GetWide() - 2, self:GetTall() - 2, Color( 150, 150, 150, 150 ) )
 	
-	draw.SimpleText( "Animation List", "Trebuchet18", self:GetWide() * 0.5, 10, Color( 255, 255, 255, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+	draw.SimpleText( "Animation List", "Default", self:GetWide() * 0.5, 10, Color( 255, 255, 255, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 
 end
 

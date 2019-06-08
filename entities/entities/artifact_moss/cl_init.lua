@@ -21,7 +21,7 @@ end
 
 function ENT:Think()
 
-	if self.NextPart < CurTime() then
+	if self.NextPart < CurTime() and IsValid(self.Emitter) then
 	
 		self.NextPart = CurTime() + 1.5
 

@@ -25,6 +25,8 @@ if SERVER then
 	include( 'events.lua' )
 end
 
+include( 'ply_anims.lua' )
+
 function GM:CreateTeams()
 	
 	team.SetUp( TEAM_ARMY, GAMEMODE.ArmyTeamName, Color( 255, 200, 80 ), true )
