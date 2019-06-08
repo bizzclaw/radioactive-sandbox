@@ -163,5 +163,3 @@ RegisterLuaAnimation("staffholdspell", {
 		return wepstatus and wepstatus:IsValid() and wepstatus:GetSkin() == 1 and wepstatus.IsStaff
 	end
 })
-
-]]

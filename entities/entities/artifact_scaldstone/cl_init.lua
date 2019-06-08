@@ -24,7 +24,7 @@ function ENT:Draw()
 		render.UpdateRefractTexture()
 		render.SetMaterial( matRefract )
 		render.DrawQuadEasy( self.Entity:LocalToWorld( self.Entity:OBBCenter() ),
-					 ( EyePos() - self.Entity:GetPos() ):Normalize(),
+					 ( EyePos() - self.Entity:GetPos() ):GetNormal(),
 					 self.Size + math.sin( CurTime() ) * 10, self.Size + math.sin( CurTime() ) * 10,
 					 Color( 255, 255, 255, 255 ) )
 		

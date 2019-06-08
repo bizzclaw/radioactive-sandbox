@@ -46,7 +46,7 @@ function EFFECT:Init( data )
 		phys:Wake()
 		phys:SetDamping( 0, 15 )
 		phys:SetVelocity( direction * math.random( 100, 200 ) )
-		phys:AddAngleVelocity( ( VectorRand() * 500 ):Angle() )
+		-- phys:AddAngleVelocity( ( Vector(1,1,1) * 500 ):Angle() )
 		phys:SetMaterial( "gmod_silent" )
 	
 	end

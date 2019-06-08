@@ -148,8 +148,8 @@ function PANEL:Paint()
 	draw.RoundedBox( 4, 0, 0, self:GetWide(), self:GetTall(), Color( 0, 0, 0, 200 ) )
 	draw.RoundedBox( 4, 10, 40, self:GetWide() - 20, self:GetWide() - 20, Color( 150, 150, 150, 125 ) )
 	
-	draw.SimpleText( self.Name, "TargetIDFont", self:GetWide() * 0.5, 15, self.Color, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
-	draw.SimpleText( self.TeamName, "TargetIDFont", self:GetWide() * 0.5, 30, self.Color, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+	draw.SimpleText( self.Name, "TargetID", self:GetWide() * 0.5, 15, self.Color, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+	draw.SimpleText( self.TeamName, "TargetID", self:GetWide() * 0.5, 30, self.Color, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 
 end
 

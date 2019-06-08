@@ -60,7 +60,7 @@ function EFFECT:Render()
 	--// It will draw a big bigger and we will skip any z buffer problems
 	local EyeNormal = self:GetPos() - EyePos()
 	local Distance = EyeNormal:Length()
-	EyeNormal:Normalize()
+	EyeNormal:GetNormal()
 	
 	local Pos = EyePos() + EyeNormal * Distance * 0.01
 	

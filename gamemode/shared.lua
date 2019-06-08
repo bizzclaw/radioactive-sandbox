@@ -21,6 +21,10 @@ CreateConVar( "sv_radbox_daycycle_speed", "2.0", { FCVAR_REPLICATED, FCVAR_ARCHI
 CreateConVar( "sv_radbox_daycycle_intensity", "1.0", { FCVAR_REPLICATED, FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_SERVER_CAN_EXECUTE }, "Controls the intensity of nighttime for day/night cycles. (def 1.0)" )
 CreateConVar( "sv_radbox_daycycle_indoors_light", "0.4", { FCVAR_REPLICATED, FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_SERVER_CAN_EXECUTE }, "Controls how much day/night affects you while indoors. (def 0.4)" )
 
+if SERVER then
+	include( 'events.lua' )
+end
+
 function GM:CreateTeams()
 	
 	team.SetUp( TEAM_ARMY, GAMEMODE.ArmyTeamName, Color( 255, 200, 80 ), true )
@@ -84,7 +88,7 @@ end
 
 local function InitFiles(dir, realm)
 	realm = realm or getRealm(dir)
-	local fil, fol = file.Find(dir.."--[[", "LUA")
+	local fil, fol = file.Find(dir.."/*", "LUA")
 	for _, v in ipairs(fil) do
 		local fileRealm = realm and realm != REALM_SH and realm or getRealm(v)
 		if string.sub(v, 0, 1) == "#" then continue end
@@ -93,11 +97,11 @@ local function InitFiles(dir, realm)
 			if CLIENT then
 				include(dir.."/"..v)
 			end
-			-- print("Loading "..dir.."/"..v.." on the CLIENT...")
+			print("Loading "..dir.."/"..v.." on the CLIENT...")
 		end
 		if SERVER and fileRealm != REALM_CL then -- Only sv_ files will pass this check and is loaded only on the server.
 			include(dir.."/"..v)
-			-- print("Loading "..dir.."/"..v.." on the server...")
+			print("Loading "..dir.."/"..v.." on the server...")
 		end --Everytihng else, such as sh_, will pass both checks and is shared.
 	end
 
@@ -109,7 +113,9 @@ local function InitFiles(dir, realm)
 		-- if SERVER and folderRealm == REALM_CL then continue end
 		-- if CLIENT and folderRealm == REALM_SV then continue end
 
-		-- print("Mounting Folder: "..dir.." on "..(SERVER and "server" or "client"))
+		print("Mounting Folder: "..dir.." on "..(SERVER and "server" or "client"))
 		InitFiles(dir.."/"..folder, folderRealm)
 	end
 end
+
+InitFiles(RADBOX_PATH.."gamemode/autoload")

@@ -64,7 +64,7 @@ function ENT:Think()
 				
 				if IsValid( phys ) then
 				
-					local vel = ( self.VortexPos - v:GetPos() ):Normalize()
+					local vel = ( self.VortexPos - v:GetPos() ):GetNormal()
 					local scale = math.Clamp( ( 3000 - v:GetPos():Distance( self.VortexPos ) ) / 3000, 0.6, 1.0 )
 					
 					phys:ApplyForceCenter( vel * ( scale * phys:GetMass() * 50000 ) )
@@ -87,7 +87,7 @@ end
 
 function DustThink( part )
 
-	local dir = ( part.VortexPos - part:GetPos() ):Normalize()
+	local dir = ( part.VortexPos - part:GetPos() ):GetNormal()
 	local scale = math.Clamp( part.VortexPos:Distance( part:GetPos() ), 0, 500 ) / 500
 	
 	if scale < 0.1 and not part.Scale then
@@ -143,7 +143,7 @@ function ENT:Draw()
 		render.UpdateRefractTexture()
 		render.SetMaterial( matRefract )
 		render.DrawQuadEasy( self.VortexPos,
-					 ( EyePos() - self.VortexPos ):Normalize(),
+					 ( EyePos() - self.VortexPos ):GetNormal(),
 					 self.Size + math.sin( CurTime() ) * 500, self.Size + math.sin( CurTime() ) * 500,
 					 Color( 255, 255, 255, 255 ) )
 			

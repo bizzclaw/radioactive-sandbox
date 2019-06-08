@@ -58,10 +58,19 @@ function GM:Initialize( )
 	RadarEntTable = {}
 	TimeSeedTable = {}
 	
-	surface.CreateFont ( "Graffiare", 34, 200, true, true, "DeathFont" )
-	surface.CreateFont ( "Graffiare", 28, 200, true, true, "AmmoFont" )
-	surface.CreateFont ( "Verdana", 12, 300, true, true, "AmmoFontSmall" )
-	surface.CreateFont ( "Verdana", 12, 200, true, true, "TargetIDFont" )
+	surface.CreateFont( "Graffiare", {
+		font = "DeathFont",
+		size = 28,
+		weight = 200,
+		antialias = true
+	});
+	
+	surface.CreateFont( "Verdana", {
+		font = "TargetID",
+		size = 12,
+		weight = 200,
+		antialias = true
+	});
 	
 	matRadar = Material( "radbox/radar" )
 	matArm = Material( "radbox/radar_arm" )
@@ -183,7 +192,7 @@ end
 
 function GM:Think()
 
-	if IndoorsThink < CurTime() then
+	if not IndoorsThink or IndoorsThink < CurTime() then
 	
 		IndoorsThink = CurTime() + 1.5
 		
@@ -202,7 +211,7 @@ function GM:Think()
 	
 	end
 
-	if EmoteCooldown < CurTime() and LocalPlayer():Alive() and CV_AutoEmote:GetBool() then
+	if (not EmoteCooldown or EmoteCooldown < CurTime()) and LocalPlayer():Alive() and CV_AutoEmote:GetBool() then
 	
 		EmoteCooldown = CurTime() + math.random( 60, 120 )
 		
@@ -238,19 +247,21 @@ function GM:Think()
 	
 	end
 
-	for k,v in pairs( TimeSeedTable ) do
-	
-		if v.Curr != v.Dest then
+	if (TimeSeedTable) then
+		for k,v in pairs( TimeSeedTable ) do
 		
-			v.Curr = math.Approach( v.Curr, v.Dest, v.Approach )
-		
-		else
-		
-			v.Dest = math.Rand( v.Min, v.Max )
-			v.Approach = math.Rand( 0.0001, 0.01 )
+			if v.Curr != v.Dest then
+			
+				v.Curr = math.Approach( v.Curr, v.Dest, v.Approach )
+			
+			else
+			
+				v.Dest = math.Rand( v.Min, v.Max )
+				v.Approach = math.Rand( 0.0001, 0.01 )
+			
+			end
 		
 		end
-	
 	end
 
 	if IsValid( LocalPlayer() ) and LocalPlayer():Alive() and not StartMenuShown then
@@ -278,7 +289,7 @@ function GM:Think()
 
 	GAMEMODE:FadeRagdolls()
 
-	if LocalPlayer():Alive() and HeartBeat < CurTime() and ( LocalPlayer():GetNWBool( "Bleeding", false ) or LocalPlayer():Health() < 50 ) then
+	if LocalPlayer():Alive() and (not HeartBeat or HeartBeat < CurTime()) and ( LocalPlayer():GetNWBool( "Bleeding", false ) or LocalPlayer():Health() < 50 ) then
 	
 		local scale = LocalPlayer():Health() / 100
 		HeartBeat = CurTime() + 0.5 + scale * 1.5
@@ -375,7 +386,7 @@ function DrawNoise()
 end
 
 function DrawBar( x, y, w, h, value, maxvalue, icon, colorlight, colordark )
-
+	if not icon then return end
 	draw.RoundedBox( 4, x - 1, y, h + 1, h, Color( 0, 0, 0, 200 ) )
 	
 	surface.SetDrawColor( colorlight.r, colorlight.g, colorlight.b, 200 ) 
@@ -416,8 +427,8 @@ function DrawAmmo( x, y, w, h, text, label )
 
 	draw.RoundedBox( 4, x, y, w, h, Color( 0, 0, 0, 200 ) )
 	
-	draw.SimpleText( text, "AmmoFont", x + 5, y + ( h * 0.5 ) - 5, Color( 255, 255, 255 ), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT )
-	draw.SimpleText( label, "AmmoFontSmall", x + 5, y + 5, Color( 255, 255, 150 ), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT )
+	draw.SimpleText( text, "TargetID", x + 5, y + ( h * 0.5 ) - 5, Color( 255, 255, 255 ), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT )
+	draw.SimpleText( label, "Default", x + 5, y + 5, Color( 255, 255, 150 ), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT )
 	
 end
 
@@ -489,11 +500,15 @@ function GM:HUDPaint()
 	
 	DrawBar( xpos, ypos, xlen, ylen, LocalPlayer():GetNWInt( "Stamina", 0 ), 100, matStamina, Color( 40, 80, 225, 255 ), Color( 20, 40, 175, 255 ) )
 	
-	F3Item:SetPos( xpos + ylen + xlen + 7, ypos )
-	F3Item:SetSize( ylen * 3, ylen * 2 + 5 )
+	if F3Item then
+		F3Item:SetPos( xpos + ylen + xlen + 7, ypos )
+		F3Item:SetSize( ylen * 3, ylen * 2 + 5 )
+	end
 	
-	F4Item:SetPos( xpos + ylen + xlen + 12 + ylen * 3, ypos )
-	F4Item:SetSize( ylen * 3, ylen * 2 + 5 )
+	if F4Item then
+		F4Item:SetPos( xpos + ylen + xlen + 12 + ylen * 3, ypos )
+		F4Item:SetSize( ylen * 3, ylen * 2 + 5 )
+	end
 	
 	local tbl = GAMEMODE:GetAfflictions()
 	
@@ -563,7 +578,7 @@ function GM:HUDPaint()
 	local centerx = ScrW() - ( radius / 2 ) - 20
 	local centery = 20 + ( radius / 2 )
 	
-	ArmAngle = ArmAngle + FrameTime() * ArmSpeed
+	ArmAngle = (ArmAngle or 0) + FrameTime() * ArmSpeed
 		
 	if ArmAngle > 360 then
 		ArmAngle = 0 + ( ArmAngle - 360 )
@@ -579,7 +594,7 @@ function GM:HUDPaint()
 	
 		if not IsValid( v ) then break end
 		
-		local dirp = ( LocalPlayer():GetPos() - v:GetPos() ):Normalize()
+		local dirp = ( LocalPlayer():GetPos() - v:GetPos() ):GetNormal()
 		local aimvec = LocalPlayer():GetAimVector()
 		aimvec.z = dirp.z
 		

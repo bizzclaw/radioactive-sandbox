@@ -68,7 +68,7 @@ function PANEL:Paint()
 
 	Derma_DrawBackgroundBlur( self )
 	
-	surface.SetFont( "ItemDisplayFont" )
+	surface.SetFont( "Trebuchet18" )
 	
 	local tbl = string.Explode( " ", self.Text )
 	local str = { "" } 
@@ -103,7 +103,7 @@ function PANEL:Paint()
 	
 	for k,v in pairs( str ) do
 	
-		draw.SimpleText( v, "ItemDisplayFont", self:GetWide() * 0.5, 20 + ( ( k - 1 ) * 15 ), Color( 255, 255, 255, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+		draw.SimpleText( v, "Trebuchet18", self:GetWide() * 0.5, 20 + ( ( k - 1 ) * 15 ), Color( 255, 255, 255, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 	
 	end
 

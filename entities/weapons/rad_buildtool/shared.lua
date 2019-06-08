@@ -153,7 +153,7 @@ SWEP.PropList = { "models/props_c17/oildrum001.mdl",
 "models/props_lab/kennel_physics.mdl",
 "models/props_lab/partsbin01.mdl",
 "models/props_vehicles/carparts_muffler01a.mdl",
-"models\props/cs_office/Shelves_metal.mdl",
+"models/props/cs_office/Shelves_metal.mdl",
 "models/props_phx/construct/concrete_barrier01.mdl",
 "models/props_phx/construct/concrete_barrier00.mdl",
 "models/props/cs_assault/HandTruck.mdl",
@@ -326,7 +326,7 @@ end
 
 function SWEP:DrawHUD()
 
-	draw.SimpleText( "PRIMARY FIRE: Create Prop          SECONDARY FIRE: Choose Prop Model          +USE: Delete Nearest Prop          RELOAD: Remove All Placed Props", "AmmoFontSmall", ScrW() * 0.5, ScrH() - 100, Color(255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+	draw.SimpleText( "PRIMARY FIRE: Create Prop          SECONDARY FIRE: Choose Prop Model          +USE: Delete Nearest Prop          RELOAD: Remove All Placed Props", "Default", ScrW() * 0.5, ScrH() - 100, Color(255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 	
 end
 

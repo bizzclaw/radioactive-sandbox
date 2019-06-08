@@ -3,6 +3,7 @@ Sharpen = 0
 MotionBlur = 0
 ViewWobble = 0
 DisorientTime = 0
+Drunkness = 0
 
 ColorModify = {}
 ColorModify[ "$pp_colour_addr" ] 		= 0

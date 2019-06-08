@@ -55,7 +55,7 @@ function ENT:PhysicsSimulate( phys, delta )
 	
 	local pos = tr.HitPos + tr.HitNormal * ( 150 + math.sin( CurTime() * 3 ) * 100 )
 	
-	phys:ApplyForceCenter( ( pos - self.Entity:GetPos() ):Normalize() * phys:GetMass() * 50 )
+	phys:ApplyForceCenter( ( pos - self.Entity:GetPos() ):GetNormal() * phys:GetMass() * 50 )
 	
 end
 

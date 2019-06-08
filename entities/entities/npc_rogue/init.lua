@@ -19,7 +19,7 @@ function ENT:Initialize()
 	self.Entity:SetMaxYawSpeed( 5000 )
 	self.Entity:SetHealth( 100 )
 	
-	self.Entity:CapabilitiesAdd( bit.bot(CAP_MOVE_GROUND, CAP_TURN_HEAD, CAP_USE_WEAPONS, CAP_AIM_GUN, CAP_WEAPON_RANGE_ATTACK1, CAP_MOVE_SHOOT, CAP_OPEN_DOORS) ) 
+	self.Entity:CapabilitiesAdd( bit.bor(CAP_MOVE_GROUND, CAP_TURN_HEAD, CAP_USE_WEAPONS, CAP_AIM_GUN, CAP_WEAPON_RANGE_ATTACK1, CAP_MOVE_SHOOT, CAP_OPEN_DOORS) ) 
 	
 	self.Entity:DropToFloor()
 	self.Entity:Give( "rad_npcgun" .. math.random(1,2) )

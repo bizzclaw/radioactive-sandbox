@@ -186,7 +186,7 @@ hook.Add("UpdateAnimation", "LuaAnimationSequenceReset", function(pl)
 	end
 end)
 
-local meta = _R["Entity"]
+local meta = getmetatable("Entity")
 function meta:ResetLuaAnimation(sAnimation, fDieTime, fPower, fTimeScale)
 	local animtable = Animations[sAnimation]
 	if animtable then

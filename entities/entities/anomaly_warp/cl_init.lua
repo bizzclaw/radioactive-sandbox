@@ -40,7 +40,7 @@ end
 
 function WarpThink( part )
 
-	local dir = ( part.Pos - part:GetPos() ):Normalize()
+	local dir = ( part.Pos - part:GetPos() ):GetNormal()
 	
 	part:SetNextThink( CurTime() + 0.1 )
 	part:SetGravity( dir * 400 )

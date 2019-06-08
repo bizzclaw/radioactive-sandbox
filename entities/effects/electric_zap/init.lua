@@ -9,7 +9,7 @@ function EFFECT:Init( data )
 		local newpos = pos + VectorRand() * 15
 	
 		local particle = emitter:Add( "effects/spark", newpos )
-		particle:SetVelocity( ( newpos - pos ):Normalize() * 50 )
+		particle:SetVelocity( ( newpos - pos ):GetNormal() * 50 )
 		particle:SetColor( Color(200, 200, 255) )
 		particle:SetDieTime( 1.5 )
 		particle:SetStartAlpha( 255 )

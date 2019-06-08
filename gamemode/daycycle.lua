@@ -33,7 +33,7 @@ if CLIENT then
 				
 				if GetGlobalBool( "Initialized" ) == false then return end
 				
-				if DAYCYCLE.NextTimeThink > CurTime() then return end
+				if (DAYCYCLE.NextTimeThink or 0) > CurTime() then return end
 
 				DAYCYCLE.NextTimeThink = CurTime() + 0.25
 				
@@ -77,7 +77,7 @@ if CLIENT then
 				
 					for k,v in pairs( DAYCYCLE.Materials ) do
 					
-						v:SetMaterialVector( "$color", DAYCYCLE.LastColor )
+						v:SetVector( "$color", DAYCYCLE.LastColor )
 						
 					end
 					

@@ -93,11 +93,13 @@ function GM:HUDDrawTargetID()
 	if not IsValid( LocalPlayer() ) then return end
 	if not LocalPlayer():Alive() then return end
 	
-	if not F3Item:IsVisible() and LocalPlayer():GetNWBool( "InIron", false ) == false then
-		
-		F3Item:SetVisible( true )
-		F4Item:SetVisible( true )
-		
+	if (F3Item) then
+		if not F3Item:IsVisible() and LocalPlayer():GetNWBool( "InIron", false ) == false then
+			
+			F3Item:SetVisible( true )
+			F4Item:SetVisible( true )
+			
+		end
 	end
 	
 	GAMEMODE:DrawPlayerChat()
@@ -123,7 +125,7 @@ function GM:HUDDrawTargetID()
 		
 		if pos.visible and TargetedName then
 			
-			draw.SimpleTextOutlined( TargetedName, "AmmoFontSmall", pos.x, pos.y, Color( 80, 150, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color( 0, 0, 0 ) )
+			draw.SimpleTextOutlined( TargetedName, "Default", pos.x, pos.y, Color( 80, 150, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color( 0, 0, 0 ) )
 			
 		end
 	
@@ -181,7 +183,7 @@ function GM:DrawPlayerChat()
 				
 					for k,v in pairs( v.ChatWords ) do
 				
-						draw.SimpleTextOutlined( v.Text, "TargetIDFont", pos.x, pos.y - ( ( k - 1 ) * 12 ), Color( 255, 255, 255, v.Alpha ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color( 0, 0, 0, v.Alpha ) )
+						draw.SimpleTextOutlined( v.Text, "TargetID", pos.x, pos.y - ( ( k - 1 ) * 12 ), Color( 255, 255, 255, v.Alpha ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color( 0, 0, 0, v.Alpha ) )
 						
 					end
 				

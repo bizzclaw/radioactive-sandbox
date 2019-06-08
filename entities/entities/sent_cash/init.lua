@@ -41,7 +41,7 @@ function ENT:Think()
 				
 				if IsValid( phys ) then
 				
-					phys:ApplyForceCenter( ( self.Entity:GetPos() - v:GetPos() ):Normalize() * phys:GetMass() * 100 )
+					phys:ApplyForceCenter( ( self.Entity:GetPos() - v:GetPos() ):GetNormal() * phys:GetMass() * 100 )
 					
 					return
 				

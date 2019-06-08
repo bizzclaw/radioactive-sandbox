@@ -119,7 +119,9 @@ function ENT:OnUsed( ply )
 	if ply:Team() != self.Team then return end
 	if ( self.LastUse or 0 ) > CurTime() then return end
 	
-	local ang = ( ply:GetPos() - self.Entity:GetPos() ):Normalize():Angle()
+	print(ply)
+
+	local ang = ( ply:GetPos() - self.Entity:GetPos() ):GetNormal():Angle()
 	ang.p = 0
 	
 	self.Entity:SetAngles( ang )

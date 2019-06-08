@@ -80,7 +80,7 @@ function ENT:Think()
 			
 			if v:GetPos():Distance( self.Entity:GetPos() ) < self.SuckRadius then
 			
-				local vel = ( self.VortexPos - v:GetPos() ):Normalize()
+				local vel = ( self.VortexPos - v:GetPos() ):GetNormal()
 			
 				if ( v:IsPlayer() and v:Alive() ) or table.HasValue( self.NPCs, v:GetClass() ) then
 					

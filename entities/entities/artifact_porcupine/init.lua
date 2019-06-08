@@ -35,7 +35,7 @@ function ENT:Think()
 			
 			if IsValid( phys ) then
 			
-				local dir = ( self.Entity:GetPos() - v:GetPos() ):Normalize()
+				local dir = ( self.Entity:GetPos() - v:GetPos() ):GetNormal()
 			
 				phys:ApplyForceCenter( dir * phys:GetMass() * 100 )
 			

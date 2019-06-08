@@ -94,7 +94,7 @@ function PANEL:Paint()
 		
 	end
 	
-	draw.SimpleText( self.Text, "AmmoFontSmall", 10, self:GetTall() * 0.5, Color( 255, 255, 255, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+	draw.SimpleText( self.Text, "Default", 10, self:GetTall() * 0.5, Color( 255, 255, 255, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 
 end
 

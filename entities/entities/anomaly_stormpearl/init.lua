@@ -60,7 +60,7 @@ function ENT:OnTakeDamage( dmg )
 	
 	if IsValid( phys ) then
 	
-		phys:ApplyForceCenter( ( self.Entity:GetPos() - dmg:GetDamagePosition() ):Normalize() * dmg:GetDamageForce() * 2 )
+		phys:ApplyForceCenter( ( self.Entity:GetPos() - dmg:GetDamagePosition() ):GetNormal() * dmg:GetDamageForce() * 2 )
 	
 	end
 	

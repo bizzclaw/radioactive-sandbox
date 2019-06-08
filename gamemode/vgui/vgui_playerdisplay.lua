@@ -136,15 +136,15 @@ function PANEL:Paint()
 	draw.RoundedBox( 4, 0, 0, self:GetWide(), self:GetTall(), Color( 0, 0, 0, 255 ) )
 	draw.RoundedBox( 4, 1, 1, self:GetWide() - 2, self:GetTall() - 2, Color( 150, 150, 150, 100 ) )
 	
-	surface.SetFont( "ItemDisplayFont" )
+	surface.SetFont( "Trebuchet18" )
 	
 	for k,v in pairs( self:GetStats() ) do
 	
-		draw.SimpleText( v[1], "ItemDisplayFont", self:GetWide() * 0.5, self:GetTall() * 0.85 + ( ( k - 1 ) * 18 ), v[2], TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+		draw.SimpleText( v[1], "Trebuchet18", self:GetWide() * 0.5, self:GetTall() * 0.85 + ( ( k - 1 ) * 18 ), v[2], TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 	
 	end
 	
-	draw.SimpleText( "Faction: "..team.GetName( LocalPlayer():Team() ), "ItemDisplayFont", self:GetWide() * 0.5, 15, Color( 255, 255, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+	draw.SimpleText( "Faction: "..team.GetName( LocalPlayer():Team() ), "Trebuchet18", self:GetWide() * 0.5, 15, Color( 255, 255, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 
 end
 

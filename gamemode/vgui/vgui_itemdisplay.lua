@@ -1,7 +1,5 @@
 local PANEL = {}
 
-surface.CreateFont ( "Verdana", 12, 300, true, true, "ItemDisplayFont" )
-
 function PANEL:Init()
 
 	self:ShowCloseButton( false )
@@ -109,7 +107,7 @@ function PANEL:Paint()
 	draw.RoundedBox( 4, 10, ( self:GetTall() * 0.85 ) - 10, self:GetWide() - 20, self:GetTall() * 0.15, Color( 0, 0, 0, 255 ) )
 	draw.RoundedBox( 4, 11, ( self:GetTall() * 0.85 ) - 9, self:GetWide() - 22, self:GetTall() * 0.15 - 2, Color( 150, 150, 150, 150 ) )
 	
-	surface.SetFont( "ItemDisplayFont" )
+	surface.SetFont( "Trebuchet18" )
 	
 	local tbl = string.Explode( " ", self.Text )
 	local str = { "" } 
@@ -136,21 +134,21 @@ function PANEL:Paint()
 	
 	for k,v in pairs( str ) do
 	
-		draw.SimpleText( v, "ItemDisplayFont", 20, self:GetTall() * 0.85 + ( ( k - 1 ) * 15 ), Color( 255, 255, 255, 255 ), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT )
+		draw.SimpleText( v, "Trebuchet18", 20, self:GetTall() * 0.85 + ( ( k - 1 ) * 15 ), Color( 255, 255, 255, 255 ), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT )
 	
 	end
 	
-	draw.SimpleText( self.Title, "ItemDisplayFont", self:GetWide() * 0.5, 10, Color( 255, 255, 255, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+	draw.SimpleText( self.Title, "Trebuchet18", self:GetWide() * 0.5, 10, Color( 255, 255, 255, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 	
 	if self.Style == "Buy" then
 	
 		if not self.Price or self.Price == 0 then
 		
-			draw.SimpleText( "Cost: N/A", "ItemDisplayFont", self:GetWide() * 0.5, 25, Color( 255, 255, 255, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+			draw.SimpleText( "Cost: N/A", "Trebuchet18", self:GetWide() * 0.5, 25, Color( 255, 255, 255, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 		
 		else
 	
-			draw.SimpleText( "Cost: $"..self.Price, "ItemDisplayFont", self:GetWide() * 0.5, 25, Color( 255, 255, 255, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+			draw.SimpleText( "Cost: $"..self.Price, "Trebuchet18", self:GetWide() * 0.5, 25, Color( 255, 255, 255, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 			
 		end
 		
@@ -158,11 +156,11 @@ function PANEL:Paint()
 	
 		if not self.Price or self.Price == 0 then
 		
-			draw.SimpleText( "Selling price: N/A", "ItemDisplayFont", self:GetWide() * 0.5, 25, Color( 255, 255, 255, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+			draw.SimpleText( "Selling price: N/A", "Trebuchet18", self:GetWide() * 0.5, 25, Color( 255, 255, 255, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 			
 		else
 	
-			draw.SimpleText( "Selling price: $"..math.Round( self.Price * self.PriceScale ), "ItemDisplayFont", self:GetWide() * 0.5, 25, Color( 255, 255, 255, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+			draw.SimpleText( "Selling price: $"..math.Round( self.Price * self.PriceScale ), "Trebuchet18", self:GetWide() * 0.5, 25, Color( 255, 255, 255, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 			
 		end
 	
@@ -170,7 +168,7 @@ function PANEL:Paint()
 	
 	if self.Title != "" then
 	
-		draw.SimpleText( "Weight: "..self.Weight.." lbs", "ItemDisplayFont", self:GetWide() * 0.5, 40, Color( 255, 255, 255, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+		draw.SimpleText( "Weight: "..self.Weight.." lbs", "Trebuchet18", self:GetWide() * 0.5, 40, Color( 255, 255, 255, 255 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 	
 	end
 

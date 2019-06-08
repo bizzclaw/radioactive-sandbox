@@ -53,7 +53,7 @@ function ENT:Think()
 		
 				if ent:IsPlayer() then
 				
-					local dir = ( ent:GetPos() - self.Entity:GetPos()  ):Normalize()
+					local dir = ( ent:GetPos() - self.Entity:GetPos()  ):GetNormal()
 					
 					ent:SetVelocity( dir * 2000 )
 					ent:SetBleeding( true )
@@ -69,7 +69,7 @@ function ENT:Think()
 					
 					if IsValid( phys ) then
 				
-						local dir = ( self.Entity:GetPos() - ent:GetPos() ):Normalize()
+						local dir = ( self.Entity:GetPos() - ent:GetPos() ):GetNormal()
 					
 						phys:ApplyForceCenter( dir * phys:GetMass() * 500 )
 							

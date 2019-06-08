@@ -1,10 +1,9 @@
 
 
 -- These are unreliable. All Lua animations should be set on both the client and server (predicted).
-do
-local meta = FindMetaTable("Entity")
-if not meta then return end
 
+local meta = FindMetaTable("Entity")
+do
 function meta:ResetLuaAnimation(sAnimation, fTime, fPower, fTimeScale)
 	umsg.Start("resetluaanim")
 		umsg.Entity(self)
