@@ -85,7 +85,7 @@ Reload Key - Will delete all of the items in the map of a specific item type
 - `npc_trader_exodus` - Exodus Trader
 - `info_lootspawn` - This point will sometimes randomly spawn a loot bag containing some random items
 - `info_npcspawn` - This point will be used for spawning hostile rogue/mutant NPCs in the map
-- `point_stash` - this will create a "stash point". Which can be interacted with to be looted, best placed over contaiuner models
+- `point_stash` - this will create a "stash point". Which can be interacted with to be looted, best placed over container models
 - `point_radioation` - This will create a deadly bubble of radiation which will randomly cycle on/off when radstorms hit.
 - `point_skymarker` - Used for random spawning, Having a sky marker placed in the sky of the map will make random spawning of anomolies possible, otherwise they will use loot spawn points
 
@@ -191,5 +191,7 @@ Still whenever I have some free time I'd like to do the following:
 - Replace all CS:S dependencies with Half Life 2 or Custom assets so people won't see errors if they don't own CS:S.
 
 - Improve Weapons
+
+- Improve the Radstorm Effect
 
 - Add a way for players to keep their items when they log out, but isn't abusable for combat logging. Maybe turn the player into an idle NPC when they log out that will hold on to their inventory until they rejoin.

@@ -58,11 +58,11 @@ GM.TeamPlayerModels[ TEAM_LONER ] = { "models/player/Group01/male_01.mdl",
 --// Chat Modes (RP Shit)
 
 GM.ChatModes = {}
-GM.ChatModes.OOC = ""
+GM.ChatModes.OOC = "//"
 GM.ChatModes.LocalMe = "/me"
-GM.ChatModes.Whisper = "--//"
+GM.ChatModes.Whisper = "/w"
 GM.ChatModes.Radio = "/."
-GM.ChatModes.Local = "/"
+GM.ChatModes.Local = ""
 
 --// Chat Params (RP Shit)
 

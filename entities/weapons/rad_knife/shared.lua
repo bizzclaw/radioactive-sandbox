@@ -18,7 +18,7 @@ if CLIENT then
 	
 end
 
-SWEP.HoldType = "slam"
+SWEP.HoldType = "knife"
 
 SWEP.Base = "rad_base"
 
@@ -50,7 +50,7 @@ function SWEP:PrimaryAttack()
 
 	if self.Owner:KeyDown( IN_SPEED ) and self.Owner:GetVelocity():Length() > 0 then return end
 
-	self.Owner:SetLuaAnimation( "shank" )
+	self.Owner:SetAnimation( PLAYER_ATTACK1 )
 	
 	self.Weapon:SetNextPrimaryFire( CurTime() + self.Primary.Delay )
 	self.Weapon:MeleeTrace( self.Primary.Damage )
