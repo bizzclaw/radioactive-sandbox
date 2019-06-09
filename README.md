@@ -1,14 +1,16 @@
 # Radioactive Sandbox
-### A Gamemode by Rambo_9
+### A Post Apocalyptic Gamemode by Rambo_9
 #### Fixed and tweaked by Bizz
 
 This is a gamemode created for [Garrysmod]( https://store.steampowered.com/app/4000/Garrys_Mod/ ).
 
-the `Gamemode Description` and `customizaing items` section have been copied from the [original facepunch thread]( https://forum.facepunch.com/f/gmodgd/ipuk/Radioactive-Sandbox/1/ ).
+This gamemode was the first thing I ever tried opening up and messing with, which ultimately led to me to becoming a programmer.
 
-## Gamemode Description
+Despite how advanced the gamemode was for its time, it was abandoned and has been broken in an unplayable state ever since garrysmod updated to gmod 13. I decided to dig it up and get it to at least run again. Even before it was abandoned it had a lot of work left on it to be done, but right I'm really only concerned with getting it running at the bare minimum level again.
 
 ---
+## Gamemode Description
+copied from the [original facepunch thread]( https://forum.facepunch.com/f/gmodgd/ipuk/Radioactive-Sandbox/1/ ).
 
 Radioactive Sandbox a cross between a deathmatch and sandbox with a post-apocalyptic theme. You aren't forced to kill other people, but it is an option. If you aren't too keen about killing people then you can explore the map searching for valuable loot, or go on missions provided by your faction's trader. The whole point is that the gameplay is open ended and entirely up to the player.
 
@@ -27,21 +29,14 @@ Once you have chosen a faction, you are spawned in the faction base and left to 
 
 Other features:
 - Customizable item system. Create your own items unique to your server.
-
 - Day/night cycles that are map-independent. All you need is an env_sun in your map.
-
 - Item/spawnpoint placement gun for admins, so you can make the gamemode playable on any map.
-
 - Weapon base that supports scoped and non-scoped weapons.
-
 - Dynamic radar that detects various things.
-
 - Random events, such as fallout storms which force players to take cover.
-
 - Bleeding, radiation, and stamina system that directly affects the player.
 
 ---
-
 
 ## Installation
 Clone/download the repository into your garrysmod/garrysmod/gamemodes folder.
@@ -49,7 +44,6 @@ Clone/download the repository into your garrysmod/garrysmod/gamemodes folder.
 in the gamemode's ``content`` folder, copy the data folder out and merge it with the one in your garrysmod/garrysmod folder if you want to get some of the built in map spawns.
 
 Follow [this guide]( https://wiki.garrysmod.com/page/Downloading_a_Dedicated_Server ) if you're trying to set up a server.
-
 
 ---
 ## Map Support
@@ -60,20 +54,15 @@ To start setting up a map, make yourself an admin on your server and enter the f
 ```
 sv_radbox_dev_mode
 ```
-This will give you two weapons in your 6th slot the `Item Placement Tool` and the `Prop Placement Tool`
+This will give you two weapons in your 6th slot. The `Item Placement Tool` and the `Prop Placement Tool`.
 
 ### Item Placement Tool
 The item placement tool is what allows you to place gameplay related entities on the map.
 
-```
-Priamry Fire - Will place an entity
-
-Secondary Fire - Will cycle the entity you want to spawn
-
-Use Key - Will delete the nearest instance of your selected item
-
-Reload Key - Will delete all of the items in the map of a specific item type
-```
+- `Priamry Fire` - place an entity
+- `Secondary Fire` - cycle the entity you want to spawn
+- `Use Key` - delete the nearest instance of your selected item
+- `Reload Key` - delete all of the items in the map of a specific item type
 
 #### Item Placement Types
 - `info_player_loner` - player spawn for players not in a faction
@@ -93,13 +82,11 @@ Reload Key - Will delete all of the items in the map of a specific item type
 The prop placer tool will allow you to spawn props that you can manipulate with your physgun.
 
 You can use these to decorate the map 
-```
-Primary Fire - Spawn Prop
-Secondary Fire - Open Prop Selection Menu
-Use Key - Delete Nearest Prop
-Reload Key - Delete all props
 
-```
+- `Primary Fire` - Spawn Prop
+- `Secondary Fire` - Open Prop Selection Menu
+- `Use Key` - Delete Nearest Prop
+- `Reload Key` - Delete all props
 
 ### Saving Changes
 Once you're happy with how everything is placed on the map, simply run the following command:
@@ -132,6 +119,7 @@ Download it [here]( https://garrysmods.org/download/15987/thelonelyroadzip ).
 
 ---
 ## Customizing Items
+copied from the [original facepunch thread]( https://forum.facepunch.com/f/gmodgd/ipuk/Radioactive-Sandbox/1/ ).
 
 1. Open items/misc.lua
 2. Add something like this:
@@ -179,18 +167,20 @@ item.Register( {
 ```
 And there's your basic item. You can remove PickupFunction/DropFunction if you don't want your item to have any of those.
 
+---
+
 ## Future Plans
-I more or less fixed this up on a whim because I was feeling some nostalgia for this gamemode back when I missed with it years ago. I did my best to fix it up but there are still many issues seeing as this hasn't been touched for 8 years and was made on the last version of gmod.
+I more or less fixed this up on a whim because I was feeling some nostalgia for this gamemode back when I messed with it years ago. I did my best to fix it up but there are still many issues seeing as this hasn't been touched for 8 years and has to be caught up with many updates to gmod and the lua API.
 
 Still whenever I have some free time I'd like to do the following:
 
 - fix up more errors.
 
-- Fix the font issues.
+- Fix the font issues (I kind of just duct taped in some really hasty fixes to the fonts to get them working for now)
 
 - Replace all CS:S dependencies with Half Life 2 or Custom assets so people won't see errors if they don't own CS:S.
 
-- Improve Weapons
+- Improve Weapons, although it might be better to leave that up to whoever decides to run this gamemode because it would be easier to replace the weapons with something like CW 2.0 outright.
 
 - Improve the Radstorm Effect
 

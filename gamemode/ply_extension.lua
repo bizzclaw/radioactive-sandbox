@@ -367,7 +367,7 @@ function meta:DropLoot()
 	end
 	
 	ent:SetPos( self:GetPos() + Vector(0,0,25) )
-	ent:SetAngles( self:GetForward() )
+	ent:SetAngles( self:GetForward():Angle() )
 	ent:SetRemoval( 60 * 5 )
 	ent:Spawn()
 	ent:SetCash( self:GetCash() )
@@ -771,11 +771,7 @@ function meta:OnDeath()
     umsg.Bool( false )
 	umsg.End()
 	
-	for k,v in pairs{ "Buckshot", "Rifle", "SMG", "Pistol", "Sniper" } do
-	
-		self:SetAmmo( v, 0 )
-	
-	end
+	self:StripAmmo()
 	
 	local quest = GAMEMODE:GetQuest( self:GetQuestID() )
 	

@@ -40,13 +40,13 @@ end
 function GM:CustomizeScoreboard()
 
 	--// these fonts are used in the header on the top of the scoreboard
-	surface.CreateFont( "Graffiare", 30, 600, true, false, "MenuTitle" )
-	surface.CreateFont( "Verdana", 16, 800, true, false, "MenuDesc" )
+	-- surface.CreateFont( "Graffiare", 30, 600, true, false, "Trebuchet24" )
+	-- surface.CreateFont( "Verdana", 16, 800, true, false, "Trebuchet18" )
 	
 	--// scoreboard fonts
-	surface.CreateFont( "Tahoma", 14, 1000, true, false, "ScoreboardLabel" )
-	surface.CreateFont( "Verdana", 14, 1000, true, false, "ScoreboardTeamName" )
-	surface.CreateFont( "Arial", 14, 600, true, false, "ScoreboardPlayerText" )
+	-- surface.CreateFont( "Tahoma", 14, 1000, true, false, "ScoreboardLabel" )
+	-- surface.CreateFont( "Verdana", 14, 1000, true, false, "Trebuchet24" )
+	-- surface.CreateFont( "Arial", 14, 600, true, false, "ScoreboardPlayerText" )
 	
 	--// colors used on the scoreboard
 	GAMEMODE.TitleColor = Color( 255, 255, 255, 255 ) --// title text color
@@ -109,11 +109,11 @@ function MENUBASE:Paint()
 		self.TitleText = GetGlobalString( "ServerName" )
 	end
 	
-	draw.SimpleText( self.TitleText, "MenuTitle", 22, 22, GAMEMODE.TitleShadow, TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT )
-	draw.SimpleText( self.TitleText, "MenuTitle", 20, 20, GAMEMODE.TitleColor, TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT )
+	draw.SimpleText( self.TitleText, "Trebuchet24", 22, 22, GAMEMODE.TitleShadow, TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT )
+	draw.SimpleText( self.TitleText, "Trebuchet24", 20, 20, GAMEMODE.TitleColor, TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT )
 	
-	draw.SimpleText( self.DescText, "MenuDesc", 22, 57, GAMEMODE.DescShadow, TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT )
-	draw.SimpleText( self.DescText, "MenuDesc", 20, 55, GAMEMODE.DescColor, TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT )
+	draw.SimpleText( self.DescText, "Trebuchet18", 22, 57, GAMEMODE.DescShadow, TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT )
+	draw.SimpleText( self.DescText, "Trebuchet18", 20, 55, GAMEMODE.DescColor, TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT )
 	
 end
 
@@ -261,8 +261,8 @@ function TFRAME:Paint( )
 	local teamcol = GAMEMODE.TeamTextColor
 	local teamshad = GAMEMODE.TeamShadowColor
 	
-	draw.SimpleText( team.GetName( self.TeamID ).." ( "..team.NumPlayers( self.TeamID )..text, "ScoreboardTeamName", 10, 3, Color( teamshad.r, teamshad.g, teamshad.b, teamshad.a ), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT )
-	draw.SimpleText( team.GetName( self.TeamID ).." ( "..team.NumPlayers( self.TeamID )..text, "ScoreboardTeamName", 9, 3, Color( teamcol.r, teamcol.g, teamcol.b, teamcol.a ), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT )
+	draw.SimpleText( team.GetName( self.TeamID ).." ( "..team.NumPlayers( self.TeamID )..text, "Trebuchet24", 10, 3, Color( teamshad.r, teamshad.g, teamshad.b, teamshad.a ), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT )
+	draw.SimpleText( team.GetName( self.TeamID ).." ( "..team.NumPlayers( self.TeamID )..text, "Trebuchet24", 9, 3, Color( teamcol.r, teamcol.g, teamcol.b, teamcol.a ), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT )
 	
 	local tbl = GAMEMODE:GetPlayerStats()
 	local pos = 10
