@@ -76,19 +76,18 @@ Reload Key - Will delete all of the items in the map of a specific item type
 ```
 
 #### Item Placement Types
-- info_player_loner - player spawn for players not in a faction
-- info_player_bandolier - player spawn for players in bandolier faction
-- info_player_army - player spawn for players in the MWA faction
-- info_player_exodus - player spawn for players in the exodus faction
-
-- npc_trader_bandolier - Bandolier Trader
-- npc_trader_army - Army Trader
-- npc_trader_exodus - Exodus Trader
-- info_lootspawn - This point will sometimes randomly spawn a loot bag containing some random items
-- info_npcspawn - This point will be used for spawning hostile rogue/mutant NPCs in the map
-- point_stash - this will create a "stash point". Which can be interacted with to be looted, best placed over contaiuner models
-- point_radioation - This will create a deadly bubble of radiation which will randomly cycle on/off when radstorms hit.
-- point_skymarker - Used for random spawning, Having a sky marker placed in the sky of the map will make random spawning of anomolies possible, otherwise they will use loot spawns
+- `info_player_loner` - player spawn for players not in a faction
+- `info_player_bandolier` - player spawn for players in bandolier faction
+- `info_player_army` - player spawn for players in the MWA faction
+- `info_player_exodus` - player spawn for players in the exodus faction
+- `npc_trader_bandolier` - Bandolier Trader
+- `npc_trader_army` - Army Trader
+- `npc_trader_exodus` - Exodus Trader
+- `info_lootspawn` - This point will sometimes randomly spawn a loot bag containing some random items
+- `info_npcspawn` - This point will be used for spawning hostile rogue/mutant NPCs in the map
+- `point_stash` - this will create a "stash point". Which can be interacted with to be looted, best placed over contaiuner models
+- `point_radioation` - This will create a deadly bubble of radiation which will randomly cycle on/off when radstorms hit.
+- `point_skymarker` - Used for random spawning, Having a sky marker placed in the sky of the map will make random spawning of anomolies possible, otherwise they will use loot spawn points
 
 ### Prop Placer
 The prop placer tool will allow you to spawn props that you can manipulate with your physgun.
@@ -113,6 +112,23 @@ This will save a file in your data/radbox folder named after the map, which can 
 The map, `The Lonely Road` was made specifically for Radioactive sandbox
 Download it [here]( https://garrysmods.org/download/15987/thelonelyroadzip ).
 
+---
+## Convars
+- `sv_radbox_max_zombies` - Controls the amount of zombie NPCs that can spawn. (def 8)
+- `sv_radbox_max_rogues` -  Controls the amount of rogue NPCs that can spawn. (def 6)
+- `sv_radbox_max_artifacts` - Controls the amount of artifacts that can spawn. (def 3)
+- `sv_radbox_max_anomalies` - Controls the amount of anomalies that can spawn. (def 30)
+- `sv_radbox_team_dmg` -  Controls whether teammates can hurt eachother. (def 0)
+- `sv_radbox_dmg_scale` - Controls bullet damage scaling. (def 1.0)
+- `sv_radbox_allow_build` - Controls whether players can spawn props and use the physics gun. (def 0)
+- `sv_radbox_max_props` - Maximum number of props that players can spawn if building is allowed. (def 10)
+- `sv_radbox_allow_loners` - Controls whether players spawn initially as a loner. (def 0)
+- `sv_radbox_custom_names` - Controls whether players can name themselves. (def 1)
+- `sv_radbox_roleplay` - Controls whether the server uses RP chat commands. (def 1)
+- `sv_radbox_daycycle` - Controls whether the server has day/night cycles enabled. (def 1)
+- `sv_radbox_daycycle_speed` - Controls the speed of the day/night cycle transitions. (def 2.0)
+- `sv_radbox_daycycle_intensity` - Controls the intensity of nighttime for day/night cycles. (def 1.0)
+- `sv_radbox_daycycle_indoors_light` - Controls how much day/night affects you while indoors. (def 0.4)
 
 ---
 ## Customizing Items
@@ -171,8 +187,6 @@ Still whenever I have some free time I'd like to do the following:
 - fix up more errors.
 
 - Fix the font issues.
-
-- Make things like the weather system toggleable so people can use alternatives like Storm Fox
 
 - Replace all CS:S dependencies with Half Life 2 or Custom assets so people won't see errors if they don't own CS:S.
 
